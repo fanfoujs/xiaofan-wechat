@@ -1,0 +1,9 @@
+<import src="/components/templates.wxml" />
+<input class="input_bar" placeholder-class="placeholder" bindconfirm="search" placeholder="搜索消息" value="{{value}}" />
+<template is="section" data="{{name:'热门话题', list: trends}}" />
+<template is="section" data="{{name:'关注的话题', list: saved_searches}}" />
+<view wx:if="{{feeds_arr}}" class="section">
+  <view class="section_name">随便看看</view>
+  <template is="feeds_arr" data="{{feeds_arr}}" />
+</view>
+<template is="notibar" data="{{notis}}" />

@@ -1,0 +1,14 @@
+<svg width="30" height="30" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>repost</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-98 -204)">
+<g id="repost">
+<g id="Ellipse 5 (Stroke)">
+<use xlink:href="#path0_fill" transform="translate(104 210)" fill="#33A5FF"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 12.2929 0.292893C 12.6834 -0.0976311 13.3166 -0.0976311 13.7071 0.292893L 17.7071 4.29289C 17.9931 4.57889 18.0787 5.00901 17.9239 5.38268C 17.7691 5.75636 17.4045 6 17 6L 7 6C 4.23858 6 2 8.23858 2 11C 2 13.7614 4.23858 16 7 16L 14 16C 14.5523 16 15 16.4477 15 17C 15 17.5523 14.5523 18 14 18L 7 18C 3.13401 18 0 14.866 0 11C 0 7.13401 3.13401 4 7 4L 14.5858 4L 12.2929 1.70711C 11.9024 1.31658 11.9024 0.683417 12.2929 0.292893Z"/>
+</defs>
+</svg>

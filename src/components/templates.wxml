@@ -1,0 +1,118 @@
+<!--通知条-->
+<template name="notibar">
+  <view class="notibar">
+    <view wx:for="{{notis}}" class="noti_wrapper">
+      <view wx:if="{{item > 0}}" class="noti" />
+    </view>
+  </view>
+</template>
+
+<!--消息列表封装页-->
+<template name="feeds_arr">
+  <template wx:for="{{feeds_arr}}" wx:for-item="feeds" is="feeds" data="{{feeds}}" />
+</template>
+
+<!--消息列表-->
+<template name="feeds">
+  <view wx:if="{{feeds}}" wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" class="feed" data-feed="{{feed}}" catchtap="tapFeed">
+    <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
+    <view class="after_avatar">
+      <view class="topline">
+        <text class="name">{{feed.user.name}}</text>
+        <text class="meta">{{feed.time_ago}}</text>
+      </view>
+      <block wx:for="{{feed.txt}}" wx:for-item="txt">
+        <block wx:if="{{!txt.bold_arr}}">
+          <text wx:if="{{txt.type != 'text'}}" class="{{txt.type}}" data-value="{{txt}}" catchtap="tapTxt">{{txt.text}}</text>
+          <text wx:else>{{txt.text}}</text>
+        </block>
+        <block wx:else>
+          <block wx:if="{{txt.type != 'text'}}">
+            <text wx:for="{{txt.bold_arr}}" class="{{txt.type}} {{item.bold?'bold':''}}" data-value="{{txt}}" catchtap="tapTxt">{{item.text}}</text>
+          </block>
+          <block wx:else>
+            <text wx:for="{{txt.bold_arr}}" class="{{item.bold?'bold':''}}">{{item.text}}</text>
+          </block>
+        </block>
+      </block>
+      <view class="photo_container">
+        <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl}}" mode="widthFix" data-photo="{{feed.photo}}" />
+      </view>
+    </view>
+  </view>
+</template>
+
+<!--单个消息-->
+<template name="feed">
+  <view class="feed">
+    <image class="avatar" src="{{feed.user.profile_image_url_large}}"></image>
+    <view class="after_avatar">
+      <view class="topline">
+        <text class="name">{{feed.user.name}}</text>
+        <text class="meta">{{feed.time_ago}}</text>
+      </view>
+      <block wx:for="{{feed.txt}}" wx:for-item="txt">
+        <text wx:if="{{txt.type != 'text'}}" class="txt {{txt.type}}" data-value="{{txt}}" catchtap="tapTxt">{{txt.text}}</text>
+        <text wx:else class="txt">{{txt.text}}</text>
+      </block>
+    </view>
+  </view>
+  <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" data-photo="{{feed.photo}}" catchtap="tapImage" catchlongtap="longTapImage" />
+</template>
+
+<!--加载更多-->
+<template name="loader">
+  <view class="flex_center">
+    <view class="loader" />
+  </view>
+</template>
+
+<!--发消息-->
+<template name="post">
+  <view class="post">
+    <form bindsubmit="post" bindreset="reset">
+      <textarea class="input" name="post" placeholder-class="placeholder" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{value}}" />
+      <view class="flex_between space_item">
+        <button class="btn2 dim" formType="reset">取消</button>
+        <button class="btn2" formType="submit">发送</button>
+      </view>
+    </form>
+  </view>
+</template>
+
+<!--toobar-->
+<template name="toolbar">
+  <view class="toolbar">
+    <view class="flex_item" catchtap="reply">
+      <image src="/assets/reply.svg" class="size30" />
+    </view>
+    <view class="flex_item" catchtap="repost" catchlongtap="re">
+      <image src="/assets/repost.svg" class="size30" />
+    </view>
+    <view class="flex_item" catchtap="favoriteChange">
+      <image src="/assets/favorite{{feed.favorited ? '_a' : ''}}.svg" class="size30" />
+    </view>
+    <view wx:if="{{feed.isme}}" class="flex_item" catchtap="destroy">
+      <image src="/assets/delete.svg" class="size30" />
+    </view>
+  </view>
+</template>
+
+<!--list-->
+<template name="section">
+  <view wx:if="{{list.length > 0}}" class="section">
+    <view class="section_name">{{name}}</view>
+    <view class="list">
+      <template wx:for="{{list}}" is="list_item" data="{{...item}}" />
+    </view>
+  </view>
+</template>
+
+<template name="list_item">
+  <view class="list_item" catchtap="{{action||'tapListItem'}}" data-query="{{query}}" data-url="{{url}}">
+    <view class="label">{{name}}</view>
+    <view wx:if="{{detail}}" class="detail">{{detail}}</view>
+    <view wx:elif="{{badge}}" class="badge">{{badge}}</view>
+    <view wx:elif="{{query}}" class="detail">{{query}}</view>
+  </view>
+</template>

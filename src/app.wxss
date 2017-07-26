@@ -1,0 +1,321 @@
+/**app.wxss**/
+@import "style/animate.wxss";
+
+/*全局*/
+
+page {
+  font-family: "Open Sans", sans-serif;
+  word-break: break-all;
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+button, button:after {
+  all: initial; /*全局让 button 不显示描边等默认效果，如果遇到需要的效果显示不出来，复查这里*/
+}
+
+image {
+  display: block; /*Hack 解决 image 默认的 inline-block 下方有行高间距的问题*/
+}
+
+.blur {
+  filter: blur(10px);
+}
+
+/*feed*/
+
+.feed {
+  background: #fff;
+  display: flex;
+  padding: 18px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  margin-right: 9px;
+}
+
+.after_avatar {
+  width: 100%;
+}
+
+.topline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.name, .meta {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.name {
+  font-weight: 500;
+}
+
+.meta {
+  color: #ced4e0;
+  font-size: 10px;
+}
+
+.tag, .inactive {
+  color: #ced4e0;
+}
+
+.photo_container {
+  margin-top: 9px;
+  margin-right: 57px;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  background: #fff;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+/*组件*/
+
+.btn1, .btn2, .btn3, .btn4, badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #fff;
+}
+
+.btn1 {
+  height: 44px;
+  font-size: 15px;
+  margin: 0 18px;
+}
+
+.btn2 {
+  height: 36px;
+  font-size: 14px;
+  padding: 0 18px;
+}
+
+.btn3 {
+  height: 32px;
+  font-size: 13px;
+}
+
+.btn4 {
+  height: 32px;
+  font-size: 13px;
+  padding: 0 15px;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  border-radius: 999px;
+  color: #fff;
+  height: 24px;
+  font-size: 11px;
+  padding: 0 12px;
+}
+
+.notibar {
+  width: 100%;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  background: #fff;
+  flex-basis: 0;
+}
+
+.noti_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.noti {
+  height: 2px;
+  width: 6px;
+  border-radius: 999px;
+}
+
+.section {
+  margin: 36px 0;
+}
+
+.section_name {
+  margin: 18px;
+  font-size: 12px;
+  color: #ced4e0;
+}
+
+.list {
+  background: #fff;
+}
+
+.list_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+}
+
+.label {
+  padding: 12px 0;
+}
+
+.detail {
+  color: #ced4e0;
+}
+
+.metalink {
+  color: #ced4e0;
+  font-size: 12px;
+  padding: 18px;
+}
+
+.aboveToolbar {
+  background: #fff;
+  padding-bottom: 68px;
+  transition: padding-top 0.3s;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  bottom: 0;
+}
+
+.segments {
+  display: flex;
+}
+
+.segment {
+  font-weight: 500;
+  padding: 12px 18px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.post {
+  background: #fff;
+  padding: 18px;
+  display: block;
+}
+
+.input_bar {
+  width: auto;
+  background: #fff;
+  padding: 12px 18px;
+}
+
+.input {
+  width: auto;
+  height: 132px;
+}
+
+.placeholder {
+  color: #ced4e0;
+}
+
+.profile {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+}
+
+.profile .name {
+  font-size: 20px;
+}
+
+.description {
+  margin-top: 9px;
+  font-size: 14px;
+}
+
+/*通用属性*/
+
+.mask {
+  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+}
+
+.size14 {
+  width: 14px;
+  height: 14px;
+}
+
+.size18 {
+  width: 18px;
+  height: 18px;
+}
+
+.size30 {
+  width: 30px;
+  height: 30px;
+}
+
+.at, .link, .active {
+  color: #33a5ff;
+}
+
+.btn1, .btn2, .btn3, .btn4, .badge, .noti {
+  background: #33a5ff;
+}
+
+.dim {
+  color: #ced4e0;
+  background: #f1f3f5;
+}
+
+.flex_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.97);
+}
+
+.flex_center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex_between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.space_section {
+  margin-top: 28px;
+}
+
+.space_item:first-child {
+  margin-top: 0;
+}
+
+.space_item {
+  margin-top: 18px;
+}

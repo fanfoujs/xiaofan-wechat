@@ -1,0 +1,39 @@
+{
+  "name": "fanfou-weapp",
+  "version": "0.0.0",
+  "description": "Fanfou WeApp",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "standard && standard-markdown"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LitoMore/fanfou-weapp.git"
+  },
+  "author": "LitoMore",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LitoMore/fanfou-weapp/issues"
+  },
+  "homepage": "https://github.com/LitoMore/fanfou-weapp#readme",
+  "devDependencies": {
+    "standard": "^10.0.2",
+    "standard-markdown": "^4.0.1"
+  },
+  "standard": {
+    "globals": [
+      "App",
+      "wx",
+      "Page",
+      "getApp",
+      "getCurrentPages"
+    ],
+    "ignore": [
+      "/src/utils/fanfou-sdk-node/modules/",
+      "/src/utils/es6-promise.js"
+    ]
+  }
+}

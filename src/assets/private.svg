@@ -1,0 +1,14 @@
+<svg width="14" height="14" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>private</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-82 -254)">
+<g id="private">
+<g id="Subtract">
+<use xlink:href="#path0_fill" transform="translate(85 256)" fill="#E1E4EB"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 1 4L 1 3C 1 1.34314 2.34314 0 4 0C 5.65686 0 7 1.34314 7 3L 7 4C 7.55229 4 8 4.44771 8 5L 8 9C 8 9.55229 7.55229 10 7 10L 1 10C 0.447708 10 0 9.55229 0 9L 0 5C 0 4.44771 0.447708 4 1 4ZM 6 4L 6 3C 6 1.89543 5.10457 1 4 1C 2.89543 1 2 1.89543 2 3L 2 4L 6 4Z"/>
+</defs>
+</svg>

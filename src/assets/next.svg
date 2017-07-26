@@ -1,0 +1,14 @@
+<svg width="14" height="14" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>next</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-68 -254)">
+<g id="next">
+<g id="Rectangle 2 (Stroke)">
+<use xlink:href="#path0_fill" transform="matrix(-6.12323e-17 1 1 6.12323e-17 70 258)" fill="#E1E4EB"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 0.292893 0.292893C 0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L 5.70711 4.29289C 6.09763 4.68342 6.09763 5.31658 5.70711 5.70711L 1.70711 9.70711C 1.31658 10.0976 0.683417 10.0976 0.292893 9.70711C -0.0976311 9.31658 -0.0976311 8.68342 0.292893 8.29289L 3.58579 5L 0.292893 1.70711C -0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z"/>
+</defs>
+</svg>
