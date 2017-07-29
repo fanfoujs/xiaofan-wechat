@@ -27,7 +27,7 @@ Object.assign(OAuth.prototype, {
 
 Object.assign(OAuth.prototype, {
   _getSignature (method, url, parameters, tokenSecret) {
-    url = url.replace('https', 'http')
+    url = url.replace(/https/, 'http').replace(/fanfou\.pro/, 'fanfou.com')
     const signatureBase = this._createSignatureBase(method, url, parameters)
     return this._createSignature(signatureBase, tokenSecret)
   }
