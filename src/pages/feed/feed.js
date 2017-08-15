@@ -12,6 +12,7 @@ Page({
       feed: feed,
       feeds: [feed]
     })
+    // fm.show('feed.id', this)
   },
   reply: function (e) {
     console.log('reply')

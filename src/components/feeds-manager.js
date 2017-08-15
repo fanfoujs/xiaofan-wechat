@@ -1,5 +1,4 @@
 const ff = require('../utils/fanfou')
-// const tab = require('../components/tab')
 const count = 60
 
 function loadMore (page, url, para) {
