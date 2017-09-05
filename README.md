@@ -6,6 +6,8 @@
 
 饭否小程序
 
+<div style="text-align: center;"><img src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/screenshot.png" /></div>
+
 ## Related
 
 - [fanfou-weapp-streamer](https://github.com/fanfoujs/fanfou-weapp-streamer) - 小饭的消息推送模块
