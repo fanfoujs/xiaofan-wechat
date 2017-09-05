@@ -4,6 +4,11 @@ const OAuth = require('./oauth')
 const qs = require('../modules/querystring/index')
 const Status = require('./status')
 
+const {
+  OAUTH_DOMAIN,
+  API_DOMAIN
+} = require('../../../config/fanfou')
+
 class Fanfou {
   constructor (options) {
     options = options || {}
@@ -15,10 +20,9 @@ class Fanfou {
 
     // optional
     this.protocol = options.protocol || 'https:'
-    this.api_domain = options.api_domain || 'api.fanfou.com'
-    this.streaming_domain = options.streaming_domain || 'stream.fanfou.pro'
-    this.request_url = options.request_url || 'https://fanfou.com/oauth/request_token'
-    this.access_url = options.access_url || 'https://fanfou.com/oauth/access_token'
+    this.api_domain = options.api_domain || API_DOMAIN
+    this.request_url = options.request_url || `https://${OAUTH_DOMAIN}/oauth/request_token`
+    this.access_url = options.access_url || `https://${OAUTH_DOMAIN}/oauth/access_token`
 
     // oauth required
     if (this.auth_type === 'oauth') {
