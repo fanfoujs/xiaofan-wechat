@@ -1,5 +1,7 @@
 # fanfou-weapp
 
+[![](https://img.shields.io/travis/fanfoujs/fanfou-weapp/master.svg)](https://travis-ci.org/fanfoujs/fanfou-weapp)
+[![](https://img.shields.io/github/license/fanfoujs/fanfou-weapp.svg)](https://github.com/fanfoujs/fanfou-weapp/blob/master/LICENSE)
 [![](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 饭否小程序
