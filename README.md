@@ -6,7 +6,7 @@
 
 饭否小程序
 
-<h2 align="center"><img width="50%" height="50%" src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/screenshot.png" /></h2>
+<h3 align="center"><img width="50%" height="50%" src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/screenshot.png" /></h3>
 
 ## Related
 
