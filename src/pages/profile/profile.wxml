@@ -6,7 +6,7 @@
     <view wx:if="{{user.location.length}}" class="description">所在地：{{user.location}}</view>
     <view wx:if="{{user.description.length}}" class="description">自述：<text>{{user.description}}</text></view>
     <view wx:if="{{user.birthday.length}}" class="description">生日：{{user.birthday}}</view>
-    <view class="description">饭龄：{{user.created_at}}</view>
+    <view class="description">饭龄：{{user.fanfou_age}}</view>
   </view>
   <view class="section">
     <view class="list">

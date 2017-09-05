@@ -1,5 +1,6 @@
 const FanfouSDK = require('./fanfou-sdk-node/index')
 const Promise = require('./es6-promise')
+const User = require('./fanfou-sdk-node/src/user')
 
 const {
   CONSUMER_KEY,
@@ -49,7 +50,7 @@ class Fanfou {
           this.get('/account/verify_credentials', {}, tokens, (e, res, obj) => {
             // save tokens in local storage
             try {
-              const account = { tokens: tokens, user: res }
+              const account = { tokens: tokens, user: new User(res) }
               // set global token data
               getApp().globalData.account = account
               var accounts = wx.getStorageSync('accounts') || []

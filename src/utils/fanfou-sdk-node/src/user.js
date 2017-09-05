@@ -33,6 +33,7 @@ class User {
     this.profile_background_image_url = user.profile_background_image_url
     this.profile_background_tile = user.profile_background_tile
     this.sign_name = this._getSignName()
+    this.fanfou_age = this._getFanfouAge()
   }
 
   _getSignName () {
@@ -43,6 +44,39 @@ class User {
       if (month > 0 && day > 0) return mzsi(month, day).name
     }
     return ''
+  }
+
+  _getFanfouAge () {
+    const getDays = (year, month) => {
+      return new Date(year, month, 0).getDate()
+    }
+
+    const reg = new Date(this.created_at)
+    const now = new Date()
+
+    const regYear = reg.getFullYear()
+    const regMonth = reg.getMonth() + 1
+    const regDate = reg.getDate()
+    const nowYear = now.getFullYear()
+    const nowMonth = now.getMonth() + 1
+    const nowDate = now.getDate()
+
+    let years = nowYear - regYear
+    let months = nowMonth - regMonth
+    let days = nowDate - regDate
+
+    if (months < 0) {
+      years = years - 1
+      months = months + 12
+    }
+
+    if (days < 0) {
+      const daySum = getDays(nowYear, nowMonth)
+      months = months - 1
+      days = days + daySum
+    }
+
+    return `${years ? years + ' 年 ' : ''}${months ? months + ' 个月 ' : ''}${days ? days + ' 天' : ''}`
   }
 }
 
