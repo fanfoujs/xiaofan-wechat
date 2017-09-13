@@ -1,4 +1,4 @@
-<img width="80px" height="80px" src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/logo.png" align="right" />
+<img width="100px" height="100px" src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/logo.png" align="right" />
 
 # fanfou-weapp
 
@@ -8,7 +8,7 @@
 
 饭否小程序
 
-<div align="center"><img width="50%" height="50%" src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/screenshot.png" /></h3>
+<div align="center"><img width="50%" height="50%" src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/screenshot.png" /></div>
 
 ## Related
 
