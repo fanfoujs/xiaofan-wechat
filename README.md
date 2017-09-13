@@ -1,3 +1,5 @@
+<img width="80px" height="80px" src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/logo.png" align="right" />
+
 # fanfou-weapp
 
 [![](https://img.shields.io/travis/fanfoujs/fanfou-weapp/master.svg)](https://travis-ci.org/fanfoujs/fanfou-weapp)
@@ -6,7 +8,7 @@
 
 饭否小程序
 
-<div align="center"><img width="50%" height="50%" src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/screenshot.png" /></div>
+<div align="center"><img width="50%" height="50%" src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/screenshot.png" /></h3>
 
 ## Related
 
