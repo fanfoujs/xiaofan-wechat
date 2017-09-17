@@ -72,7 +72,10 @@ class User {
 
     if (days < 0) {
       const daySum = getDays(nowYear, nowMonth)
-      months = months - 1
+      if (months === 0) {
+        months = months + 12
+        years = years - 1
+      } else months = months - 1
       days = days + daySum
     }
 
