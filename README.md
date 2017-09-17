@@ -12,7 +12,7 @@
 
 ## Usage
 
-小饭的配置文件为 <code>[src/config/fanfou.js](https://github.com/fanfoujs/fanfou-weapp/blob/master/src/config/fanfou.js)</code>
+- 小饭的配置文件为 <code>[src/config/fanfou.js](https://github.com/fanfoujs/fanfou-weapp/blob/master/src/config/fanfou.js)</code>
 
 ## Related
 
