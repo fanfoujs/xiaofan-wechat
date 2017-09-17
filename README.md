@@ -10,6 +10,10 @@
 
 <div align="center"><img width="50%" height="50%" src="https://raw.githubusercontent.com/fanfoujs/fanfou-weapp/master/screenshot.png" /></div>
 
+## Usage
+
+小饭的配置文件为 <code>[src/config/fanfou.js](https://github.com/fanfoujs/fanfou-weapp/blob/master/src/config/fanfou.js)</code>
+
 ## Related
 
 - [fanfou-weapp-streamer](https://github.com/fanfoujs/fanfou-weapp-streamer) - 小饭的消息推送模块
@@ -17,10 +21,10 @@
 
 ## Team
 
-- [Catt](https://github.com/maundytime)
-- [LitoMore](https://github.com/LitoMore)
-- [mogita](https://github.com/mogita)
+- [@猫弟](https://fanfou.com/maundytime)
+- [@饭小默](https://fanfou.com/lito)
+- [@mogita](https://fanfou.com/mogita)
 
 ## License
 
-MIT @ [FanfouJS](https://github.com/fanfoujs)
+MIT © [FanfouJS](https://github.com/fanfoujs)
