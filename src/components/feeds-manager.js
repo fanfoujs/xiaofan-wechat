@@ -30,11 +30,11 @@ function load (page, url, para, completion) {
         hideLoader: true,
         feeds_arr: [res.obj] // 清空了全部，todo 只加载最新
       })
-      completion(page)
+      if (typeof completion === 'function') completion(page)
     })
     .catch(err => {
       console.error(err)
-      completion(page)
+      if (typeof completion === 'function') completion(page)
     })
 }
 
