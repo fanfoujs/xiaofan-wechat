@@ -6,7 +6,7 @@ Page({
     tab.renderNotis()
   },
   post: function (e) {
-    fm.post({ status: e.detail.value.post }, this)
+    fm.post({ status: e.detail.value.post }, this, true)
   },
   reset: function (e) {
     console.log(e)

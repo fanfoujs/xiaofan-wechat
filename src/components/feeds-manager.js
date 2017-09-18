@@ -127,16 +127,29 @@ function destroy (id) {
     })
 }
 
-function post (param, page) {
+function post (param, page, direct) {
   const image = param.repost_status_id ? '/assets/toast_repost.png' : param.in_reply_to_status_id ? '/assets/toast_reply.png' : '/assets/toast_post.png'
   const title = param.repost_status_id ? '已转发' : param.in_reply_to_status_id ? '已回复' : '已发布'
   ff.postPromise('/statuses/update', param)
     .then(res => {
-      wx.showToast({
-        title: title,
-        image: image,
-        duration: 500
-      })
+      if (direct) {
+        wx.switchTab({
+          url: '/pages/home/home',
+          success: () => {
+            wx.showToast({
+              title: title,
+              image: image,
+              duration: 500
+            })
+          }
+        })
+      } else {
+        wx.showToast({
+          title: title,
+          image: image,
+          duration: 500
+        })
+      }
       page.setData({
         param: null
       })
