@@ -93,6 +93,8 @@ image {
   justify-content: center;
   border-radius: 999px;
   color: #fff;
+  overflow: hidden;
+  position: relative;
 }
 
 .btn1 {

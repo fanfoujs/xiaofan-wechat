@@ -127,41 +127,76 @@ function destroy (id) {
     })
 }
 
-function post (param, page, direct) {
-  const image = param.repost_status_id ? '/assets/toast_repost.png' : param.in_reply_to_status_id ? '/assets/toast_reply.png' : '/assets/toast_post.png'
-  const title = param.repost_status_id ? '已转发' : param.in_reply_to_status_id ? '已回复' : '已发布'
-  ff.postPromise('/statuses/update', param)
-    .then(res => {
-      if (direct) {
-        wx.switchTab({
-          url: '/pages/home/home',
-          success: () => {
-            wx.showToast({
-              title: title,
-              image: image,
-              duration: 500
-            })
-          }
+function post(param, photoPaths, page, direct) {
+  const image = photoPaths ? '/assets/toast_photo.png' : param.repost_status_id ? '/assets/toast_repost.png' : param.in_reply_to_status_id ? '/assets/toast_reply.png' : '/assets/toast_post.png'
+  const title = photoPaths ? '已发布' : param.repost_status_id ? '已转发' : param.in_reply_to_status_id ? '已回复' : '已发布'
+  if (photoPaths) {
+    ff.uploadPromise(photoPaths, param)
+      .then(res => {
+        if (direct) {
+          wx.switchTab({
+            url: '/pages/home/home',
+            success: () => {
+              wx.showToast({
+                title: title,
+                image: image,
+                duration: 500
+              })
+            }
+          })
+        } else {
+          wx.showToast({
+            title: title,
+            image: image,
+            duration: 500
+          })
+        }
+        page.setData({
+          param: null
         })
-      } else {
+      })
+      .catch(err => {
         wx.showToast({
-          title: title,
-          image: image,
+          title: '错误',
+          image: '/assets/toast_fail.png',
           duration: 500
         })
-      }
-      page.setData({
-        param: null
+        console.error(err)
       })
-    })
-    .catch(err => {
-      wx.showToast({
-        title: '错误',
-        image: '/assets/toast_fail.png',
-        duration: 500
+  } else {
+    ff.postPromise('/statuses/update', param)
+      .then(res => {
+        if (direct) {
+          wx.switchTab({
+            url: '/pages/home/home',
+            success: () => {
+              wx.showToast({
+                title: title,
+                image: image,
+                duration: 500
+              })
+            }
+          })
+        } else {
+          wx.showToast({
+            title: title,
+            image: image,
+            duration: 500
+          })
+        }
+        page.setData({
+          param: null
+        })
       })
-      console.error(err)
-    })
+      .catch(err => {
+        wx.showToast({
+          title: '错误',
+          image: '/assets/toast_fail.png',
+          duration: 500
+        })
+        console.error(err)
+      })
+  }
 }
 
 function showImage (url) {
