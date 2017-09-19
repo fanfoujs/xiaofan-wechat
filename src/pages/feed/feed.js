@@ -76,9 +76,11 @@ Page({
       wx.showActionSheet({
         itemList: ['删除'],
         success: function (res) {
-          that.setData({
-            photoPaths: null
-          })
+          if (!res.cancel) {
+            that.setData({
+              photoPaths: null
+            })
+          }
         }
       })
     } else {
