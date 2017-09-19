@@ -13,6 +13,9 @@ Page({
   },
   reset: function (e) {
     console.log(e)
+    this.setData({
+      photoPaths: null
+    })
   },
   photo: function (e) {
     const that = this

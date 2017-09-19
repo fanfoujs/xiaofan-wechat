@@ -66,7 +66,8 @@ Page({
   },
   reset: function (e) {
     this.setData({
-      param: null
+      param: null,
+      photoPaths: null
     })
   },
   photo: function (e) {
