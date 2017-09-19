@@ -127,9 +127,15 @@ function destroy (id) {
     })
 }
 
-function post(param, photoPaths, page, direct) {
-  const image = photoPaths ? '/assets/toast_photo.png' : param.repost_status_id ? '/assets/toast_repost.png' : param.in_reply_to_status_id ? '/assets/toast_reply.png' : '/assets/toast_post.png'
-  const title = photoPaths ? '已发布' : param.repost_status_id ? '已转发' : param.in_reply_to_status_id ? '已回复' : '已发布'
+function post (param, photoPaths, page, direct) {
+  const image = photoPaths
+    ? '/assets/toast_photo.png' : param.repost_status_id
+    ? '/assets/toast_repost.png' : param.in_reply_to_status_id
+    ? '/assets/toast_reply.png' : '/assets/toast_post.png'
+  const title = photoPaths
+    ? '已发布' : param.repost_status_id
+    ? '已转发' : param.in_reply_to_status_id
+    ? '已回复' : '已发布'
   if (photoPaths) {
     ff.uploadPromise(photoPaths, param)
       .then(res => {
