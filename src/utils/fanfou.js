@@ -151,8 +151,11 @@ class Fanfou {
   }
 
   // promisified upload method
-  static uploadPromise (filePaths, text, tokens) {
+  static uploadPromise (filePaths, text) {
     return new Promise((resolve, reject) => {
+      let tokens = getApp().globalData.account.tokens
+      if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) return reject(new Error(`Not authed, will not make upload image <${filePaths}>`))
+
       const ff = new FanfouSDK({
         auth_type: 'oauth',
         consumer_key: CONSUMER_KEY,
