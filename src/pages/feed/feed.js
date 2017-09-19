@@ -38,7 +38,7 @@ Page({
     this.longtap = true
     console.log('re')
     const feed = this.data.feed
-    fm.post({ status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id }, this)
+    fm.post({status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}, null, this)
     wx.navigateBack()
   },
   favoriteChange: function (e) {
