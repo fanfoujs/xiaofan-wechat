@@ -4,7 +4,8 @@ Page({
   data: {
     feed: null,
     feeds: [],
-    param: null
+    param: null,
+    photoPaths: null
   },
   onLoad: function (e) {
     const feed = getApp().globalData.feed
@@ -61,11 +62,33 @@ Page({
   },
   post: function (e) {
     const param = Object.assign(this.data.param, { status: e.detail.value.post })
-    fm.post(param, this)
+    fm.post(param, this.data.photoPaths, this)
   },
   reset: function (e) {
     this.setData({
       param: null
     })
+  },
+  photo: function (e) {
+    const that = this
+    if (this.data.photoPaths) {
+      wx.showActionSheet({
+        itemList: ['删除'],
+        success: function (res) {
+          that.setData({
+            photoPaths: null
+          })
+        }
+      })
+    } else {
+      wx.chooseImage({
+        count: 1,
+        success: function (res) {
+          that.setData({
+            photoPaths: res.tempFilePaths
+          })
+        }
+      })
+    }
   }
 })

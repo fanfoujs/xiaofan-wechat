@@ -15,20 +15,25 @@ Page({
     console.log(e)
   },
   photo: function (e) {
-    if (this.data.photoPaths) {
-      this.setData({
-        photoPaths: null
-      })
-      return
-    }
     const that = this
-    wx.chooseImage({
-      count: 1,
-      success: function (res) {
-        that.setData({
-          photoPaths: res.tempFilePaths
-        })
-      }
-    })
-  },
+    if (this.data.photoPaths) {
+      wx.showActionSheet({
+        itemList: ['删除'],
+        success: function (res) {
+          that.setData({
+            photoPaths: null
+          })
+        }
+      })
+    } else {
+      wx.chooseImage({
+        count: 1,
+        success: function (res) {
+          that.setData({
+            photoPaths: res.tempFilePaths
+          })
+        }
+      })
+    }
+  }
 })
