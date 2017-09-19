@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/fanfoujs/fanfou-weapp#readme",
   "devDependencies": {
-    "standard": "^10.0.2"
+    "standard": "^10.0.3"
   },
   "standard": {
     "globals": [
