@@ -137,6 +137,18 @@ class Fanfou {
       })
     })
   }
+
+  static upload (filePaths, text, tokens, callback) {
+    const ff = new FanfouSDK({
+      auth_type: 'oauth',
+      consumer_key: CONSUMER_KEY,
+      consumer_secret: CONSUMER_SECRET
+    })
+
+    ff.upload(filePaths, text, tokens, (e, res, obj) => {
+      callback(e, res, obj)
+    })
+  }
 }
 
 module.exports = Fanfou

@@ -1,4 +1,4 @@
-const oauthSignature = require('oauth-signature')
+const oauthSignature = require('../modules/oauth-signature/index')
 
 oauthSignature.generate = function (httpMethod, url, parameters, consumerSecret, tokenSecret, options) {
   url = url.replace('https', 'http')

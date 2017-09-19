@@ -3,6 +3,7 @@
 const OAuth = require('./oauth')
 const qs = require('../modules/querystring/index')
 const Status = require('./status')
+const oauthSignature = require('../modules/oauth-signature/index')
 
 const {
   OAUTH_DOMAIN,
@@ -116,6 +117,51 @@ class Fanfou {
         }
       }
     )
+  }
+
+  upload (filePaths, text, tokens, callback) {
+    this.oauth.oauth_token = tokens.oauth_token
+    this.oauth.oauth_token_secret = tokens.oauth_token_secret
+    const method = 'POST'
+    const url = this.protocol + '//' + this.api_domain + '/photos/upload.json'
+    const params = {
+      oauth_consumer_key: this.consumer_key,
+      oauth_token: tokens.oauth_token,
+      oauth_signature_method: 'HMAC-SHA1',
+      oauth_timestamp: Math.floor(Date.now() / 1000),
+      oauth_nonce: this.oauth._getNonce(6),
+      oauth_version: '1.0'
+    }
+    const signature = oauthSignature.generate(
+      method,
+      url.replace('https', 'http'),
+      params,
+      this.consumer_secret,
+      tokens.oauth_token_secret,
+      {encodeSignature: false}
+    )
+    const authorizationHeader = this.oauth._buildAuthorizationHeaders(
+      this.oauth._sortRequestParams(
+        this.oauth._makeArrayOfArgumentsHash(params)
+      ).concat([['oauth_signature', signature]])
+    )
+    console.log('header', authorizationHeader)
+    wx.uploadFile({
+      url: 'https://api.fanfou.com/photos/upload.json',
+      filePath: filePaths[0],
+      header: {Authorization: authorizationHeader},
+      name: 'photo',
+      formData: {
+        'status': text
+      },
+      success: function (res) {
+        var data = res.data
+        callback(null, data, data)
+      },
+      fail: function () {
+        callback(new Error('upload failed'))
+      }
+    })
   }
 
   /**
