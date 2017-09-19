@@ -7,7 +7,7 @@ Page({
   },
   tapListItem: function (e) {
     wx.navigateTo({
-      url: `../feeds/feeds?url=${e.currentTarget.dataset.url}&id=${this.data.user.id}`
+      url: `../feeds/feeds?url=${e.currentTarget.dataset.url}&id=${this.data.user.id}&name=${e.currentTarget.dataset.name}`
     })
   }
 })

@@ -4,12 +4,12 @@ let url
 
 Page({
   onLoad: function (e) {
-    console.log(e)
+    console.log('e', e)
     url = e.url || '/search/public_timeline'
     para = Object.assign({ count: 20 }, e)
-    console.log(para)
+    console.log('para', para)
     wx.setNavigationBarTitle({
-      title: e.q || e.url
+      title: e.name || e.q || e.url
     })
     fm.load(this, url, para)
   },

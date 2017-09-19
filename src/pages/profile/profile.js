@@ -16,7 +16,7 @@ Page({
   },
   tapListItem: function (e) {
     wx.navigateTo({
-      url: `../feeds/feeds?url=${e.currentTarget.dataset.url}`
+      url: `../feeds/feeds?url=${e.currentTarget.dataset.url}&name=${e.currentTarget.dataset.name}`
     })
   },
   logout: function (e) {

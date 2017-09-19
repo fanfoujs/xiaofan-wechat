@@ -109,7 +109,7 @@
 </template>
 
 <template name="list_item">
-  <view class="list_item" catchtap="{{action||'tapListItem'}}" data-query="{{query}}" data-url="{{url}}">
+  <view class="list_item" catchtap="{{action||'tapListItem'}}" data-name="{{name}}" data-query="{{query}}" data-url="{{url}}">
     <view class="label">{{name}}</view>
     <view wx:if="{{detail}}" class="detail">{{detail}}</view>
     <view wx:elif="{{badge}}" class="badge">{{badge}}</view>
