@@ -125,7 +125,7 @@ class Status {
 
         // at
         if (item.substr(0, 1) === '@') {
-          const matchText = item.match(/@<a href="(http|https):\/\/fanfou.com\/(.*?)".*?>(.*?)<\/a>/)
+          const matchText = item.match(/@<a href="(http|https):\/\/(?:[.a-z0-9-]*)fanfou.com\/(.*?)".*?>(.*?)<\/a>/)
           const text = `@${matchText[3]}`
           const originText = he.decode(Status.removeBoldTag(text))
           const thisTxt = {
