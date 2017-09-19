@@ -149,6 +149,25 @@ class Fanfou {
       callback(e, res, obj)
     })
   }
+
+  // promisified upload method
+  static uploadPromise (filePaths, text, tokens) {
+    return new Promise((resolve, reject) => {
+      const ff = new FanfouSDK({
+        auth_type: 'oauth',
+        consumer_key: CONSUMER_KEY,
+        consumer_secret: CONSUMER_SECRET
+      })
+
+      ff.upload(filePaths, text, tokens, (e, res, obj) => {
+        if (e) {
+          return reject(e)
+        } else {
+          return resolve({ res: res, obj: obj })
+        }
+      })
+    })
+  }
 }
 
 module.exports = Fanfou
