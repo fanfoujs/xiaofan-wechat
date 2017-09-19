@@ -106,7 +106,7 @@ class Fanfou {
     const ff = new FanfouSDK({
       auth_type: 'oauth',
       consumer_key: CONSUMER_KEY,
-      CONSUMER_SECRET: CONSUMER_SECRET
+      consumer_secret: CONSUMER_SECRET
     })
 
     ff.get(uri, params, tokens, (e, res, obj) => {
