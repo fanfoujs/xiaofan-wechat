@@ -19,7 +19,7 @@ Page({
     console.log('reply')
     const feed = this.data.feed
     this.setData({
-      param: { status: fm.getAts(feed), in_reply_to_status_id: feed.id }
+      param: {status: fm.getAts(feed), in_reply_to_status_id: feed.id}
     })
   },
   repost: function (e) {
@@ -30,7 +30,7 @@ Page({
     console.log('repost')
     const feed = this.data.feed
     this.setData({
-      param: { status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id }
+      param: {status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}
     })
   },
   longtap: false,
@@ -61,7 +61,7 @@ Page({
     fm.showImage(e.target.dataset.photo.originurl)
   },
   post: function (e) {
-    const param = Object.assign(this.data.param, { status: e.detail.value.post })
+    const param = Object.assign(this.data.param, {status: e.detail.value.post})
     fm.post(param, this.data.photoPaths, this)
   },
   reset: function (e) {
