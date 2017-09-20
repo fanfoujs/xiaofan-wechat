@@ -19,7 +19,6 @@ function renderNotis () {
 }
 
 function updateNotis () {
-  console.log('updateNotis')
   ff.getPromise('/account/notification').then(res => {
     // todo: implement other noti
     // getApp().globalData.notis = [0, res.res.mentions, 0, 0, res.res.direct_messages + res.res.friend_requests]

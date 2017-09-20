@@ -52,7 +52,6 @@ function show (id, page) {
 }
 
 function favoriteChange (page) {
-  console.log('favoriteChange')
   if (page.data.feed.favorited) {
     ff.postPromise('/favorites/destroy/' + page.data.feed.id)
       .then(res => {
@@ -98,13 +97,9 @@ function destroy (id) {
           })
           const page = getCurrentPages().slice(-1)[0]
           for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
-            console.log('out' + feedsIndex)
             let breakFlag = false
             for (const [feedIndex, feed] of feeds.entries()) {
-              console.log('inside' + feedIndex)
               if (feed.id === id) {
-                console.log('find')
-                console.log(feedIndex)
                 page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
                 page.setData({
                   [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
