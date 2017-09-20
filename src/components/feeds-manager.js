@@ -1,6 +1,6 @@
 const ff = require('../utils/fanfou')
 
-const {TIMELINE_COUNT} = require('../config/fanfou')
+const { TIMELINE_COUNT } = require('../config/fanfou')
 
 function loadMore (page, url, para) {
   if (page.isloadingmore) {
@@ -102,25 +102,23 @@ function destroy (id) {
   ff.postPromise('/statuses/destroy', { id: id })
     .then(res => {
       wx.navigateBack({
-        success: function () {
+        complete: function () {
           wx.showToast({
             title: '已删除',
             image: '/assets/toast_delete.png',
             duration: 500
           })
-          const page = getCurrentPages().slice(-1)[0]
+          // 模拟器和 iOS 不一样，模拟器转场快 -1 生效，iOS 转场慢 -2 生效，待测试 Android
+          const page = getCurrentPages().slice(-2)[0]
           for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
-            let breakFlag = false
             for (const [feedIndex, feed] of feeds.entries()) {
               if (feed.id === id) {
-                page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
                 page.setData({
-                  [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
+                  [`feeds_arr[${feedsIndex}][${feedIndex}].id`]: null
                 })
-                breakFlag = true
+                return
               }
             }
-            if (breakFlag) break
           }
         }
       })

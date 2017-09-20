@@ -14,7 +14,7 @@
 
 <!--消息列表-->
 <template name="feeds">
-  <view wx:if="{{feeds}}" wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" class="feed" data-feed="{{feed}}" catchtap="tapFeed">
+  <view wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" class="feed" data-feed="{{feed}}" catchtap="tapFeed">
     <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
     <view class="after_avatar">
       <view class="topline">
