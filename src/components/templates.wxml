@@ -57,7 +57,7 @@
       </block>
     </view>
   </view>
-  <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" data-photo="{{feed.photo}}" catchtap="tapImage" catchlongtap="longTapImage" />
+  <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" data-photo="{{feed.photo}}" catchtap="tapImage" catchlongpress="longPressImage" />
 </template>
 
 <!--加载更多-->
