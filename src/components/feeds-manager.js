@@ -153,7 +153,8 @@ function post (param, photoPaths, page, direct) {
           })
         }
         page.setData({
-          param: null
+          param: null,
+          photoPaths: null
         })
       })
       .catch(err => {
@@ -186,7 +187,8 @@ function post (param, photoPaths, page, direct) {
           })
         }
         page.setData({
-          param: null
+          param: null,
+          photoPaths: null
         })
       })
       .catch(err => {
