@@ -1,12 +1,20 @@
 const ff = require('../utils/fanfou')
-const count = 60
+
+const {TIMELINE_COUNT} = require('../config/fanfou')
 
 function loadMore (page, url, para) {
   if (page.isloadingmore) {
     return
   }
   page.isloadingmore = true
-  const param = Object.assign({ count: count, max_id: page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id, format: 'html', mode: 'lite' }, para)
+
+  const param = Object.assign({
+    count: TIMELINE_COUNT,
+    max_id: page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id,
+    format: 'html',
+    mode: 'lite'
+  }, para)
+
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
       page.isloadingmore = false
@@ -21,7 +29,12 @@ function loadMore (page, url, para) {
 }
 
 function load (page, url, para, completion) {
-  const param = Object.assign({ count: count, format: 'html', mode: 'lite' }, para)
+  const param = Object.assign({
+    count: TIMELINE_COUNT,
+    format: 'html',
+    mode: 'lite'
+  }, para)
+
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
       wx.stopPullDownRefresh()
