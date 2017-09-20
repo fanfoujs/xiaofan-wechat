@@ -15,7 +15,6 @@ var CryptoJS = require('../crypto/index');
     if (options) {
       encodeSignature = options.encodeSignature;
     }
-    console.log('basestring', signatureBaseString)
     return new HmacSha1Signature(signatureBaseString, consumerSecret, tokenSecret).generate(encodeSignature);
   };
 

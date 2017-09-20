@@ -4,10 +4,8 @@ let url
 
 Page({
   onLoad: function (e) {
-    console.log('e', e)
     url = e.url || '/search/public_timeline'
     para = Object.assign({ count: 20 }, e)
-    console.log('para', para)
     wx.setNavigationBarTitle({
       title: e.name || e.q || e.url
     })
@@ -19,9 +17,7 @@ Page({
   onReachBottom: function () {
     fm.loadMore(this, url, para)
   },
-  tapTxt: function (e) {
-    console.log(e.target.dataset.value)
-  },
+  tapTxt: function (e) {},
   tapFeed: function (e) {
     fm.showFeed(e.currentTarget.dataset.feed)
   }

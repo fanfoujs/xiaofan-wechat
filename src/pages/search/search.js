@@ -16,9 +16,7 @@ Page({
     fm.load(this, url, para)
     this.loadTrendsAndSavedSearchesList()
   },
-  tapTxt: function (e) {
-    console.log(e.target.dataset.value)
-  },
+  tapTxt: function (e) {},
   tapAvatar: function (e) {
     fm.showUser(e.currentTarget.dataset.user)
   },
@@ -28,7 +26,6 @@ Page({
   loadTrendsAndSavedSearchesList: function () {
     ff.getPromise('/trends/list')
       .then(res => {
-        console.log(res.res.trends)
         this.setData({
           trends: res.res.trends
         })
@@ -36,7 +33,6 @@ Page({
       .catch(err => console.error(err))
     ff.getPromise('/saved_searches/list')
       .then(res => {
-        console.log(res.res.trends)
         this.setData({
           saved_searches: res.res
         })

@@ -145,7 +145,6 @@ class Fanfou {
         this.oauth._makeArrayOfArgumentsHash(params)
       ).concat([['oauth_signature', signature]])
     )
-    console.log('header', authorizationHeader)
     wx.uploadFile({
       url: 'https://api.fanfou.com/photos/upload.json',
       filePath: filePaths[0],

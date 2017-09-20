@@ -90,8 +90,6 @@ class Fanfou {
         consumer_secret: CONSUMER_SECRET
       })
 
-      console.log(`Will make get request to <${uri}>`)
-
       ff.get(uri, params, tokens, (e, res, obj) => {
         if (e) {
           return reject(e)
@@ -125,8 +123,6 @@ class Fanfou {
         consumer_key: CONSUMER_KEY,
         consumer_secret: CONSUMER_SECRET
       })
-
-      console.log(`Will make post request to <${uri}>`)
 
       ff.post(uri, params, tokens, (e, res, obj) => {
         if (e) {

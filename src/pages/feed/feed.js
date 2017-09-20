@@ -16,7 +16,6 @@ Page({
     // fm.show('feed.id', this)
   },
   reply: function (e) {
-    console.log('reply')
     const feed = this.data.feed
     this.setData({
       param: {status: fm.getAts(feed), in_reply_to_status_id: feed.id}
@@ -27,7 +26,6 @@ Page({
       this.longtap = false
       return
     }
-    console.log('repost')
     const feed = this.data.feed
     this.setData({
       param: {status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}
@@ -36,7 +34,6 @@ Page({
   longtap: false,
   re: function (e) {
     this.longtap = true
-    console.log('re')
     const feed = this.data.feed
     fm.post({status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}, null, this)
     wx.navigateBack()
@@ -52,12 +49,10 @@ Page({
       this.longtap = false
       return
     }
-    console.log('tapImage')
     fm.showImage(e.target.dataset.photo.largeurl)
   },
   longTapImage: function (e) {
     this.longtap = true
-    console.log('longTapImage')
     fm.showImage(e.target.dataset.photo.originurl)
   },
   post: function (e) {

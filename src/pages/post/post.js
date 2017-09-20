@@ -12,7 +12,6 @@ Page({
     fm.post({ status: e.detail.value.post }, this.data.photoPaths, this, true)
   },
   reset: function (e) {
-    console.log(e)
     this.setData({
       photoPaths: null
     })
