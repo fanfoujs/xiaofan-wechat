@@ -31,7 +31,7 @@
             <text wx:for="{{txt.bold_arr}}" class="{{txt.type}} {{item.bold?'bold':''}}" data-value="{{txt}}" catchtap="tapTxt">{{item.text}}</text>
           </block>
           <block wx:else>
-            <text wx:for="{{txt.bold_arr}}" class="{{item.bold?'bold':''}}">{{item.text}}</text>
+            <text wx:for="{{txt.bold_arr}}" wx:key="item" class="{{item.bold?'bold':''}}">{{item.text}}</text>
           </block>
         </block>
       </block>
@@ -51,7 +51,7 @@
         <text class="name">{{feed.user.name}}</text>
         <text class="meta">{{feed.time_ago}}</text>
       </view>
-      <block wx:for="{{feed.txt}}" wx:for-item="txt">
+      <block wx:for="{{feed.txt}}" wx:key="txt" wx:for-item="txt">
         <text wx:if="{{txt.type != 'text'}}" class="txt {{txt.type}}" data-value="{{txt}}" catchtap="tapTxt">{{txt.text}}</text>
         <text wx:else class="txt">{{txt.text}}</text>
       </block>
@@ -107,7 +107,7 @@
   <view wx:if="{{list.length > 0}}" class="section">
     <view class="section_name">{{name}}</view>
     <view class="list">
-      <template wx:for="{{list}}" is="list_item" data="{{...item}}" />
+      <template wx:for="{{list}}" wx:key="item" is="list_item" data="{{...item}}" />
     </view>
   </view>
 </template>
