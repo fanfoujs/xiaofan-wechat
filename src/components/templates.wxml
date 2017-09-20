@@ -1,7 +1,7 @@
 <!--通知条-->
 <template name="notibar">
   <view class="notibar">
-    <view wx:for="{{notis}}" class="noti_wrapper">
+    <view wx:for="{{notis}}" wx:key="item" wx:for-item="item" class="noti_wrapper">
       <view wx:if="{{item > 0}}" class="noti" />
     </view>
   </view>
@@ -9,7 +9,7 @@
 
 <!--消息列表封装页-->
 <template name="feeds_arr">
-  <template wx:for="{{feeds_arr}}" wx:for-item="feeds" is="feeds" data="{{feeds}}" />
+  <template wx:for="{{feeds_arr}}" wx:key="feeds" wx:for-item="feeds" is="feeds" data="{{feeds}}" />
 </template>
 
 <!--消息列表-->
@@ -21,7 +21,7 @@
         <text class="name">{{feed.user.name}}</text>
         <text class="meta">{{feed.time_ago}}</text>
       </view>
-      <block wx:for="{{feed.txt}}" wx:for-item="txt">
+      <block wx:for="{{feed.txt}}" wx:key="txt" wx:for-item="txt">
         <block wx:if="{{!txt.bold_arr}}">
           <text wx:if="{{txt.type != 'text'}}" class="{{txt.type}}" data-value="{{txt}}" catchtap="tapTxt">{{txt.text}}</text>
           <text wx:else>{{txt.text}}</text>
