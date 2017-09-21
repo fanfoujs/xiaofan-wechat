@@ -52,7 +52,7 @@ function load (page, url, para, completion) {
 }
 
 function show (id, page) {
-  ff.getPromise('/statuses/show', { id: id, format: 'html', mode: 'lite' })
+  ff.getPromise('/statuses/show', {id: id, format: 'html', mode: 'lite'})
     .then(res => {
       wx.stopPullDownRefresh()
       res.obj.isme = res.obj.user.unique_id === getApp().globalData.account.user.unique_id
@@ -99,7 +99,7 @@ function favoriteChange (page) {
 }
 
 function destroy (id) {
-  ff.postPromise('/statuses/destroy', { id: id })
+  ff.postPromise('/statuses/destroy', {id: id})
     .then(res => {
       wx.navigateBack({
         complete: function () {

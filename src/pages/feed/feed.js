@@ -14,23 +14,23 @@ Page(extend({
       feed: feed,
       feeds: [feed]
     })
-      // fm.show('feed.id', this)
+    // fm.show('feed.id', this)
   },
   reply: function (e) {
     const feed = this.data.feed
     this.setData({
-      param: { status: fm.getAts(feed), in_reply_to_status_id: feed.id }
+      param: {status: fm.getAts(feed), in_reply_to_status_id: feed.id}
     })
   },
   repost: function (e) {
     const feed = this.data.feed
     this.setData({
-      param: { status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id }
+      param: {status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}
     })
   },
   re: function (e) {
     const feed = this.data.feed
-    fm.post({ status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id }, null, this)
+    fm.post({status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}, null, this)
     wx.navigateBack()
   },
   favoriteChange: function (e) {

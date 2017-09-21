@@ -26,7 +26,7 @@ Page({
       title: '小饭'
     }
   },
-  tapTxt: function (e) {},
+  tapTxt: function (e) { },
   tapAvatar: function (e) {
     fm.showUser(e.currentTarget.dataset.user)
   },
