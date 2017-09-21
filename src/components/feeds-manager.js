@@ -43,16 +43,20 @@ function load (page, url, para, completion) {
         hideLoader: true,
         feeds_arr: [res.obj] // 清空了全部，todo 只加载最新
       })
-      if (typeof completion === 'function') completion(page)
+      if (typeof completion === 'function') {
+        completion(page)
+      }
     })
     .catch(err => {
       console.error(err)
-      if (typeof completion === 'function') completion(page)
+      if (typeof completion === 'function') {
+        completion(page)
+      }
     })
 }
 
 function show (id, page) {
-  ff.getPromise('/statuses/show', {id: id, format: 'html', mode: 'lite'})
+  ff.getPromise('/statuses/show', {id, format: 'html', mode: 'lite'})
     .then(res => {
       wx.stopPullDownRefresh()
       res.obj.isme = res.obj.user.unique_id === getApp().globalData.account.user.unique_id
@@ -67,7 +71,7 @@ function show (id, page) {
 function favoriteChange (page) {
   if (page.data.feed.favorited) {
     ff.postPromise('/favorites/destroy/' + page.data.feed.id)
-      .then(res => {
+      .then(() => {
         page.setData({
           'feed.favorited': false
         })
@@ -82,7 +86,7 @@ function favoriteChange (page) {
       })
   } else {
     ff.postPromise('/favorites/create/' + page.data.feed.id)
-      .then(res => {
+      .then(() => {
         page.setData({
           'feed.favorited': true
         })
@@ -99,10 +103,10 @@ function favoriteChange (page) {
 }
 
 function destroy (id) {
-  ff.postPromise('/statuses/destroy', {id: id})
-    .then(res => {
+  ff.postPromise('/statuses/destroy', {id})
+    .then(() => {
       wx.navigateBack({
-        complete: function () {
+        complete () {
           wx.showToast({
             title: '已删除',
             image: '/assets/toast_delete.png',
@@ -134,32 +138,32 @@ function destroy (id) {
 }
 
 function post (param, photoPaths, page, direct) {
-  const image = photoPaths
-    ? '/assets/toast_photo.png' : param.repost_status_id
-    ? '/assets/toast_repost.png' : param.in_reply_to_status_id
-    ? '/assets/toast_reply.png' : '/assets/toast_post.png'
-  const title = photoPaths
-    ? '已发布' : param.repost_status_id
-    ? '已转发' : param.in_reply_to_status_id
-    ? '已回复' : '已发布'
+  const image = photoPaths ?
+    '/assets/toast_photo.png' : param.repost_status_id ?
+    '/assets/toast_repost.png' : param.in_reply_to_status_id ?
+    '/assets/toast_reply.png' : '/assets/toast_post.png'
+  const title = photoPaths ?
+    '已发布' : param.repost_status_id ?
+    '已转发' : param.in_reply_to_status_id ?
+    '已回复' : '已发布'
   if (photoPaths) {
     ff.uploadPromise(photoPaths, param)
-      .then(res => {
+      .then(() => {
         if (direct) {
           wx.switchTab({
             url: '/pages/home/home',
             success: () => {
               wx.showToast({
-                title: title,
-                image: image,
+                title,
+                image,
                 duration: 500
               })
             }
           })
         } else {
           wx.showToast({
-            title: title,
-            image: image,
+            title,
+            image,
             duration: 500
           })
         }
@@ -178,22 +182,22 @@ function post (param, photoPaths, page, direct) {
       })
   } else {
     ff.postPromise('/statuses/update', param)
-      .then(res => {
+      .then(() => {
         if (direct) {
           wx.switchTab({
             url: '/pages/home/home',
             success: () => {
               wx.showToast({
-                title: title,
-                image: image,
+                title,
+                image,
                 duration: 500
               })
             }
           })
         } else {
           wx.showToast({
-            title: title,
-            image: image,
+            title,
+            image,
             duration: 500
           })
         }
@@ -238,10 +242,12 @@ function showFeed (feed) {
 
 function getAts (status) {
   const fanfouId = getApp().globalData.account.user.id
-  let ats = []
+  const ats = []
   ats.push(`@${status.user.name}`)
   status.txt.forEach(item => {
-    if (item.type === 'at' && item.id !== fanfouId) ats.push(item.text)
+    if (item.type === 'at' && item.id !== fanfouId) {
+      ats.push(item.text)
+    }
   })
   return [...(new Set(ats))].join(' ') + ' '
 }

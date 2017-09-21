@@ -4,28 +4,29 @@ const ff = require('../../utils/fanfou')
 
 const url = '/statuses/public_timeline'
 const {TIMELINE_COUNT} = require('../../config/fanfou')
+
 const para = {count: TIMELINE_COUNT}
 
 Page({
-  onLoad: function () {
+  onLoad () {
     fm.load(this, url, para)
     this.loadTrendsAndSavedSearchesList()
   },
-  onShow: function () {
+  onShow () {
     tab.renderNotis()
   },
-  onPullDownRefresh: function () {
+  onPullDownRefresh () {
     fm.load(this, url, para)
     this.loadTrendsAndSavedSearchesList()
   },
-  tapTxt: function (e) { },
-  tapAvatar: function (e) {
+  tapTxt () { },
+  tapAvatar (e) {
     fm.showUser(e.currentTarget.dataset.user)
   },
-  tapFeed: function (e) {
+  tapFeed (e) {
     fm.showFeed(e.currentTarget.dataset.feed)
   },
-  loadTrendsAndSavedSearchesList: function () {
+  loadTrendsAndSavedSearchesList () {
     ff.getPromise('/trends/list')
       .then(res => {
         this.setData({
@@ -41,11 +42,11 @@ Page({
       })
       .catch(err => console.error(err))
   },
-  search: function (e) {
+  search (e) {
     const that = this
     wx.navigateTo({
       url: `../feeds/feeds?q=${e.detail.value}`,
-      success: function () {
+      success () {
         that.setData({
           value: null
         })
@@ -54,7 +55,7 @@ Page({
             return
           }
         }
-        ff.postPromise('/saved_searches/create', { query: e.detail.value })
+        ff.postPromise('/saved_searches/create', {query: e.detail.value})
           .then(res => {
             that.setData({
               ['saved_searches[' + that.data.saved_searches.length + ']']: res.res
@@ -64,20 +65,19 @@ Page({
       }
     })
   },
-  tapListItem: function (e) {
+  tapListItem (e) {
     wx.navigateTo({
       url: `../feeds/feeds?q=${e.currentTarget.dataset.query}`
     })
   },
-  longpressListItem: function (e) {
+  longpressListItem (e) {
     const that = this
     wx.showActionSheet({
       itemList: ['删除'],
-      success: function (res) {
+      success (res) {
         if (!res.cancel) {
-          ff.postPromise('/saved_searches/destroy', { id: e.currentTarget.dataset.id })
-            .then(res => {
-              // todo 删除前端的话题
+          ff.postPromise('/saved_searches/destroy', {id: e.currentTarget.dataset.id})
+            .then(() => {
               for (const [index, value] of that.data.saved_searches.entries()) {
                 if (value.id === e.currentTarget.dataset.id) {
                   that.setData({

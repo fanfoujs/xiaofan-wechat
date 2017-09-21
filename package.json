@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/fanfoujs/fanfou-weapp#readme",
   "devDependencies": {
-    "standard": "^10.0.3"
+    "xo": "^0.18.2"
   },
-  "standard": {
+  "xo": {
     "globals": [
       "App",
       "wx",
@@ -27,9 +27,34 @@
       "getApp",
       "getCurrentPages"
     ],
-    "ignore": [
-      "/src/utils/fanfou-sdk-node/modules/",
-      "/src/utils/es6-promise.js"
-    ]
+    "ignores": [
+      "src/utils/fanfou-sdk-node/modules/**",
+      "src/utils/es6-promise.js"
+    ],
+    "rules": {
+      "camelcase": [
+        "error",
+        {
+          "properties": "never"
+        }
+      ],
+      "import/no-unresolved": 0,
+      "max-params": [
+        "error",
+        6
+      ],
+      "new-cap": [
+        "error",
+        {
+          "capIsNew": false
+        }
+      ],
+      "space-before-function-paren": [
+        "error",
+        "always"
+      ]
+    },
+    "semicolon": false,
+    "space": 2
   }
 }

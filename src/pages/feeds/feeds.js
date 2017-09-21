@@ -1,24 +1,25 @@
 const fm = require('../../components/feeds-manager')
+
 let para
 let url
 
 Page({
-  onLoad: function (e) {
+  onLoad (e) {
     url = e.url || '/search/public_timeline'
-    para = Object.assign({ count: 20 }, e)
+    para = Object.assign({count: 20}, e)
     wx.setNavigationBarTitle({
       title: e.name || e.q || e.url
     })
     fm.load(this, url, para)
   },
-  onPullDownRefresh: function () {
+  onPullDownRefresh () {
     fm.load(this, url, para)
   },
-  onReachBottom: function () {
+  onReachBottom () {
     fm.loadMore(this, url, para)
   },
-  tapTxt: function (e) {},
-  tapFeed: function (e) {
+  tapTxt () {},
+  tapFeed (e) {
     fm.showFeed(e.currentTarget.dataset.feed)
   }
 })

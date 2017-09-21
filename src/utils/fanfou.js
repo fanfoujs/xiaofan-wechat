@@ -1,11 +1,11 @@
-const FanfouSDK = require('./fanfou-sdk-node/index')
-const Promise = require('./es6-promise')
-const User = require('./fanfou-sdk-node/src/user')
-
 const {
   CONSUMER_KEY,
   CONSUMER_SECRET
 } = require('../config/fanfou')
+
+const FanfouSDK = require('./fanfou-sdk-node/index')
+const Promise = require('./es6-promise')
+const User = require('./fanfou-sdk-node/src/user')
 
 class Error {
   constructor (message) {
@@ -19,49 +19,55 @@ class Fanfou {
       auth_type: 'xauth',
       consumer_key: CONSUMER_KEY,
       consumer_secret: CONSUMER_SECRET,
-      username: username,
-      password: password
+      username,
+      password
     })
 
     ff.xauth((e, tokens) => {
-      if (e) callback(e)
-      else callback(null, tokens)
+      if (e) {
+        callback(e)
+      } else {
+        callback(null, tokens)
+      }
     })
   }
 
-  // promisified auth method
+  // Promisified auth method
   static authPromise (username, password) {
     return new Promise((resolve, reject) => {
-      if (typeof username !== 'string' || username.length === 0) return reject(new Error('Need username'))
-      if (typeof password !== 'string' || password.length === 0) return reject(new Error('Need password'))
+      if (typeof username !== 'string' || username.length === 0) {
+        return reject(new Error('Need username'))
+      }
+      if (typeof password !== 'string' || password.length === 0) {
+        return reject(new Error('Need password'))
+      }
 
       const ff = new FanfouSDK({
         auth_type: 'xauth',
         consumer_key: CONSUMER_KEY,
         consumer_secret: CONSUMER_SECRET,
-        username: username,
-        password: password
+        username,
+        password
       })
 
       ff.xauth((e, tokens) => {
         if (e) {
           return reject(e)
-        } else {
-          this.get('/account/verify_credentials', {}, tokens, (e, res, obj) => {
-            // save tokens in local storage
-            try {
-              const account = { tokens: tokens, user: new User(res) }
-              // set global token data
-              getApp().globalData.account = account
-              var accounts = wx.getStorageSync('accounts') || []
-              accounts.unshift(account)
-              wx.setStorageSync('accounts', accounts)
-            } catch (e) {
-              console.error(e)
-            }
-            return resolve(tokens)
-          })
         }
+        this.get('/account/verify_credentials', {}, tokens, (e, res) => {
+          // Save tokens in local storage
+          try {
+            const account = {tokens, user: new User(res)}
+            // Set global token data
+            getApp().globalData.account = account
+            const accounts = wx.getStorageSync('accounts') || []
+            accounts.unshift(account)
+            wx.setStorageSync('accounts', accounts)
+          } catch (err) {
+            console.error(err)
+          }
+          return resolve(tokens)
+        })
       })
     })
   }
@@ -78,11 +84,13 @@ class Fanfou {
     })
   }
 
-  // promisified get method
+  // Promisified get method
   static getPromise (uri, params) {
     return new Promise((resolve, reject) => {
-      let tokens = getApp().globalData.account.tokens
-      if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) return reject(new Error(`Not authed, will not make get request to <${uri}>`))
+      const tokens = getApp().globalData.account.tokens
+      if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) {
+        return reject(new Error(`Not authed, will not make get request to <${uri}>`))
+      }
 
       const ff = new FanfouSDK({
         auth_type: 'oauth',
@@ -93,9 +101,8 @@ class Fanfou {
       ff.get(uri, params, tokens, (e, res, obj) => {
         if (e) {
           return reject(e)
-        } else {
-          return resolve({ res: res, obj: obj })
         }
+        return resolve({res, obj})
       })
     })
   }
@@ -112,11 +119,13 @@ class Fanfou {
     })
   }
 
-  // promisified post method
+  // Promisified post method
   static postPromise (uri, params) {
     return new Promise((resolve, reject) => {
-      let tokens = getApp().globalData.account.tokens
-      if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) return reject(new Error(`Not authed, will not make post request to <${uri}>`))
+      const tokens = getApp().globalData.account.tokens
+      if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) {
+        return reject(new Error(`Not authed, will not make post request to <${uri}>`))
+      }
 
       const ff = new FanfouSDK({
         auth_type: 'oauth',
@@ -127,9 +136,8 @@ class Fanfou {
       ff.post(uri, params, tokens, (e, res, obj) => {
         if (e) {
           return reject(e)
-        } else {
-          return resolve({ res: res, obj: obj })
         }
+        return resolve({res, obj})
       })
     })
   }
@@ -146,11 +154,13 @@ class Fanfou {
     })
   }
 
-  // promisified upload method
+  // Promisified upload method
   static uploadPromise (filePaths, param) {
     return new Promise((resolve, reject) => {
-      let tokens = getApp().globalData.account.tokens
-      if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) return reject(new Error(`Not authed, will not make upload image <${filePaths}>`))
+      const tokens = getApp().globalData.account.tokens
+      if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) {
+        return reject(new Error(`Not authed, will not make upload image <${filePaths}>`))
+      }
       const ff = new FanfouSDK({
         auth_type: 'oauth',
         consumer_key: CONSUMER_KEY,
@@ -160,9 +170,8 @@ class Fanfou {
       ff.upload(filePaths, param.status, tokens, (e, res, obj) => {
         if (e) {
           return reject(e)
-        } else {
-          return resolve({ res: res, obj: obj })
         }
+        return resolve({res, obj})
       })
     })
   }

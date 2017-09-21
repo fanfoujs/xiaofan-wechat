@@ -2,36 +2,36 @@ const tab = require('../../components/tab')
 const fm = require('../../components/feeds-manager')
 
 Page({
-  onLoad: function () {
-    if (getApp().globalData.account == null) {
+  onLoad () {
+    if (getApp().globalData.account) {
+      fm.load(this)
+    } else {
       wx.redirectTo({
         url: '/pages/login/login'
       })
-    } else {
-      fm.load(this)
     }
   },
-  onShow: function () {
+  onShow () {
     tab.renderNotis()
   },
-  onPullDownRefresh: function () {
+  onPullDownRefresh () {
     fm.load(this)
     tab.updateNotis()
   },
-  onReachBottom: function () {
+  onReachBottom () {
     fm.loadMore(this)
   },
-  onShareAppMessage: function () {
+  onShareAppMessage () {
     return {
       title: '小饭'
     }
   },
-  tapTxt: function (e) {},
-  tapAvatar: function (e) {
+  tapTxt () {},
+  tapAvatar (e) {
     fm.showUser(e.currentTarget.dataset.user)
   },
-  tapFeed: function (e) {
-    // fm.destroy(e.currentTarget.dataset.feed.id) // 快速删除测试消息
+  tapFeed (e) {
+    // Fm.destroy(e.currentTarget.dataset.feed.id) // 快速删除测试消息
     fm.showFeed(e.currentTarget.dataset.feed)
   }
 })
