@@ -81,7 +81,7 @@ Page({
               for (const [index, value] of that.data.saved_searches.entries()) {
                 if (value.id === e.currentTarget.dataset.id) {
                   that.setData({
-                    ['saved_searches[' + index + ']']: {} // 作用是删除这一条，但写 null 会报错，写 {} 生效 @饭小默
+                    ['saved_searches[' + index + ']']: {}
                   })
                   return
                 }
