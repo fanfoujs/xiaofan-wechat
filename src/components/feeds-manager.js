@@ -52,7 +52,7 @@ function load (page, url, para, completion) {
 }
 
 function show (id, page) {
-  ff.getPromise('/statuses/show', { id: id, format: 'html', mode: 'lite' })
+  ff.getPromise('/statuses/show', {id: id, format: 'html', mode: 'lite'})
     .then(res => {
       wx.stopPullDownRefresh()
       res.obj.isme = res.obj.user.unique_id === getApp().globalData.account.user.unique_id
@@ -99,28 +99,26 @@ function favoriteChange (page) {
 }
 
 function destroy (id) {
-  ff.postPromise('/statuses/destroy', { id: id })
+  ff.postPromise('/statuses/destroy', {id: id})
     .then(res => {
       wx.navigateBack({
-        success: function () {
+        complete: function () {
           wx.showToast({
             title: '已删除',
             image: '/assets/toast_delete.png',
             duration: 500
           })
-          const page = getCurrentPages().slice(-1)[0]
+          // 模拟器和 iOS 不一样，模拟器转场快 -1 生效，iOS 转场慢 -2 生效，待测试 Android
+          const page = getCurrentPages().slice(-2)[0]
           for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
-            let breakFlag = false
             for (const [feedIndex, feed] of feeds.entries()) {
               if (feed.id === id) {
-                page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
                 page.setData({
-                  [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
+                  [`feeds_arr[${feedsIndex}][${feedIndex}]`]: {}
                 })
-                breakFlag = true
+                return
               }
             }
-            if (breakFlag) break
           }
         }
       })

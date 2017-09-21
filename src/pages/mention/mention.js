@@ -1,6 +1,6 @@
 const tab = require('../../components/tab')
 const fm = require('../../components/feeds-manager')
-const para = { count: 10 }
+const para = {count: 10}
 const completions = [function () { tab.clearNotis(1, 0) }, null]
 const urls = ['/statuses/mentions', '/statuses/replies']
 // todo 把 urls 和 com 合并
@@ -21,7 +21,7 @@ Page({
   onReachBottom: function () {
     fm.loadMore(this, urls[this.data.index], para)
   },
-  tapTxt: function (e) {},
+  tapTxt: function (e) { },
   tapAvatar: function (e) {
     fm.showUser(e.currentTarget.dataset.user)
   },

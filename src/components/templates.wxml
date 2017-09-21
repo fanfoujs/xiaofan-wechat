@@ -14,7 +14,7 @@
 
 <!--消息列表-->
 <template name="feeds">
-  <view wx:if="{{feeds}}" wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" class="feed" data-feed="{{feed}}" catchtap="tapFeed">
+  <view wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" class="feed" data-feed="{{feed}}" catchtap="tapFeed">
     <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
     <view class="after_avatar">
       <view class="topline">
@@ -57,7 +57,7 @@
       </block>
     </view>
   </view>
-  <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" data-photo="{{feed.photo}}" catchtap="tapImage" catchlongtap="longTapImage" />
+  <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" data-photo="{{feed.photo}}" catchtap="tapImage" catchlongpress="longPressImage" />
 </template>
 
 <!--加载更多-->
@@ -113,7 +113,7 @@
 </template>
 
 <template name="list_item">
-  <view class="list_item" catchtap="{{action||'tapListItem'}}" data-name="{{name}}" data-query="{{query}}" data-url="{{url}}">
+  <view wx:if="{{name}}" class="list_item" catchtap="{{action||'tapListItem'}}" catchlongpress="longpressListItem" data-name="{{name}}" data-id="{{id}}" data-query="{{query}}" data-url="{{url}}">
     <view class="label">{{name}}</view>
     <view wx:if="{{detail}}" class="detail">{{detail}}</view>
     <view wx:elif="{{badge}}" class="badge">{{badge}}</view>

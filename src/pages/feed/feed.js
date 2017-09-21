@@ -1,12 +1,13 @@
 const fm = require('../../components/feeds-manager')
+const extend = require('../../utils/extend')
+const post = require('../../components/post')
 
-Page({
+Page(extend({
   data: {
     feed: null,
-    feeds: [],
-    param: null,
-    photoPaths: null
-  },
+    feeds: []
+  }
+}, {
   onLoad: function (e) {
     const feed = getApp().globalData.feed
     this.setData({
@@ -22,18 +23,12 @@ Page({
     })
   },
   repost: function (e) {
-    if (this.longtap) {
-      this.longtap = false
-      return
-    }
     const feed = this.data.feed
     this.setData({
       param: {status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}
     })
   },
-  longtap: false,
   re: function (e) {
-    this.longtap = true
     const feed = this.data.feed
     fm.post({status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}, null, this)
     wx.navigateBack()
@@ -45,48 +40,9 @@ Page({
     fm.destroy(this.data.feed.id)
   },
   tapImage: function (e) {
-    if (this.longtap) {
-      this.longtap = false
-      return
-    }
     fm.showImage(e.target.dataset.photo.largeurl)
   },
-  longTapImage: function (e) {
-    this.longtap = true
+  longPressImage: function (e) {
     fm.showImage(e.target.dataset.photo.originurl)
-  },
-  post: function (e) {
-    const param = Object.assign(this.data.param, {status: e.detail.value.post})
-    fm.post(param, this.data.photoPaths, this)
-  },
-  reset: function (e) {
-    this.setData({
-      param: null,
-      photoPaths: null
-    })
-  },
-  photo: function (e) {
-    const that = this
-    if (this.data.photoPaths) {
-      wx.showActionSheet({
-        itemList: ['删除'],
-        success: function (res) {
-          if (!res.cancel) {
-            that.setData({
-              photoPaths: null
-            })
-          }
-        }
-      })
-    } else {
-      wx.chooseImage({
-        count: 1,
-        success: function (res) {
-          that.setData({
-            photoPaths: res.tempFilePaths
-          })
-        }
-      })
-    }
   }
-})
+}, post))
