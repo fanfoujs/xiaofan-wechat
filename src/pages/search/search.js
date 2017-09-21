@@ -3,8 +3,8 @@ const fm = require('../../components/feeds-manager')
 const ff = require('../../utils/fanfou')
 
 const url = '/statuses/public_timeline'
-const { TIMELINE_COUNT } = require('../../config/fanfou')
-const para = { count: TIMELINE_COUNT }
+const {TIMELINE_COUNT} = require('../../config/fanfou')
+const para = {count: TIMELINE_COUNT}
 
 Page({
   onLoad: function () {

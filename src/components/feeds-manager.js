@@ -1,6 +1,6 @@
 const ff = require('../utils/fanfou')
 
-const { TIMELINE_COUNT } = require('../config/fanfou')
+const {TIMELINE_COUNT} = require('../config/fanfou')
 
 function loadMore (page, url, para) {
   if (page.isloadingmore) {
