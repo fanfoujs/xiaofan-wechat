@@ -1,4 +1,4 @@
-const tab = require('/components/tab')
+const tab = require('./components/tab')
 
 App({
   globalData: {
@@ -6,11 +6,11 @@ App({
     account: null,
     feed: null
   },
-  onLaunch: function () {
+  onLaunch () {
     const accounts = wx.getStorageSync('accounts')
     this.globalData.account = accounts[0]
   },
-  onShow: function () {
+  onShow () {
     tab.updateNotis()
   }
 })

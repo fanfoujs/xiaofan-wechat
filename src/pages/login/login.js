@@ -1,9 +1,9 @@
 const ff = require('../../utils/fanfou')
 
 Page({
-  login: function (e) {
+  login (e) {
     ff.authPromise(e.detail.value.username, e.detail.value.password)
-      .then(tokens => {
+      .then(() => {
         wx.switchTab({
           url: '/pages/home/home'
         })

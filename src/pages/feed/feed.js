@@ -8,41 +8,41 @@ Page(extend({
     feeds: []
   }
 }, {
-  onLoad: function (e) {
+  onLoad () {
     const feed = getApp().globalData.feed
     this.setData({
-      feed: feed,
+      feed,
       feeds: [feed]
     })
-    // fm.show('feed.id', this)
+    // Fm.show('feed.id', this)
   },
-  reply: function (e) {
+  reply () {
     const feed = this.data.feed
     this.setData({
       param: {status: fm.getAts(feed), in_reply_to_status_id: feed.id}
     })
   },
-  repost: function (e) {
+  repost () {
     const feed = this.data.feed
     this.setData({
       param: {status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}
     })
   },
-  re: function (e) {
+  re () {
     const feed = this.data.feed
     fm.post({status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}, null, this)
     wx.navigateBack()
   },
-  favoriteChange: function (e) {
+  favoriteChange () {
     fm.favoriteChange(this)
   },
-  destroy: function (e) {
+  destroy () {
     fm.destroy(this.data.feed.id)
   },
-  tapImage: function (e) {
+  tapImage (e) {
     fm.showImage(e.target.dataset.photo.largeurl)
   },
-  longPressImage: function (e) {
+  longPressImage (e) {
     fm.showImage(e.target.dataset.photo.originurl)
   }
 }, post))

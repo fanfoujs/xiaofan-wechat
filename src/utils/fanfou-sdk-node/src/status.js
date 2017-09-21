@@ -1,9 +1,9 @@
 'use strict'
 
 const he = require('../modules/he/he')
+const timeago = require('../../timeago')
 const User = require('./user')
 const Photo = require('./photo')
-const timeago = require('../../timeago')
 
 class Status {
   constructor (status) {
@@ -19,20 +19,20 @@ class Status {
     this.in_reply_to_screen_name = status.in_reply_to_screen_name
     this.is_self = status.is_self
     this.location = status.location
-    if (status.hasOwnProperty('repost_status_id')) {
+    if (status.repost_status_id) {
       this.repost_status_id = status.repost_status_id
     }
-    if (status.hasOwnProperty('repost_user_id')) {
+    if (status.repost_user_id) {
       this.repost_user_id = status.repost_user_id
     }
-    if (status.hasOwnProperty('repost_screen_name')) {
+    if (status.repost_screen_name) {
       this.repost_screen_name = status.repost_screen_name
     }
-    if (status.hasOwnProperty('repost_status')) {
+    if (status.repost_status) {
       this.repost_status = new Status(status.repost_status)
     }
     this.user = new User(status.user)
-    if (status.hasOwnProperty('photo')) {
+    if (status.photo) {
       this.photo = new Photo(status.photo)
     }
     this.type = this._getType()
@@ -48,7 +48,7 @@ class Status {
   }
 
   isRepost () {
-    return this.hasOwnProperty('repost_status_id') && this.repost_status_id !== ''
+    return (this.repost_status_id && this.repost_status_id !== '')
   }
 
   isOrigin () {
@@ -60,26 +60,30 @@ class Status {
   }
 
   _getType () {
-    if (this.isReply()) return 'reply'
-    if (this.isRepost()) return 'repost'
-    if (this.isOrigin()) return 'origin'
+    if (this.isReply()) {
+      return 'reply'
+    }
+    if (this.isRepost()) {
+      return 'repost'
+    }
+    if (this.isOrigin()) {
+      return 'origin'
+    }
     return 'unknown'
   }
 
   _getSourceUrl () {
     if (this.source.match(/<a href="(.+)" target="_blank">.+<\/a>/)) {
       return this.source.match(/<a href="(.+)" target="_blank">.+<\/a>/)[1]
-    } else {
-      return ''
     }
+    return ''
   }
 
   _getSourceName () {
     if (this.source.match(/<a href=".+" target="_blank">(.+)<\/a>/)) {
       return this.source.match(/<a href=".+" target="_blank">(.+)<\/a>/)[1]
-    } else {
-      return this.source
     }
+    return this.source
   }
 
   _getTimeAgo () {
@@ -95,7 +99,7 @@ class Status {
       match.forEach(item => {
         const index = theText.indexOf(item)
 
-        // text
+        // Text
         if (index > 0) {
           const text = theText.substr(0, index)
           const originText = he.decode(Status.removeBoldTag(theText.substr(0, index)))
@@ -104,11 +108,13 @@ class Status {
             text: originText,
             _text: originText.replace(/\n{3,}/g, '\n\n')
           }
-          if (Status.hasBold(text)) thisTxt.bold_arr = Status.getBoldArr(text)
+          if (Status.hasBold(text)) {
+            thisTxt.bold_arr = Status.getBoldArr(text)
+          }
           txt.push(thisTxt)
         }
 
-        // tag
+        // Tag
         if (item.substr(0, 1) === '#') {
           const matchText = item.match(/#<a href=".*?".?>([\s\S\n]*)<\/a>#/)
           const text = `#${matchText[1]}#`
@@ -119,11 +125,13 @@ class Status {
             _text: originText.replace(/\n{2,}/g, '\n'),
             query: he.decode(matchText[1])
           }
-          if (Status.hasBold(text)) thisTxt.bold_arr = Status.getBoldArr(text)
+          if (Status.hasBold(text)) {
+            thisTxt.bold_arr = Status.getBoldArr(text)
+          }
           txt.push(thisTxt)
         }
 
-        // at
+        // At
         if (item.substr(0, 1) === '@') {
           const matchText = item.match(/@<a href="(http|https):\/\/(?:[.a-z0-9-]*)fanfou.com\/(.*?)".*?>(.*?)<\/a>/)
           const text = `@${matchText[3]}`
@@ -134,26 +142,30 @@ class Status {
             name: he.decode(matchText[3]),
             id: matchText[2]
           }
-          if (Status.hasBold(text)) thisTxt.bold_arr = Status.getBoldArr(text)
+          if (Status.hasBold(text)) {
+            thisTxt.bold_arr = Status.getBoldArr(text)
+          }
           txt.push(thisTxt)
         }
 
-        // link
+        // Link
         if (item.substr(0, 1) === '<') {
           const matchText = item.match(/<a href="(.*?)".*?>(.*?)<\/a>/)
           const text = Status.removeBoldTag(matchText[2])
           const link = matchText[1]
           const thisTxt = {
             type: 'link',
-            text: text,
-            link: link
+            text,
+            link
           }
-          if (Status.hasBold(text)) thisTxt.bold_arr = Status.getBoldArr(text)
+          if (Status.hasBold(text)) {
+            thisTxt.bold_arr = Status.getBoldArr(text)
+          }
           txt.push(thisTxt)
         }
         theText = theText.substr(index + item.length)
       })
-      if (theText.length) {
+      if (theText.length > 0) {
         const text = theText
         const originText = he.decode(Status.removeBoldTag(text))
         const thisTxt = {
@@ -161,21 +173,24 @@ class Status {
           text: originText,
           _text: originText.replace(/\n{3,}/g, '\n\n')
         }
-        if (Status.hasBold(text)) thisTxt.bold_arr = Status.getBoldArr(text)
+        if (Status.hasBold(text)) {
+          thisTxt.bold_arr = Status.getBoldArr(text)
+        }
         txt.push(thisTxt)
       }
       return txt
-    } else {
-      const text = theText
-      const originText = he.decode(Status.removeBoldTag(theText))
-      const thisTxt = {
-        type: 'text',
-        text: originText,
-        _text: originText.replace(/\n{3,}/g, '\n\n')
-      }
-      if (Status.hasBold(text)) thisTxt.bold_arr = Status.getBoldArr(text)
-      return [thisTxt]
     }
+    const text = theText
+    const originText = he.decode(Status.removeBoldTag(theText))
+    const thisTxt = {
+      type: 'text',
+      text: originText,
+      _text: originText.replace(/\n{3,}/g, '\n\n')
+    }
+    if (Status.hasBold(text)) {
+      thisTxt.bold_arr = Status.getBoldArr(text)
+    }
+    return [thisTxt]
   }
 
   _getPlainText () {
@@ -212,19 +227,18 @@ class Status {
         })
         theText = theText.substr(index + item.length)
       })
-      if (theText.length) {
+      if (theText.length > 0) {
         textArr.push({
           text: he.decode(theText),
           bold: false
         })
       }
       return textArr
-    } else {
-      return [{
-        text: he.decode(text),
-        bold: false
-      }]
     }
+    return [{
+      text: he.decode(text),
+      bold: false
+    }]
   }
 
   static removeBoldTag (text) {

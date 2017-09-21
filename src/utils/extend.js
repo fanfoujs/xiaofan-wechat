@@ -1,8 +1,10 @@
-var extend = function (obj) {
-  ([].slice.call(arguments, 1) || []).forEach(function (source) {
+const extend = function (obj) {
+  ([].slice.call(arguments, 1) || []).forEach(source => {
     if (source) {
-      for (var prop in source) {
-        obj[prop] = source[prop]
+      for (const prop in source) {
+        if (source[prop]) {
+          obj[prop] = source[prop]
+        }
       }
     }
   })

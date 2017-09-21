@@ -3,8 +3,8 @@
 const timeago = require('./fanfou-sdk-node/modules/timeago/timeago')
 
 // 本地化的字典样式
-let fanfouWeAppDict = function (number, index, totalSec) {
-  // number：xxx 时间前 / 后的数字；
+const fanfouWeAppDict = function (number, index) {
+  // Number：xxx 时间前 / 后的数字；
   // index：下面数组的索引号；
   // total_sec：时间间隔的总秒数；
   return [

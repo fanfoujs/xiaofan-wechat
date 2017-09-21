@@ -1,4 +1,5 @@
 const tab = require('../../components/tab')
+
 Page({
   data: {
     noti_messages_count: {name: '私信', badge: 6},
@@ -6,20 +7,20 @@ Page({
     change_profile: {name: '修改资料'},
     logout: {name: '切换账号', action: 'logout'}
   },
-  onLoad: function (e) {
+  onLoad () {
     this.setData({
       user: getApp().globalData.account.user
     })
   },
-  onShow: function () {
+  onShow () {
     tab.renderNotis()
   },
-  tapListItem: function (e) {
+  tapListItem (e) {
     wx.navigateTo({
       url: `../feeds/feeds?url=${e.currentTarget.dataset.url}&name=${e.currentTarget.dataset.name}`
     })
   },
-  logout: function (e) {
+  logout () {
     wx.navigateTo({
       url: '../login/login'
     })

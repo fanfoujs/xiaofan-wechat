@@ -1,26 +1,26 @@
-const fm = require('/feeds-manager')
+const fm = require('./feeds-manager')
 
 module.exports = {
   data: {
     param: null,
     photoPaths: null
   },
-  post: function (e) {
+  post (e) {
     const param = Object.assign(this.data.param || {}, {status: e.detail.value.post})
     fm.post(param, this.data.photoPaths, this, true)
   },
-  reset: function (e) {
+  reset () {
     this.setData({
       param: null,
       photoPaths: null
     })
   },
-  photo: function (e) {
+  photo () {
     const that = this
     if (this.data.photoPaths) {
       wx.showActionSheet({
         itemList: ['删除'],
-        success: function (res) {
+        success (res) {
           if (!res.cancel) {
             that.setData({
               photoPaths: null
@@ -31,7 +31,7 @@ module.exports = {
     } else {
       wx.chooseImage({
         count: 1,
-        success: function (res) {
+        success (res) {
           that.setData({
             photoPaths: res.tempFilePaths
           })
