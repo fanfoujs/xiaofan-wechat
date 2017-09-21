@@ -17,7 +17,7 @@ Page({
   onReachBottom: function () {
     fm.loadMore(this, url, para)
   },
-  tapTxt: function (e) { },
+  tapTxt: function (e) {},
   tapFeed: function (e) {
     fm.showFeed(e.currentTarget.dataset.feed)
   }

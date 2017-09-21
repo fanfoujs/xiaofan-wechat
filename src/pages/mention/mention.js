@@ -21,7 +21,7 @@ Page({
   onReachBottom: function () {
     fm.loadMore(this, urls[this.data.index], para)
   },
-  tapTxt: function (e) { },
+  tapTxt: function (e) {},
   tapAvatar: function (e) {
     fm.showUser(e.currentTarget.dataset.user)
   },

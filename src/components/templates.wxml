@@ -14,32 +14,34 @@
 
 <!--消息列表-->
 <template name="feeds">
-  <view wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" class="feed" data-feed="{{feed}}" catchtap="tapFeed">
-    <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
-    <view class="after_avatar">
-      <view class="topline">
-        <text class="name">{{feed.user.name}}</text>
-        <text class="meta">{{feed.time_ago}}</text>
-      </view>
-      <block wx:for="{{feed.txt}}" wx:key="txt" wx:for-item="txt">
-        <block wx:if="{{!txt.bold_arr}}">
-          <text wx:if="{{txt.type != 'text'}}" class="{{txt.type}}" data-value="{{txt}}" catchtap="tapTxt">{{txt.text}}</text>
-          <text wx:else>{{txt.text}}</text>
-        </block>
-        <block wx:else>
-          <block wx:if="{{txt.type != 'text'}}">
-            <text wx:for="{{txt.bold_arr}}" class="{{txt.type}} {{item.bold?'bold':''}}" data-value="{{txt}}" catchtap="tapTxt">{{item.text}}</text>
+  <block wx:for="{{feeds}}" wx:for-item="feed" wx:key="id">
+    <view wx:if="{{feed.id}}" class="feed" data-feed="{{feed}}" catchtap="tapFeed">
+      <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
+      <view class="after_avatar">
+        <view class="topline">
+          <text class="name">{{feed.user.name}}</text>
+          <text class="meta">{{feed.time_ago}}</text>
+        </view>
+        <block wx:for="{{feed.txt}}" wx:key="txt" wx:for-item="txt">
+          <block wx:if="{{!txt.bold_arr}}">
+            <text wx:if="{{txt.type != 'text'}}" class="{{txt.type}}" data-value="{{txt}}" catchtap="tapTxt">{{txt.text}}</text>
+            <text wx:else>{{txt.text}}</text>
           </block>
           <block wx:else>
-            <text wx:for="{{txt.bold_arr}}" wx:key="item" class="{{item.bold?'bold':''}}">{{item.text}}</text>
+            <block wx:if="{{txt.type != 'text'}}">
+              <text wx:for="{{txt.bold_arr}}" class="{{txt.type}} {{item.bold?'bold':''}}" data-value="{{txt}}" catchtap="tapTxt">{{item.text}}</text>
+            </block>
+            <block wx:else>
+              <text wx:for="{{txt.bold_arr}}" wx:key="item" class="{{item.bold?'bold':''}}">{{item.text}}</text>
+            </block>
           </block>
         </block>
-      </block>
-      <view class="photo_container">
-        <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl}}" mode="widthFix" data-photo="{{feed.photo}}" />
+        <view class="photo_container">
+          <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl}}" mode="widthFix" data-photo="{{feed.photo}}" />
+        </view>
       </view>
     </view>
-  </view>
+  </block>
 </template>
 
 <!--单个消息-->
@@ -107,7 +109,7 @@
   <view wx:if="{{list.length > 0}}" class="section">
     <view class="section_name">{{name}}</view>
     <view class="list">
-      <template wx:for="{{list}}" wx:key="item" is="list_item" data="{{...item}}" />
+      <template wx:for="{{list}}" wx:key="name" is="list_item" data="{{...item}}" />
     </view>
   </view>
 </template>
