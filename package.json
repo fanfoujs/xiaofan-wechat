@@ -4,7 +4,7 @@
   "description": "Fanfou WeApp",
   "main": "app.js",
   "scripts": {
-    "test": "standard"
+    "test": "xo"
   },
   "repository": {
     "type": "git",
