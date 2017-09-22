@@ -29,7 +29,11 @@
 
 .animated {
   animation-duration: 0.3s;
-  animation-fill-mode: forwards;
+  animation-fill-mode: both;
+}
+
+.slow {
+  animation-duration: 0.6s;
 }
 
 .animated.infinite {
