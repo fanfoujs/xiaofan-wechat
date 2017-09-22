@@ -1,3 +1,7 @@
+'use strict'
+
+const {CONSUMER_KEY} = require('../config/fanfou')
+
 const ff = require('../utils/fanfou')
 
 function _render () {
@@ -11,7 +15,13 @@ function _render () {
 }
 
 function renderNotis () {
-  if (getApp() && !getApp().globalData.notis) {
+  if (
+    getApp() &&
+    getApp().globalData &&
+    getApp().globalData.account &&
+    getApp().globalData.account.consumer_key === CONSUMER_KEY &&
+    !getApp().globalData.notis
+  ) {
     updateNotis()
   } else {
     _render()
@@ -19,10 +29,18 @@ function renderNotis () {
 }
 
 function updateNotis () {
-  ff.getPromise('/account/notification').then(res => {
-    getApp().globalData.notis = [0, res.res.mentions, 0, 0, 0]
-    _render()
-  })
+  if (
+    getApp() &&
+    getApp().globalData &&
+    getApp().globalData.account &&
+    getApp().globalData.account.consumer_key === CONSUMER_KEY &&
+    !getApp().globalData.notis
+  ) {
+    ff.getPromise('/account/notification').then(res => {
+      getApp().globalData.notis = [0, res.res.mentions, 0, 0, 0]
+      _render()
+    })
+  }
 }
 
 function clearNotis (index, value) {

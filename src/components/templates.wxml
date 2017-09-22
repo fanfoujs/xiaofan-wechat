@@ -115,10 +115,12 @@
 </template>
 
 <template name="list_item">
-  <view wx:if="{{name}}" class="list_item" catchtap="{{action||'tapListItem'}}" catchlongpress="longpressListItem" data-name="{{name}}" data-id="{{id}}" data-query="{{query}}" data-url="{{url}}">
+  <view wx:if="{{name}}" class="list_item" catchtap="{{action||'tapListItem'}}" catchlongpress="longpressListItem"
+    data-name="{{name}}" data-id="{{id}}" data-query="{{query}}" data-url="{{url}}" data-user="{{user}}">
     <view class="label">{{name}}</view>
     <view wx:if="{{detail}}" class="detail">{{detail}}</view>
     <view wx:elif="{{badge}}" class="badge">{{badge}}</view>
     <view wx:elif="{{query}}" class="detail">{{query}}</view>
+    <view wx:elif="{{user}}" class="detail">{{id}}</view>
   </view>
 </template>
