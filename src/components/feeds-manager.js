@@ -252,6 +252,13 @@ function getAts (status) {
   return [...(new Set(ats))].join(' ') + ' '
 }
 
+function loadUser (page) {
+  ff.loadUser(getApp().globalData.account.tokens, null, user => {
+    wx.stopPullDownRefresh()
+    page.setData({user})
+  })
+}
+
 module.exports.load = load
 module.exports.loadMore = loadMore
 module.exports.show = show
@@ -263,3 +270,4 @@ module.exports.favoriteChange = favoriteChange
 module.exports.showUser = showUser
 module.exports.showFeed = showFeed
 module.exports.showImage = showImage
+module.exports.loadUser = loadUser

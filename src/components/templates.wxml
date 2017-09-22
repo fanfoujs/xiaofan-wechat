@@ -78,7 +78,7 @@
         <button class="btn2 dim" formType="reset">取消</button>
         <button class="btn2 dim" catchtap="photo">
           <view>上传照片</view>
-          <image src='{{photoPaths[0]}}' mode="aspectFill" style='position:absolute;width:100%;height:100%;filter:brightness(0.9);' />
+          <image wx:if="{{photoPaths[0]}}" src="{{photoPaths[0]}}" mode="aspectFill" style='position:absolute;width:100%;height:100%;filter:brightness(0.9);' />
         </button>
         <button class="btn2" formType="submit">发送</button>
       </view>

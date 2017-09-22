@@ -1,5 +1,5 @@
 const tab = require('../../components/tab')
-const ff = require('../../utils/fanfou')
+const fm = require('../../components/feeds-manager')
 
 Page({
   data: {
@@ -15,15 +15,10 @@ Page({
   },
   onShow () {
     tab.renderNotis()
+    fm.loadUser(this)
   },
   onPullDownRefresh () {
-    const that = this
-    ff.loadUser(getApp().globalData.account.tokens, null, user => {
-      wx.stopPullDownRefresh()
-      that.setData({
-        user
-      })
-    })
+    fm.loadUser(this)
   },
   tapListItem (e) {
     wx.navigateTo({
