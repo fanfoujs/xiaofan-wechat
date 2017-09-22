@@ -1,3 +1,5 @@
+'use strict'
+
 const tab = require('./components/tab')
 
 App({

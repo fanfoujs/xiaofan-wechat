@@ -1,9 +1,14 @@
+'use strict'
+
+const {CONSUMER_KEY} = require('../../config/fanfou')
+
 const tab = require('../../components/tab')
 const fm = require('../../components/feeds-manager')
 
 Page({
   onLoad () {
-    if (getApp().globalData.account) {
+    const {account} = getApp().globalData
+    if (account && account.consumer_key === CONSUMER_KEY) {
       fm.load(this)
     } else {
       wx.redirectTo({
@@ -12,6 +17,11 @@ Page({
     }
   },
   onShow () {
+    const {account} = getApp().globalData
+    if (this.data.uid !== account.id) {
+      this.setData({uid: account.id})
+      fm.load(this)
+    }
     tab.renderNotis()
   },
   onPullDownRefresh () {
