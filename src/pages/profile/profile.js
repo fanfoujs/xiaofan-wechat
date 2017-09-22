@@ -1,4 +1,5 @@
 const tab = require('../../components/tab')
+const ff = require('../../utils/fanfou')
 
 Page({
   data: {
@@ -14,6 +15,9 @@ Page({
   },
   onShow () {
     tab.renderNotis()
+  },
+  onPullDownRefresh () {
+    ff.reloadUser(this)
   },
   tapListItem (e) {
     wx.navigateTo({

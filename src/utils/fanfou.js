@@ -87,6 +87,38 @@ class Fanfou {
     })
   }
 
+  static reloadUser (page) {
+    this.get('/account/verify_credentials', {}, getApp().globalData.account.tokens, (e, res) => {
+      // Save tokens to local storage
+      try {
+        getApp().globalData.account.id = res.id
+        getApp().globalData.account.name = res.name
+        getApp().globalData.account.user = new User(res)
+        // Set global token data
+        const account = getApp().globalData.account
+        page.setData({
+          user: account.user
+        })
+        const accounts = wx.getStorageSync('accounts') || []
+        let index = -1
+        for (let i = 0; i < accounts.length; i++) {
+          if (account.id === accounts[i].id) {
+            index = i
+          }
+        }
+        if (index >= 0) {
+          accounts.splice(index, 1)
+        }
+        accounts.unshift(account)
+        wx.setStorageSync('accounts', accounts)
+        wx.stopPullDownRefresh()
+        console.log(123)
+      } catch (err) {
+        console.error(err)
+      }
+    })
+  }
+
   static get (uri, params, tokens, callback) {
     const ff = new FanfouSDK({
       auth_type: 'oauth',
