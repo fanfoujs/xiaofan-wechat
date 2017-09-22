@@ -11,10 +11,9 @@ Page(extend({
   onLoad () {
     const feed = getApp().globalData.feed
     this.setData({
-      feed,
-      feeds: [feed]
+      feed
     })
-    // Fm.show('feed.id', this)
+    fm.load(this, '/statuses/context_timeline', {id: feed.id})
   },
   reply () {
     const feed = this.data.feed

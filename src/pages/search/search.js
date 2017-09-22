@@ -19,7 +19,7 @@ Page({
     fm.load(this, url, para)
     this.loadTrendsAndSavedSearchesList()
   },
-  tapTxt () { },
+  tapTxt () {},
   tapAvatar (e) {
     fm.showUser(e.currentTarget.dataset.user)
   },
