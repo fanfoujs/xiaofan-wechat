@@ -24,7 +24,7 @@ Page({
 
   // Tap to switch account
   tapListItem (e) {
-    const {id} = e.target.dataset
+    const {id} = e.currentTarget.dataset
     const accounts = this.getAccounts()
     let index = -1
     for (let i = 0; i < accounts.length; i++) {
