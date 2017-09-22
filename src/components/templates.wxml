@@ -14,7 +14,7 @@
 
 <!--消息列表-->
 <template name="feeds">
-  <view wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" wx:if="{{rawid ? (isBefore ? rawid > feed.rawid : rawid < feed.rawid) : feed.id}}" class="feed {{rawid ? 'animated fadeIn slow' : ''}}" data-feed="{{feed}}" catchtap="tapFeed">
+  <view wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" wx:if="{{rawid ? (isBefore ? rawid > feed.rawid : rawid < feed.rawid) : feed.id}}" class="feed {{rawid ? 'animated expand' : ''}}" data-feed="{{feed}}" catchtap="tapFeed">
     <image class="avatar {{rawid ? 'small_avatar' : ''}}" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
     <view class="after_avatar">
       <view class="topline">
