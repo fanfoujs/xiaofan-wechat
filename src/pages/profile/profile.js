@@ -17,7 +17,13 @@ Page({
     tab.renderNotis()
   },
   onPullDownRefresh () {
-    ff.reloadUser(this)
+    const that = this
+    ff.loadUser(getApp().globalData.account.tokens, null, user => {
+      wx.stopPullDownRefresh()
+      that.setData({
+        user
+      })
+    })
   },
   tapListItem (e) {
     wx.navigateTo({

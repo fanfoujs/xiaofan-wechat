@@ -53,52 +53,25 @@ class Fanfou {
         if (e) {
           return reject(e)
         }
-        this.get('/account/verify_credentials', {}, tokens, (e, res) => {
-          // Save tokens to local storage
-          try {
-            const account = {
-              consumer_key: CONSUMER_KEY,
-              consumer_secret: CONSUMER_SECRET,
-              tokens,
-              id: res.id,
-              name: res.name,
-              user: new User(res)
-            }
-            // Set global token data
-            getApp().globalData.account = account
-            const accounts = wx.getStorageSync('accounts') || []
-            let index = -1
-            for (let i = 0; i < accounts.length; i++) {
-              if (account.id === accounts[i].id) {
-                index = i
-              }
-            }
-            if (index >= 0) {
-              accounts.splice(index, 1)
-            }
-            accounts.unshift(account)
-            wx.setStorageSync('accounts', accounts)
-          } catch (err) {
-            console.error(err)
-          }
-          return resolve(tokens)
-        })
+        this.loadUser(tokens, resolve)
       })
     })
   }
 
-  static reloadUser (page) {
-    this.get('/account/verify_credentials', {}, getApp().globalData.account.tokens, (e, res) => {
+  static loadUser (tokens, resolve, completion) {
+    this.get('/account/verify_credentials', {}, tokens, (e, res) => {
       // Save tokens to local storage
       try {
-        getApp().globalData.account.id = res.id
-        getApp().globalData.account.name = res.name
-        getApp().globalData.account.user = new User(res)
+        const account = {
+          consumer_key: CONSUMER_KEY,
+          consumer_secret: CONSUMER_SECRET,
+          tokens,
+          id: res.id,
+          name: res.name,
+          user: new User(res)
+        }
         // Set global token data
-        const account = getApp().globalData.account
-        page.setData({
-          user: account.user
-        })
+        getApp().globalData.account = account
         const accounts = wx.getStorageSync('accounts') || []
         let index = -1
         for (let i = 0; i < accounts.length; i++) {
@@ -111,10 +84,14 @@ class Fanfou {
         }
         accounts.unshift(account)
         wx.setStorageSync('accounts', accounts)
-        wx.stopPullDownRefresh()
-        console.log(123)
+        if (typeof completion === 'function') {
+          completion(account.user)
+        }
       } catch (err) {
         console.error(err)
+      }
+      if (typeof resolve === 'function') {
+        return resolve(tokens)
       }
     })
   }
