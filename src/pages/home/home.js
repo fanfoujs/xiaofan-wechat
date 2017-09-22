@@ -11,6 +11,7 @@ Page({
     if (account && account.consumer_key === CONSUMER_KEY) {
       fm.load(this)
     } else {
+      wx.setStorageSync('accounts', [])
       wx.redirectTo({
         url: '/pages/login/login'
       })

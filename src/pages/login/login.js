@@ -13,13 +13,6 @@ Page({
     ff.authPromise(e.detail.value.username, e.detail.value.password)
       .then(() => {
         wx.reLaunch({url: '/pages/home/home'})
-        wx.reLaunch({url: '/pages/mention/mention'})
-        wx.reLaunch({url: '/pages/search/search'})
-        wx.reLaunch({url: '/pages/profile/profile'})
-        wx.reLaunch({url: '/pages/login/login'})
-        wx.switchTab({
-          url: '/pages/home/home'
-        })
       })
       .catch(err => console.error('auth rejected', err.message))
   },
@@ -45,13 +38,6 @@ Page({
       accounts.unshift(account)
       getApp().globalData.account = account
       wx.reLaunch({url: '/pages/home/home'})
-      wx.reLaunch({url: '/pages/mention/mention'})
-      wx.reLaunch({url: '/pages/search/search'})
-      wx.reLaunch({url: '/pages/profile/profile'})
-      wx.reLaunch({url: '/pages/login/login'})
-      wx.switchTab({
-        url: '/pages/home/home'
-      })
     }
     wx.setStorageSync('accounts', accounts)
   },
@@ -75,14 +61,7 @@ Page({
             wx.setStorageSync('accounts', accounts)
             getApp().globalData.account = accounts[0]
             if (index === 0) {
-              wx.reLaunch({url: '/pages/mention/mention'})
-              wx.reLaunch({url: '/pages/search/search'})
-              wx.reLaunch({url: '/pages/profile/profile'})
-              wx.reLaunch({url: '/pages/login/login'})
               wx.reLaunch({url: '/pages/home/home'})
-              wx.switchTab({
-                url: '/pages/home/home'
-              })
             }
           }
           that.setData({accounts})
