@@ -1,7 +1,7 @@
 <import src="/components/templates.wxml" />
 <block wx:if="{{feed}}">
   <view class="aboveToolbar" style="padding-top:{{param ? 222: 0}}px">
-    <template is="feed" data="{{feed}}" />
+    <template is="feeds_context" data="{{feed, feeds_arr}}" />
   </view>
   <template is="toolbar" data="{{feed: feed}}" />
 </block>

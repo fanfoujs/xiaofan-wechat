@@ -1,3 +1,9 @@
-.txt {
+.detail_txt {
   font-size: 40rpx;
+}
+
+.small_avatar {
+  width: 32px;
+  height: 32px;
+  margin-left: 16px;
 }
