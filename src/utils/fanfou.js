@@ -4,7 +4,6 @@ const {
 } = require('../config/fanfou')
 
 const FanfouSDK = require('./fanfou-sdk-node/index')
-const Promise = require('./es6-promise')
 const User = require('./fanfou-sdk-node/src/user')
 
 class Error {
@@ -36,10 +35,10 @@ class Fanfou {
   static authPromise (username, password) {
     return new Promise((resolve, reject) => {
       if (typeof username !== 'string' || username.length === 0) {
-        return reject(new Error('Need username'))
+        reject(new Error('Need username'))
       }
       if (typeof password !== 'string' || password.length === 0) {
-        return reject(new Error('Need password'))
+        reject(new Error('Need password'))
       }
       const ff = new FanfouSDK({
         auth_type: 'xauth',
@@ -49,50 +48,48 @@ class Fanfou {
         password
       })
 
-      ff.xauth((e, tokens) => {
-        if (e) {
-          return reject(e)
+      ff.xauth((err, tokens) => {
+        if (err) {
+          reject(err)
+        } else {
+          this.loadUserPromise(tokens).then(resolve).catch(reject)
         }
-        this.loadUser(tokens, resolve)
       })
     })
   }
 
-  static loadUser (tokens, resolve, completion) {
-    this.get('/account/verify_credentials', {}, tokens, (e, res) => {
-      // Save tokens to local storage
-      try {
-        const account = {
-          consumer_key: CONSUMER_KEY,
-          consumer_secret: CONSUMER_SECRET,
-          tokens,
-          id: res.id,
-          name: res.name,
-          user: new User(res)
-        }
-        // Set global token data
-        getApp().globalData.account = account
-        const accounts = wx.getStorageSync('accounts') || []
-        let index = -1
-        for (let i = 0; i < accounts.length; i++) {
-          if (account.id === accounts[i].id) {
-            index = i
+  static loadUserPromise (tokens) {
+    return new Promise((resolve, reject) => {
+      this.get('/account/verify_credentials', {}, tokens, (err, res) => {
+        if (err) {
+          reject(err)
+        } else {
+          // Save tokens to local storage
+          const account = {
+            consumer_key: CONSUMER_KEY,
+            consumer_secret: CONSUMER_SECRET,
+            tokens,
+            id: res.id,
+            name: res.name,
+            user: new User(res)
           }
+          // Set global token data
+          getApp().globalData.account = account
+          const accounts = wx.getStorageSync('accounts') || []
+          let index = -1
+          for (let i = 0; i < accounts.length; i++) {
+            if (account.id === accounts[i].id) {
+              index = i
+            }
+          }
+          if (index >= 0) {
+            accounts.splice(index, 1)
+          }
+          accounts.unshift(account)
+          wx.setStorageSync('accounts', accounts)
+          resolve({user: account.user, tokens})
         }
-        if (index >= 0) {
-          accounts.splice(index, 1)
-        }
-        accounts.unshift(account)
-        wx.setStorageSync('accounts', accounts)
-        if (typeof completion === 'function') {
-          completion(account.user)
-        }
-      } catch (err) {
-        console.error(err)
-      }
-      if (typeof resolve === 'function') {
-        return resolve(tokens)
-      }
+      })
     })
   }
 

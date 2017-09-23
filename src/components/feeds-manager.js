@@ -253,10 +253,11 @@ function getAts (status) {
 }
 
 function loadUser (page) {
-  ff.loadUser(getApp().globalData.account.tokens, null, user => {
-    wx.stopPullDownRefresh()
-    page.setData({user})
-  })
+  ff.loadUserPromise(getApp().globalData.account.tokens)
+    .then(res => {
+      wx.stopPullDownRefresh()
+      page.setData({user: res.user})
+    })
 }
 
 module.exports.load = load
