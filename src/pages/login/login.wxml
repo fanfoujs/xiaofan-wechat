@@ -6,4 +6,4 @@
   <button class="btn1 space_side space_item" formType="submit">登录</button>
 </form>
 
-<template is="section" data="{{name:'已登录账号', list: accounts}}" />
+<template is="section" data="{{list: accounts}}" />

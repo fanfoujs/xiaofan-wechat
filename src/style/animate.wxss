@@ -32,12 +32,23 @@
   animation-fill-mode: both;
 }
 
-.slow {
-  animation-duration: 0.6s;
-}
-
 .animated.infinite {
   animation-iteration-count: infinite;
+}
+
+@keyframes expand {
+  from {
+    max-height: 0;
+  }
+
+  to {
+    max-height: 160vh;
+  }
+}
+
+.expand {
+  animation-name: expand;
+  animation-duration: 1.5s;
 }
 
 @keyframes flash {

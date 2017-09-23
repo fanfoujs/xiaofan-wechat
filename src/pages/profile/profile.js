@@ -1,4 +1,5 @@
 const tab = require('../../components/tab')
+const fm = require('../../components/feeds-manager')
 
 Page({
   data: {
@@ -14,6 +15,10 @@ Page({
   },
   onShow () {
     tab.renderNotis()
+    fm.loadUser(this)
+  },
+  onPullDownRefresh () {
+    fm.loadUser(this)
   },
   tapListItem (e) {
     wx.navigateTo({
