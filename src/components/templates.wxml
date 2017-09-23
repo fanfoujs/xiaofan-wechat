@@ -65,7 +65,7 @@
 <!--加载更多-->
 <template name="loader">
   <view class="flex_center">
-    <view class="loader" />
+    <image src="/assets/spinner.svg" style="width: 30px;height: 30px;margin: 18px auto;"/>
   </view>
 </template>
 

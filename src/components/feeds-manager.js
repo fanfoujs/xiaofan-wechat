@@ -7,17 +7,28 @@ function loadMore (page, url, para) {
     return
   }
   page.isloadingmore = true
-
+  const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
   const param = Object.assign({
     count: TIMELINE_COUNT,
-    max_id: page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id,
+    max_id: maxId,
     format: 'html',
     mode: 'lite'
   }, para)
-
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
       page.isloadingmore = false
+      console.log(url, param, res.obj)
+      if ((res.obj.length === 1 && maxId === res.obj[0].id) || res.obj.length === 0) {
+        wx.showToast({
+          title: '没有了',
+          image: '/assets/toast_blank.png',
+          duration: 500
+        })
+        page.setData({
+          hideLoader: true
+        })
+        return
+      }
       page.setData({
         ['feeds_arr[' + page.data.feeds_arr.length + ']']: res.obj
       })
@@ -40,7 +51,7 @@ function load (page, url, para, completion) {
       wx.stopPullDownRefresh()
       page.isloadingmore = false // 防止刷不出来更多，在这里重置下
       page.setData({
-        hideLoader: true,
+        hideLoader: false, // 由于清空了全部，要重置加载更多标记
         feeds_arr: [res.obj] // 清空了全部，todo 只加载最新
       })
       if (typeof completion === 'function') {
