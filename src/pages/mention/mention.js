@@ -1,5 +1,7 @@
 const tab = require('../../components/tab')
 const fm = require('../../components/feeds-manager')
+const extend = require('../../utils/extend')
+const tap = require('../../mixins/tap')
 
 const para = {count: 10}
 const completions = [function () {
@@ -7,7 +9,7 @@ const completions = [function () {
 }, null]
 const urls = ['/statuses/mentions', '/statuses/replies']
 
-Page({
+Page(extend({
   data: {
     index: 0
   },
@@ -40,4 +42,4 @@ Page({
       fm.load(this, urls[this.data.index], para, completions[this.data.index])
     }
   }
-})
+}, tap))

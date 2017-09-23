@@ -1,6 +1,6 @@
 const tab = require('../../components/tab')
 const extend = require('../../utils/extend')
-const post = require('../../components/post')
+const post = require('../../mixins/post')
 
 Page(extend({
   onShow () {

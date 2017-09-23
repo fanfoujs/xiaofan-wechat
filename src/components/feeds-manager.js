@@ -55,19 +55,6 @@ function load (page, url, para, completion) {
     })
 }
 
-function show (id, page) {
-  ff.getPromise('/statuses/show', {id, format: 'html', mode: 'lite'})
-    .then(res => {
-      wx.stopPullDownRefresh()
-      res.obj.isme = res.obj.user.unique_id === getApp().globalData.account.user.unique_id
-      page.setData({
-        feed: res.obj,
-        feeds: [res.obj]
-      })
-    })
-    .catch(err => console.error(err))
-}
-
 function favoriteChange (page) {
   if (page.data.feed.favorited) {
     ff.postPromise('/favorites/destroy/' + page.data.feed.id)
@@ -224,20 +211,45 @@ function showImage (url) {
   })
 }
 
-function showUser (user) {
-  user.isme = user.unique_id === getApp().globalData.account.user.unique_id
+function showUser (user, id) {
+  if (user) {
+    user.isme = user.unique_id === getApp().globalData.account.user.unique_id
+  }
   getApp().globalData.user = user
-  wx.navigateTo({
-    url: `../userprofile/userprofile?id=${user.id}`
-  })
+  this.navigateTo(`../userprofile/userprofile?id=${id || user.id}`)
 }
 
-function showFeed (feed) {
-  feed.isme = feed.user.unique_id === getApp().globalData.account.user.unique_id
+function loadUser (id, page) {
+  ff.getPromise('/users/show', {id, format: 'html', mode: 'lite'})
+    .then(res => {
+      wx.stopPullDownRefresh()
+      res.obj.isme = res.obj.unique_id === getApp().globalData.account.user.unique_id
+      page.setData({
+        user: res.obj
+      })
+    })
+    .catch(err => console.error(err))
+}
+
+function showFeed (feed, id) {
+  if (feed) {
+    feed.isme = feed.user.unique_id === getApp().globalData.account.user.unique_id
+  }
   getApp().globalData.feed = feed
-  wx.navigateTo({
-    url: `../feed/feed?id=${feed.id}`
-  })
+  this.navigateTo(`../feed/feed?id=${id || feed.id}`)
+}
+
+function loadFeed (id, page) {
+  ff.getPromise('/statuses/show', {id, format: 'html', mode: 'lite'})
+    .then(res => {
+      wx.stopPullDownRefresh()
+      res.obj.isme = res.obj.user.unique_id === getApp().globalData.account.user.unique_id
+      page.setData({
+        feed: res.obj,
+        feeds: [res.obj]
+      })
+    })
+    .catch(err => console.error(err))
 }
 
 function getAts (status) {
@@ -252,17 +264,26 @@ function getAts (status) {
   return [...(new Set(ats))].join(' ') + ' '
 }
 
-function loadUser (page) {
-  ff.loadUserPromise(getApp().globalData.account.tokens)
+function loadMe (page) {
+  ff.loadMePromise(getApp().globalData.account.tokens)
     .then(res => {
       wx.stopPullDownRefresh()
       page.setData({user: res.user})
     })
 }
 
+function navigateTo (url, success) {
+  wx.navigateTo({
+    url,
+    fail () {
+      wx.redirectTo({url})
+    },
+    success
+  })
+}
+
 module.exports.load = load
 module.exports.loadMore = loadMore
-module.exports.show = show
 module.exports.destroy = destroy
 module.exports.post = post
 module.exports.load = load
@@ -271,4 +292,7 @@ module.exports.favoriteChange = favoriteChange
 module.exports.showUser = showUser
 module.exports.showFeed = showFeed
 module.exports.showImage = showImage
+module.exports.loadMe = loadMe
 module.exports.loadUser = loadUser
+module.exports.loadFeed = loadFeed
+module.exports.navigateTo = navigateTo
