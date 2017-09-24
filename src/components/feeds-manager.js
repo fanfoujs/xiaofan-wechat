@@ -144,6 +144,10 @@ function destroy (id) {
 }
 
 function post (param, photoPaths, page, direct) {
+  wx.showLoading({
+    title: '正在发送',
+    mask: true
+  })
   const image = photoPaths ?
     '/assets/toast_photo.png' : param.repost_status_id ?
     '/assets/toast_repost.png' : param.in_reply_to_status_id ?
