@@ -210,7 +210,7 @@ class Fanfou {
             if (error) {
               reject(error)
             } else {
-              resolve(res)
+              resolve({res, obj})
             }
           } catch (err) {
             reject(err)
