@@ -122,9 +122,9 @@ function destroy (id) {
           for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
             for (const [feedIndex, feed] of feeds.entries()) {
               if (feed.id === id) {
-                feed.delete = true
+                page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
                 page.setData({
-                  [`feeds_arr[${feedsIndex}][${feedIndex}]`]: feed
+                  [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
                 })
                 return
               }

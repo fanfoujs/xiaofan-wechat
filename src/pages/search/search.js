@@ -75,9 +75,9 @@ Page(extend({
             .catch(err => console.error(err))
           for (const [index, value] of that.data.saved_searches.entries()) {
             if (value.id === e.currentTarget.dataset.id) {
-              value.delete = true
+              that.data.saved_searches.splice(index, 1)
               that.setData({
-                ['saved_searches[' + index + ']']: value
+                saved_searches: that.data.saved_searches
               })
               return
             }
