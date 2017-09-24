@@ -192,7 +192,7 @@ class Fanfou {
         tokens
       } = getApp().globalData.account
       if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) {
-        return reject(new Error(`Not authed, will not make upload image <${filePaths}>`))
+        reject(new Error(`Not authed, will not make upload image <${filePaths}>`))
       }
       const ff = new FanfouSDK({
         auth_type: 'oauth',
@@ -200,11 +200,20 @@ class Fanfou {
         consumer_secret
       })
 
-      ff.upload(filePaths, param.status, tokens, (e, res, obj) => {
-        if (e) {
-          return reject(e)
+      ff.upload(filePaths, param.status, tokens, (err, res, obj) => {
+        if (err) {
+          reject(err)
+        } else if (typeof res === 'string') {
+          try {
+            const result = JSON.parse(res)
+            const error = result.error
+            reject(error)
+          } catch (err) {
+            reject(err)
+          }
+        } else {
+          resolve({res, obj})
         }
-        return resolve({res, obj})
       })
     })
   }
