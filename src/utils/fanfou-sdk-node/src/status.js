@@ -127,6 +127,7 @@ class Status {
           }
           if (Status.hasBold(text)) {
             thisTxt.bold_arr = Status.getBoldArr(text)
+            thisTxt.query = thisTxt.query.match(/<b>([\s\S\n]*)<\/b>/)[1]
           }
           txt.push(thisTxt)
         }
