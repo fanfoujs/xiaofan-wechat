@@ -11,9 +11,9 @@
   </view>
   <view class="section">
     <view class="list">
-      <template is="list_item" data="{{name: '消息', detail: user.statuses_count, url: '/statuses/user_timeline'}}" />
-      <template is="list_item" data="{{name: '照片', detail: user.photo_count, url: '/photos/user_timeline'}}" />
-      <template is="list_item" data="{{name: '收藏', detail: user.favourites_count, url: '/favorites'}}" />
+      <template is="list_item" data="{{name: '消息', detail: user.statuses_count, url: '/statuses/user_timeline', isSecret: user.isSecret}}" />
+      <template is="list_item" data="{{name: '照片', detail: user.photo_count, url: '/photos/user_timeline', isSecret: user.isSecret}}" />
+      <template is="list_item" data="{{name: '收藏', detail: user.favourites_count, url: '/favorites', isSecret: user.isSecret}}" />
     </view>
   </view>
   <!--todo: implement model-->

@@ -98,7 +98,7 @@
     <view class="flex_item" catchtap="favoriteChange">
       <image src="/assets/favorite{{feed.favorited ? '_a' : ''}}.svg" class="size30" />
     </view>
-    <view wx:if="{{feed.isme}}" class="flex_item" catchtap="destroy">
+    <view wx:if="{{feed.isMe}}" class="flex_item" catchtap="destroy">
       <image src="/assets/delete.svg" class="size30" />
     </view>
   </view>
@@ -115,9 +115,9 @@
 </template>
 
 <template name="list_item">
-  <view wx:if="{{name}}" class="list_item" catchtap="{{action||'tapListItem'}}" catchlongpress="longpressListItem"
+  <view wx:if="{{name}}" class="list_item" catchtap="{{isSecret ? '' : action || 'tapListItem'}}" catchlongpress="longpressListItem"
     data-name="{{name}}" data-id="{{id}}" data-query="{{query}}" data-url="{{url}}" data-user="{{user}}">
-    <view class="label">{{name}}</view>
+    <view class="label {{isSecret ? 'inactive' : ''}}">{{name}}</view>
     <view wx:if="{{detail}}" class="detail">{{detail}}</view>
     <view wx:elif="{{badge}}" class="badge">{{badge}}</view>
     <view wx:elif="{{query}}" class="detail">{{query}}</view>
