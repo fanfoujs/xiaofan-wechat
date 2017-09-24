@@ -1,2 +1,2 @@
 <import src="/components/templates.wxml" />
-<template is="loader" />
+<template wx:if="{{!hideLoader}}" is="loader" />

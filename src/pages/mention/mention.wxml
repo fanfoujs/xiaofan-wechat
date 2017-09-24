@@ -4,5 +4,5 @@
   <view catchtap="tapIndex" class="segment {{index==1?'active':'inactive'}}" data-index="1">回复</view>
 </view>
 <template is="feeds_arr" data="{{feeds_arr}}" />
-<template is="loader" />
+<template wx:if="{{!hideLoader}}" is="loader" />
 <template is="notibar" data="{{notis}}" />
