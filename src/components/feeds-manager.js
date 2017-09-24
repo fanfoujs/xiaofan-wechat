@@ -10,15 +10,19 @@ function loadMore (page, url, para) {
   const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
   const param = Object.assign({
     count: TIMELINE_COUNT,
-    max_id: maxId,
     format: 'html',
     mode: 'lite'
   }, para)
+  if (url === '/favorites') {
+    param.page = page.data.feeds_arr.length + 1
+  } else {
+    param.max_id = maxId
+  }
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
       page.isloadingmore = false
       console.log(url, param, res.obj)
-      if (maxId === res.obj[0].id) {
+      if (res.obj.length > 0 && maxId === res.obj[0].id) {
         res.obj.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
       }
       if (res.obj.length === 0) {
