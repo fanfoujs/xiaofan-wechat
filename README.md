@@ -16,8 +16,7 @@
 
 ## Related
 
-- [fanfou-weapp-streamer](https://github.com/fanfoujs/fanfou-weapp-streamer) - 小饭的消息推送模块
-- [fanfou-weapp-backend](https://github.com/fanfoujs/fanfou-weapp-backend) - 小饭的上传图片模块
+- [fanfou-sdk](https://github.com/LitoMore/fanfou-sdk-node)
 
 ## Team
 
