@@ -52,13 +52,13 @@ class Fanfou {
         if (err) {
           reject(err)
         } else {
-          this.loadUserPromise(tokens).then(resolve).catch(reject)
+          this.loadMePromise(tokens).then(resolve).catch(reject)
         }
       })
     })
   }
 
-  static loadUserPromise (tokens) {
+  static loadMePromise (tokens) {
     tokens = tokens || getApp().globalData.account.tokens
     return new Promise((resolve, reject) => {
       this.get('/account/verify_credentials', {}, tokens, (err, res) => {

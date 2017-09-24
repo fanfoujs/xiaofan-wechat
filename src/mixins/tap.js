@@ -1,0 +1,36 @@
+const fm = require('../components/feeds-manager')
+
+module.exports = {
+  tapTxt (e) {
+    const txt = e.currentTarget.dataset.value
+    console.log(txt)
+    switch (txt.type) {
+      case 'at':
+        fm.showUser(null, txt.id)
+        break
+      case 'tag':
+        fm.navigateTo(`../feeds/feeds?q=${txt.query}`)
+        break
+      default: // Link
+        wx.setClipboardData({
+          data: txt.link,
+          success () {
+            wx.showModal({
+              title: '请用浏览器访问',
+              content: '小程序暂不支持跳转网页，链接已复制，请用浏览器访问。',
+              showCancel: false,
+              confirmText: '好的'
+            })
+          }
+        })
+    }
+  },
+  tapAvatar (e) {
+    console.log('tapAvatar')
+    fm.showUser(e.currentTarget.dataset.user)
+  },
+  tapFeed (e) {
+    console.log('tapFeed')
+    fm.showFeed(e.currentTarget.dataset.feed)
+  }
+}

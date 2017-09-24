@@ -1,7 +1,9 @@
 const tab = require('../../components/tab')
 const fm = require('../../components/feeds-manager')
+const extend = require('../../utils/extend')
+const tap = require('../../mixins/tap')
 
-Page({
+Page(extend({
   data: {
     noti_messages_count: {name: '私信', badge: 6},
     noti_friendship_count: {name: '关注申请', badge: 7},
@@ -15,19 +17,15 @@ Page({
   },
   onShow () {
     tab.renderNotis()
-    fm.loadUser(this)
+    fm.loadMe(this)
   },
   onPullDownRefresh () {
-    fm.loadUser(this)
+    fm.loadMe(this)
   },
   tapListItem (e) {
-    wx.navigateTo({
-      url: `../feeds/feeds?url=${e.currentTarget.dataset.url}&name=${e.currentTarget.dataset.name}`
-    })
+    fm.navigateTo(`../feeds/feeds?url=${e.currentTarget.dataset.url}&name=${e.currentTarget.dataset.name}`)
   },
   logout () {
-    wx.navigateTo({
-      url: '../login/login'
-    })
+    fm.navigateTo('../login/login')
   }
-})
+}, tap))

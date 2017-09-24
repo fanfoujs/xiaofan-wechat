@@ -4,8 +4,10 @@ const {CONSUMER_KEY} = require('../../config/fanfou')
 
 const tab = require('../../components/tab')
 const fm = require('../../components/feeds-manager')
+const extend = require('../../utils/extend')
+const tap = require('../../mixins/tap')
 
-Page({
+Page(extend({
   onLoad () {
     const {account} = getApp().globalData
     if (account && account.consumer_key === CONSUMER_KEY) {
@@ -36,13 +38,5 @@ Page({
     return {
       title: '小饭'
     }
-  },
-  tapTxt () {},
-  tapAvatar (e) {
-    fm.showUser(e.currentTarget.dataset.user)
-  },
-  tapFeed (e) {
-    // Fm.destroy(e.currentTarget.dataset.feed.id) // 快速删除测试消息
-    fm.showFeed(e.currentTarget.dataset.feed)
   }
-})
+}, tap))

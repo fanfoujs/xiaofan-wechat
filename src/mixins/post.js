@@ -1,4 +1,4 @@
-const fm = require('./feeds-manager')
+const fm = require('../components/feeds-manager')
 
 module.exports = {
   data: {

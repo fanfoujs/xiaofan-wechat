@@ -1,9 +1,11 @@
 const fm = require('../../components/feeds-manager')
+const extend = require('../../utils/extend')
+const tap = require('../../mixins/tap')
 
 let para
 let url
 
-Page({
+Page(extend({
   onLoad (e) {
     url = e.url || '/search/public_timeline'
     para = Object.assign({count: 20}, e)
@@ -22,4 +24,4 @@ Page({
   tapFeed (e) {
     fm.showFeed(e.currentTarget.dataset.feed)
   }
-})
+}, tap))

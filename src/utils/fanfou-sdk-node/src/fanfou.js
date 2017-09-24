@@ -9,6 +9,7 @@ const qs = require('../modules/querystring/index')
 const oauthSignature = require('../modules/oauth-signature/index')
 const OAuth = require('./oauth')
 const Status = require('./status')
+const User = require('./user')
 
 class Fanfou {
   constructor (options) {
@@ -83,6 +84,16 @@ class Fanfou {
           callback(null, data, arr)
         } else if (Fanfou._uriType(uri) === 'status') {
           callback(null, data, new Status(data))
+        } else if (Fanfou._uriType(uri) === 'users') {
+          const arr = []
+          for (const i in data) {
+            if (data[i]) {
+              arr.push(new User(data[i]))
+            }
+          }
+          callback(null, data, arr)
+        } else if (Fanfou._uriType(uri) === 'user') {
+          callback(null, data, new User(data))
         } else {
           callback(null, data, null)
         }
@@ -182,7 +193,11 @@ class Fanfou {
       '/statuses/update': 'status',
       '/statuses/show': 'status',
       '/favorites/destroy': 'status',
-      '/favorites/create': 'status'
+      '/favorites/create': 'status',
+      '/users/tagged': 'users',
+      '/users/followers': 'users',
+      '/users/friends': 'users',
+      '/users/show': 'user'
     }
     return uriList[uri] || null
   }
