@@ -16,7 +16,7 @@
 
 ## Related
 
-- [fanfou-sdk](https://github.com/LitoMore/fanfou-sdk-node)
+- [fanfou-sdk](https://github.com/LitoMore/fanfou-sdk-node) - Fanfou SDK for this WeApp
 
 ## Team
 
