@@ -122,8 +122,9 @@ function destroy (id) {
           for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
             for (const [feedIndex, feed] of feeds.entries()) {
               if (feed.id === id) {
+                feed.delete = true
                 page.setData({
-                  [`feeds_arr[${feedsIndex}][${feedIndex}]`]: {}
+                  [`feeds_arr[${feedsIndex}][${feedIndex}]`]: feed
                 })
                 return
               }

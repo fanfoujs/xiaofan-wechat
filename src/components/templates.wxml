@@ -1,7 +1,7 @@
 <!--通知条-->
 <template name="notibar">
   <view class="notibar">
-    <view wx:for="{{notis}}" wx:key="*this" wx:for-item="item" class="noti_wrapper">
+    <view wx:for="{{notis}}" wx:key="item" wx:for-item="item" class="noti_wrapper">
       <view wx:if="{{item > 0}}" class="noti" />
     </view>
   </view>
@@ -9,19 +9,19 @@
 
 <!--消息列表封装成嵌套数组，绕过微信 setData 的 1M 限制-->
 <template name="feeds_arr">
-  <template wx:for="{{feeds_arr}}" wx:key="*this" wx:for-item="feeds" is="feeds" data="{{feeds}}" />
+  <template wx:for="{{feeds_arr}}" wx:key="feeds" wx:for-item="feeds" is="feeds" data="{{feeds}}" />
 </template>
 
 <!--消息列表-->
 <template name="feeds">
-  <view wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" wx:if="{{rawid ? (isBefore ? rawid > feed.rawid : rawid < feed.rawid) : feed.id}}" class="feed {{rawid ? 'animated expand' : ''}}" data-feed="{{feed}}" catchtap="tapFeed">
+  <view wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" wx:if="{{rawid ? (isBefore ? rawid > feed.rawid : rawid < feed.rawid) : !feed.delete}}" class="feed {{rawid ? 'animated expand' : ''}}" data-feed="{{feed}}" catchtap="tapFeed">
     <image class="avatar {{rawid ? 'small_avatar' : ''}}" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
     <view class="after_avatar">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
         <text class="meta">{{feed.time_ago}}</text>
       </view>
-      <block wx:for="{{feed.txt}}" wx:key="*this" wx:for-item="txt">
+      <block wx:for="{{feed.txt}}" wx:key="txt" wx:for-item="txt">
         <text wx:if="{{!txt.bold_arr}}" class="{{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
         <block wx:else>
             <text wx:for="{{txt.bold_arr}}" class="{{txt.type}} {{item.bold?'bold':''}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{item.text}}</text>
@@ -56,7 +56,7 @@
         <text class="name">{{feed.user.name}}</text>
         <text class="meta">{{feed.time_ago}}</text>
       </view>
-      <text wx:for="{{feed.txt}}" wx:key="*this" wx:for-item="txt" class="detail_txt {{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
+      <text wx:for="{{feed.txt}}" wx:key="txt" wx:for-item="txt" class="detail_txt {{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
     </view>
   </view>
   <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" data-photo="{{feed.photo}}" catchtap="tapImage" catchlongpress="longPressImage" />
@@ -115,7 +115,7 @@
 </template>
 
 <template name="list_item">
-  <view wx:if="{{name}}" class="list_item" catchtap="{{isSecret ? '' : action || 'tapListItem'}}" catchlongpress="longpressListItem"
+  <view wx:if="{{!delete}}" class="list_item" catchtap="{{isSecret ? '' : action || 'tapListItem'}}" catchlongpress="longpressListItem"
     data-name="{{name}}" data-id="{{id}}" data-query="{{query}}" data-url="{{url}}" data-user="{{user}}">
     <view class="label {{isSecret ? 'inactive' : ''}}">{{name}}</view>
     <view wx:if="{{detail}}" class="detail">{{detail}}</view>
