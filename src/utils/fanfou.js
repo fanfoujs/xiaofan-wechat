@@ -203,16 +203,18 @@ class Fanfou {
       ff.upload(filePaths, param.status, tokens, (err, res, obj) => {
         if (err) {
           reject(err)
-        } else if (typeof res === 'string') {
+        } else {
           try {
             const result = JSON.parse(res)
             const error = result.error
-            reject(error)
+            if (error) {
+              reject(error)
+            } else {
+              resolve(res)
+            }
           } catch (err) {
             reject(err)
           }
-        } else {
-          resolve({res, obj})
         }
       })
     })
