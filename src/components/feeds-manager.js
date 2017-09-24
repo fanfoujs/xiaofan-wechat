@@ -231,7 +231,8 @@ function showImage (url) {
 
 function showUser (user, id) {
   if (user) {
-    user.isme = user.unique_id === getApp().globalData.account.user.unique_id
+    user.isMe = user.unique_id === getApp().globalData.account.user.unique_id
+    user.isSecret = user.protected === true && !user.following
   }
   getApp().globalData.user = user
   this.navigateTo(`../userprofile/userprofile?id=${id || user.id}`)
@@ -241,17 +242,17 @@ function loadUser (id, page) {
   ff.getPromise('/users/show', {id, format: 'html', mode: 'lite'})
     .then(res => {
       wx.stopPullDownRefresh()
-      res.obj.isme = res.obj.unique_id === getApp().globalData.account.user.unique_id
-      page.setData({
-        user: res.obj
-      })
+      const user = res.obj
+      user.isMe = user.unique_id === getApp().globalData.account.user.unique_id
+      user.isSecret = user.protected === true && !user.following
+      page.setData({user})
     })
     .catch(err => console.error(err))
 }
 
 function showFeed (feed, id) {
   if (feed) {
-    feed.isme = feed.user.unique_id === getApp().globalData.account.user.unique_id
+    feed.isMe = feed.user.unique_id === getApp().globalData.account.user.unique_id
   }
   getApp().globalData.feed = feed
   this.navigateTo(`../feed/feed?id=${id || feed.id}`)
@@ -261,7 +262,7 @@ function loadFeed (id, page) {
   ff.getPromise('/statuses/show', {id, format: 'html', mode: 'lite'})
     .then(res => {
       wx.stopPullDownRefresh()
-      res.obj.isme = res.obj.user.unique_id === getApp().globalData.account.user.unique_id
+      res.obj.isMe = res.obj.user.unique_id === getApp().globalData.account.user.unique_id
       page.setData({
         feed: res.obj,
         feeds: [res.obj]
