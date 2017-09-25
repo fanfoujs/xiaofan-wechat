@@ -25,11 +25,7 @@ Page(extend({
   repost () {
     const feed = this.data.feed
     this.setData({
-      param: {
-        status: ` 转@${feed.user.name} ${feed.plain_text}`,
-        repost_status_id: feed.id,
-        isRepost: true
-      }
+      param: {status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}
     })
   },
   re () {
