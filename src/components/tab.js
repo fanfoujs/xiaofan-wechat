@@ -19,8 +19,7 @@ function renderNotis () {
     getApp() &&
     getApp().globalData &&
     getApp().globalData.account &&
-    getApp().globalData.account.consumer_key === CONSUMER_KEY &&
-    !getApp().globalData.notis
+    getApp().globalData.account.consumer_key === CONSUMER_KEY
   ) {
     updateNotis()
   } else {
@@ -33,8 +32,7 @@ function updateNotis () {
     getApp() &&
     getApp().globalData &&
     getApp().globalData.account &&
-    getApp().globalData.account.consumer_key === CONSUMER_KEY &&
-    !getApp().globalData.notis
+    getApp().globalData.account.consumer_key === CONSUMER_KEY
   ) {
     ff.getPromise('/account/notification').then(res => {
       getApp().globalData.notis = [0, res.res.mentions, 0, 0, 0]
