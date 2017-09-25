@@ -21,7 +21,6 @@ function loadMore (page, url, para) {
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
       page.isloadingmore = false
-      console.log(url, param, res.obj)
       if (res.obj.length > 0 && maxId === res.obj[0].id) {
         res.obj.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
       }
