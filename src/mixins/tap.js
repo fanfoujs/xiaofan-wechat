@@ -3,7 +3,6 @@ const fm = require('../components/feeds-manager')
 module.exports = {
   tapTxt (e) {
     const txt = e.currentTarget.dataset.value
-    console.log(txt)
     switch (txt.type) {
       case 'at':
         fm.showUser(null, txt.id)
@@ -26,11 +25,9 @@ module.exports = {
     }
   },
   tapAvatar (e) {
-    console.log('tapAvatar')
     fm.showUser(e.currentTarget.dataset.user)
   },
   tapFeed (e) {
-    console.log('tapFeed')
     fm.showFeed(e.currentTarget.dataset.feed)
   }
 }
