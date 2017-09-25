@@ -83,7 +83,10 @@ class User {
       days += daySum
     }
 
-    return `${years ? years + ' 年 ' : ''}${months ? months + ' 个月 ' : ''}${days ? days + ' 天' : ''}`
+    if (years + months + days === 0) {
+      return '不满 1 天'
+    }
+    return `${days === 0 ? '正好 ' : ''}${years ? years + ' 年 ' : ''}${months ? months + ' 个月 ' : ''}${days ? days + ' 天' : ''}`
   }
 }
 
