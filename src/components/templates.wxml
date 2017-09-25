@@ -73,7 +73,7 @@
 <template name="post">
   <view class="post">
     <form bindsubmit="post" bindreset="reset">
-      <textarea class="input" name="post" placeholder-class="placeholder" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{value}}" auto-focus="{{true}}" cursor="{{isRepost ? 0 : value.length}}" />
+      <textarea class="input" name="post" placeholder-class="placeholder" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{value}}" auto-focus="{{true}}" cursor="{{isRepost ? 0 : -1}}" />
       <view class="flex_between space_item">
         <button class="btn2 dim" formType="reset">取消</button>
         <button class="btn2 dim" catchtap="photo">
