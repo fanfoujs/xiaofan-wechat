@@ -1,7 +1,7 @@
 <!--通知条-->
 <template name="notibar">
   <view class="notibar">
-    <view wx:for="{{notis}}" wx:key="item" wx:for-item="item" class="noti_wrapper">
+    <view wx:for="{{notis}}" wx:key="ignorekeywarn" class="noti_wrapper">
       <view wx:if="{{item > 0}}" class="noti" />
     </view>
   </view>
@@ -9,7 +9,7 @@
 
 <!--消息列表封装成嵌套数组，绕过微信 setData 的 1M 限制-->
 <template name="feeds_arr">
-  <template wx:for="{{feeds_arr}}" wx:key="feeds" wx:for-item="feeds" is="feeds" data="{{feeds}}" />
+  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="feeds" data="{{feeds}}" />
 </template>
 
 <!--消息列表-->
@@ -21,10 +21,10 @@
         <text class="name">{{feed.user.name}}</text>
         <text class="meta">{{feed.time_ago}}</text>
       </view>
-      <block wx:for="{{feed.txt}}" wx:key="txt" wx:for-item="txt">
+      <block wx:for="{{feed.txt}}" wx:key="ignorekeywarn" wx:for-item="txt">
         <text wx:if="{{!txt.bold_arr}}" class="{{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
         <block wx:else>
-            <text wx:for="{{txt.bold_arr}}" class="{{txt.type}} {{item.bold?'bold':''}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{item.text}}</text>
+            <text wx:for="{{txt.bold_arr}}" wx:key="ignorekeywarn" class="{{txt.type}} {{item.bold?'bold':''}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{item.text}}</text>
         </block>
       </block>
       <view class="photo_container">
@@ -56,7 +56,7 @@
         <text class="name">{{feed.user.name}}</text>
         <text class="meta">{{feed.time_ago}}</text>
       </view>
-      <text wx:for="{{feed.txt}}" wx:key="txt" wx:for-item="txt" class="detail_txt {{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
+      <text wx:for="{{feed.txt}}" wx:key="ignorekeywarn" wx:for-item="txt" class="detail_txt {{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
     </view>
   </view>
   <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" data-photo="{{feed.photo}}" catchtap="tapImage" catchlongpress="longPressImage" />
@@ -109,7 +109,7 @@
   <view wx:if="{{list.length > 0}}" class="section">
     <view class="section_name">{{name}}</view>
     <view class="list">
-      <template wx:for="{{list}}" wx:key="name" is="list_item" data="{{...item}}" />
+      <template wx:for="{{list}}" wx:key="ignorekeywarn" is="list_item" data="{{...item}}" />
     </view>
   </view>
 </template>

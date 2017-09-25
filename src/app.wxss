@@ -83,7 +83,7 @@ image {
 }
 
 .bold {
-  background: #fd0;
+  font-weight: 500;
 }
 
 /*组件*/
