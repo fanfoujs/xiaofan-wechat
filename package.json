@@ -28,8 +28,7 @@
       "getCurrentPages"
     ],
     "ignores": [
-      "src/utils/fanfou-sdk-node/modules/**",
-      "src/utils/es6-promise.js"
+      "src/utils/fanfou-sdk-node/modules/**"
     ],
     "rules": {
       "camelcase": [
