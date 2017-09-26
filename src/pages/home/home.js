@@ -20,12 +20,7 @@ Page(extend({
     }
   },
   onShow () {
-    const {account} = getApp().globalData
-    if (this.data.uid !== account.id) {
-      this.setData({uid: account.id})
-      fm.load(this)
-    }
-    tab.renderNotis()
+    tab.updateNotis()
   },
   onPullDownRefresh () {
     fm.load(this)

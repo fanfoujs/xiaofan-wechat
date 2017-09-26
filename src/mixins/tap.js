@@ -29,5 +29,8 @@ module.exports = {
   },
   tapFeed (e) {
     fm.showFeed(e.currentTarget.dataset.feed)
+  },
+  tapListItem (e) {
+    fm.navigateTo(`${e.currentTarget.dataset.page}?url=${e.currentTarget.dataset.url}&id=${this.data.user.id}&name=${e.currentTarget.dataset.name}`)
   }
 }

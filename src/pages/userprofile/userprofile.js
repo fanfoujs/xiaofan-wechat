@@ -10,8 +10,5 @@ Page(extend({
     } else {
       fm.loadUser(e.id, this)
     }
-  },
-  tapListItem (e) {
-    fm.navigateTo(`../feeds/feeds?url=${e.currentTarget.dataset.url}&id=${this.data.user.id}&name=${e.currentTarget.dataset.name}`)
   }
 }, tap))

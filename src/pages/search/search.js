@@ -15,7 +15,7 @@ Page(extend({
     this.loadTrendsAndSavedSearchesList()
   },
   onShow () {
-    tab.renderNotis()
+    tab.updateNotis()
   },
   onPullDownRefresh () {
     fm.load(this, url, para)

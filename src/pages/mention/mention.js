@@ -5,7 +5,7 @@ const tap = require('../../mixins/tap')
 
 const para = {count: 10}
 const completions = [function () {
-  tab.clearNotis(1, 0)
+  tab.clearNotis('mentions', 0)
 }, null]
 const urls = ['/statuses/mentions', '/statuses/replies']
 
@@ -17,7 +17,7 @@ Page(extend({
     fm.load(this, urls[this.data.index], para, completions[this.data.index])
   },
   onShow () {
-    tab.renderNotis()
+    tab.updateNotis()
   },
   onPullDownRefresh () {
     fm.load(this, urls[this.data.index], para, completions[this.data.index])

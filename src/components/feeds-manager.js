@@ -10,10 +10,9 @@ function loadMore (page, url, para) {
   const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
   const param = Object.assign({
     count: TIMELINE_COUNT,
-    format: 'html',
-    mode: 'lite'
+    format: 'html'
   }, para)
-  if (url === '/favorites') {
+  if (url === '/favorites' || url === '/users/friends' || url === '/users/followers') {
     param.page = page.data.feeds_arr.length + 1
   } else {
     param.max_id = maxId
@@ -48,10 +47,9 @@ function loadMore (page, url, para) {
 function load (page, url, para, completion) {
   const param = Object.assign({
     count: TIMELINE_COUNT,
-    format: 'html',
-    mode: 'lite'
+    format: 'html'
   }, para)
-
+  console.log('load')
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
       wx.stopPullDownRefresh()
@@ -243,7 +241,7 @@ function showUser (user, id) {
 }
 
 function loadUser (id, page) {
-  ff.getPromise('/users/show', {id, format: 'html', mode: 'lite'})
+  ff.getPromise('/users/show', {id, format: 'html'})
     .then(res => {
       wx.stopPullDownRefresh()
       const user = res.obj
@@ -263,7 +261,7 @@ function showFeed (feed, id) {
 }
 
 function loadFeed (id, page) {
-  ff.getPromise('/statuses/show', {id, format: 'html', mode: 'lite'})
+  ff.getPromise('/statuses/show', {id, format: 'html'})
     .then(res => {
       wx.stopPullDownRefresh()
       res.obj.isMe = res.obj.user.unique_id === getApp().globalData.account.user.unique_id

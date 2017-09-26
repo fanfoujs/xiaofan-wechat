@@ -4,7 +4,7 @@ const tab = require('./components/tab')
 
 App({
   globalData: {
-    notis: null,
+    notis: {},
     account: null,
     feed: null
   },

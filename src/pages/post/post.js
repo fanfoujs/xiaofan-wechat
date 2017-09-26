@@ -4,6 +4,6 @@ const post = require('../../mixins/post')
 
 Page(extend({
   onShow () {
-    tab.renderNotis()
+    tab.updateNotis()
   }
 }, post))
