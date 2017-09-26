@@ -2,7 +2,7 @@ const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 
-Page(extend({
+Page(extend({}, tap, {
   onLoad (e) {
     const user = getApp().globalData.user
     if (user) {
@@ -11,4 +11,4 @@ Page(extend({
       fm.loadUser(e.id, this)
     }
   }
-}, tap))
+}))

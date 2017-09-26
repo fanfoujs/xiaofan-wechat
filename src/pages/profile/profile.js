@@ -3,7 +3,7 @@ const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 
-Page(extend({
+Page(extend({}, tap, {
   data: {
     direct_messages: {
       name: '私信',
@@ -37,4 +37,4 @@ Page(extend({
     fm.loadMe(this)
     tab.updateNotis()
   }
-}, tap))
+}))

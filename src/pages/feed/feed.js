@@ -3,7 +3,7 @@ const extend = require('../../utils/extend')
 const post = require('../../mixins/post')
 const tap = require('../../mixins/tap')
 
-Page(extend({
+Page(extend({}, tap, post, {
   data: {
     feed: null,
     feeds: []
@@ -45,4 +45,4 @@ Page(extend({
   longPressImage (e) {
     fm.showImage(e.target.dataset.photo.originurl)
   }
-}, post, tap))
+}))

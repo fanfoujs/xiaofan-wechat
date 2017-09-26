@@ -5,7 +5,7 @@ const tap = require('../../mixins/tap')
 let para
 let url
 
-Page(extend({
+Page(extend({}, tap, {
   onLoad (e) {
     url = e.url || '/search/public_timeline'
     para = Object.assign({count: 20}, e)
@@ -24,4 +24,4 @@ Page(extend({
   tapFeed (e) {
     fm.showFeed(e.currentTarget.dataset.feed)
   }
-}, tap))
+}))

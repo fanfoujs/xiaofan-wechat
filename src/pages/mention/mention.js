@@ -9,7 +9,7 @@ const completions = [function () {
 }, null]
 const urls = ['/statuses/mentions', '/statuses/replies']
 
-Page(extend({
+Page(extend({}, tap, {
   data: {
     index: 0
   },
@@ -42,4 +42,4 @@ Page(extend({
       fm.load(this, urls[this.data.index], para, completions[this.data.index])
     }
   }
-}, tap))
+}))
