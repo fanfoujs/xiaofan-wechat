@@ -169,8 +169,15 @@
      * timeago.format(1473473400269); // timestamp with ms
      **/
     Timeago.prototype.format = function (date, locale) {
-      return formatDiff(diffSec(date, this.nowDate), locale, this.defaultLocale)
+      const theDiffSec = diffSec(date, this.nowDate)
+      return formatDiff(theDiffSec, locale, this.defaultLocale)
     }
+
+    // Add diffSec for fanfou-sdk
+    Timeago.prototype.diffSec = function (date) {
+      return diffSec(date, this.nowDate)
+    }
+
     /**
      * render: render the DOM real-time.
      * - nodes: which nodes will be rendered.
