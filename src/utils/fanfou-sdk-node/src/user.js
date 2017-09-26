@@ -34,6 +34,7 @@ class User {
     this.profile_background_tile = user.profile_background_tile
     this.sign_name = this._getSignName()
     this.fanfou_age = this._getFanfouAge()
+    this.birth_date = this._getBirthDate()
   }
 
   _getSignName () {
@@ -87,6 +88,19 @@ class User {
       return '不满 1 天'
     }
     return `${days === 0 ? '正好 ' : ''}${years ? years + ' 年 ' : ''}${months ? months + ' 个月 ' : ''}${days ? days + ' 天' : ''}`
+  }
+
+  _getBirthDate () {
+    const match = this.birthday.match(/(\d{4})-(\d{2})-(\d{2})/)
+    if (match) {
+      const year = parseInt(match[1], 10)
+      const month = parseInt(match[2], 10)
+      const day = parseInt(match[3], 10)
+      const yearStr = year ? year.toString() + ' 年 ' : ''
+      const dateStr = month && day ? month.toString() + ' 月 ' + day.toString() + ' 日' : ''
+      return yearStr + dateStr
+    }
+    return ''
   }
 }
 

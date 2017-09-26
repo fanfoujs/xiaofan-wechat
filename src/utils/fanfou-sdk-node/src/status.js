@@ -2,6 +2,7 @@
 
 const he = require('../modules/he/he')
 const timeago = require('../../timeago')
+const dateFormat = require('../modules/date-format/index')
 const User = require('./user')
 const Photo = require('./photo')
 
@@ -39,6 +40,7 @@ class Status {
     this.source_url = this._getSourceUrl()
     this.source_name = this._getSourceName()
     this.time_ago = this._getTimeAgo()
+    this.time_tag = this._getTimeTag()
     this.txt = this._getTxt()
     this.plain_text = this._getPlainText()
   }
@@ -88,6 +90,22 @@ class Status {
 
   _getTimeAgo () {
     return timeago().format(this.created_at, 'fanfou_weapp')
+  }
+
+  _getTimeTag () {
+    const date = new Date()
+    const create = new Date(this.created_at)
+    const nowYear = dateFormat('yyyy', date)
+    const createYear = dateFormat('yyyy', create)
+    const nowDate = dateFormat('yyyyMMdd', date)
+    const createDate = dateFormat('yyyyMMdd', create)
+
+    if (nowDate === createDate) {
+      return dateFormat('hh:mm', create)
+    } else if (nowYear === createYear) {
+      return dateFormat('MM/dd hh:mm', create)
+    }
+    return dateFormat('yyyy/MM/dd hh:mm', create)
   }
 
   _getTxt () {
