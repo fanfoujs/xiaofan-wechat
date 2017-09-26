@@ -197,6 +197,7 @@ class Fanfou {
       '/users/tagged': 'users',
       '/users/followers': 'users',
       '/users/friends': 'users',
+      '/friendships/requests': 'users',
       '/users/show': 'user'
     }
     return uriList[uri] || null

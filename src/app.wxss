@@ -236,20 +236,42 @@ image {
   color: #ced4e0;
 }
 
-.profile {
-  background: #fff;
-  display: flex;
-  flex-direction: column;
+.info {
   padding: 18px;
+  background: #fff;
 }
 
-.profile .name {
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile_background {
+  width: 100%;
+  height: 240px;
+}
+
+.header .avatar {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 4px solid #fff;
+}
+
+.info .name {
   font-size: 20px;
 }
 
 .description {
   margin-top: 9px;
   font-size: 14px;
+}
+
+.user {
+  padding: 18px;
+  display: flex;
+  align-items: center;
 }
 
 /*通用属性*/

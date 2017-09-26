@@ -1,0 +1,4 @@
+<import src="/components/templates.wxml" />
+work in progress...
+<template is="users_arr" data="{{users_arr: feeds_arr}}" />
+<template wx:if="{{!hideLoader}}" is="loader" />

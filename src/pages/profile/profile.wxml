@@ -1,35 +1,15 @@
 <import src="/components/templates.wxml" />
 <block wx:if="{{user}}">
-  <view class="profile">
-    <!--<image src="src" />-->
-    <view class="name">{{user.name}}</view>
-    <view wx:if="{{user.location.length}}" class="description">所在地：{{user.location}}</view>
-    <view wx:if="{{user.description.length}}" class="description">自述：<text>{{user.description}}</text></view>
-    <view wx:if="{{user.birth_date}}" class="description">生日：{{user.birth_date}} {{user.sign_name}}</view>
-    <view class="description">饭龄：{{user.fanfou_age}}</view>
+  <template is="profile" data="{{user}}" />
+  <view class="section">
+    <view class="list">
+      <template is="list_item" data="{{...direct_messages, badge: notis.direct_messages}}" />
+      <template wx:if="{{notis.friend_requests}}" is="list_item" data="{{...friend_requests, badge: notis.friend_requests}}" />
+    </view>
   </view>
   <view class="section">
     <view class="list">
-      <template is="list_item" data="{{name: '消息', detail: user.statuses_count, url: '/statuses/user_timeline'}}" />
-      <template is="list_item" data="{{name: '照片', detail: user.photo_count, url: '/photos/user_timeline'}}" />
-      <template is="list_item" data="{{name: '收藏', detail: user.favourites_count, url: '/favorites'}}" />
-    </view>
-  </view>
-  <!--<view class="section">
-    <view class="list">
-      <template is="list_item" data="{{name: '我关注的人', detail: user.friends_count, url: '/users/friends'}}" />
-      <template is="list_item" data="{{name: '关注我的人', detail: user.followers_count, url: '/users/followers'}}" />
-    </view>
-  </view>-->
-  <!--<view class="section">
-    <view class="list">
-      <template is="list_item" data="{{...noti_messages_count}}" />
-      <template is="list_item" data="{{...noti_friendship_count}}" />
-    </view>
-  </view>-->
-  <view class="section">
-    <view class="list">
-      <!--<template is="list_item" data="{{...change_profile}}" />-->
+      <template is="list_item" data="{{...change_profile,  page: '../change-profile/change-profile'}}" />
       <template is="list_item" data="{{...logout}}" />
     </view>
   </view>

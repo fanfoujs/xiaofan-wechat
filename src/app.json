@@ -12,7 +12,9 @@
     "pages/messages/messages",
     "pages/userprofile/userprofile",
     "pages/login/login",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/users/users",
+    "pages/change-profile/change-profile"
   ],
   "window": {
     "backgroundColor": "#FFF",

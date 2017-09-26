@@ -9,13 +9,13 @@ const {TIMELINE_COUNT} = require('../../config/fanfou')
 
 const para = {count: TIMELINE_COUNT}
 
-Page(extend({
+Page(extend({}, tap, {
   onLoad () {
     fm.load(this, url, para)
     this.loadTrendsAndSavedSearchesList()
   },
   onShow () {
-    tab.renderNotis()
+    tab.updateNotis()
   },
   onPullDownRefresh () {
     fm.load(this, url, para)
@@ -86,4 +86,4 @@ Page(extend({
       }
     })
   }
-}, tap))
+}))

@@ -1,8 +1,14 @@
 <!--通知条-->
 <template name="notibar">
   <view class="notibar">
-    <view wx:for="{{notis}}" wx:key="ignorekeywarn" class="noti_wrapper">
-      <view wx:if="{{item > 0}}" class="noti" />
+    <view class="noti_wrapper" />
+    <view class="noti_wrapper">
+      <view wx:if="{{notis.mentions > 0}}" class="noti" />
+    </view>
+    <view class="noti_wrapper" />
+    <view class="noti_wrapper" />
+    <view class="noti_wrapper">
+      <view wx:if="{{notis.direct_messages + notis.friend_requests > 0}}" class="noti" />
     </view>
   </view>
 </template>
@@ -15,7 +21,7 @@
 <!--消息列表-->
 <template name="feeds">
   <view wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" wx:if="{{rawid ? (isBefore ? rawid > feed.rawid : rawid < feed.rawid) : true}}" class="feed {{rawid ? 'animated expand' : ''}}" data-feed="{{feed}}" catchtap="tapFeed">
-    <image class="avatar {{rawid ? 'small_avatar' : ''}}" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
+    <image class="avatar {{rawid ? 'small_avatar' : ''}}" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar" />
     <view class="after_avatar">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
@@ -28,7 +34,7 @@
         </block>
       </block>
       <view class="photo_container">
-        <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl}}" mode="widthFix" data-photo="{{feed.photo}}" />
+        <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl}}" mode="widthFix" />
       </view>
     </view>
   </view>
@@ -54,12 +60,12 @@
     <view class="after_avatar">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
-        <text class="meta">{{feed.time_tag}}</text>
+        <text class="meta">{{feed.time_tag}} {{feed.source_name}}</text>
       </view>
       <text wx:for="{{feed.txt}}" wx:key="ignorekeywarn" wx:for-item="txt" class="detail_txt {{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
     </view>
   </view>
-  <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" data-photo="{{feed.photo}}" catchtap="tapImage" catchlongpress="longPressImage" />
+  <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" catchtap="tapImage" catchlongpress="longPressImage" />
 </template>
 
 <!--加载更多-->
@@ -73,7 +79,7 @@
 <template name="post">
   <view class="post">
     <form bindsubmit="post" bindreset="reset">
-      <textarea class="input" name="post" placeholder-class="placeholder" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{value}}" auto-focus="{{true}}" cursor="{{isRepost ? 0 : -1}}" />
+      <textarea class="input" name="post" placeholder-class="placeholder" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{value}}" auto-focus="{{autoFocus}}" cursor="{{isRepost ? 0 : -1}}" />
       <view class="flex_between space_item">
         <button class="btn2 dim" formType="reset">取消</button>
         <button class="btn2 dim" catchtap="photo">
@@ -115,12 +121,52 @@
 </template>
 
 <template name="list_item">
-  <view class="list_item" catchtap="{{isSecret ? '' : action || 'tapListItem'}}" catchlongpress="longpressListItem"
-    data-name="{{name}}" data-id="{{id}}" data-query="{{query}}" data-url="{{url}}" data-user="{{user}}">
+  <view class="list_item" catchtap="{{isSecret ? '' : 'tapListItem'}}" catchlongpress="longpressListItem"
+    data-name="{{name}}" data-id="{{id}}" data-query="{{query}}" data-url="{{url}}" data-user="{{user}}" data-page="{{page}}">
     <view class="label {{isSecret ? 'inactive' : ''}}">{{name}}</view>
     <view wx:if="{{detail}}" class="detail">{{detail}}</view>
     <view wx:elif="{{badge}}" class="badge">{{badge}}</view>
     <view wx:elif="{{query}}" class="detail">{{query}}</view>
     <view wx:elif="{{user}}" class="detail">{{id}}</view>
+  </view>
+</template>
+
+<!--profile-->
+<template name="profile">
+  <view class="header">
+    <image class="profile_background" style="background:{{user.profile_background_color}};" mode="aspectFill" src="{{user.profile_background_image_url}}" catchlongpress="longpressImage" data-photo-url="{{user.profile_background_image_url}}" />
+    <image class="avatar" src="{{user.profile_image_url_large}}" catchlongpress="longpressImage" data-photo-url="{{user.profile_image_url_large}}" />
+  </view>
+  <view class="info">
+    <view class="name">{{user.name}}</view>
+    <view wx:if="{{user.location.length}}" class="description">所在地：{{user.location}}</view>
+    <view wx:if="{{user.description.length}}" class="description">自述：<text>{{user.description}}</text></view>
+    <view wx:if="{{user.birth_date}}" class="description">生日：{{user.birth_date}} {{user.sign_name}}</view>
+    <view class="description">饭龄：{{user.fanfou_age}}</view>
+  </view>
+  <view class="section">
+    <view class="list">
+      <template is="list_item" data="{{name: '消息', detail: user.statuses_count, url: '/statuses/user_timeline',  page: '../feeds/feeds'}}" />
+      <template is="list_item" data="{{name: '照片', detail: user.photo_count, url: '/photos/user_timeline',  page: '../feeds/feeds'}}" />
+      <template is="list_item" data="{{name: '收藏', detail: user.favourites_count, url: '/favorites',  page: '../feeds/feeds'}}" />
+    </view>
+  </view>
+  <view class="section">
+      <view class="list">
+        <template is="list_item" data="{{name: '关注', detail: user.friends_count, url: '/users/friends',  page: '../users/users'}}" />
+        <template is="list_item" data="{{name: '被关注', detail: user.followers_count, url: '/users/followers',  page: '../users/users'}}" />
+      </view>
+    </view>
+</template>
+
+<!--users-->
+<template name="users_arr">
+  <template wx:for="{{users_arr}}" wx:key="ignorekeywarn" wx:for-item="users" is="users" data="{{users}}" />
+</template>
+
+<template name="users">
+  <view wx:for="{{users}}" wx:key="ignorekeywarn" class="user" data-user="{{item}}" catchtap="tapAvatar">
+    <image class="avatar" src="{{item.profile_image_url_large}}" />
+    <view class="name">{{item.name}}</view>
   </view>
 </template>

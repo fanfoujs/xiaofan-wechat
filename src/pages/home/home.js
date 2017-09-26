@@ -7,7 +7,7 @@ const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 
-Page(extend({
+Page(extend({}, tap, {
   onLoad () {
     const {account} = getApp().globalData
     if (account && account.consumer_key === CONSUMER_KEY) {
@@ -20,12 +20,7 @@ Page(extend({
     }
   },
   onShow () {
-    const {account} = getApp().globalData
-    if (this.data.uid !== account.id) {
-      this.setData({uid: account.id})
-      fm.load(this)
-    }
-    tab.renderNotis()
+    tab.updateNotis()
   },
   onPullDownRefresh () {
     fm.load(this)
@@ -39,4 +34,4 @@ Page(extend({
       title: '小饭'
     }
   }
-}, tap))
+}))
