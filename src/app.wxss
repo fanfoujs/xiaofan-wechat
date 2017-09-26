@@ -236,34 +236,30 @@ image {
   color: #ced4e0;
 }
 
-.profile {
+.info {
+  padding: 18px;
   background: #fff;
 }
 
-.profile .info {
-  padding: 18px;
-}
-
-.profile .header {
-  width: 100%;
+.header {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.profile .header .background {
+.profile_background {
   width: 100%;
   height: 240px;
 }
 
-.profile .header .avatar {
+.header .avatar {
   position: absolute;
   width: 60px;
   height: 60px;
   border: 4px solid #fff;
 }
 
-.profile .name {
+.info .name {
   font-size: 20px;
 }
 

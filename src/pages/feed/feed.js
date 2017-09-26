@@ -39,10 +39,10 @@ Page(extend({}, tap, post, {
   destroy () {
     fm.destroy(this.data.feed.id)
   },
-  tapImage (e) {
-    fm.showImage(e.target.dataset.photo.largeurl)
+  tapImage () {
+    fm.showImage(this.feed.photo.largeurl)
   },
-  longPressImage (e) {
-    fm.showImage(e.target.dataset.photo.originurl)
+  longPressImage () {
+    fm.showImage(this.data.feed.photo.originurl)
   }
 }))

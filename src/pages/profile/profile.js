@@ -8,7 +8,7 @@ Page(extend({}, tap, {
     direct_messages: {
       name: '私信',
       url: '//',
-      page: '../messages/messages-todo'
+      page: '../messages/messages'
     },
     friend_requests: {
       name: '关注申请',

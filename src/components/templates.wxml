@@ -34,7 +34,7 @@
         </block>
       </block>
       <view class="photo_container">
-        <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl}}" mode="widthFix" data-photo="{{feed.photo}}" />
+        <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl}}" mode="widthFix" />
       </view>
     </view>
   </view>
@@ -65,7 +65,7 @@
       <text wx:for="{{feed.txt}}" wx:key="ignorekeywarn" wx:for-item="txt" class="detail_txt {{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
     </view>
   </view>
-  <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" data-photo="{{feed.photo}}" catchtap="tapImage" catchlongpress="longPressImage" />
+  <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" catchtap="tapImage" catchlongpress="longPressImage" />
 </template>
 
 <!--加载更多-->
@@ -133,18 +133,16 @@
 
 <!--profile-->
 <template name="profile">
-  <view class="profile">
-    <view class="header" style="background:{{user.profile_background_color}};">
-      <image class="background" mode="aspectFill" src="{{user.profile_background_image_url}}" />
-      <image class="avatar" src="{{user.profile_image_url_large}}" />
-    </view>
-    <view class="info">
-      <view class="name">{{user.name}}</view>
-      <view wx:if="{{user.location.length}}" class="description">所在地：{{user.location}}</view>
-      <view wx:if="{{user.description.length}}" class="description">自述：<text>{{user.description}}</text></view>
-      <view wx:if="{{user.birthday}}" class="description">生日：{{user.birthday}} {{user.sign_name}}</view>
-      <view class="description">饭龄：{{user.fanfou_age}}</view>
-    </view>
+  <view class="header">
+    <image class="profile_background" style="background:{{user.profile_background_color}};" mode="aspectFill" src="{{user.profile_background_image_url}}" catchlongpress="longpressImage" data-photo-url="{{user.profile_background_image_url}}" />
+    <image class="avatar" src="{{user.profile_image_url_large}}" catchlongpress="longpressImage" data-photo-url="{{user.profile_image_url_large}}" />
+  </view>
+  <view class="info">
+    <view class="name">{{user.name}}</view>
+    <view wx:if="{{user.location.length}}" class="description">所在地：{{user.location}}</view>
+    <view wx:if="{{user.description.length}}" class="description">自述：<text>{{user.description}}</text></view>
+    <view wx:if="{{user.birthday}}" class="description">生日：{{user.birthday}} {{user.sign_name}}</view>
+    <view class="description">饭龄：{{user.fanfou_age}}</view>
   </view>
   <view class="section">
     <view class="list">

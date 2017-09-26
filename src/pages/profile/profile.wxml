@@ -4,7 +4,7 @@
   <view class="section">
     <view class="list">
       <template is="list_item" data="{{...direct_messages, badge: notis.direct_messages}}" />
-      <template is="list_item" data="{{...friend_requests, badge: notis.friend_requests}}" />
+      <template wx:if="{{notis.friend_requests}}" is="list_item" data="{{...friend_requests, badge: notis.friend_requests}}" />
     </view>
   </view>
   <view class="section">

@@ -49,7 +49,6 @@ function load (page, url, para, completion) {
     count: TIMELINE_COUNT,
     format: 'html'
   }, para)
-  console.log('load')
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
       wx.stopPullDownRefresh()
