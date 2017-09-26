@@ -13,5 +13,6 @@
       <template is="list_item" data="{{...logout}}" />
     </view>
   </view>
+  <view class="footer meta" catchtap="tapLink" data-link="https://github.com/fanfoujs/fanfou-weapp">Xiaofan on Github</view>
   <template is="notibar" data="{{notis}}" />
 </block>

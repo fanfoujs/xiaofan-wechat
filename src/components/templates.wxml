@@ -135,7 +135,9 @@
 <template name="profile">
   <view class="header">
     <image class="profile_background" style="background:{{user.profile_background_color}};" mode="aspectFill" src="{{user.profile_background_image_url}}" catchlongpress="longpressImage" data-photo-url="{{user.profile_background_image_url}}" />
-    <image class="avatar" src="{{user.profile_image_url_large}}" catchlongpress="longpressImage" data-photo-url="{{user.profile_image_url_large}}" />
+    <view class="avatar_container" catchlongpress="longpressImage" data-photo-url="{{user.profile_image_url_large}}">
+      <image class="avatar" src="{{user.profile_image_url_large}}" />
+    </view>
   </view>
   <view class="info">
     <view class="name">{{user.name}}</view>

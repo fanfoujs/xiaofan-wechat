@@ -11,17 +11,7 @@ module.exports = {
         fm.navigateTo(`../feeds/feeds?q=${txt.query}`)
         break
       default: // Link
-        wx.setClipboardData({
-          data: txt.link,
-          success () {
-            wx.showModal({
-              title: '请用浏览器访问',
-              content: '小程序暂不支持跳转网页，链接已复制，请用浏览器访问。',
-              showCancel: false,
-              confirmText: '好的'
-            })
-          }
-        })
+        this.handleLink(txt.link)
     }
   },
   tapAvatar (e) {
@@ -35,5 +25,21 @@ module.exports = {
   },
   longpressImage (e) {
     fm.showImage(e.currentTarget.dataset.photoUrl)
+  },
+  tapLink (e) {
+    this.handleLink(e.currentTarget.dataset.link)
+  },
+  handleLink (link) {
+    wx.setClipboardData({
+      data: link,
+      success () {
+        wx.showModal({
+          title: '请前往浏览器',
+          content: '链接已复制',
+          showCancel: false,
+          confirmText: '好的'
+        })
+      }
+    })
   }
 }
