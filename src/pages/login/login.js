@@ -10,11 +10,21 @@ Page({
 
   // Login action
   login (e) {
+    wx.showLoading({
+      title: '正在登录',
+      mask: true
+    })
     ff.authPromise(e.detail.value.username, e.detail.value.password)
       .then(() => {
         wx.reLaunch({url: '/pages/home/home'})
       })
-      .catch(err => console.error('auth rejected', err.message))
+      .catch(() => {
+        wx.showToast({
+          title: '登录失败',
+          image: '/assets/toast_fail.png',
+          duration: 500
+        })
+      })
   },
 
   // Get accounts from stroage
