@@ -7,7 +7,6 @@ Page(extend({}, tap, {
   data: {
     direct_messages: {
       name: '私信',
-      url: '//',
       page: '../messages/messages'
     },
     friend_requests: {

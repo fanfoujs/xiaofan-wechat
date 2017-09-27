@@ -231,10 +231,6 @@ function showImage (url) {
 }
 
 function showUser (user, id) {
-  if (user) {
-    user.isMe = user.unique_id === getApp().globalData.account.user.unique_id
-    user.isSecret = user.protected === true && !user.following
-  }
   getApp().globalData.user = user
   this.navigateTo(`../userprofile/userprofile?id=${id || user.id}`)
 }
@@ -244,17 +240,12 @@ function loadUser (id, page) {
     .then(res => {
       wx.stopPullDownRefresh()
       const user = res.obj
-      user.isMe = user.unique_id === getApp().globalData.account.user.unique_id
-      user.isSecret = user.protected === true && !user.following
       page.setData({user})
     })
     .catch(err => console.error(err))
 }
 
 function showFeed (feed, id) {
-  if (feed) {
-    feed.isMe = feed.user.unique_id === getApp().globalData.account.user.unique_id
-  }
   getApp().globalData.feed = feed
   this.navigateTo(`../feed/feed?id=${id || feed.id}`)
 }
@@ -263,7 +254,6 @@ function loadFeed (id, page) {
   ff.getPromise('/statuses/show', {id, format: 'html'})
     .then(res => {
       wx.stopPullDownRefresh()
-      res.obj.isMe = res.obj.user.unique_id === getApp().globalData.account.user.unique_id
       page.setData({
         feed: res.obj,
         feeds: [res.obj]
@@ -302,6 +292,74 @@ function navigateTo (url, success) {
   })
 }
 
+function follow (user, page) {
+  ff.postPromise('/friendships/create', {id: user.id})
+    .then(() => {
+      page.setData({'relationship.following': true})
+    })
+    .catch(err => {
+      wx.showModal({
+        content: `已向 ${user.name} 发出关注请求，请等待确认。`,
+        showCancel: false,
+        confirmText: '好的'
+      })
+      console.error(err)
+    })
+}
+
+function unfollow (user, page) {
+  wx.showActionSheet({
+    itemList: ['取消关注'],
+    success (res) {
+      if (!res.cancel) {
+        ff.postPromise('/friendships/destroy', {id: user.id})
+        .then(() => {
+          page.setData({'relationship.following': false})
+        })
+        .catch(err => console.error(err))
+      }
+    }
+  })
+}
+
+function block (user, page) {
+  wx.showActionSheet({
+    itemList: ['拉黑'],
+    success (res) {
+      if (!res.cancel) {
+        ff.postPromise('/blocks/create', {id: user.id})
+          .then(() => {
+            page.setData({'relationship.blocking': true})
+          })
+          .catch(err => console.error(err))
+      }
+    }
+  })
+}
+
+function unblock (user, page) {
+  ff.postPromise('/blocks/destroy', {id: user.id})
+    .then(() => {
+      page.setData({'relationship.blocking': false})
+    })
+    .catch(err => console.error(err))
+}
+
+function relationship (targetId, page) {
+  ff.getPromise('/friendships/show', {
+    source_id: getApp().globalData.account.user.id,
+    target_id: targetId
+  }).then(res => {
+    page.setData({
+      relationship: {
+        following: res.res.relationship.source.following === 'true',
+        followed_by: res.res.relationship.source.followed_by === 'true',
+        blocking: res.res.relationship.source.blocking === 'true'
+      }
+    })
+  }).catch(err => console.error(err))
+}
+
 module.exports.load = load
 module.exports.loadMore = loadMore
 module.exports.destroy = destroy
@@ -315,4 +373,9 @@ module.exports.showImage = showImage
 module.exports.loadMe = loadMe
 module.exports.loadUser = loadUser
 module.exports.loadFeed = loadFeed
+module.exports.follow = follow
+module.exports.unfollow = unfollow
 module.exports.navigateTo = navigateTo
+module.exports.relationship = relationship
+module.exports.block = block
+module.exports.unblock = unblock

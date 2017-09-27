@@ -115,8 +115,14 @@ image {
 }
 
 .btn3 {
+  width: 100%;
   height: 32px;
   font-size: 13px;
+  margin: 0 9px 0 0;
+}
+
+.btn3:last-child {
+  margin: 0;
 }
 
 .btn4 {
@@ -285,6 +291,11 @@ image {
   align-items: center;
 }
 
+.protected {
+  width: 14px;
+  height: 14px;
+}
+
 /*通用属性*/
 
 .mask {
@@ -323,6 +334,11 @@ image {
   background: #f1f3f5;
 }
 
+.dark {
+  color: #fff;
+  background: #39404D;
+}
+
 .flex_item {
   display: flex;
   align-items: center;
@@ -348,10 +364,6 @@ image {
   margin-top: 28px;
 }
 
-.space_item:first-child {
-  margin-top: 0;
-}
-
 .space_item {
   margin-top: 18px;
 }
@@ -363,7 +375,7 @@ image {
   justify-content: center;
   padding: 0 0 36px;
   color: #ced4e0;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .footer text {

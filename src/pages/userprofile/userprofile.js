@@ -4,11 +4,14 @@ const tap = require('../../mixins/tap')
 
 Page(extend({}, tap, {
   onLoad (e) {
-    const user = getApp().globalData.user
-    if (user) {
-      this.setData({user})
-    } else {
+    this.setData({user: getApp().globalData.user})
+    if (!this.data.user) {
       fm.loadUser(e.id, this)
     }
+    fm.relationship(e.id, this)
+  },
+  onPullDownRefresh () {
+    fm.loadUser(this.data.user.id, this)
+    fm.relationship(this.data.user.id, this)
   }
 }))

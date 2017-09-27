@@ -58,7 +58,7 @@ Page({
       itemList: ['退出登录'],
       success (res) {
         if (!res.cancel) {
-          const {id} = e.target.dataset
+          const {id} = e.currentTarget.dataset
           let index = -1
           for (let i = 0; i < accounts.length; i++) {
             if (accounts[i].id === id) {

@@ -56,7 +56,7 @@
 <!--详情消息-->
 <template name="feed">
   <view class="feed">
-    <image class="avatar" src="{{feed.user.profile_image_url_large}}"></image>
+    <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
     <view class="after_avatar">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
@@ -104,7 +104,7 @@
     <view class="flex_item" catchtap="favoriteChange">
       <image src="/assets/favorite{{feed.favorited ? '_a' : ''}}.svg" class="size30" />
     </view>
-    <view wx:if="{{feed.isMe}}" class="flex_item" catchtap="destroy">
+    <view wx:if="{{feed.user.isMe}}" class="flex_item" catchtap="destroy">
       <image src="/assets/delete.svg" class="size30" />
     </view>
   </view>
@@ -121,10 +121,10 @@
 </template>
 
 <template name="list_item">
-  <view class="list_item" catchtap="{{isSecret ? '' : 'tapListItem'}}" catchlongpress="longpressListItem"
+  <view class="list_item" catchtap="{{user.isSecret ? '' : 'tapListItem'}}" catchlongpress="longpressListItem"
     data-name="{{name}}" data-id="{{id}}" data-query="{{query}}" data-url="{{url}}" data-user="{{user}}" data-page="{{page}}">
-    <view class="label {{isSecret ? 'inactive' : ''}}">{{name}}</view>
-    <view wx:if="{{detail}}" class="detail">{{detail}}</view>
+    <view class="label {{user.isSecret ? 'inactive' : ''}}">{{name}}</view>
+    <view wx:if="{{detail !== false}}" class="detail">{{detail}}</view>
     <view wx:elif="{{badge}}" class="badge">{{badge}}</view>
     <view wx:elif="{{query}}" class="detail">{{query}}</view>
     <view wx:elif="{{user}}" class="detail">{{id}}</view>
@@ -144,19 +144,30 @@
     <view wx:if="{{user.location.length}}" class="description">所在地：{{user.location}}</view>
     <view wx:if="{{user.description.length}}" class="description">自述：<text>{{user.description}}</text></view>
     <view wx:if="{{user.birth_date}}" class="description">生日：{{user.birth_date}} {{user.sign_name}}</view>
-    <view class="description">饭龄：{{user.fanfou_age}}</view>
+    <view class="flex_between description">
+      <view>饭龄：{{user.fanfou_age}}</view>
+      <image wx:if="{{user.protected}}" class="protected" src="/assets/private.svg"/>
+    </view>
+    <view wx:if="{{relationship}}" class="flex_between space_item">
+      <view wx:if="{{relationship.following && relationship.followed_by}}" class="btn3 dim" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">互相关注</view>
+      <view wx:elif="{{!relationship.following && relationship.followed_by}}" class="btn3" catchtap="follow" catchlongpress="block" data-user="{{user}}">回 fo</view>
+      <view wx:elif="{{relationship.following && !relationship.followed_by}}" class="btn3 dim" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">已关注</view>
+      <view wx:elif="{{relationship.blocking}}" class="btn3 dark" catchtap="unblock" data-user="{{user}}">已拉黑</view>
+      <view wx:else class="btn3" catchtap="follow" catchlongpress="block" data-user="{{user}}">关注</view>
+      <view class="btn3" catchtap="sendMessages" data-user="{{user}}">私信</view>
+    </view>
   </view>
   <view class="section">
     <view class="list">
-      <template is="list_item" data="{{name: '消息', detail: user.statuses_count, url: '/statuses/user_timeline',  page: '../feeds/feeds'}}" />
-      <template is="list_item" data="{{name: '照片', detail: user.photo_count, url: '/photos/user_timeline',  page: '../feeds/feeds'}}" />
-      <template is="list_item" data="{{name: '收藏', detail: user.favourites_count, url: '/favorites',  page: '../feeds/feeds'}}" />
+      <template is="list_item" data="{{name: '消息', detail: user.statuses_count, user, url: '/statuses/user_timeline',  page: '../feeds/feeds'}}" />
+      <template is="list_item" data="{{name: '照片', detail: user.photo_count, user, url: '/photos/user_timeline',  page: '../feeds/feeds'}}" />
+      <template is="list_item" data="{{name: '收藏', detail: user.favourites_count, user, url: '/favorites',  page: '../feeds/feeds'}}" />
     </view>
   </view>
   <view class="section">
       <view class="list">
-        <template is="list_item" data="{{name: '关注', detail: user.friends_count, url: '/users/friends',  page: '../users/users'}}" />
-        <template is="list_item" data="{{name: '被关注', detail: user.followers_count, url: '/users/followers',  page: '../users/users'}}" />
+        <template is="list_item" data="{{name: '关注', detail: user.friends_count, user, url: '/users/friends',  page: '../users/users'}}" />
+        <template is="list_item" data="{{name: '被关注', detail: user.followers_count, user, url: '/users/followers',  page: '../users/users'}}" />
       </view>
     </view>
 </template>

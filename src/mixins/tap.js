@@ -34,12 +34,23 @@ module.exports = {
       data: link,
       success () {
         wx.showModal({
-          title: '请前往浏览器',
-          content: '链接已复制',
+          content: '链接已复制，请前往浏览器访问。',
           showCancel: false,
           confirmText: '好的'
         })
       }
     })
+  },
+  follow (e) {
+    fm.follow(e.currentTarget.dataset.user, this)
+  },
+  unfollow (e) {
+    fm.unfollow(e.currentTarget.dataset.user, this)
+  },
+  block (e) {
+    fm.block(e.currentTarget.dataset.user, this)
+  },
+  unblock (e) {
+    fm.unblock(e.currentTarget.dataset.user, this)
   }
 }

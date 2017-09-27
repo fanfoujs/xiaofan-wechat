@@ -1,2 +1,2 @@
 <import src="/components/templates.wxml" />
-<template wx:if="{{user}}" is="profile" data="{{user}}" />
+<template wx:if="{{user}}" is="profile" data="{{user, relationship}}" />

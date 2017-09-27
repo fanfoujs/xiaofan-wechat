@@ -32,7 +32,7 @@ Page(extend({}, tap, {
     fm.showFeed(e.currentTarget.dataset.feed)
   },
   tapIndex (e) {
-    const index = e.target.dataset.index
+    const index = e.currentTarget.dataset.index
     if (index !== this.data.index) {
       this.setData({
         feeds_arr: null,
