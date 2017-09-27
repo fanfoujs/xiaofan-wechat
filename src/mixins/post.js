@@ -15,28 +15,42 @@ module.exports = {
       photoPaths: null
     })
   },
-  photo () {
+  addPhoto () {
     const that = this
-    if (this.data.photoPaths) {
-      wx.showActionSheet({
-        itemList: ['删除'],
-        success (res) {
-          if (!res.cancel) {
-            that.setData({
-              photoPaths: null
-            })
-          }
-        }
-      })
-    } else {
-      wx.chooseImage({
-        count: 1,
-        success (res) {
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      success (res) {
+        that.setData({
+          photoPaths: res.tempFilePaths
+        })
+      }
+    })
+  },
+  addGif () {
+    const that = this
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original'],
+      sourceType: ['album'],
+      success (res) {
+        that.setData({
+          photoPaths: res.tempFilePaths
+        })
+      }
+    })
+  },
+  removePhoto () {
+    const that = this
+    wx.showActionSheet({
+      itemList: ['删除'],
+      success (res) {
+        if (!res.cancel) {
           that.setData({
-            photoPaths: res.tempFilePaths
+            photoPaths: null
           })
         }
-      })
-    }
+      }
+    })
   }
 }

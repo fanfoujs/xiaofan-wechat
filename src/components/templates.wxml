@@ -82,8 +82,8 @@
       <textarea class="input" name="post" placeholder-class="placeholder" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{value}}" auto-focus="{{autoFocus}}" cursor="{{isRepost ? 0 : -1}}" />
       <view class="flex_between space_item">
         <button class="btn2 dim" formType="reset">取消</button>
-        <button class="btn2 dim" catchtap="photo">
-          <view>上传照片</view>
+        <button class="btn2 dim" catchtap="{{photoPaths[0] ? 'removePhoto' : 'addPhoto'}}" catchlongpress="{{photoPaths[0] ? 'removePhoto' : 'addGif'}}">
+          <text>上传照片</text>
           <image wx:if="{{photoPaths[0]}}" src="{{photoPaths[0]}}" mode="aspectFill" style='position:absolute;width:100%;height:100%;filter:brightness(0.9);' />
         </button>
         <button class="btn2" formType="submit">发送</button>
