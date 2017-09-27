@@ -13,7 +13,7 @@
       <template is="list_item" data="{{...logout}}" />
     </view>
   </view>
-  <view class="footer meta" catchtap="tapLink" data-link="https://github.com/fanfoujs/fanfou-weapp">
+  <view class="footer" catchtap="tapLink" data-link="https://github.com/fanfoujs/fanfou-weapp">
     <image mode="aspectFit" style="height: 16px; width: 16px;" src="../../assets/octicons-code.svg"></image>
     <text>with</text>
     <image mode="aspectFit" style="height: 16px; width: 12px;" src="../../assets/octicons-heart.svg"></image>

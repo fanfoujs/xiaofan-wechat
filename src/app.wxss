@@ -36,9 +36,6 @@ image {
   height: 48px;
   flex-shrink: 0;
   border-radius: 50%;
-}
-
-.feed .avatar {
   margin-right: 9px;
 }
 
@@ -270,6 +267,7 @@ image {
 .header .avatar {
   width: 60px;
   height: 60px;
+  margin: 0;
 }
 
 .info .name {
@@ -364,4 +362,10 @@ image {
   align-items: center;
   justify-content: center;
   padding: 0 0 36px;
+  color: #ced4e0;
+  font-size: 14px;
+}
+
+.footer text {
+  margin: 0 3px;
 }
