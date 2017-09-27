@@ -36,7 +36,7 @@ class User {
     this.fanfou_age = this._getFanfouAge()
     this.birth_date = this._getBirthDate()
     this.isMe = user.unique_id === getApp().globalData.account.user.unique_id
-    this.isSecret = user.protected === true && !user.following
+    this.isSecret = !this.isMe && (user.protected === true && !user.following)
   }
 
   _getSignName () {
