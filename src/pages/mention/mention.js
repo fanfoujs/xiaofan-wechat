@@ -25,7 +25,6 @@ Page(extend({}, tap, {
   onReachBottom () {
     fm.loadMore(this, urls[this.data.index], para)
   },
-  tapTxt () {},
   tapAvatar (e) {
     fm.showUser(e.currentTarget.dataset.user)
   },

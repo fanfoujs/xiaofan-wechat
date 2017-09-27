@@ -20,7 +20,6 @@ Page(extend({}, tap, {
   onReachBottom () {
     fm.loadMore(this, url, para)
   },
-  tapTxt () {},
   tapFeed (e) {
     fm.showFeed(e.currentTarget.dataset.feed)
   }

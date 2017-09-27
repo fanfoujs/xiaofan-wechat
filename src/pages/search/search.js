@@ -21,7 +21,6 @@ Page(extend({}, tap, {
     fm.load(this, url, para)
     this.loadTrendsAndSavedSearchesList()
   },
-  tapTxt () {},
   tapAvatar (e) {
     fm.showUser(e.currentTarget.dataset.user)
   },
