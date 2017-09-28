@@ -47,7 +47,6 @@ class Fanfou {
         username,
         password
       })
-
       ff.xauth((err, tokens) => {
         if (err) {
           reject(err)
@@ -101,8 +100,8 @@ class Fanfou {
       consumer_secret: CONSUMER_SECRET
     })
 
-    ff.get(uri, params, tokens, (e, res, obj) => {
-      callback(e, res, obj)
+    ff.get(uri, params, tokens, (e, res) => {
+      callback(e, res)
     })
   }
 
@@ -123,11 +122,12 @@ class Fanfou {
         consumer_secret
       })
 
-      ff.get(uri, params, tokens, (e, res, obj) => {
+      ff.get(uri, params, tokens, (e, res) => {
         if (e) {
-          return reject(e)
+          reject(e)
+        } else {
+          resolve(res)
         }
-        return resolve({res, obj})
       })
     })
   }
@@ -139,8 +139,8 @@ class Fanfou {
       consumer_secret: CONSUMER_SECRET
     })
 
-    ff.get(uri, params, tokens, (e, res, obj) => {
-      callback(e, res, obj)
+    ff.post(uri, params, tokens, (e, res) => {
+      callback(e, res)
     })
   }
 
@@ -162,11 +162,12 @@ class Fanfou {
         consumer_secret
       })
 
-      ff.post(uri, params, tokens, (e, res, obj) => {
+      ff.post(uri, params, tokens, (e, res) => {
         if (e) {
-          return reject(e)
+          reject(e)
+        } else {
+          resolve(res)
         }
-        return resolve({res, obj})
       })
     })
   }
@@ -178,8 +179,8 @@ class Fanfou {
       consumer_secret: CONSUMER_SECRET
     })
 
-    ff.upload(filePaths, text, tokens, (e, res, obj) => {
-      callback(e, res, obj)
+    ff.upload(filePaths, text, tokens, (e, res) => {
+      callback(e, res)
     })
   }
 
@@ -200,18 +201,13 @@ class Fanfou {
         consumer_secret
       })
 
-      ff.upload(filePaths, param.status, tokens, (err, res, obj) => {
+      ff.upload(filePaths, param.status, tokens, (err, res) => {
         if (err) {
           reject(err)
         } else {
           try {
             const result = JSON.parse(res)
-            const error = result.error
-            if (error) {
-              reject(error)
-            } else {
-              resolve({res, obj})
-            }
+            resolve(result)
           } catch (err) {
             reject(err)
           }

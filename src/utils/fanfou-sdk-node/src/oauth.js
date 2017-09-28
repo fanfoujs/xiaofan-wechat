@@ -11,10 +11,16 @@ Object.assign(OAuth.prototype, {
       x_auth_username: username
     }
 
-    this._performSecureRequest(null, null, this._clientOptions.accessTokenHttpMethod, this._accessUrl, xauthParams, null, null, (error, data) => {
+    this._performSecureRequest(null, null, this._clientOptions.accessTokenHttpMethod, this._accessUrl, xauthParams, null, null, (error, data, response) => {
       if (error) {
         callback(error)
       } else {
+        const contentType = response.header['Content-Type']
+        if (contentType.match(/application\/xml/)) {
+          const error = data.match(/<error>(.*)<\/error>/)
+          callback(new Error(error))
+          return
+        }
         const results = qs.parse(data)
         const oauthAccessToken = results.oauth_token
         delete results.oauth_token

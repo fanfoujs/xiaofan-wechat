@@ -19,7 +19,7 @@ function updateNotis () {
     getApp().globalData.account.consumer_key === CONSUMER_KEY
   ) {
     ff.getPromise('/account/notification').then(res => {
-      getApp().globalData.notis = res.res
+      getApp().globalData.notis = res
       render()
     })
   }
