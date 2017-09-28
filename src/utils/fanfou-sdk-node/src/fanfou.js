@@ -81,7 +81,7 @@ class Fanfou {
               arr.push(new Status(data[i]))
             }
           }
-          callback(null, data, arr)
+          callback(null, arr)
         } else if (Fanfou._uriType(uri) === 'status') {
           callback(null, data, new Status(data))
         } else if (Fanfou._uriType(uri) === 'users') {
@@ -91,11 +91,11 @@ class Fanfou {
               arr.push(new User(data[i]))
             }
           }
-          callback(null, data, arr)
+          callback(null, arr)
         } else if (Fanfou._uriType(uri) === 'user') {
-          callback(null, data, new User(data))
+          callback(null, new User(data))
         } else {
-          callback(null, data, null)
+          callback(null, data)
         }
       }
     )
@@ -110,7 +110,9 @@ class Fanfou {
       parameters,
       (e, data) => {
         if (e) {
-          callback(e, null)
+          callback(e)
+        } else if (data.error) {
+          callback(null, data)
         } else if (Fanfou._uriType(uri) === 'timeline') {
           const arr = []
           for (const i in data) {
@@ -118,11 +120,11 @@ class Fanfou {
               arr.push(new Status(data[i]))
             }
           }
-          callback(null, data, arr)
+          callback(null, arr)
         } else if (Fanfou._uriType(uri) === 'status') {
-          callback(null, data, new Status(data))
+          callback(null, new Status(data))
         } else {
-          callback(null, data, null)
+          callback(null, data)
         }
       }
     )
@@ -164,7 +166,7 @@ class Fanfou {
       },
       success (res) {
         const data = res.data
-        callback(null, data, data)
+        callback(null, data)
       },
       fail () {
         callback(new Error('upload failed'))

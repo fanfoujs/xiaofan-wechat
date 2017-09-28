@@ -31,14 +31,14 @@ Page(extend({}, tap, {
     ff.getPromise('/trends/list')
       .then(res => {
         this.setData({
-          trends: res.res.trends
+          trends: res.trends
         })
       })
       .catch(err => console.error(err))
     ff.getPromise('/saved_searches/list')
       .then(res => {
         this.setData({
-          saved_searches: res.res
+          saved_searches: res
         })
       })
       .catch(err => console.error(err))
@@ -55,7 +55,7 @@ Page(extend({}, tap, {
       }
       ff.postPromise('/saved_searches/create', {query: e.detail.value})
         .then(res => {
-          this.setData({['saved_searches[' + this.data.saved_searches.length + ']']: res.res})
+          this.setData({['saved_searches[' + this.data.saved_searches.length + ']']: res})
         })
         .catch(err => console.error(err))
     })

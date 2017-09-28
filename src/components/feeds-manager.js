@@ -20,10 +20,10 @@ function loadMore (page, url, para) {
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
       page.isloadingmore = false
-      if (res.obj.length > 0 && maxId === res.obj[0].id) {
-        res.obj.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
+      if (res.length > 0 && maxId === res[0].id) {
+        res.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
       }
-      if (res.obj.length === 0) {
+      if (res.length === 0) {
         wx.showToast({
           title: '没有了',
           image: '/assets/toast_blank.png',
@@ -35,7 +35,7 @@ function loadMore (page, url, para) {
         return
       }
       page.setData({
-        ['feeds_arr[' + page.data.feeds_arr.length + ']']: res.obj
+        ['feeds_arr[' + page.data.feeds_arr.length + ']']: res
       })
     })
     .catch(err => {
@@ -55,7 +55,7 @@ function load (page, url, para, completion) {
       page.isloadingmore = false // 防止刷不出来更多，在这里重置下
       page.setData({
         hideLoader: false, // 由于清空了全部，要重置加载更多标记
-        feeds_arr: [res.obj] // 清空了全部，todo 只加载最新
+        feeds_arr: [res] // 清空了全部，todo 只加载最新
       })
       if (typeof completion === 'function') {
         completion(page)
@@ -154,7 +154,15 @@ function post (param, photoPaths, page, direct) {
     '已回复' : '已发布'
   if (photoPaths) {
     ff.uploadPromise(photoPaths, param)
-      .then(() => {
+      .then(res => {
+        if (res.error) {
+          wx.showToast({
+            title: res.error,
+            image: '/assets/toast_fail.png',
+            duration: 500
+          })
+          return
+        }
         if (direct) {
           wx.switchTab({
             url: '/pages/home/home',
@@ -188,7 +196,15 @@ function post (param, photoPaths, page, direct) {
       })
   } else {
     ff.postPromise('/statuses/update', param)
-      .then(() => {
+      .then(res => {
+        if (res.error) {
+          wx.showToast({
+            title: '发送失败',
+            image: '/assets/toast_fail.png',
+            duration: 500
+          })
+          return
+        }
         if (direct) {
           wx.switchTab({
             url: '/pages/home/home',
@@ -239,7 +255,7 @@ function loadUser (id, page) {
   ff.getPromise('/users/show', {id, format: 'html'})
     .then(res => {
       wx.stopPullDownRefresh()
-      const user = res.obj
+      const user = res
       page.setData({user})
     })
     .catch(err => console.error(err))
@@ -255,8 +271,8 @@ function loadFeed (id, page) {
     .then(res => {
       wx.stopPullDownRefresh()
       page.setData({
-        feed: res.obj,
-        feeds: [res.obj]
+        feed: res,
+        feeds: [res]
       })
     })
     .catch(err => console.error(err))
@@ -294,17 +310,18 @@ function navigateTo (url, success) {
 
 function follow (user, page) {
   ff.postPromise('/friendships/create', {id: user.id})
-    .then(() => {
-      page.setData({'relationship.following': true})
+    .then(res => {
+      if (res.error) {
+        wx.showModal({
+          content: `已向 ${user.name} 发出关注请求，请等待确认。`,
+          showCancel: false,
+          confirmText: '好的'
+        })
+      } else {
+        page.setData({'relationship.following': true})
+      }
     })
-    .catch(err => {
-      wx.showModal({
-        content: `已向 ${user.name} 发出关注请求，请等待确认。`,
-        showCancel: false,
-        confirmText: '好的'
-      })
-      console.error(err)
-    })
+    .catch(err => console.error(err))
 }
 
 function unfollow (user, page) {
@@ -313,10 +330,10 @@ function unfollow (user, page) {
     success (res) {
       if (!res.cancel) {
         ff.postPromise('/friendships/destroy', {id: user.id})
-        .then(() => {
-          page.setData({'relationship.following': false})
-        })
-        .catch(err => console.error(err))
+          .then(() => {
+            page.setData({'relationship.following': false})
+          })
+          .catch(err => console.error(err))
       }
     }
   })
@@ -352,9 +369,9 @@ function relationship (targetId, page) {
   }).then(res => {
     page.setData({
       relationship: {
-        following: res.res.relationship.source.following === 'true',
-        followed_by: res.res.relationship.source.followed_by === 'true',
-        blocking: res.res.relationship.source.blocking === 'true'
+        following: res.relationship.source.following === 'true',
+        followed_by: res.relationship.source.followed_by === 'true',
+        blocking: res.relationship.source.blocking === 'true'
       }
     })
   }).catch(err => console.error(err))

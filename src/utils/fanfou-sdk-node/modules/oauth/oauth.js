@@ -357,21 +357,12 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
     data: post_body,
     method: method,
     success: function (res) {
-      // simple http status code check
-      if (res.statusCode >= 400) {
-        callback(res.data || 'request failed')
-      } else {
-        callback(null, res.data, res)
-      }
+      callback(null, res.data, res)
     },
     fail: function (err) {
       callback(err)
-    },
-    complete: function () {
-
     }
   });
-
   return;
 }
 
