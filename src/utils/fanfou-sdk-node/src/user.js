@@ -35,8 +35,20 @@ class User {
     this.sign_name = this._getSignName()
     this.fanfou_age = this._getFanfouAge()
     this.birth_date = this._getBirthDate()
-    this.isMe = user.unique_id === getApp().globalData.account.user.unique_id
-    this.isSecret = !this.isMe && (user.protected === true && !user.following)
+    this.is_me = this._isMe(user)
+    this.is_secret = user.protected && !user.following && !this.is_me
+  }
+
+  _isMe (user) {
+    if (
+      getApp() &&
+      getApp().globalData &&
+      getApp().globalData.account &&
+      getApp().globalData.account.user &&
+      getApp().globalData.account.user.unique_id
+    ) {
+      return user.unique_id === getApp().globalData.account.user.unique_id
+    }
   }
 
   _getSignName () {
