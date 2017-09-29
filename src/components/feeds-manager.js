@@ -156,10 +156,10 @@ function post (param, photoPaths, page, direct) {
     ff.uploadPromise(photoPaths, param)
       .then(res => {
         if (res.error) {
-          wx.showToast({
-            title: res.error,
-            image: '/assets/toast_fail.png',
-            duration: 500
+          wx.showModal({
+            content: res.error,
+            showCancel: false,
+            confirmText: '好的'
           })
           return
         }
