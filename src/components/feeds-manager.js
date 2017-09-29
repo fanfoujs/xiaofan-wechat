@@ -156,6 +156,7 @@ function post (param, photoPaths, page, direct) {
     ff.uploadPromise(photoPaths, param)
       .then(res => {
         if (res.error) {
+          wx.hideLoading()
           wx.showModal({
             content: res.error,
             showCancel: false,
