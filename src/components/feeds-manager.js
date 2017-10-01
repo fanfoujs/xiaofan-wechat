@@ -26,7 +26,7 @@ function loadMore (page, url, para) {
       }
       if (res.length < param.count) {
         wx.showToast({
-          title: '没有了',
+          title: '没有更多了',
           image: '/assets/toast_blank.png',
           duration: 500
         })
@@ -51,18 +51,10 @@ function load (page, url, para, completion) {
   }, para)
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
-      const hideLoader = res.length < param.count
-      if (hideLoader) {
-        wx.showToast({
-          title: '没有了',
-          image: '/assets/toast_blank.png',
-          duration: 500
-        })
-      }
       wx.stopPullDownRefresh()
       page.isloadingmore = false // 防止刷不出来更多，在这里重置下
       page.setData({
-        hideLoader, // 由于清空了全部，要重置加载更多标记
+        hideLoader: res.length < param.count,
         feeds_arr: [res] // 清空了全部，todo 只加载最新
       })
       if (typeof completion === 'function') {

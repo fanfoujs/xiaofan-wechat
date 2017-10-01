@@ -320,8 +320,12 @@ image {
   height: 30px;
 }
 
-.at, .link, .active {
+.at, .link {
   color: #33a5ff;
+}
+
+.active {
+  color: #000;
 }
 
 .btn1, .btn2, .btn3, .btn4, .badge, .noti {
