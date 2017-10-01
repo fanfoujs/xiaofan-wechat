@@ -22,7 +22,7 @@
 <template name="feeds">
   <view wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" wx:if="{{rawid ? (isBefore ? rawid > feed.rawid : rawid < feed.rawid) : true}}" class="feed {{rawid ? 'animated expand' : ''}}" data-feed="{{feed}}" catchtap="tapFeed">
     <image class="avatar {{rawid ? 'small_avatar' : ''}}" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar" />
-    <view class="after_avatar">
+    <view class="after_avatar full_width">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
         <text class="meta">{{feed.time_ago}}</text>
@@ -57,7 +57,7 @@
 <template name="feed">
   <view class="feed">
     <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
-    <view class="after_avatar">
+    <view class="after_avatar full_width">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
         <text class="meta">{{feed.time_tag}} {{feed.source_name}}</text>
@@ -80,7 +80,7 @@
   <view class="post">
     <form bindsubmit="post" bindreset="reset">
       <textarea class="input" name="post" placeholder-class="placeholder" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{value}}" auto-focus="{{autoFocus}}" cursor="{{isRepost ? 0 : -1}}" />
-      <view class="flex_between space_item">
+      <view class="flex_between space_item_v">
         <button class="btn2 dim" formType="reset">取消</button>
         <button class="btn2 dim" catchtap="{{photoPaths[0] ? 'removePhoto' : 'addPhoto'}}" catchlongpress="{{photoPaths[0] ? 'removePhoto' : 'addGif'}}">
           <text>上传照片</text>
@@ -148,13 +148,13 @@
       <view>饭龄：{{user.fanfou_age}}</view>
       <image wx:if="{{user.protected}}" class="protected" src="/assets/private.svg"/>
     </view>
-    <view wx:if="{{relationship}}" class="flex_between space_item">
-      <view wx:if="{{relationship.following && relationship.followed_by}}" class="btn3 dim" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">互相关注</view>
-      <view wx:elif="{{!relationship.following && relationship.followed_by}}" class="btn3" catchtap="follow" catchlongpress="block" data-user="{{user}}">回 fo</view>
-      <view wx:elif="{{relationship.following && !relationship.followed_by}}" class="btn3 dim" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">已关注</view>
-      <view wx:elif="{{relationship.blocking}}" class="btn3 dark" catchtap="unblock" data-user="{{user}}">已拉黑</view>
-      <view wx:else class="btn3" catchtap="follow" catchlongpress="block" data-user="{{user}}">关注</view>
-      <view class="btn3" catchtap="sendMessages" data-user="{{user}}">私信</view>
+    <view wx:if="{{relationship}}" class="flex_between space_item_v">
+      <view wx:if="{{relationship.following && relationship.followed_by}}" class="btn3 dim space_item_h" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">互相关注</view>
+      <view wx:elif="{{!relationship.following && relationship.followed_by}}" class="btn3 space_item_h" catchtap="follow" catchlongpress="block" data-user="{{user}}">回 fo</view>
+      <view wx:elif="{{relationship.following && !relationship.followed_by}}" class="btn3 dim space_item_h" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">已关注</view>
+      <view wx:elif="{{relationship.blocking}}" class="btn3 dark space_item_h" catchtap="unblock" data-user="{{user}}">已拉黑</view>
+      <view wx:else class="btn3 space_item_h" catchtap="follow" catchlongpress="block" data-user="{{user}}">关注</view>
+      <view class="btn3 space_item_h" catchtap="sendMessages" data-user="{{user}}">私信</view>
     </view>
   </view>
   <view class="section">
@@ -166,20 +166,26 @@
   </view>
   <view class="section">
       <view class="list">
-        <template is="list_item" data="{{name: '关注', detail: user.friends_count, user, url: '/users/friends',  page: '../users/users'}}" />
-        <template is="list_item" data="{{name: '被关注', detail: user.followers_count, user, url: '/users/followers',  page: '../users/users'}}" />
+        <template is="list_item" data="{{name: user.taBegin + '关注', detail: user.friends_count, user, url: '/users/friends',  page: '../users/users'}}" />
+        <template is="list_item" data="{{name: user.taBegin + '被关注', detail: user.followers_count, user, url: '/users/followers',  page: '../users/users'}}" />
       </view>
     </view>
 </template>
 
 <!--users-->
 <template name="users_arr">
-  <template wx:for="{{users_arr}}" wx:key="ignorekeywarn" wx:for-item="users" is="users" data="{{users}}" />
+  <template wx:for="{{users_arr}}" wx:key="ignorekeywarn" wx:for-item="users" is="users" data="{{users, name}}" />
 </template>
 
 <template name="users">
-  <view wx:for="{{users}}" wx:key="ignorekeywarn" class="user" data-user="{{item}}" catchtap="tapAvatar">
-    <image class="avatar" src="{{item.profile_image_url_large}}" />
-    <view class="name">{{item.name}}</view>
+  <view wx:for="{{users}}" wx:key="ignorekeywarn" class="user flex_between" data-user="{{item}}" catchtap="tapAvatar">
+    <view class="cell_item full_width">
+      <image class="avatar" src="{{item.profile_image_url_large}}" />
+      <view class="name">{{item.name}}</view>
+    </view>
+    <view wx:if="{{name === '关注申请'}}" class="cell_item">
+      <view wx:if="{{!item.accept}}" class="btn2 dim space_item_h" data-user="{{item}}" catchtap="deny">拒绝</view>
+      <view class="btn2 space_item_h {{item.accept ? 'green' : ''}}" data-user="{{item}}" catchtap="accept">{{item.accept ? '已通过' : '通过'}}</view>
+    </view>
   </view>
 </template>

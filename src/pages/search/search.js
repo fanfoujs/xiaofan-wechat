@@ -5,20 +5,17 @@ const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 
 const url = '/statuses/public_timeline'
-const {TIMELINE_COUNT} = require('../../config/fanfou')
-
-const para = {count: TIMELINE_COUNT}
 
 Page(extend({}, tap, {
   onLoad () {
-    fm.load(this, url, para)
+    fm.load(this, url)
     this.loadTrendsAndSavedSearchesList()
   },
   onShow () {
     tab.updateNotis()
   },
   onPullDownRefresh () {
-    fm.load(this, url, para)
+    fm.load(this, url)
     this.loadTrendsAndSavedSearchesList()
   },
   tapAvatar (e) {

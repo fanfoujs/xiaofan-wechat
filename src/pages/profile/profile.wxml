@@ -9,7 +9,7 @@
   </view>
   <view class="section">
     <view class="list">
-      <template is="list_item" data="{{...change_profile,  page: '../change-profile/change-profile'}}" />
+      <template is="list_item" data="{{...change_profile,  page: '../changeprofile/changeprofile'}}" />
       <template is="list_item" data="{{...logout}}" />
     </view>
   </view>

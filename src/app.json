@@ -14,7 +14,7 @@
     "pages/login/login",
     "pages/test/test",
     "pages/users/users",
-    "pages/change-profile/change-profile"
+    "pages/changeprofile/changeprofile"
   ],
   "window": {
     "backgroundColor": "#FFF",

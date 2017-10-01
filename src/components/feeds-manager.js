@@ -3,7 +3,7 @@ const ff = require('../utils/fanfou')
 const {TIMELINE_COUNT} = require('../config/fanfou')
 
 function loadMore (page, url, para) {
-  if (page.isloadingmore) {
+  if (page.isloadingmore || page.data.hideLoader) {
     return
   }
   page.isloadingmore = true
@@ -22,8 +22,9 @@ function loadMore (page, url, para) {
       page.isloadingmore = false
       if (res.length > 0 && maxId === res[0].id) {
         res.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
+        param.count -= 1
       }
-      if (res.length === 0) {
+      if (res.length < param.count) {
         wx.showToast({
           title: '没有了',
           image: '/assets/toast_blank.png',
@@ -32,7 +33,6 @@ function loadMore (page, url, para) {
         page.setData({
           hideLoader: true
         })
-        return
       }
       page.setData({
         ['feeds_arr[' + page.data.feeds_arr.length + ']']: res
@@ -51,10 +51,18 @@ function load (page, url, para, completion) {
   }, para)
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
+      const hideLoader = res.length < param.count
+      if (hideLoader) {
+        wx.showToast({
+          title: '没有了',
+          image: '/assets/toast_blank.png',
+          duration: 500
+        })
+      }
       wx.stopPullDownRefresh()
       page.isloadingmore = false // 防止刷不出来更多，在这里重置下
       page.setData({
-        hideLoader: false, // 由于清空了全部，要重置加载更多标记
+        hideLoader, // 由于清空了全部，要重置加载更多标记
         feeds_arr: [res] // 清空了全部，todo 只加载最新
       })
       if (typeof completion === 'function') {
@@ -314,7 +322,7 @@ function follow (user, page) {
     .then(res => {
       if (res.error) {
         wx.showModal({
-          content: `已向 ${user.name} 发出关注请求，请等待确认。`,
+          content: res.error,
           showCancel: false,
           confirmText: '好的'
         })
@@ -347,7 +355,11 @@ function block (user, page) {
       if (!res.cancel) {
         ff.postPromise('/blocks/create', {id: user.id})
           .then(() => {
-            page.setData({'relationship.blocking': true})
+            page.setData({
+              'relationship.blocking': true,
+              'relationship.following': false,
+              'relationship.followed_by': false
+            })
           })
           .catch(err => console.error(err))
       }
@@ -378,6 +390,55 @@ function relationship (targetId, page) {
   }).catch(err => console.error(err))
 }
 
+function accept (user, page) {
+  ff.postPromise('/friendships/accept', {id: user.unique_id})
+  .then(res => {
+    if (res.error) {
+      wx.showModal({
+        content: res.error,
+        showCancel: false,
+        confirmText: '好的'
+      })
+    } else {
+      console.log(res)
+      for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
+        for (const [feedIndex, feed] of feeds.entries()) {
+          if (feed.unique_id === user.unique_id) {
+            page.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].accept`]: true})
+            return
+          }
+        }
+      }
+    }
+  })
+  .catch(err => console.error(err))
+}
+
+function deny (user, page) {
+  ff.postPromise('/friendships/deny', {id: user.unique_id})
+  .then(res => {
+    if (res.error) {
+      wx.showModal({
+        content: res.error,
+        showCancel: false,
+        confirmText: '好的'
+      })
+    } else {
+      console.log(res)
+      for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
+        for (const [feedIndex, feed] of feeds.entries()) {
+          if (feed.unique_id === user.unique_id) {
+            page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
+            page.setData({[`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]})
+            return
+          }
+        }
+      }
+    }
+  })
+  .catch(err => console.error(err))
+}
+
 module.exports.load = load
 module.exports.loadMore = loadMore
 module.exports.destroy = destroy
@@ -397,3 +458,5 @@ module.exports.navigateTo = navigateTo
 module.exports.relationship = relationship
 module.exports.block = block
 module.exports.unblock = unblock
+module.exports.accept = accept
+module.exports.deny = deny

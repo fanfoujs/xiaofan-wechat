@@ -16,7 +16,7 @@ Page(extend({}, tap, {
     },
     change_profile: {
       name: '修改资料',
-      page: '../change-profile/change-profile'
+      page: '../changeprofile/changeprofile'
     },
     logout: {
       name: '切换账号',

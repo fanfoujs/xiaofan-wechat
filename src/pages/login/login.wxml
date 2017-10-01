@@ -3,7 +3,7 @@
 <form wx:if="{{!authorized}}" bindsubmit="login">
   <input class="input_bar" name="username" placeholder-class="placeholder" placeholder="用户名" />
   <input class="input_bar" name="password" placeholder-class="placeholder" password="{{true}}" placeholder="密码" />
-  <button class="btn1 space_side space_item" formType="submit">登录</button>
+  <button class="btn1 space_side space_item_v" formType="submit">登录</button>
 </form>
 
 <template is="section" data="{{list: accounts}}" />
