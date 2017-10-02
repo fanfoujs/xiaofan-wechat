@@ -328,7 +328,7 @@ image {
   color: #000;
 }
 
-.btn1, .btn2, .btn3, .btn4, .badge, .noti {
+.btn1, .btn2, .btn3, .btn4, .badge, .noti, .tint {
   background: #33a5ff;
 }
 

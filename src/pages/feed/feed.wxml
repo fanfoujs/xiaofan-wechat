@@ -7,6 +7,6 @@
 </block>
 <block wx:if="{{param}}">
   <view class="mask">
-    <template is="post" data="{{value: param.status, photoPaths, autoFocus: true, isRepost: param.repost_status_id}}" />
+    <template is="post" data="{{param, photoPaths, posting, autoFocus: true}}" />
   </view>
 </block>

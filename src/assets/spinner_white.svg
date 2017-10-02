@@ -11,18 +11,18 @@
 
     @keyframes dash {
       0% {
-        transform: rotate(0deg);
         stroke-dasharray: 0,502;
         stroke-dashoffset: 0;
+        transform: rotate(-90deg);
       }
       50% {
-        stroke-dasharray: 380,502;
-        stroke-dashoffset: -122;
+        stroke-dasharray: 378,502;
+        stroke-dashoffset: -127;
       }
       to {
-        transform: rotate(360deg);
-        stroke-dasharray: 380,502;
+        stroke-dasharray: 0,502;
         stroke-dashoffset: -502;
+        transform: rotate(270deg);
       }
     }
   /* ]]> */

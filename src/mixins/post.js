@@ -3,7 +3,8 @@ const fm = require('../components/feeds-manager')
 module.exports = {
   data: {
     param: null,
-    photoPaths: null
+    photoPaths: null,
+    posting: false
   },
   post (e) {
     const param = Object.assign(this.data.param || {}, {status: e.detail.value.post})
@@ -12,7 +13,8 @@ module.exports = {
   reset () {
     this.setData({
       param: null,
-      photoPaths: null
+      photoPaths: null,
+      posting: false
     })
   },
   addPhoto () {

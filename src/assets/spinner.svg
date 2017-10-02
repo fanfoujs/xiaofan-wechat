@@ -13,7 +13,7 @@
       0% {
         stroke-dasharray: 0,502;
         stroke-dashoffset: 0;
-        transform: rotate(0deg);
+        transform: rotate(-90deg);
       }
       50% {
         stroke-dasharray: 378,502;
@@ -22,7 +22,7 @@
       to {
         stroke-dasharray: 0,502;
         stroke-dashoffset: -502;
-        transform: rotate(360deg);
+        transform: rotate(270deg);
       }
     }
   /* ]]> */
