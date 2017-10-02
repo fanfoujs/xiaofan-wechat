@@ -74,6 +74,8 @@ class Fanfou {
       (e, data) => {
         if (e) {
           callback(e, null, null)
+        } else if (data.error) {
+          callback(null, data)
         } else if (Fanfou._uriType(uri) === 'timeline') {
           const arr = []
           for (const i in data) {
@@ -83,7 +85,7 @@ class Fanfou {
           }
           callback(null, arr)
         } else if (Fanfou._uriType(uri) === 'status') {
-          callback(null, data, new Status(data))
+          callback(null, new Status(data))
         } else if (Fanfou._uriType(uri) === 'users') {
           const arr = []
           for (const i in data) {

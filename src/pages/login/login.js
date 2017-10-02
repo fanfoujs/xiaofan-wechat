@@ -22,7 +22,7 @@ Page({
         wx.showToast({
           title: '登录失败',
           image: '/assets/toast_fail.png',
-          duration: 500
+          duration: 900
         })
       })
   },

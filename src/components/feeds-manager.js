@@ -28,7 +28,7 @@ function loadMore (page, url, para) {
         wx.showToast({
           title: '没有更多了',
           image: '/assets/toast_blank.png',
-          duration: 500
+          duration: 900
         })
         page.setData({
           hideLoader: true
@@ -81,7 +81,7 @@ function favoriteChange (page) {
         wx.showToast({
           title: '错误',
           image: '/assets/toast_fail.png',
-          duration: 500
+          duration: 900
         })
         console.error(err)
       })
@@ -96,7 +96,7 @@ function favoriteChange (page) {
         wx.showToast({
           title: '错误',
           image: '/assets/toast_fail.png',
-          duration: 500
+          duration: 900
         })
         console.error(err)
       })
@@ -111,7 +111,7 @@ function destroy (id) {
           wx.showToast({
             title: '已删除',
             image: '/assets/toast_delete.png',
-            duration: 500
+            duration: 900
           })
           // 模拟器和 iOS 不一样，模拟器转场快 -1 生效，iOS 转场慢 -2 生效，待测试 Android
           const page = getCurrentPages().slice(-2)[0]
@@ -133,7 +133,7 @@ function destroy (id) {
       wx.showToast({
         title: '错误',
         image: '/assets/toast_fail.png',
-        duration: 500
+        duration: 900
       })
       console.error(err)
     })
@@ -171,7 +171,7 @@ function post (param, photoPaths, page, direct) {
               wx.showToast({
                 title,
                 image,
-                duration: 500
+                duration: 900
               })
             }
           })
@@ -179,7 +179,7 @@ function post (param, photoPaths, page, direct) {
           wx.showToast({
             title,
             image,
-            duration: 500
+            duration: 900
           })
         }
         page.setData({
@@ -191,7 +191,7 @@ function post (param, photoPaths, page, direct) {
         wx.showToast({
           title: '错误',
           image: '/assets/toast_fail.png',
-          duration: 500
+          duration: 900
         })
         console.error(err)
       })
@@ -202,7 +202,7 @@ function post (param, photoPaths, page, direct) {
           wx.showToast({
             title: '发送失败',
             image: '/assets/toast_fail.png',
-            duration: 500
+            duration: 900
           })
           return
         }
@@ -213,7 +213,7 @@ function post (param, photoPaths, page, direct) {
               wx.showToast({
                 title,
                 image,
-                duration: 500
+                duration: 900
               })
             }
           })
@@ -221,7 +221,7 @@ function post (param, photoPaths, page, direct) {
           wx.showToast({
             title,
             image,
-            duration: 500
+            duration: 900
           })
         }
         page.setData({
@@ -233,7 +233,7 @@ function post (param, photoPaths, page, direct) {
         wx.showToast({
           title: '错误',
           image: '/assets/toast_fail.png',
-          duration: 500
+          duration: 900
         })
         console.error(err)
       })
@@ -267,14 +267,19 @@ function showFeed (feed, id) {
   this.navigateTo(`../feed/feed?id=${id || feed.id}`)
 }
 
-function loadFeed (id, page) {
+function loadFeed (page, id) {
   ff.getPromise('/statuses/show', {id, format: 'html'})
     .then(res => {
+      if (res.error) {
+        console.log(res)
+        wx.showModal({
+          content: res.error,
+          showCancel: false,
+          confirmText: '好的'
+        })
+      }
       wx.stopPullDownRefresh()
-      page.setData({
-        feed: res,
-        feeds: [res]
-      })
+      page.setData({feed: res})
     })
     .catch(err => console.error(err))
 }

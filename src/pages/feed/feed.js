@@ -9,14 +9,15 @@ Page(extend({}, tap, post, {
     feeds: []
   }
 }, {
-  onLoad () {
-    const page = this
+  onLoad (e) {
     const feed = getApp().globalData.feed
-    page.setData({
-      feed
-    })
+    this.setData({feed})
+    if (!feed) {
+      fm.loadFeed(this, e.id)
+    }
+    const that = this
     setTimeout(() => {
-      fm.load(page, '/statuses/context_timeline', {id: feed.id})
+      fm.load(that, '/statuses/context_timeline', {id: e.id})
     }, 600)
   },
   reply () {

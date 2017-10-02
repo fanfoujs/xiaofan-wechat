@@ -20,6 +20,16 @@ module.exports = {
   tapFeed (e) {
     fm.showFeed(e.currentTarget.dataset.feed)
   },
+  tapFeedDetail (e) {
+    const feed = e.currentTarget.dataset.feed
+    if (feed.repost_status) {
+      fm.showFeed(feed.repost_status)
+    } else if (feed.repost_status_id) {
+      fm.showFeed(null, feed.repost_status_id)
+    } else if (feed.in_reply_to_status_id) {
+      fm.showFeed(null, feed.in_reply_to_status_id)
+    }
+  },
   tapListItem (e) {
     fm.navigateTo(`${e.currentTarget.dataset.page}?url=${e.currentTarget.dataset.url}&id=${this.data.user.id}&name=${e.currentTarget.dataset.name}`)
   },
