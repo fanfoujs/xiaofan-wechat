@@ -1,3 +1,4 @@
 <import src="/components/templates.wxml" />
 work in progress...
-<!-- <template wx:if="{{!hideLoader}}" is="loader" /> -->
+<template is="messages_arr" data="{{messages_arr: feeds_arr}}" />
+<template wx:if="{{showLoader}}" is="loader" />

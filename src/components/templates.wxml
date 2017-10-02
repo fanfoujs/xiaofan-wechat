@@ -82,7 +82,7 @@
       <textarea class="input" name="post" placeholder-class="placeholder" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{param.status}}" auto-focus="{{autoFocus}}" cursor="{{param.repost_status_id ? 0 : -1}}" />
       <view class="flex_between space_item_v">
         <button class="btn2 dim" formType="reset">取消</button>
-        <button class="btn2 dim" catchtap="{{photoPaths[0] ? 'removePhoto' : 'addPhoto'}}" catchlongpress="{{photoPaths[0] ? 'removePhoto' : 'addGif'}}">
+        <button wx:if="{{!noPhoto}}" class="btn2 dim" catchtap="{{photoPaths[0] ? 'removePhoto' : 'addPhoto'}}" catchlongpress="{{photoPaths[0] ? 'removePhoto' : 'addGif'}}">
           <text>上传照片</text>
           <image wx:if="{{photoPaths[0]}}" src="{{photoPaths[0]}}" mode="aspectFill" style='position:absolute;width:100%;height:100%;filter:brightness(0.9);' />
         </button>
@@ -109,6 +109,15 @@
     </view>
     <view wx:if="{{feed.user.is_me}}" class="flex_item" catchtap="destroy">
       <image src="/assets/delete.svg" class="size30" />
+    </view>
+  </view>
+</template>
+
+<!--toobar-->
+<template name="toolbar_msg">
+  <view class="toolbar">
+    <view class="flex_item" catchtap="reply">
+      <image src="/assets/reply.svg" class="size30" />
     </view>
   </view>
 </template>
@@ -157,7 +166,7 @@
       <view wx:elif="{{relationship.following && !relationship.followed_by}}" class="btn3 dim space_item_h" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">已关注</view>
       <view wx:elif="{{relationship.blocking}}" class="btn3 dark space_item_h" catchtap="unblock" data-user="{{user}}">已拉黑</view>
       <view wx:else class="btn3 space_item_h" catchtap="follow" catchlongpress="block" data-user="{{user}}">关注</view>
-      <view class="btn3 space_item_h" catchtap="sendMessages" data-user="{{user}}">私信</view>
+      <view class="btn3 space_item_h" catchtap="message" data-user="{{user}}">私信</view>
     </view>
   </view>
   <view class="section">
@@ -190,5 +199,36 @@
       <view wx:if="{{!item.accept}}" class="btn2 dim space_item_h" data-user="{{item}}" catchtap="deny">拒绝</view>
       <view class="btn2 space_item_h {{item.accept ? 'green' : ''}}" data-user="{{item}}" catchtap="accept">{{item.accept ? '已通过' : '通过'}}</view>
     </view>
+  </view>
+</template>
+
+<!--messages-->
+<template name="messages_arr">
+  <template wx:for="{{messages_arr}}" wx:key="ignorekeywarn" wx:for-item="messages" is="messages" data="{{messages}}" />
+</template>
+
+<template name="messages">
+  <view wx:for="{{messages}}" wx:for-item="message" wx:key="ignorekeywarn" class="feed" data-message="{{message}}" catchtap="tapMessage">
+    <image class="avatar" src="{{message.dm.sender.id === message.otherid ? message.dm.sender.profile_image_url_large : message.dm.recipient.profile_image_url_large}}" data-user="{{message.dm.sender.id === message.otherid ? message.dm.sender : message.dm.recipient}}" catchtap="tapAvatar" />
+    <view class="after_avatar full_width">
+      <view class="topline">
+        <text class="name">{{message.dm.sender.id === message.otherid ? message.dm.sender.name : message.dm.recipient.name}}</text>
+        <text class="meta">{{message.dm.created_at}}</text>
+        <text wx:if="{{message.new_conv}}" class="meta">new</text>
+      </view>
+      <text>{{message.dm.text}}</text>
+    </view>
+  </view>
+</template>
+
+<!--message-->
+<template name="message_arr">
+  <template wx:for="{{message_arr}}" wx:key="ignorekeywarn" wx:for-item="message" is="message" data="{{message}}" />
+</template>
+
+<template name="message">
+  <view wx:for="{{message}}" wx:for-item="msg" wx:key="id" class="msg">
+    <text class="bubble {{msg.is_me ? 'tint' : ''}}">{{msg.text}}</text>
+    <view class="meta">{{msg.created_at}}</view>
   </view>
 </template>
