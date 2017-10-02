@@ -18,8 +18,5 @@ Page(extend({}, tap, {
   },
   onReachBottom () {
     fm.loadMore(this, this.url, this.para)
-  },
-  tapFeed (e) {
-    fm.showFeed(e.currentTarget.dataset.feed)
   }
 }))

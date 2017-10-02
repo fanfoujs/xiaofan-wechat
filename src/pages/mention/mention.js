@@ -25,12 +25,6 @@ Page(extend({}, tap, {
   onReachBottom () {
     fm.loadMore(this, urls[this.data.index], para)
   },
-  tapAvatar (e) {
-    fm.showUser(e.currentTarget.dataset.user)
-  },
-  tapFeed (e) {
-    fm.showFeed(e.currentTarget.dataset.feed)
-  },
   tapIndex (e) {
     const index = e.currentTarget.dataset.index
     if (index !== this.data.index) {
