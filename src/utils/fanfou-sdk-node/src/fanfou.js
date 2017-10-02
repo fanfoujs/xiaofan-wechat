@@ -147,7 +147,7 @@ class Fanfou {
     }
     const signature = oauthSignature.generate(
       method,
-      url.replace('https', 'http'),
+      url.replace(/https/, 'http').replace(/fanfou\.pro/, 'fanfou.com'),
       params,
       this.consumer_secret,
       tokens.oauth_token_secret,
