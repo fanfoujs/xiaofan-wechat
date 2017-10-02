@@ -7,7 +7,7 @@ module.exports = {
   },
   post (e) {
     const param = Object.assign(this.data.param || {}, {status: e.detail.value.post})
-    fm.post(param, this.data.photoPaths, this, true)
+    fm.post(param, this.data.photoPaths, this)
   },
   reset () {
     this.setData({

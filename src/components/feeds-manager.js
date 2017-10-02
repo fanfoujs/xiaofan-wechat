@@ -139,7 +139,8 @@ function destroy (id) {
     })
 }
 
-function post (param, photoPaths, page, direct) {
+function post (param, photoPaths, page) {
+  const direct = !(param.repost_status_id || param.in_reply_to_status_id)
   wx.showLoading({
     title: '正在发送',
     mask: true
