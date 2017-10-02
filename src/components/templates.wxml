@@ -55,7 +55,7 @@
 
 <!--详情消息-->
 <template name="feed">
-  <view class="feed">
+  <view class="feed" data-feed="{{feed.repost_status}}" catchtap="{{feed.repost_status ? 'tapFeed' : ''}}">
     <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
     <view class="after_avatar full_width">
       <view class="topline">
