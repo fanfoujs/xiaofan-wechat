@@ -18,12 +18,6 @@ Page(extend({}, tap, {
     fm.load(this, url)
     this.loadTrendsAndSavedSearchesList()
   },
-  tapAvatar (e) {
-    fm.showUser(e.currentTarget.dataset.user)
-  },
-  tapFeed (e) {
-    fm.showFeed(e.currentTarget.dataset.feed)
-  },
   loadTrendsAndSavedSearchesList () {
     ff.getPromise('/trends/list')
       .then(res => {

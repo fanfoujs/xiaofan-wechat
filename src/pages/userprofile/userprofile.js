@@ -13,5 +13,8 @@ Page(extend({}, tap, {
   onPullDownRefresh () {
     fm.loadUser(this.data.user.id, this)
     fm.relationship(this.data.user.id, this)
+  },
+  message (e) {
+    fm.navigateTo(`../message/message?id=${e.currentTarget.dataset.user.id}`)
   }
 }))

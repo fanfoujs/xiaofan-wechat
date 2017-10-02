@@ -1,71 +1,70 @@
 const ff = require('../utils/fanfou')
+const tab = require('../components/tab')
 
 const {TIMELINE_COUNT} = require('../config/fanfou')
 
 function loadMore (page, url, para) {
-  if (page.isloadingmore || page.data.hideLoader) {
+  if (page.noMore || page.data.showLoader) {
     return
   }
-  page.isloadingmore = true
+  page.setData({showLoader: true})
   const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
   const param = Object.assign({
     count: TIMELINE_COUNT,
     format: 'html'
   }, para)
-  if (url === '/favorites' || url === '/users/friends' || url === '/users/followers') {
+  if (
+    url === '/favorites' ||
+    url === '/users/friends' ||
+    url === '/users/followers' ||
+    url === '/direct_messages/conversation_list'
+  ) {
     param.page = page.data.feeds_arr.length + 1
   } else {
     param.max_id = maxId
   }
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
-      page.isloadingmore = false
+      page.setData({
+        showLoader: false,
+        ['feeds_arr[' + page.data.feeds_arr.length + ']']: res
+      })
       if (res.length > 0 && maxId === res[0].id) {
         res.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
         param.count -= 1
       }
-      if (res.length < param.count) {
-        wx.showToast({
-          title: '没有更多了',
-          image: '/assets/toast_blank.png',
-          duration: 900
-        })
-        page.setData({
-          hideLoader: true
-        })
+      page.noMore = res.length < param.count
+      if (page.noMore) {
+        wx.showToast({title: '没有更多了', image: '/assets/toast_blank.png', duration: 900})
       }
-      page.setData({
-        ['feeds_arr[' + page.data.feeds_arr.length + ']']: res
-      })
     })
     .catch(err => {
-      page.isloadingmore = false
+      page.setData({showLoader: false})
       console.error(err)
     })
 }
 
-function load (page, url, para, completion) {
+function load (page, url, para) {
+  page.setData({showLoader: true})
   const param = Object.assign({
     count: TIMELINE_COUNT,
     format: 'html'
   }, para)
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
-      wx.stopPullDownRefresh()
-      page.isloadingmore = false // 防止刷不出来更多，在这里重置下
       page.setData({
-        hideLoader: res.length < param.count,
-        feeds_arr: [res] // 清空了全部，todo 只加载最新
+        showLoader: false,
+        feeds_arr: [res]
       })
-      if (typeof completion === 'function') {
-        completion(page)
+      wx.stopPullDownRefresh()
+      page.noMore = res.length < param.count
+      if (url === '/statuses/mentions') {
+        tab.clearNotis('mentions')
       }
     })
     .catch(err => {
       console.error(err)
-      if (typeof completion === 'function') {
-        completion(page)
-      }
+      page.setData({showLoader: false})
     })
 }
 
@@ -73,9 +72,7 @@ function favoriteChange (page) {
   if (page.data.feed.favorited) {
     ff.postPromise('/favorites/destroy/' + page.data.feed.id)
       .then(() => {
-        page.setData({
-          'feed.favorited': false
-        })
+        page.setData({'feed.favorited': false})
       })
       .catch(err => {
         wx.showToast({
@@ -88,9 +85,7 @@ function favoriteChange (page) {
   } else {
     ff.postPromise('/favorites/create/' + page.data.feed.id)
       .then(() => {
-        page.setData({
-          'feed.favorited': true
-        })
+        page.setData({'feed.favorited': true})
       })
       .catch(err => {
         wx.showToast({
@@ -139,6 +134,32 @@ function destroy (id) {
     })
 }
 
+function postMsg (param, page) {
+  page.setData({posting: true})
+  ff.postPromise('/direct_messages/new', param)
+    .then(res => {
+      page.setData({posting: false})
+      console.log(res)
+      if (res.error) {
+        wx.showToast({title: '发送失败', image: '/assets/toast_fail.png', duration: 900})
+        return
+      }
+      wx.showToast({title: '已发送', image: '/assets/toast_reply.png', duration: 900})
+      const message = page.data.feeds_arr[0]
+      message.unshift(res)
+      page.setData({
+        param: null,
+        photoPaths: null,
+        'feeds_arr[0]': message
+      })
+    })
+    .catch(err => {
+      page.setData({posting: false})
+      wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
+      console.error(err)
+    })
+}
+
 function post (param, photoPaths, page) {
   page.setData({posting: true})
   if (photoPaths) {
@@ -157,32 +178,32 @@ function _postText (param, page) {
   '已转发' : param.in_reply_to_status_id ?
   '已回复' : '已发布'
   ff.postPromise('/statuses/update', param)
-  .then(res => {
-    page.setData({posting: false})
-    if (res.error) {
-      wx.showToast({title: '发送失败', image: '/assets/toast_fail.png', duration: 900})
-      return
-    }
-    if (direct) {
-      wx.switchTab({
-        url: '/pages/home/home',
-        success: () => {
-          wx.showToast({title, image, duration: 900})
-        }
+    .then(res => {
+      page.setData({posting: false})
+      if (res.error) {
+        wx.showToast({title: '发送失败', image: '/assets/toast_fail.png', duration: 900})
+        return
+      }
+      if (direct) {
+        wx.switchTab({
+          url: '/pages/home/home',
+          success: () => {
+            wx.showToast({title, image, duration: 900})
+          }
+        })
+      } else {
+        wx.showToast({title, image, duration: 900})
+      }
+      page.setData({
+        param: null,
+        photoPaths: null
       })
-    } else {
-      wx.showToast({title, image, duration: 900})
-    }
-    page.setData({
-      param: null,
-      photoPaths: null
     })
-  })
-  .catch(err => {
-    page.setData({posting: false})
-    wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
-    console.error(err)
-  })
+    .catch(err => {
+      page.setData({posting: false})
+      wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
+      console.error(err)
+    })
 }
 
 function _postPhoto (param, photoPaths, page) {
@@ -190,36 +211,36 @@ function _postPhoto (param, photoPaths, page) {
   const title = '已发布'
   const image = '/assets/toast_photo.png'
   ff.uploadPromise(photoPaths, param)
-  .then(res => {
-    page.setData({posting: false})
-    if (res.error) {
-      wx.showModal({
-        content: res.error,
-        showCancel: false,
-        confirmText: '好的'
+    .then(res => {
+      page.setData({posting: false})
+      if (res.error) {
+        wx.showModal({
+          content: res.error,
+          showCancel: false,
+          confirmText: '好的'
+        })
+        return
+      }
+      if (direct) {
+        wx.switchTab({
+          url: '/pages/home/home',
+          success: () => {
+            wx.showToast({title, image, duration: 900})
+          }
+        })
+      } else {
+        wx.showToast({title, image, duration: 900})
+      }
+      page.setData({
+        param: null,
+        photoPaths: null
       })
-      return
-    }
-    if (direct) {
-      wx.switchTab({
-        url: '/pages/home/home',
-        success: () => {
-          wx.showToast({title, image, duration: 900})
-        }
-      })
-    } else {
-      wx.showToast({title, image, duration: 900})
-    }
-    page.setData({
-      param: null,
-      photoPaths: null
     })
-  })
-  .catch(err => {
-    page.setData({posting: false})
-    wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
-    console.error(err)
-  })
+    .catch(err => {
+      page.setData({posting: false})
+      wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
+      console.error(err)
+    })
 }
 
 function showImage (url) {
@@ -371,51 +392,51 @@ function relationship (targetId, page) {
 
 function accept (user, page) {
   ff.postPromise('/friendships/accept', {id: user.unique_id})
-  .then(res => {
-    if (res.error) {
-      wx.showModal({
-        content: res.error,
-        showCancel: false,
-        confirmText: '好的'
-      })
-    } else {
-      console.log(res)
-      for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
-        for (const [feedIndex, feed] of feeds.entries()) {
-          if (feed.unique_id === user.unique_id) {
-            page.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].accept`]: true})
-            return
+    .then(res => {
+      if (res.error) {
+        wx.showModal({
+          content: res.error,
+          showCancel: false,
+          confirmText: '好的'
+        })
+      } else {
+        console.log(res)
+        for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
+          for (const [feedIndex, feed] of feeds.entries()) {
+            if (feed.unique_id === user.unique_id) {
+              page.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].accept`]: true})
+              return
+            }
           }
         }
       }
-    }
-  })
-  .catch(err => console.error(err))
+    })
+    .catch(err => console.error(err))
 }
 
 function deny (user, page) {
   ff.postPromise('/friendships/deny', {id: user.unique_id})
-  .then(res => {
-    if (res.error) {
-      wx.showModal({
-        content: res.error,
-        showCancel: false,
-        confirmText: '好的'
-      })
-    } else {
-      console.log(res)
-      for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
-        for (const [feedIndex, feed] of feeds.entries()) {
-          if (feed.unique_id === user.unique_id) {
-            page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
-            page.setData({[`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]})
-            return
+    .then(res => {
+      if (res.error) {
+        wx.showModal({
+          content: res.error,
+          showCancel: false,
+          confirmText: '好的'
+        })
+      } else {
+        console.log(res)
+        for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
+          for (const [feedIndex, feed] of feeds.entries()) {
+            if (feed.unique_id === user.unique_id) {
+              page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
+              page.setData({[`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]})
+              return
+            }
           }
         }
       }
-    }
-  })
-  .catch(err => console.error(err))
+    })
+    .catch(err => console.error(err))
 }
 
 module.exports.load = load
@@ -439,3 +460,4 @@ module.exports.block = block
 module.exports.unblock = unblock
 module.exports.accept = accept
 module.exports.deny = deny
+module.exports.postMsg = postMsg

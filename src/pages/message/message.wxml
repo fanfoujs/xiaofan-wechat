@@ -1,2 +1,10 @@
 <import src="/components/templates.wxml" />
-<template wx:if="{{!hideLoader}}" is="loader" />
+work in progress...
+<template is="message_arr" data="{{message_arr: feeds_arr}}" />
+<template wx:if="{{showLoader}}" is="loader" />
+<template is="toolbar_msg" data="{{feed: feed}}" />
+<block wx:if="{{param}}">
+  <view class="mask">
+    <template is="post" data="{{param, posting, autoFocus: true, noPhoto: true}}" />
+  </view>
+</block>

@@ -4,9 +4,6 @@ const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 
 const para = {count: 10}
-const completions = [function () {
-  tab.clearNotis('mentions', 0)
-}, null]
 const urls = ['/statuses/mentions', '/statuses/replies']
 
 Page(extend({}, tap, {
@@ -14,22 +11,16 @@ Page(extend({}, tap, {
     index: 0
   },
   onLoad () {
-    fm.load(this, urls[this.data.index], para, completions[this.data.index])
+    fm.load(this, urls[this.data.index], para)
   },
   onShow () {
     tab.updateNotis()
   },
   onPullDownRefresh () {
-    fm.load(this, urls[this.data.index], para, completions[this.data.index])
+    fm.load(this, urls[this.data.index], para)
   },
   onReachBottom () {
     fm.loadMore(this, urls[this.data.index], para)
-  },
-  tapAvatar (e) {
-    fm.showUser(e.currentTarget.dataset.user)
-  },
-  tapFeed (e) {
-    fm.showFeed(e.currentTarget.dataset.feed)
   },
   tapIndex (e) {
     const index = e.currentTarget.dataset.index
@@ -38,7 +29,7 @@ Page(extend({}, tap, {
         feeds_arr: null,
         index
       })
-      fm.load(this, urls[this.data.index], para, completions[this.data.index])
+      fm.load(this, urls[this.data.index], para)
     }
   }
 }))

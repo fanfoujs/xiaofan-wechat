@@ -1,4 +1,4 @@
 <import src="/components/templates.wxml" />
 <template is="feeds_arr" data="{{feeds_arr}}" />
-<template wx:if="{{!hideLoader}}" is="loader" />
+<template wx:if="{{showLoader}}" is="loader" />
 <template is="notibar" data="{{notis}}" />

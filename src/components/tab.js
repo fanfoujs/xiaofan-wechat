@@ -26,8 +26,8 @@ function updateNotis () {
   }
 }
 
-function clearNotis (key, value) {
-  getApp().globalData.notis[key] = value
+function clearNotis (key) {
+  getApp().globalData.notis[key] = 0
   render()
 }
 
