@@ -108,7 +108,7 @@ function destroy (id) {
             image: '/assets/toast_delete.png',
             duration: 900
           })
-          const page = getCurrentPages().slice(-1)[0]
+          const page = getCurrentPages().slice(-2)[0]
           for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
             for (const [feedIndex, feed] of feeds.entries()) {
               if (feed.id === id) {
