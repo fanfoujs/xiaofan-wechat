@@ -5,16 +5,17 @@ module.exports = {
     param: null,
     photoPaths: null,
     posting: false,
-    length: 140
+    length: 0
   },
   post (e) {
     const param = Object.assign(this.data.param || {}, {status: e.detail.value.post})
-    fm.post(param, this.data.photoPaths, this)
+    fm.post(this, param, this.data.photoPaths)
   },
   bindinput (e) {
-    this.setData({length: 140 - e.detail.value.length})
+    this.setData({length: e.detail.value.length})
   },
   reset () {
+    console.log(0)
     this.setData({
       param: null,
       photoPaths: null,
@@ -22,37 +23,37 @@ module.exports = {
     })
   },
   addPhoto () {
-    const that = this
+    const page = this
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
       success (res) {
-        that.setData({
+        page.setData({
           photoPaths: res.tempFilePaths
         })
       }
     })
   },
   addGif () {
-    const that = this
+    const page = this
     wx.chooseImage({
       count: 1,
       sizeType: ['original'],
       sourceType: ['album'],
       success (res) {
-        that.setData({
+        page.setData({
           photoPaths: res.tempFilePaths
         })
       }
     })
   },
   removePhoto () {
-    const that = this
+    const page = this
     wx.showActionSheet({
       itemList: ['删除'],
       success (res) {
         if (!res.cancel) {
-          that.setData({
+          page.setData({
             photoPaths: null
           })
         }

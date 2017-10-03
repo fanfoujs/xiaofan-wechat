@@ -4,11 +4,11 @@ const tab = require('../components/tab')
 const {TIMELINE_COUNT} = require('../config/fanfou')
 
 function loadMore (page, url, para) {
-  if (page.noMore || page.data.showLoader) {
+  const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
+  if (page.noMore || page.data.showLoader || !maxId) {
     return
   }
   page.setData({showLoader: true})
-  const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
   const param = Object.assign({
     count: TIMELINE_COUNT,
     format: 'html'
@@ -160,17 +160,17 @@ function postMsg (param, page) {
     })
 }
 
-function post (param, photoPaths, page) {
+function post (page, param, photoPaths, success) {
   page.setData({posting: true})
   if (photoPaths) {
-    _postPhoto(param, photoPaths, page)
+    _postPhoto(page, param, photoPaths, success)
   } else {
-    _postText(param, page)
+    _postText(page, param, success)
   }
 }
 
-function _postText (param, page) {
-  const direct = !(param.repost_status_id || param.in_reply_to_status_id)
+function _postText (page, param, success) {
+  const direct = !(param.repost_status_id || param.in_reply_to_status_id || success)
   const image = param.repost_status_id ?
   '/assets/toast_repost.png' : param.in_reply_to_status_id ?
   '/assets/toast_reply.png' : '/assets/toast_post.png'
@@ -196,8 +196,12 @@ function _postText (param, page) {
       }
       page.setData({
         param: null,
-        photoPaths: null
+        photoPaths: null,
+        length: 0
       })
+      if (typeof success === 'function') {
+        success()
+      }
     })
     .catch(err => {
       page.setData({posting: false})
@@ -206,7 +210,7 @@ function _postText (param, page) {
     })
 }
 
-function _postPhoto (param, photoPaths, page) {
+function _postPhoto (page, param, photoPaths, success) {
   const direct = !(param.repost_status_id || param.in_reply_to_status_id)
   const title = '已发布'
   const image = '/assets/toast_photo.png'
@@ -233,8 +237,12 @@ function _postPhoto (param, photoPaths, page) {
       }
       page.setData({
         param: null,
-        photoPaths: null
+        photoPaths: null,
+        length: 0
       })
+      if (typeof success === 'function') {
+        success()
+      }
     })
     .catch(err => {
       page.setData({posting: false})

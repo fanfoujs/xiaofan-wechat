@@ -24,6 +24,7 @@ image {
   background: #fff;
   display: flex;
   padding: 18px;
+  overflow: hidden;
 }
 
 .avatar {
@@ -234,6 +235,11 @@ image {
 .post {
   background: #fff;
   padding: 18px;
+}
+
+.post_mini {
+  background: #fff;
+  padding-bottom: 18px;
 }
 
 .length {

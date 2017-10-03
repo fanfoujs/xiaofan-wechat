@@ -52,7 +52,7 @@ Page({
     wx.setStorageSync('accounts', accounts)
   },
   longpressListItem (e) {
-    const that = this
+    const page = this
     const accounts = this.getAccounts()
     wx.showActionSheet({
       itemList: ['退出登录'],
@@ -74,7 +74,7 @@ Page({
               wx.reLaunch({url: '/pages/home/home'})
             }
           }
-          that.setData({accounts})
+          page.setData({accounts})
         }
       }
     })

@@ -10,9 +10,9 @@ Page(extend({}, tap, post, {
     if (!feed) {
       fm.loadFeed(this, e.id)
     }
-    const that = this
+    const page = this
     setTimeout(() => {
-      fm.load(that, '/statuses/context_timeline', {id: e.id})
+      fm.load(page, '/statuses/context_timeline', {id: e.id})
     }, 600)
   },
   reply () {
@@ -29,7 +29,7 @@ Page(extend({}, tap, post, {
   },
   re () {
     const feed = this.data.feed
-    fm.post({status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}, null, this)
+    fm.post(this, {status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id})
     wx.navigateBack()
   },
   favoriteChange () {

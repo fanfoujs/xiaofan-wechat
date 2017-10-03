@@ -55,7 +55,7 @@ Page(extend({}, tap, {
     fm.navigateTo(`../feeds/feeds?q=${e.currentTarget.dataset.query}`)
   },
   longpressListItem (e) {
-    const that = this
+    const page = this
     wx.showActionSheet({
       itemList: ['删除'],
       success (res) {
@@ -63,11 +63,11 @@ Page(extend({}, tap, {
           ff.postPromise('/saved_searches/destroy', {id: e.currentTarget.dataset.id})
             .then(() => {})
             .catch(err => console.error(err))
-          for (const [index, value] of that.data.saved_searches.entries()) {
+          for (const [index, value] of page.data.saved_searches.entries()) {
             if (value.id === e.currentTarget.dataset.id) {
-              that.data.saved_searches.splice(index, 1)
-              that.setData({
-                saved_searches: that.data.saved_searches
+              page.data.saved_searches.splice(index, 1)
+              page.setData({
+                saved_searches: page.data.saved_searches
               })
               return
             }

@@ -80,7 +80,7 @@
   <view class="post">
     <form bindsubmit="post" bindreset="reset">
       <textarea class="input" name="post" placeholder-class="gray" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{param.status}}" auto-focus="{{autoFocus}}" cursor="{{param.repost_status_id ? 0 : -1}}" bindinput="bindinput" />
-      <view class="length space_item_v {{length < 0 ? 'red' : ''}}">{{length}}</view>
+      <view class="length space_item_v {{length > 140 ? 'red' : ''}}">{{140 - length}}</view>
       <view class="flex_between space_item_v">
         <button class="btn2 dim" formType="reset">取消</button>
         <button wx:if="{{!noPhoto}}" class="btn2 dim" catchtap="{{photoPaths[0] ? 'removePhoto' : 'addPhoto'}}" catchlongpress="{{photoPaths[0] ? 'removePhoto' : 'addGif'}}">
@@ -102,7 +102,7 @@
     <view class="flex_item" catchtap="reply">
       <image src="/assets/reply.svg" class="size30" />
     </view>
-    <view class="flex_item" catchtap="repost" catchlongtap="re">
+    <view class="flex_item" catchtap="repost" catchlongpress="re">
       <image src="/assets/repost.svg" class="size30" />
     </view>
     <view class="flex_item" catchtap="favoriteChange">
