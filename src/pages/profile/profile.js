@@ -16,7 +16,7 @@ Page(extend({}, tap, {
     },
     change_profile: {
       name: '修改资料',
-      page: '../changeprofile/changeprofile'
+      page: '../change-profile/change-profile'
     },
     logout: {
       name: '切换账号',
@@ -24,9 +24,7 @@ Page(extend({}, tap, {
     }
   },
   onLoad () {
-    this.setData({
-      user: getApp().globalData.account.user
-    })
+    this.setData({user: getApp().globalData.account.user})
   },
   onShow () {
     tab.updateNotis()

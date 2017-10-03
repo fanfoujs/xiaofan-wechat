@@ -40,15 +40,24 @@
   </view>
 </template>
 
+<!--UI-->
+<template name="divider">
+  <view style="height:18px;background:#f9f9fc;" />
+</template>
+
+<template name="bottom">
+  <view style="height:36px;" />
+</template>
+
 <!--对话-->
 <template name="feeds_context">
   <block wx:if="{{feeds_arr[0].length > 1 && feeds_arr[0][0].id !== feed.id}}">
     <template is="feeds" data="{{feeds: feeds_arr[0], rawid: feed.rawid, isBefore: true}}" />
-    <view style="height:18px;background:#f9f9fc;" />
+    <template is="divider" />
   </block>
   <template is="feed" data="{{feed}}" />
   <block wx:if="{{feeds_arr[0].length > 1 && feeds_arr[0][feeds_arr[0].length - 1].id !== feed.id}}">
-    <view style="height:18px;background:#f9f9fc;" />
+    <template is="divider" />
     <template is="feeds" data="{{feeds: feeds_arr[0], rawid: feed.rawid, isBefore: false}}" />
   </block>
 </template>
@@ -147,8 +156,8 @@
 <!--profile-->
 <template name="profile">
   <view class="header">
-    <image class="profile_background" style="background:{{user.profile_background_color}};" mode="aspectFill" src="{{user.profile_background_image_url}}" catchlongpress="longpressImage" data-photo-url="{{user.profile_background_image_url}}" />
-    <view class="avatar_container" catchlongpress="longpressImage" data-photo-url="{{user.profile_image_url_large}}">
+    <image class="profile_background" style="background:{{user.profile_background_color}};" mode="aspectFill" src="{{user.profile_background_image_url}}" catchtap="tapImage" data-photo-url="{{user.profile_background_image_url}}" />
+    <view class="avatar_container" catchtap="tapImage" data-photo-url="{{user.profile_image_url_large}}">
       <image class="avatar" src="{{user.profile_image_url_large}}" />
     </view>
   </view>
