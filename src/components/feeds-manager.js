@@ -226,9 +226,11 @@ function _postText (page, param, success) {
         })
       } else {
         wx.showToast({title, image, duration: 900})
-        const feeds = page.data.feeds_arr[0]
-        feeds.push(res)
-        page.setData({'feeds_arr[0]': feeds})
+        if (page.route === 'pages/feed/feed') {
+          const feeds = page.data.feeds_arr[0]
+          feeds.push(res)
+          page.setData({'feeds_arr[0]': feeds})
+        }
       }
       page.setData({
         param: null,
@@ -275,9 +277,11 @@ function _postPhoto (page, param, photoPaths, success) {
         })
       } else {
         wx.showToast({title, image, duration: 900})
-        const feeds = page.data.feeds_arr[0]
-        feeds.push(res)
-        page.setData({'feeds_arr[0]': feeds})
+        if (page.route === 'pages/feed/feed') {
+          const feeds = page.data.feeds_arr[0]
+          feeds.push(res)
+          page.setData({'feeds_arr[0]': feeds})
+        }
       }
       page.setData({
         param: null,

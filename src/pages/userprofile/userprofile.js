@@ -20,7 +20,7 @@ Page(extend({}, tap, post, {
   },
   tapDistributor () {
     const page = this
-    if (getApp().globalData.appidlink) {
+    if (getApp().globalData.appid) {
       const ta = this.data.user.taMiddle
       const name = this.data.user.name
       wx.showActionSheet({
@@ -36,7 +36,8 @@ Page(extend({}, tap, post, {
               })
             })
           } else if (res.tapIndex === 1) {
-            fm.post(page, {status: `@${name} 复制地址并在微信中访问体验小饭：${getApp().globalData.appidlink}`}, null, () => {
+            const appidlink = `open.weixin.qq.com/sns/getexpappinfo?appid=${getApp().globalData.appid}#wechat-redirect`
+            fm.post(page, {status: `@${name} 复制地址并在微信中访问体验小饭：${appidlink}`}, null, () => {
               wx.showModal({
                 confirmColor: '#33a5ff',
                 content: '邀请已经发出。',
@@ -76,8 +77,8 @@ Page(extend({}, tap, post, {
       itemList: ['删除 App ID'],
       success (res) {
         if (res.tapIndex === 0) {
-          wx.removeStorageSync('appidlink')
-          getApp().globalData.appidlink = null
+          wx.removeStorageSync('appid')
+          getApp().globalData.appid = null
         }
       }
     })
@@ -91,9 +92,8 @@ Page(extend({}, tap, post, {
     const ta = this.data.user.taMiddle
     const name = this.data.user.name
     if (appid) {
-      const appidlink = `open.weixin.qq.com/sns/getexpappinfo?appid=${appid}#wechat-redirect`
-      wx.setStorageSync('appidlink', appidlink)
-      getApp().globalData.appidlink = appidlink
+      wx.setStorageSync('appid', appid)
+      getApp().globalData.appid = appid
       page.setData({distributor: false})
       fm.post(page, {status: `@小饭师傅 我成为了分发者。`}, null, () => {
         wx.showModal({

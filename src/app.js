@@ -7,11 +7,11 @@ App({
     notis: {},
     account: null,
     feed: null,
-    appidlink: null
+    appid: null
   },
   onLaunch () {
     this.globalData.account = wx.getStorageSync('accounts')[0]
-    this.globalData.appidlink = wx.getStorageSync('appidlink')
+    this.globalData.appid = wx.getStorageSync('appid')
   },
   onShow () {
     tab.updateNotis()
