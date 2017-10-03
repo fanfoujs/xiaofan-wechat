@@ -14,9 +14,7 @@ Page(extend({}, tap, {
       fm.load(this)
     } else {
       wx.setStorageSync('accounts', [])
-      wx.redirectTo({
-        url: '/pages/login/login'
-      })
+      wx.redirectTo({url: '/pages/login/login'})
     }
   },
   onShow () {
@@ -30,8 +28,6 @@ Page(extend({}, tap, {
     fm.loadMore(this)
   },
   onShareAppMessage () {
-    return {
-      title: '小饭'
-    }
+    return {title: '小饭'}
   }
 }))

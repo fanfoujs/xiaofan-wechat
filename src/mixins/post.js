@@ -4,11 +4,15 @@ module.exports = {
   data: {
     param: null,
     photoPaths: null,
-    posting: false
+    posting: false,
+    length: 140
   },
   post (e) {
     const param = Object.assign(this.data.param || {}, {status: e.detail.value.post})
     fm.post(param, this.data.photoPaths, this)
+  },
+  bindinput (e) {
+    this.setData({length: 140 - e.detail.value.length})
   },
   reset () {
     this.setData({

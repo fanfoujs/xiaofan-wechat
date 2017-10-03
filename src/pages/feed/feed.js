@@ -4,11 +4,6 @@ const post = require('../../mixins/post')
 const tap = require('../../mixins/tap')
 
 Page(extend({}, tap, post, {
-  data: {
-    feed: null,
-    feeds: []
-  }
-}, {
   onLoad (e) {
     const feed = getApp().globalData.feed
     this.setData({feed})

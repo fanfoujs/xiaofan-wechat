@@ -56,7 +56,7 @@
 <!--详情消息-->
 <template name="feed">
   <view class="feed" data-feed="{{feed}}" catchtap="tapFeedDetail">
-    <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar"></image>
+    <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar" />
     <view class="after_avatar full_width">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
@@ -79,7 +79,8 @@
 <template name="post">
   <view class="post">
     <form bindsubmit="post" bindreset="reset">
-      <textarea class="input" name="post" placeholder-class="placeholder" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{param.status}}" auto-focus="{{autoFocus}}" cursor="{{param.repost_status_id ? 0 : -1}}" />
+      <textarea class="input" name="post" placeholder-class="gray" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{param.status}}" auto-focus="{{autoFocus}}" cursor="{{param.repost_status_id ? 0 : -1}}" bindinput="bindinput" />
+      <view class="length space_item_v {{length < 0 ? 'red' : ''}}">{{length}}</view>
       <view class="flex_between space_item_v">
         <button class="btn2 dim" formType="reset">取消</button>
         <button wx:if="{{!noPhoto}}" class="btn2 dim" catchtap="{{photoPaths[0] ? 'removePhoto' : 'addPhoto'}}" catchlongpress="{{photoPaths[0] ? 'removePhoto' : 'addGif'}}">
@@ -135,11 +136,11 @@
 <template name="list_item">
   <view class="list_item" catchtap="{{user.is_secret ? '' : 'tapListItem'}}" catchlongpress="longpressListItem"
     data-name="{{name}}" data-id="{{id}}" data-query="{{query}}" data-url="{{url}}" data-user="{{user}}" data-page="{{page}}">
-    <view class="label {{user.is_secret ? 'inactive' : ''}}">{{name}}</view>
-    <view wx:if="{{detail || detail === 0}}" class="detail">{{detail}}</view>
+    <view class="label {{user.is_secret ? 'gray' : ''}}">{{name}}</view>
+    <view wx:if="{{detail || detail === 0}}" class="gray">{{detail}}</view>
     <view wx:elif="{{badge}}" class="badge">{{badge}}</view>
-    <view wx:elif="{{query}}" class="detail">{{query}}</view>
-    <view wx:elif="{{user}}" class="detail">{{id}}</view>
+    <view wx:elif="{{query}}" class="gray">{{query}}</view>
+    <view wx:elif="{{user}}" class="gray">{{id}}</view>
   </view>
 </template>
 

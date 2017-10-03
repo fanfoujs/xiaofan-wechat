@@ -13,12 +13,12 @@
       <template is="list_item" data="{{...logout}}" />
     </view>
   </view>
-  <view class="footer" catchtap="tapLink" data-link="https://github.com/fanfoujs/fanfou-weapp">
-    <image mode="aspectFit" style="height: 16px; width: 16px;" src="../../assets/octicons-code.svg"></image>
+  <!-- <view class="footer" catchtap="tapLink" data-link="https://github.com/fanfoujs/fanfou-weapp">
+    <image mode="aspectFit" style="height: 16px; width: 16px;" src="../../assets/octicons-code.svg" />
     <text>with</text>
-    <image mode="aspectFit" style="height: 16px; width: 12px;" src="../../assets/octicons-heart.svg"></image>
+    <image mode="aspectFit" style="height: 16px; width: 12px;" src="../../assets/octicons-heart.svg" />
     <text>on</text>
-    <image mode="aspectFit" style="height: 16px; width: 41px;" src="../../assets/octicons-logo-github.svg"></image>
-  </view>
+    <image mode="aspectFit" style="height: 16px; width: 41px;" src="../../assets/octicons-logo-github.svg" />
+  </view> -->
   <template is="notibar" data="{{notis}}" />
 </block>

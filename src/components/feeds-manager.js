@@ -108,7 +108,7 @@ function destroy (id) {
             image: '/assets/toast_delete.png',
             duration: 900
           })
-          // 模拟器和 iOS 不一样，模拟器转场快 -1 生效，iOS 转场慢 -2 生效，待测试 Android
+          // 模拟器和 iOS 不一样，模拟器转场快 -1 生效，iOS 转场慢 -2 生效，模拟器会报错，暂时不用理会。
           const page = getCurrentPages().slice(-2)[0]
           for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
             for (const [feedIndex, feed] of feeds.entries()) {

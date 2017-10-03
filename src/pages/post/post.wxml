@@ -1,3 +1,3 @@
 <import src="/components/templates.wxml" />
-<template is="post" data="{{placeholder: '你在做什么？', param, photoPaths, posting}}" />
+<template is="post" data="{{placeholder: '你在做什么？', param, photoPaths, posting, length}}" />
 <template is="notibar" data="{{notis}}" />
