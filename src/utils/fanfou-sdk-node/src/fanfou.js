@@ -105,11 +105,11 @@ class Fanfou {
     )
   }
 
-  upload (filePaths, text, tokens, callback) {
+  upload (uri, filePaths, parameters, tokens, callback) {
     this.oauth.oauth_token = tokens.oauth_token
     this.oauth.oauth_token_secret = tokens.oauth_token_secret
     const method = 'POST'
-    const url = this.protocol + '//' + this.api_domain + '/photos/upload.json'
+    const url = this.protocol + '//' + this.api_domain + uri + '.json'
     const params = {
       oauth_consumer_key: this.consumer_key,
       oauth_token: tokens.oauth_token,
@@ -131,14 +131,13 @@ class Fanfou {
         this.oauth._makeArrayOfArgumentsHash(params)
       ).concat([['oauth_signature', signature]])
     )
+    const name = uri === '/photos/upload' ? 'photo' : uri === '/account/update_profile_image' ? 'image' : 'file'
     wx.uploadFile({
-      url: 'https://api.fanfou.com/photos/upload.json',
+      url,
       filePath: filePaths[0],
       header: {Authorization: authorizationHeader},
-      name: 'photo',
-      formData: {
-        status: text
-      },
+      name,
+      formData: parameters,
       success (res) {
         const data = res.data
         callback(null, data)
