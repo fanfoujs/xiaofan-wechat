@@ -108,8 +108,7 @@ function destroy (id) {
             image: '/assets/toast_delete.png',
             duration: 900
           })
-          // 模拟器和 iOS 不一样，模拟器转场快 -1 生效，iOS 转场慢 -2 生效，模拟器会报错，暂时不用理会。
-          const page = getCurrentPages().slice(-2)[0]
+          const page = getCurrentPages().slice(-1)[0]
           for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
             for (const [feedIndex, feed] of feeds.entries()) {
               if (feed.id === id) {
@@ -176,7 +175,6 @@ function postMsg (param, page) {
       }
       wx.showToast({title: '已发送', image: '/assets/toast_reply.png', duration: 900})
       const message = page.data.feeds_arr[0]
-      res.sender.is_me = true
       message.unshift(res)
       page.setData({
         param: null,
@@ -220,10 +218,17 @@ function _postText (page, param, success) {
           url: '/pages/home/home',
           success: () => {
             wx.showToast({title, image, duration: 900})
+            const home = getCurrentPages().slice(-1)[0]
+            const feeds = home.data.feeds_arr[0]
+            feeds.unshift(res)
+            home.setData({'feeds_arr[0]': feeds})
           }
         })
       } else {
         wx.showToast({title, image, duration: 900})
+        const feeds = page.data.feeds_arr[0]
+        feeds.push(res)
+        page.setData({'feeds_arr[0]': feeds})
       }
       page.setData({
         param: null,
@@ -262,10 +267,17 @@ function _postPhoto (page, param, photoPaths, success) {
           url: '/pages/home/home',
           success: () => {
             wx.showToast({title, image, duration: 900})
+            const home = getCurrentPages().slice(-1)[0]
+            const feeds = home.data.feeds_arr[0]
+            feeds.unshift(res)
+            home.setData({'feeds_arr[0]': feeds})
           }
         })
       } else {
         wx.showToast({title, image, duration: 900})
+        const feeds = page.data.feeds_arr[0]
+        feeds.push(res)
+        page.setData({'feeds_arr[0]': feeds})
       }
       page.setData({
         param: null,
@@ -278,6 +290,58 @@ function _postPhoto (page, param, photoPaths, success) {
     })
     .catch(err => {
       page.setData({posting: false})
+      wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
+      console.error(err)
+    })
+}
+
+function updateAvatar (page, photoPaths) {
+  const title = '已更新头像'
+  const image = '/assets/toast_done.png'
+  ff.uploadPromise('/account/update_profile_image', photoPaths)
+    .then(res => {
+      if (res.error) {
+        wx.showModal({
+          confirmColor: '#33a5ff',
+          content: res.error,
+          showCancel: false,
+          confirmText: '好的'
+        })
+        return
+      }
+      wx.navigateBack({
+        complete () {
+          wx.showToast({title, image, duration: 900})
+        }
+      })
+    })
+    .catch(err => {
+      wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
+      console.error(err)
+    })
+}
+
+function updateProfile (page, param) {
+  const title = '已更新资料'
+  const image = '/assets/toast_done.png'
+  ff.postPromise('/account/update_profile', param)
+    .then(res => {
+      if (res.error) {
+        wx.showModal({
+          confirmColor: '#33a5ff',
+          content: res.error,
+          showCancel: false,
+          confirmText: '好的'
+        })
+        return
+      }
+      wx.navigateBack({
+        complete () {
+          wx.showToast({title, image, duration: 900})
+        }
+      })
+    })
+    .catch(err => {
       wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
       console.error(err)
     })
@@ -506,3 +570,5 @@ module.exports.accept = accept
 module.exports.deny = deny
 module.exports.postMsg = postMsg
 module.exports.destroyMsg = destroyMsg
+module.exports.updateAvatar = updateAvatar
+module.exports.updateProfile = updateProfile

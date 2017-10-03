@@ -421,7 +421,7 @@ image {
   background: #33a5ff;
 }
 
-.meta, .section_name, .footer, .dim, .length, .gray {
+.meta, .section_name, .footer, .dim, .length, .gray, .tag {
   color: #ced4e0;
 }
 

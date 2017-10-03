@@ -1,2 +1,15 @@
 <import src="/components/templates.wxml" />
-<!-- work in progress... -->
+<form bindsubmit="save">
+  <view class="header">
+    <image class="profile_background" style="background: {{user.profile_background_color}};" mode="aspectFill" src="{{user.profile_background_image_url}}" catchtap="tapBackground" />
+    <view class="avatar_container">
+      <image class="avatar" src="{{photoPaths || user.profile_image_url_large}}" catchtap="tapAvatar" />
+    </view>
+  </view>
+  <input class="input_bar" name="name" placeholder-class="gray" placeholder="昵称" value="{{user.name}}" />
+  <input class="input_bar" name="location" placeholder-class="gray" placeholder="所在地" value="{{user.location}}" />
+  <input class="input_bar" name="url" placeholder-class="gray" placeholder="网址" value="{{user.url}}" />
+  <textarea class="input_bar input" name="description" placeholder-class="gray" placeholder="自述" value="{{user.description}}" />
+  <button class="btn1 space_item_v" formType="submit">保存</button>
+  <template is="bottom" />
+</form>

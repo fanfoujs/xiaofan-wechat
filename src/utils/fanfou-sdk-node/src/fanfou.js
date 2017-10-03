@@ -228,6 +228,8 @@ class Fanfou {
         return new Status(data)
       case 'user':
         return new User(data)
+      case 'dm':
+        return new DirectMessage(data)
       default:
         return data
     }

@@ -33,7 +33,7 @@ module.exports = {
   tapListItem (e) {
     fm.navigateTo(`${e.currentTarget.dataset.page}?url=${e.currentTarget.dataset.url}&id=${this.data.user.id}&name=${e.currentTarget.dataset.name}`)
   },
-  longpressImage (e) {
+  tapImage (e) {
     fm.showImage(e.currentTarget.dataset.photoUrl)
   },
   tapLink (e) {
