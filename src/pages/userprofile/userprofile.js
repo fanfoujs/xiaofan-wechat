@@ -65,7 +65,7 @@ Page(extend({}, tap, post, {
                 })
               }
             })
-            // TODO: fm.navigateTo('../tutorial/tutorial')
+            // WIP: fm.navigateTo('../tutorial/tutorial')
           }
         }
       })

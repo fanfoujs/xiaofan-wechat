@@ -235,7 +235,7 @@
 </template>
 
 <template name="message">
-  <view wx:for="{{message}}" wx:for-item="msg" wx:key="id" class="msg {{msg.sender.is_me ? 'msg_end' : ''}}">
+  <view wx:for="{{message}}" wx:for-item="msg" wx:key="id" class="msg {{msg.sender.is_me ? 'msg_end' : ''}}" data-msg="{{msg}}" catchtap="tapMsg">
     <text class="bubble">{{msg.text}}</text>
     <view class="meta">{{msg.time_tag}}</view>
   </view>
