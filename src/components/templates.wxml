@@ -220,7 +220,7 @@
 <template name="messages">
   <view wx:for="{{messages}}" wx:for-item="message" wx:key="ignorekeywarn" class="feed" data-message="{{message}}" catchtap="tapMessage">
     <view>
-      <view wx:if="{{message.new_conv}}" class="new" />
+      <view wx:if="{{message.new_conv && !message.dm.sender.is_me}}" class="new" />
       <image
         class="avatar"
         src="{{message.dm.sender.is_me ? message.dm.recipient.profile_image_url_large : message.dm.sender.profile_image_url_large}}"
