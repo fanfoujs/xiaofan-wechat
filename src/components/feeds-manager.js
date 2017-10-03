@@ -176,6 +176,7 @@ function postMsg (param, page) {
       }
       wx.showToast({title: '已发送', image: '/assets/toast_reply.png', duration: 900})
       const message = page.data.feeds_arr[0]
+      res.sender.is_me = true
       message.unshift(res)
       page.setData({
         param: null,
