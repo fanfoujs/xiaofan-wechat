@@ -172,20 +172,20 @@ class Fanfou {
     })
   }
 
-  static upload (filePaths, text, tokens, callback) {
+  static upload (uri, filePaths, parameters, tokens, callback) {
     const ff = new FanfouSDK({
       auth_type: 'oauth',
       consumer_key: CONSUMER_KEY,
       consumer_secret: CONSUMER_SECRET
     })
 
-    ff.upload(filePaths, text, tokens, (e, res) => {
+    ff.upload(uri, filePaths, parameters, tokens, (e, res) => {
       callback(e, res)
     })
   }
 
   // Promisified upload method
-  static uploadPromise (filePaths, param) {
+  static uploadPromise (uri, filePaths, parameters) {
     return new Promise((resolve, reject) => {
       const {
         consumer_key,
@@ -201,7 +201,7 @@ class Fanfou {
         consumer_secret
       })
 
-      ff.upload(filePaths, param.status, tokens, (err, res) => {
+      ff.upload(uri, filePaths, parameters, tokens, (err, res) => {
         if (err) {
           reject(err)
         } else {

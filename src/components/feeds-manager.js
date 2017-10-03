@@ -244,7 +244,7 @@ function _postPhoto (page, param, photoPaths, success) {
   const direct = !(param.repost_status_id || param.in_reply_to_status_id)
   const title = '已发布'
   const image = '/assets/toast_photo.png'
-  ff.uploadPromise(photoPaths, param)
+  ff.uploadPromise('/photos/upload', photoPaths, param)
     .then(res => {
       page.setData({posting: false})
       if (res.error) {
