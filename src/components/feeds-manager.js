@@ -219,6 +219,7 @@ function _postPhoto (page, param, photoPaths, success) {
       page.setData({posting: false})
       if (res.error) {
         wx.showModal({
+          confirmColor: '#33a5ff',
           content: res.error,
           showCancel: false,
           confirmText: '好的'
@@ -284,6 +285,7 @@ function loadFeed (page, id) {
       if (res.error) {
         console.log(res)
         wx.showModal({
+          confirmColor: '#33a5ff',
           content: res.error,
           showCancel: false,
           confirmText: '好的'
@@ -330,6 +332,7 @@ function follow (user, page) {
     .then(res => {
       if (res.error) {
         wx.showModal({
+          confirmColor: '#33a5ff',
           content: res.error,
           showCancel: false,
           confirmText: '好的'
@@ -403,6 +406,7 @@ function accept (user, page) {
     .then(res => {
       if (res.error) {
         wx.showModal({
+          confirmColor: '#33a5ff',
           content: res.error,
           showCancel: false,
           confirmText: '好的'
@@ -427,6 +431,7 @@ function deny (user, page) {
     .then(res => {
       if (res.error) {
         wx.showModal({
+          confirmColor: '#33a5ff',
           content: res.error,
           showCancel: false,
           confirmText: '好的'

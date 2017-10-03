@@ -44,6 +44,7 @@ module.exports = {
       data: link,
       success () {
         wx.showModal({
+          confirmColor: '#33a5ff',
           content: '链接已复制，请前往浏览器访问。',
           showCancel: false,
           confirmText: '好的'

@@ -29,14 +29,16 @@ Page(extend({}, tap, post, {
           if (res.tapIndex === 0) {
             fm.post(page, {status: `@${name} 需要你的微信号来配置小饭体验者权限。`}, null, () => {
               wx.showModal({
+                confirmColor: '#33a5ff',
                 content: `已告诉 @${name} 需要微信号，收到后请去 https://mp.weixin.qq.com 用户身份页，为${ta}添加体验权者权限，再来完成邀请。`,
                 showCancel: false,
                 confirmText: '好的'
               })
             })
           } else if (res.tapIndex === 1) {
-            fm.post(page, {status: `@${name} 微信访问 ${getApp().globalData.appidlink} 体验小饭。`}, null, () => {
+            fm.post(page, {status: `@${name} 复制地址并在微信中访问体验小饭：${getApp().globalData.appidlink}`}, null, () => {
               wx.showModal({
+                confirmColor: '#33a5ff',
                 content: '邀请已经发出。',
                 showCancel: false,
                 confirmText: '好的'
@@ -56,6 +58,7 @@ Page(extend({}, tap, post, {
               data: 'http://www.billlee.win/archives/139',
               success () {
                 wx.showModal({
+                  confirmColor: '#33a5ff',
                   content: '教程链接已复制，请前往浏览器访问。',
                   showCancel: false,
                   confirmText: '好的'
@@ -88,13 +91,14 @@ Page(extend({}, tap, post, {
     const ta = this.data.user.taMiddle
     const name = this.data.user.name
     if (appid) {
-      const appidlink = `https://open.weixin.qq.com/sns/getexpappinfo?appid=${appid}#wechat-redirect`
+      const appidlink = `open.weixin.qq.com/sns/getexpappinfo?appid=${appid}#wechat-redirect`
       wx.setStorageSync('appidlink', appidlink)
       getApp().globalData.appidlink = appidlink
       page.setData({distributor: false})
       fm.post(page, {status: `@小饭师傅 我成为了分发者。`}, null, () => {
         wx.showModal({
-          content: `请获取 @${name} 的微信号，然后去 https://mp.weixin.qq.com 用户身份页，为${ta}添加体验权者权限，再来完成邀请。`,
+          confirmColor: '#33a5ff',
+          content: `你已成为分发者。请获取 @${name} 的微信号，然后去 https://mp.weixin.qq.com 用户身份页，为${ta}添加体验权者权限，再来完成邀请。`,
           showCancel: false,
           confirmText: '好的',
           success (res) {

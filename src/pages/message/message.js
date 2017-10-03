@@ -21,6 +21,7 @@ Page(extend({}, post, {
   reply () {
     if (!this.data.relationship.followed_by) {
       wx.showModal({
+        confirmColor: '#33a5ff',
         content: '对方还没有关注你，请用饭否网页版发送私信。',
         showCancel: false,
         confirmText: '好的'
