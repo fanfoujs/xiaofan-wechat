@@ -10,6 +10,7 @@ const oauthSignature = require('../modules/oauth-signature/index')
 const OAuth = require('./oauth')
 const Status = require('./status')
 const User = require('./user')
+const DirectMessage = require('./direct-message')
 
 class Fanfou {
   constructor (options) {
@@ -76,28 +77,9 @@ class Fanfou {
           callback(e, null, null)
         } else if (data.error) {
           callback(null, data)
-        } else if (Fanfou._uriType(uri) === 'timeline') {
-          const arr = []
-          for (const i in data) {
-            if (data[i]) {
-              arr.push(new Status(data[i]))
-            }
-          }
-          callback(null, arr)
-        } else if (Fanfou._uriType(uri) === 'status') {
-          callback(null, new Status(data))
-        } else if (Fanfou._uriType(uri) === 'users') {
-          const arr = []
-          for (const i in data) {
-            if (data[i]) {
-              arr.push(new User(data[i]))
-            }
-          }
-          callback(null, arr)
-        } else if (Fanfou._uriType(uri) === 'user') {
-          callback(null, new User(data))
         } else {
-          callback(null, data)
+          const result = Fanfou._parseData(data, Fanfou._uriType(uri))
+          callback(null, result)
         }
       }
     )
@@ -115,18 +97,9 @@ class Fanfou {
           callback(e)
         } else if (data.error) {
           callback(null, data)
-        } else if (Fanfou._uriType(uri) === 'timeline') {
-          const arr = []
-          for (const i in data) {
-            if (data[i]) {
-              arr.push(new Status(data[i]))
-            }
-          }
-          callback(null, arr)
-        } else if (Fanfou._uriType(uri) === 'status') {
-          callback(null, new Status(data))
         } else {
-          callback(null, data)
+          const result = Fanfou._parseData(data, Fanfou._uriType(uri))
+          callback(null, result)
         }
       }
     )
@@ -176,13 +149,9 @@ class Fanfou {
     })
   }
 
-  /**
-   * @param uri
-   * @returns {string}
-   * @private
-   */
   static _uriType (uri) {
     const uriList = {
+      // Timeline
       '/search/public_timeline': 'timeline',
       '/search/user_timeline': 'timeline',
       '/photos/user_timeline': 'timeline',
@@ -198,15 +167,70 @@ class Fanfou {
       '/statuses/show': 'status',
       '/favorites/destroy': 'status',
       '/favorites/create': 'status',
+
+      // User
       '/users/tagged': 'users',
       '/users/followers': 'users',
       '/users/friends': 'users',
       '/friendships/requests': 'users',
       '/users/show': 'user',
       '/friendships/create': 'user',
-      '/friendships/destroy': 'user'
+      '/friendships/destroy': 'user',
+
+      // Conversation
+      '/direct_messages/conversation': 'conversation',
+      '/direct_messages/inbox': 'conversation',
+      '/direct_messages/sent': 'conversation',
+
+      // Conversation List
+      '/direct_messages/conversation_list': 'conversation-list',
+
+      // Direct Message
+      '/direct_messages/new': 'dm',
+      '/direct_messages/destroy': 'dm'
     }
     return uriList[uri] || null
+  }
+
+  static _parseList (data, type) {
+    const arr = []
+    for (const i in data) {
+      if (data[i]) {
+        switch (type) {
+          case 'timeline':
+            arr.push(new Status(data[i]))
+            break
+          case 'users':
+            arr.push(new User(data[i]))
+            break
+          case 'conversation':
+            arr.push(new DirectMessage(data[i]))
+            break
+          case 'conversation-list':
+            data[i].dm = new DirectMessage(data[i].dm)
+            arr.push(data)
+            break
+          default:
+            break
+        }
+      }
+    }
+    return arr
+  }
+
+  static _parseData (data, type) {
+    switch (type) {
+      case 'timeline':
+      case 'users':
+      case 'conversation':
+        return Fanfou._parseList(data, type)
+      case 'status':
+        return new Status(data)
+      case 'user':
+        return new User(data)
+      default:
+        return data
+    }
   }
 }
 
