@@ -210,11 +210,16 @@
 
 <template name="messages">
   <view wx:for="{{messages}}" wx:for-item="message" wx:key="ignorekeywarn" class="feed" data-message="{{message}}" catchtap="tapMessage">
-    <image class="avatar" src="{{message.dm.sender.id === message.otherid ? message.dm.sender.profile_image_url_large : message.dm.recipient.profile_image_url_large}}" data-user="{{message.dm.sender.id === message.otherid ? message.dm.sender : message.dm.recipient}}" catchtap="tapAvatar" />
+    <image
+      class="avatar"
+      src="{{message.dm.sender.id === message.otherid ? message.dm.sender.profile_image_url_large : message.dm.recipient.profile_image_url_large}}"
+      data-user="{{message.dm.sender.id === message.otherid ? message.dm.sender : message.dm.recipient}}"
+      catchtap="tapAvatar"
+    />
     <view class="after_avatar full_width">
       <view class="topline">
         <text class="name">{{message.dm.sender.id === message.otherid ? message.dm.sender.name : message.dm.recipient.name}}</text>
-        <text class="meta">{{message.dm.created_at}}</text>
+        <text class="meta">{{message.dm.time_ago}}</text>
         <text wx:if="{{message.new_conv}}" class="meta">new</text>
       </view>
       <text>{{message.dm.text}}</text>
@@ -230,6 +235,6 @@
 <template name="message">
   <view wx:for="{{message}}" wx:for-item="msg" wx:key="id" class="msg">
     <text class="bubble {{msg.is_me ? 'tint' : ''}}">{{msg.text}}</text>
-    <view class="meta">{{msg.created_at}}</view>
+    <view class="meta">{{msg.time_tag}}</view>
   </view>
 </template>
