@@ -36,8 +36,17 @@ Page(extend({}, post, {
     const param = Object.assign(this.data.param || {}, {text: e.detail.value.post})
     fm.postMsg(param, this)
   },
-  tapMessage (e) {
-    // 删除和复制消息
-    console.log(e.currentTarget.dataset)
+  tapMsg (e) {
+    const page = this
+    wx.showActionSheet({
+      itemList: ['复制', '删除'],
+      success (res) {
+        if (res.tapIndex === 0) {
+          wx.setClipboardData({data: e.currentTarget.dataset.msg.text})
+        } else if (res.tapIndex === 1) {
+          fm.destroyMsg(page, e.currentTarget.dataset.msg.id)
+        }
+      }
+    })
   }
 }))

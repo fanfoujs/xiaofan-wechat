@@ -134,6 +134,36 @@ function destroy (id) {
     })
 }
 
+function destroyMsg (page, id) {
+  ff.postPromise('/direct_messages/destroy', {id})
+    .then(() => {
+      wx.showToast({
+        title: '已删除',
+        image: '/assets/toast_delete.png',
+        duration: 900
+      })
+      for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
+        for (const [feedIndex, feed] of feeds.entries()) {
+          if (feed.id === id) {
+            page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
+            page.setData({
+              [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
+            })
+            return
+          }
+        }
+      }
+    })
+    .catch(err => {
+      wx.showToast({
+        title: '错误',
+        image: '/assets/toast_fail.png',
+        duration: 900
+      })
+      console.error(err)
+    })
+}
+
 function postMsg (param, page) {
   page.setData({posting: true})
   ff.postPromise('/direct_messages/new', param)
@@ -474,3 +504,4 @@ module.exports.unblock = unblock
 module.exports.accept = accept
 module.exports.deny = deny
 module.exports.postMsg = postMsg
+module.exports.destroyMsg = destroyMsg
