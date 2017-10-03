@@ -309,11 +309,11 @@ function updateAvatar (page, photoPaths) {
         })
         return
       }
-      wx.navigateBack({
-        complete () {
-          wx.showToast({title, image, duration: 900})
-        }
-      })
+      wx.showToast({title, image, duration: 900})
+      const currentPage = getCurrentPages().slice(-1)[0]
+      if (currentPage.route === 'pages/profile/profile') {
+        this.loadMe(currentPage)
+      }
     })
     .catch(err => {
       wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
