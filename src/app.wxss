@@ -372,7 +372,6 @@ image {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0 0 36px;
   font-size: 13px;
 }
 

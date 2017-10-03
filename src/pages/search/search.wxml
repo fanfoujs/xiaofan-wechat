@@ -7,4 +7,3 @@
   <template is="feeds_arr" data="{{feeds_arr}}" />
 </view>
 <template is="notibar" data="{{notis}}" />
-<template is="bottom" />
