@@ -208,7 +208,7 @@ class Fanfou {
             break
           case 'conversation-list':
             data[i].dm = new DirectMessage(data[i].dm)
-            arr.push(data)
+            arr.push(data[i])
             break
           default:
             break
@@ -223,6 +223,7 @@ class Fanfou {
       case 'timeline':
       case 'users':
       case 'conversation':
+      case 'conversation-list':
         return Fanfou._parseList(data, type)
       case 'status':
         return new Status(data)
