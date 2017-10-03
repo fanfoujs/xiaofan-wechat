@@ -1,2 +1,5 @@
 <import src="/components/templates.wxml" />
 <template wx:if="{{user}}" is="profile" data="{{user, relationship}}" />
+<view class="footer">
+  <text catchtap="tapDistributor">邀请使用小饭</text>
+</view>

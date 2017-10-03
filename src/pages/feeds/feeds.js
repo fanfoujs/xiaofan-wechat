@@ -8,9 +8,7 @@ Page(extend({}, tap, {
   onLoad (e) {
     this.url = e.url || '/search/public_timeline'
     this.para = e
-    wx.setNavigationBarTitle({
-      title: e.name || e.q || e.url
-    })
+    wx.setNavigationBarTitle({title: e.name || e.q || e.url})
     fm.load(this, this.url, this.para)
   },
   onPullDownRefresh () {

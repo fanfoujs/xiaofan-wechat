@@ -1,4 +1,4 @@
 <import src="/components/templates.wxml" />
-work in progress...
+<!-- work in progress... -->
 <template is="messages_arr" data="{{messages_arr: feeds_arr}}" />
 <template wx:if="{{showLoader}}" is="loader" />

@@ -7,6 +7,7 @@ const url = '/direct_messages/conversation'
 Page(extend({}, post, {
   id: null,
   onLoad (e) {
+    wx.setNavigationBarTitle({title: e.name})
     this.id = e.id
     fm.load(this, url, {id: this.id})
     fm.relationship(this.id, this)

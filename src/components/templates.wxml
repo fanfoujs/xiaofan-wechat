@@ -161,7 +161,7 @@
       <view>饭龄：{{user.fanfou_age}}</view>
       <image wx:if="{{user.protected}}" class="protected" src="/assets/private.svg"/>
     </view>
-    <view wx:if="{{relationship}}" class="flex_between space_item_v">
+    <view wx:if="{{relationship && !user.is_me}}" class="flex_between space_item_v">
       <view wx:if="{{relationship.following && relationship.followed_by}}" class="btn3 dim space_item_h" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">互相关注</view>
       <view wx:elif="{{!relationship.following && relationship.followed_by}}" class="btn3 space_item_h" catchtap="follow" catchlongpress="block" data-user="{{user}}">回 fo</view>
       <view wx:elif="{{relationship.following && !relationship.followed_by}}" class="btn3 dim space_item_h" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">已关注</view>
@@ -210,17 +210,19 @@
 
 <template name="messages">
   <view wx:for="{{messages}}" wx:for-item="message" wx:key="ignorekeywarn" class="feed" data-message="{{message}}" catchtap="tapMessage">
-    <image
-      class="avatar"
-      src="{{message.dm.sender.id === message.otherid ? message.dm.sender.profile_image_url_large : message.dm.recipient.profile_image_url_large}}"
-      data-user="{{message.dm.sender.id === message.otherid ? message.dm.sender : message.dm.recipient}}"
-      catchtap="tapAvatar"
-    />
+    <view>
+      <view wx:if="{{message.new_conv}}" class="new" />
+      <image
+        class="avatar"
+        src="{{message.dm.sender.is_me ? message.dm.recipient.profile_image_url_large : message.dm.sender.profile_image_url_large}}"
+        data-user="{{message.dm.sender.is_me ? message.dm.recipient : message.dm.sender}}"
+        catchtap="tapAvatar"
+        />
+    </view>
     <view class="after_avatar full_width">
       <view class="topline">
-        <text class="name">{{message.dm.sender.id === message.otherid ? message.dm.sender.name : message.dm.recipient.name}}</text>
+        <text class="name">{{message.dm.sender.is_me ? message.dm.recipient.name : message.dm.sender.name}}</text>
         <text class="meta">{{message.dm.time_ago}}</text>
-        <text wx:if="{{message.new_conv}}" class="meta">new</text>
       </view>
       <text>{{message.dm.text}}</text>
     </view>
@@ -233,8 +235,8 @@
 </template>
 
 <template name="message">
-  <view wx:for="{{message}}" wx:for-item="msg" wx:key="id" class="msg">
-    <text class="bubble {{msg.is_me ? 'tint' : ''}}">{{msg.text}}</text>
+  <view wx:for="{{message}}" wx:for-item="msg" wx:key="id" class="msg {{msg.sender.is_me ? 'msg_end' : ''}}">
+    <text class="bubble">{{msg.text}}</text>
     <view class="meta">{{msg.time_tag}}</view>
   </view>
 </template>

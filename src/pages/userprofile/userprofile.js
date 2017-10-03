@@ -15,6 +15,6 @@ Page(extend({}, tap, {
     fm.relationship(this.data.user.id, this)
   },
   message (e) {
-    fm.navigateTo(`../message/message?id=${e.currentTarget.dataset.user.id}`)
+    fm.navigateTo(`../message/message?id=${e.currentTarget.dataset.user.id}&name=${e.currentTarget.dataset.user.name}`)
   }
 }))

@@ -1,5 +1,5 @@
 <import src="/components/templates.wxml" />
-work in progress...
+<!-- work in progress... -->
 <template is="message_arr" data="{{message_arr: feeds_arr}}" />
 <template wx:if="{{showLoader}}" is="loader" />
 <template is="toolbar_msg" data="{{feed: feed}}" />
