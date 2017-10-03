@@ -1,3 +1,0 @@
-<!--test.wxml-->
-<text wx:if="{{false}}">123</text>
-<text wx:for="{{[1,2]}}">{{item}}</text>

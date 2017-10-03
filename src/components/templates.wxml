@@ -40,7 +40,7 @@
   </view>
 </template>
 
-<!--分割-->
+<!--UI-->
 <template name="divider">
   <view style="height:18px;background:#f9f9fc;" />
 </template>

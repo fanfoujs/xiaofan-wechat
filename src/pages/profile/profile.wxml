@@ -22,3 +22,4 @@
   </view>
   <template is="notibar" data="{{notis}}" />
 </block>
+<template is="bottom" />

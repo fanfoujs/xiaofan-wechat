@@ -16,3 +16,4 @@
       </form>
   </view>
 </block>
+<template is="bottom" />
