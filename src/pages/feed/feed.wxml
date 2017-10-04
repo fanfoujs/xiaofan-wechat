@@ -6,7 +6,7 @@
   <template is="toolbar" data="{{feed: feed}}" />
 </block>
 <block wx:if="{{param}}">
-  <view class="mask animated fadeIn">
+  <view class="mask">
     <template is="post" data="{{param, photoPaths, posting, autoFocus: true, length}}" />
   </view>
 </block>
