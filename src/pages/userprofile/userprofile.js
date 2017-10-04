@@ -27,7 +27,7 @@ Page(extend({}, tap, post, {
         itemList: [`问 @${name} 要微信号`, '已配置好微信权限'],
         success (res) {
           if (res.tapIndex === 0) {
-            fm.post(page, {status: `@${name} 需要你的微信号来配置小饭体验者权限。`}, null, () => {
+            fm.post(page, {status: `@${name} 需要你的微信号，来帮你配置小饭体验者权限。`}, null, () => {
               wx.showModal({
                 confirmColor: '#33a5ff',
                 content: `已告诉 @${name} 需要微信号，收到后请去 https://mp.weixin.qq.com 用户身份页，为${ta}添加体验权者权限，再来完成邀请。`,
