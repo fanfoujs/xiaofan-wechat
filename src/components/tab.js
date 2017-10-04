@@ -31,5 +31,7 @@ function clearNotis (key) {
   render()
 }
 
-module.exports.updateNotis = updateNotis
-module.exports.clearNotis = clearNotis
+module.exports = {
+  updateNotis,
+  clearNotis
+}
