@@ -25,14 +25,14 @@ Page(extend({}, tap, {
           trends: res.trends
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => fm.showModal(err.errMsg))
     ff.getPromise('/saved_searches/list')
       .then(res => {
         this.setData({
           saved_searches: res
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => fm.showModal(err.errMsg))
   },
   search (e) {
     fm.navigateTo(`../feeds/feeds?q=${e.detail.value}`, () => {
@@ -48,7 +48,7 @@ Page(extend({}, tap, {
         .then(res => {
           this.setData({['saved_searches[' + this.data.saved_searches.length + ']']: res})
         })
-        .catch(err => console.error(err))
+        .catch(err => fm.showModal(err.errMsg))
     })
   },
   tapListItem (e) {
@@ -62,7 +62,7 @@ Page(extend({}, tap, {
         if (!res.cancel) {
           ff.postPromise('/saved_searches/destroy', {id: e.currentTarget.dataset.id})
             .then(() => {})
-            .catch(err => console.error(err))
+            .catch(err => fm.showModal(err.errMsg))
           for (const [index, value] of page.data.saved_searches.entries()) {
             if (value.id === e.currentTarget.dataset.id) {
               page.data.saved_searches.splice(index, 1)
