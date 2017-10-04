@@ -112,6 +112,25 @@ function destroy (id) {
     .catch(err => showModal(err.errMsg))
 }
 
+function destroyForTest (id) {
+  ff.postPromise('/statuses/destroy', {id})
+    .then(() => {
+      const page = getCurrentPages().slice(-1)[0]
+      for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
+        for (const [feedIndex, feed] of feeds.entries()) {
+          if (feed.id === id) {
+            page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
+            page.setData({
+              [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
+            })
+            return
+          }
+        }
+      }
+    })
+    .catch(err => showModal(err.errMsg))
+}
+
 function destroyMsg (page, id) {
   ff.postPromise('/direct_messages/destroy', {id})
     .then(() => {
@@ -532,5 +551,6 @@ module.exports = {
   postMsg,
   destroyMsg,
   updateAvatar,
-  updateProfile
+  updateProfile,
+  destroyForTest
 }

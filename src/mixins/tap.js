@@ -18,6 +18,11 @@ module.exports = {
     fm.showUser(e.currentTarget.dataset.user)
   },
   tapFeed (e) {
+    const quickDelete = false // 改为 true：点击消息会直接删除，供测试使用
+    if (quickDelete) {
+      fm.destroyForTest(e.currentTarget.dataset.feed.id)
+      return
+    }
     fm.showFeed(e.currentTarget.dataset.feed)
   },
   tapFeedDetail (e) {
