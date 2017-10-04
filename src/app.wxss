@@ -267,15 +267,19 @@ image {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 180px;
+  position: relative;
 }
 
 .profile_background {
+  position: absolute;
   width: 100%;
-  height: 180px;
+  height: 100%;
+  z-index: -1;
+  left: 0;
 }
 
 .avatar_container {
-  position: absolute;
   background: #fff;
   padding: 4px;
   overflow: hidden;
