@@ -10,9 +10,9 @@ Fanfou WeApp
 
 <div align="center"><img width="50%" height="50%" src="https://raw.githubusercontent.com/fanfoujs/xiaofan/master/screenshot.png" /></div>
 
-## Usage
+## Deployment
 
-- 小饭的配置文件为 <code>[src/config/fanfou.js](https://github.com/fanfoujs/fanfou-weapp/blob/master/src/config/fanfou.js)</code>
+Here is [deployment tutorial](http://www.billlee.win./archives/139).
 
 ## Related
 
