@@ -189,7 +189,8 @@ function postMsg (param, page) {
     })
 }
 
-function post (page, param, photoPaths, success) {
+function post (page, para, photoPaths, success) {
+  const param = Object.assign({format: 'html'}, para)
   page.setData({posting: true})
   if (photoPaths) {
     _postPhoto(page, param, photoPaths, success)
@@ -218,19 +219,12 @@ function _postText (page, param, success) {
           url: '/pages/home/home',
           success: () => {
             wx.showToast({title, image, duration: 900})
-            const home = getCurrentPages().slice(-1)[0]
-            const feeds = home.data.feeds_arr[0]
-            feeds.unshift(res)
-            home.setData({'feeds_arr[0]': feeds})
+            _loadFeedThenAddToHome(res.id)
           }
         })
       } else {
         wx.showToast({title, image, duration: 900})
-        if (page.route === 'pages/feed/feed') {
-          const feeds = page.data.feeds_arr[0]
-          feeds.push(res)
-          page.setData({'feeds_arr[0]': feeds})
-        }
+        _loadFeedThenAddToReply(res.id)
       }
       page.setData({
         param: null,
@@ -269,19 +263,12 @@ function _postPhoto (page, param, photoPaths, success) {
           url: '/pages/home/home',
           success: () => {
             wx.showToast({title, image, duration: 900})
-            const home = getCurrentPages().slice(-1)[0]
-            const feeds = home.data.feeds_arr[0]
-            feeds.unshift(res)
-            home.setData({'feeds_arr[0]': feeds})
+            _loadFeedThenAddToHome(res.id)
           }
         })
       } else {
         wx.showToast({title, image, duration: 900})
-        if (page.route === 'pages/feed/feed') {
-          const feeds = page.data.feeds_arr[0]
-          feeds.push(res)
-          page.setData({'feeds_arr[0]': feeds})
-        }
+        _loadFeedThenAddToReply(res.id)
       }
       page.setData({
         param: null,
@@ -392,6 +379,38 @@ function loadFeed (page, id) {
       }
       wx.stopPullDownRefresh()
       page.setData({feed: res})
+    })
+    .catch(err => console.error(err))
+}
+
+function _loadFeedThenAddToHome (id) {
+  ff.getPromise('/statuses/show', {id, format: 'html'})
+    .then(res => {
+      if (res.error) {
+        return
+      }
+      const page = getCurrentPages().slice(-1)[0]
+      if (page.route === 'pages/home/home') {
+        const feeds = page.data.feeds_arr[0]
+        feeds.unshift(res)
+        page.setData({'feeds_arr[0]': feeds})
+      }
+    })
+    .catch(err => console.error(err))
+}
+
+function _loadFeedThenAddToReply (id) {
+  ff.getPromise('/statuses/show', {id, format: 'html'})
+    .then(res => {
+      if (res.error) {
+        return
+      }
+      const page = getCurrentPages().slice(-1)[0]
+      if (page.route === 'pages/feed/feed') {
+        const feeds = page.data.feeds_arr[0]
+        feeds.push(res)
+        page.setData({'feeds_arr[0]': feeds})
+      }
     })
     .catch(err => console.error(err))
 }
