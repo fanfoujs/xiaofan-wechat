@@ -5,15 +5,15 @@
 </view>
 <block wx:if="{{distributor}}">
   <view class="mask">
-      <form bindsubmit="saveAppID" bindreset="reset">
-        <view class="post_mini">
-          <input class="input_bar" name="appid" placeholder-class="gray" placeholder="App ID" />
-          <view class="flex_between space_item_v" style="padding: 0 18px;">
-            <button class="btn2 dim" formType="reset">取消</button>
-            <button class="btn2" formType="submit">保存</button>
-          </view>
+    <form bindsubmit="saveAppID" bindreset="reset">
+      <view class="post_mini">
+        <input class="input_bar" name="appid" placeholder-class="gray" placeholder="App ID" />
+        <view class="flex_between space_item_v" style="padding: 0 18px;">
+          <button class="btn2 dim" formType="reset">取消</button>
+          <button class="btn2" formType="submit">保存</button>
         </view>
-      </form>
+      </view>
+    </form>
   </view>
 </block>
 <template is="bottom" />

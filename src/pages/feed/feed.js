@@ -39,7 +39,7 @@ Page(extend({}, tap, post, {
     fm.destroy(this.data.feed.id)
   },
   tapImage () {
-    fm.showImage(this.feed.photo.largeurl)
+    fm.showImage(this.data.feed.photo.largeurl)
   },
   longPressImage () {
     fm.showImage(this.data.feed.photo.originurl)
