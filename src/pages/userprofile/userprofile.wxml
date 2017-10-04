@@ -1,19 +1,19 @@
 <import src="/components/templates.wxml" />
 <template wx:if="{{user}}" is="profile" data="{{user, relationship}}" />
 <view class="footer">
-  <text catchtap="tapDistributor" catchlongpress="longpressDistributor">邀请使用小饭</text>
+  <text catchtap="tapDistributor" catchlongpress="longpressDistributor">邀请{{user.taMiddle}}使用小饭{{appid ? ' (' + appid + ')' : ''}}</text>
 </view>
 <block wx:if="{{distributor}}">
-  <view class="mask">
-      <form bindsubmit="saveAppID" bindreset="reset">
-        <view class="post_mini">
-          <input class="input_bar" name="appid" placeholder-class="gray" placeholder="App ID" />
-          <view class="flex_between space_item_v" style="padding: 0 18px;">
-            <button class="btn2 dim" formType="reset">取消</button>
-            <button class="btn2" formType="submit">保存</button>
-          </view>
+  <view class="mask animated fadeIn">
+    <form bindsubmit="saveAppID" bindreset="reset">
+      <view class="post_mini">
+        <input class="input_bar" name="appid" placeholder-class="gray" placeholder="App ID" />
+        <view class="flex_between space_item_v" style="padding: 0 18px;">
+          <button class="btn2 dim" formType="reset">取消</button>
+          <button class="btn2" formType="submit">保存</button>
         </view>
-      </form>
+      </view>
+    </form>
   </view>
 </block>
 <template is="bottom" />

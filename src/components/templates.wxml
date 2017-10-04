@@ -155,8 +155,8 @@
 
 <!--profile-->
 <template name="profile">
-  <view class="header">
-    <image class="profile_background" style="background:{{user.profile_background_color}};" mode="aspectFill" src="{{user.profile_background_image_url}}" catchtap="tapImage" data-photo-url="{{user.profile_background_image_url}}" />
+  <view class="header" catchtap="tapImage" data-photo-url="{{user.profile_background_image_url}}">
+    <image class="profile_background" style="background: {{user.profile_background_color}};" mode="aspectFill" src="{{user.profile_background_image_url}}" />
     <view class="avatar_container" catchtap="tapImage" data-photo-url="{{user.profile_image_url_large}}">
       <image class="avatar" src="{{user.profile_image_url_large}}" />
     </view>

@@ -5,7 +5,10 @@ const post = require('../../mixins/post')
 
 Page(extend({}, tap, post, {
   onLoad (e) {
-    this.setData({user: getApp().globalData.user})
+    this.setData({
+      user: getApp().globalData.user,
+      appid: getApp().globalData.appid
+    })
     if (!this.data.user) {
       fm.loadUser(e.id, this)
     }
@@ -20,7 +23,7 @@ Page(extend({}, tap, post, {
   },
   tapDistributor () {
     const page = this
-    if (getApp().globalData.appid) {
+    if (this.data.appid) {
       const ta = this.data.user.taMiddle
       const name = this.data.user.name
       wx.showActionSheet({
@@ -36,7 +39,7 @@ Page(extend({}, tap, post, {
               })
             })
           } else if (res.tapIndex === 1) {
-            const appidlink = `open.weixin.qq.com/sns/getexpappinfo?appid=${getApp().globalData.appid}#wechat-redirect`
+            const appidlink = `open.weixin.qq.com/sns/getexpappinfo?appid=${this.data.appid}#wechat-redirect`
             fm.post(page, {status: `@${name} 复制地址并在微信中访问体验小饭：${appidlink}`}, null, () => {
               wx.showModal({
                 confirmColor: '#33a5ff',
@@ -50,38 +53,45 @@ Page(extend({}, tap, post, {
       })
     } else {
       wx.showActionSheet({
-        itemList: [`已搭建好小饭`, `查看如何搭建`],
+        itemList: ['已搭建好小饭', '查看搭建教程'],
         success (res) {
           if (res.tapIndex === 0) {
             page.setData({distributor: true})
           } else if (res.tapIndex === 1) {
-            wx.setClipboardData({
-              data: 'http://www.billlee.win/archives/139',
-              success () {
-                wx.showModal({
-                  confirmColor: '#33a5ff',
-                  content: '教程链接已复制，请前往浏览器访问。',
-                  showCancel: false,
-                  confirmText: '好的'
-                })
-              }
-            })
-            // WIP: fm.navigateTo('../tutorial/tutorial')
+            page.showTutorial()
           }
         }
       })
     }
   },
   longpressDistributor () {
+    const page = this
     wx.showActionSheet({
-      itemList: ['删除 App ID'],
+      itemList: ['删除 App ID', '查看搭建教程'],
       success (res) {
         if (res.tapIndex === 0) {
           wx.removeStorageSync('appid')
           getApp().globalData.appid = null
+          page.setData({appid: null})
+        } else if (res.tapIndex === 1) {
+          page.showTutorial()
         }
       }
     })
+  },
+  showTutorial () {
+    wx.setClipboardData({
+      data: 'http://www.billlee.win/archives/139',
+      success () {
+        wx.showModal({
+          confirmColor: '#33a5ff',
+          content: '教程链接已复制，请前往浏览器访问。',
+          showCancel: false,
+          confirmText: '好的'
+        })
+      }
+    })
+    // WIP: fm.navigateTo('../tutorial/tutorial')
   },
   reset () {
     this.setData({distributor: false})
@@ -94,7 +104,7 @@ Page(extend({}, tap, post, {
     if (appid) {
       wx.setStorageSync('appid', appid)
       getApp().globalData.appid = appid
-      page.setData({distributor: false})
+      page.setData({appid, distributor: false})
       fm.post(page, {status: `@小饭师傅 我成为了分发者。`}, null, () => {
         wx.showModal({
           confirmColor: '#33a5ff',
