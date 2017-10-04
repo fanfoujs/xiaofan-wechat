@@ -40,7 +40,7 @@ function loadMore (page, url, para) {
     })
     .catch(err => {
       page.setData({showLoader: false})
-      console.error(err)
+      showModal(err.errMsg)
     })
 }
 
@@ -63,8 +63,8 @@ function load (page, url, para) {
       }
     })
     .catch(err => {
-      console.error(err)
       page.setData({showLoader: false})
+      showModal(err.errMsg)
     })
 }
 
@@ -74,27 +74,13 @@ function favoriteChange (page) {
       .then(() => {
         page.setData({'feed.favorited': false})
       })
-      .catch(err => {
-        wx.showToast({
-          title: '错误',
-          image: '/assets/toast_fail.png',
-          duration: 900
-        })
-        console.error(err)
-      })
+      .catch(err => showModal(err.errMsg))
   } else {
     ff.postPromise('/favorites/create/' + page.data.feed.id)
       .then(() => {
         page.setData({'feed.favorited': true})
       })
-      .catch(err => {
-        wx.showToast({
-          title: '错误',
-          image: '/assets/toast_fail.png',
-          duration: 900
-        })
-        console.error(err)
-      })
+      .catch(err => showModal(err.errMsg))
   }
 }
 
@@ -123,14 +109,7 @@ function destroy (id) {
         }
       })
     })
-    .catch(err => {
-      wx.showToast({
-        title: '错误',
-        image: '/assets/toast_fail.png',
-        duration: 900
-      })
-      console.error(err)
-    })
+    .catch(err => showModal(err.errMsg))
 }
 
 function destroyMsg (page, id) {
@@ -153,14 +132,7 @@ function destroyMsg (page, id) {
         }
       }
     })
-    .catch(err => {
-      wx.showToast({
-        title: '错误',
-        image: '/assets/toast_fail.png',
-        duration: 900
-      })
-      console.error(err)
-    })
+    .catch(err => showModal(err.errMsg))
 }
 
 function postMsg (param, page) {
@@ -170,7 +142,7 @@ function postMsg (param, page) {
       page.setData({posting: false})
       console.log(res)
       if (res.error) {
-        wx.showToast({title: '发送失败', image: '/assets/toast_fail.png', duration: 900})
+        showModal(res.error)
         return
       }
       wx.showToast({title: '已发送', image: '/assets/toast_reply.png', duration: 900})
@@ -184,12 +156,12 @@ function postMsg (param, page) {
     })
     .catch(err => {
       page.setData({posting: false})
-      wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
-      console.error(err)
+      showModal(err.errMsg)
     })
 }
 
-function post (page, param, photoPaths, success) {
+function post (page, para, photoPaths, success) {
+  const param = Object.assign({format: 'html'}, para)
   page.setData({posting: true})
   if (photoPaths) {
     _postPhoto(page, param, photoPaths, success)
@@ -210,7 +182,7 @@ function _postText (page, param, success) {
     .then(res => {
       page.setData({posting: false})
       if (res.error) {
-        wx.showToast({title: '发送失败', image: '/assets/toast_fail.png', duration: 900})
+        showModal(res.error)
         return
       }
       if (direct) {
@@ -218,19 +190,12 @@ function _postText (page, param, success) {
           url: '/pages/home/home',
           success: () => {
             wx.showToast({title, image, duration: 900})
-            const home = getCurrentPages().slice(-1)[0]
-            const feeds = home.data.feeds_arr[0]
-            feeds.unshift(res)
-            home.setData({'feeds_arr[0]': feeds})
+            _loadFeedThenAddToHome(res.id)
           }
         })
       } else {
         wx.showToast({title, image, duration: 900})
-        if (page.route === 'pages/feed/feed') {
-          const feeds = page.data.feeds_arr[0]
-          feeds.push(res)
-          page.setData({'feeds_arr[0]': feeds})
-        }
+        _loadFeedThenAddToReply(res.id)
       }
       page.setData({
         param: null,
@@ -243,8 +208,7 @@ function _postText (page, param, success) {
     })
     .catch(err => {
       page.setData({posting: false})
-      wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
-      console.error(err)
+      showModal(err.errMsg)
     })
 }
 
@@ -256,12 +220,7 @@ function _postPhoto (page, param, photoPaths, success) {
     .then(res => {
       page.setData({posting: false})
       if (res.error) {
-        wx.showModal({
-          confirmColor: '#33a5ff',
-          content: res.error,
-          showCancel: false,
-          confirmText: '好的'
-        })
+        showModal(res.error)
         return
       }
       if (direct) {
@@ -269,19 +228,12 @@ function _postPhoto (page, param, photoPaths, success) {
           url: '/pages/home/home',
           success: () => {
             wx.showToast({title, image, duration: 900})
-            const home = getCurrentPages().slice(-1)[0]
-            const feeds = home.data.feeds_arr[0]
-            feeds.unshift(res)
-            home.setData({'feeds_arr[0]': feeds})
+            _loadFeedThenAddToHome(res.id)
           }
         })
       } else {
         wx.showToast({title, image, duration: 900})
-        if (page.route === 'pages/feed/feed') {
-          const feeds = page.data.feeds_arr[0]
-          feeds.push(res)
-          page.setData({'feeds_arr[0]': feeds})
-        }
+        _loadFeedThenAddToReply(res.id)
       }
       page.setData({
         param: null,
@@ -294,8 +246,7 @@ function _postPhoto (page, param, photoPaths, success) {
     })
     .catch(err => {
       page.setData({posting: false})
-      wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
-      console.error(err)
+      showModal(err.errMsg)
     })
 }
 
@@ -305,12 +256,7 @@ function updateAvatar (page, photoPaths) {
   ff.uploadPromise('/account/update_profile_image', photoPaths)
     .then(res => {
       if (res.error) {
-        wx.showModal({
-          confirmColor: '#33a5ff',
-          content: res.error,
-          showCancel: false,
-          confirmText: '好的'
-        })
+        showModal(res.error)
         return
       }
       wx.showToast({title, image, duration: 900})
@@ -319,10 +265,7 @@ function updateAvatar (page, photoPaths) {
         this.loadMe(currentPage)
       }
     })
-    .catch(err => {
-      wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
-      console.error(err)
-    })
+    .catch(err => showModal(err.errMsg))
 }
 
 function updateProfile (page, param) {
@@ -331,12 +274,7 @@ function updateProfile (page, param) {
   ff.postPromise('/account/update_profile', param)
     .then(res => {
       if (res.error) {
-        wx.showModal({
-          confirmColor: '#33a5ff',
-          content: res.error,
-          showCancel: false,
-          confirmText: '好的'
-        })
+        showModal(res.error)
         return
       }
       wx.navigateBack({
@@ -345,10 +283,7 @@ function updateProfile (page, param) {
         }
       })
     })
-    .catch(err => {
-      wx.showToast({title: '错误', image: '/assets/toast_fail.png', duration: 900})
-      console.error(err)
-    })
+    .catch(err => showModal(err.errMsg))
 }
 
 function showImage (url) {
@@ -370,7 +305,7 @@ function loadUser (id, page) {
       const user = res
       page.setData({user})
     })
-    .catch(err => console.error(err))
+    .catch(err => showModal(err.errMsg))
 }
 
 function showFeed (feed, id) {
@@ -378,22 +313,59 @@ function showFeed (feed, id) {
   this.navigateTo(`../feed/feed?id=${id || feed.id}`)
 }
 
+function showModal (err) {
+  wx.showModal({
+    confirmColor: '#33a5ff',
+    title: '错误',
+    content: err,
+    showCancel: false,
+    confirmText: '好的'
+  })
+}
+
 function loadFeed (page, id) {
   ff.getPromise('/statuses/show', {id, format: 'html'})
     .then(res => {
-      if (res.error) {
-        console.log(res)
-        wx.showModal({
-          confirmColor: '#33a5ff',
-          content: res.error,
-          showCancel: false,
-          confirmText: '好的'
-        })
-      }
       wx.stopPullDownRefresh()
+      if (res.error) {
+        showModal(res.error)
+        return
+      }
       page.setData({feed: res})
     })
-    .catch(err => console.error(err))
+    .catch(err => showModal(err.errMsg))
+}
+
+function _loadFeedThenAddToHome (id) {
+  ff.getPromise('/statuses/show', {id, format: 'html'})
+    .then(res => {
+      if (res.error) {
+        return
+      }
+      const page = getCurrentPages().slice(-1)[0]
+      if (page.route === 'pages/home/home') {
+        const feeds = page.data.feeds_arr[0]
+        feeds.unshift(res)
+        page.setData({'feeds_arr[0]': feeds})
+      }
+    })
+    .catch(err => showModal(err.errMsg))
+}
+
+function _loadFeedThenAddToReply (id) {
+  ff.getPromise('/statuses/show', {id, format: 'html'})
+    .then(res => {
+      if (res.error) {
+        return
+      }
+      const page = getCurrentPages().slice(-1)[0]
+      if (page.route === 'pages/feed/feed') {
+        const feeds = page.data.feeds_arr[0]
+        feeds.push(res)
+        page.setData({'feeds_arr[0]': feeds})
+      }
+    })
+    .catch(err => showModal(err.errMsg))
 }
 
 function getAts (status) {
@@ -430,17 +402,12 @@ function follow (user, page) {
   ff.postPromise('/friendships/create', {id: user.id})
     .then(res => {
       if (res.error) {
-        wx.showModal({
-          confirmColor: '#33a5ff',
-          content: res.error,
-          showCancel: false,
-          confirmText: '好的'
-        })
-      } else {
-        page.setData({'relationship.following': true})
+        showModal(res.error)
+        return
       }
+      page.setData({'relationship.following': true})
     })
-    .catch(err => console.error(err))
+    .catch(err => showModal(err.errMsg))
 }
 
 function unfollow (user, page) {
@@ -452,7 +419,7 @@ function unfollow (user, page) {
           .then(() => {
             page.setData({'relationship.following': false})
           })
-          .catch(err => console.error(err))
+          .catch(err => showModal(err.errMsg))
       }
     }
   })
@@ -471,7 +438,7 @@ function block (user, page) {
               'relationship.followed_by': false
             })
           })
-          .catch(err => console.error(err))
+          .catch(err => showModal(err.errMsg))
       }
     }
   })
@@ -482,73 +449,63 @@ function unblock (user, page) {
     .then(() => {
       page.setData({'relationship.blocking': false})
     })
-    .catch(err => console.error(err))
+    .catch(err => showModal(err.errMsg))
 }
 
 function relationship (targetId, page) {
   ff.getPromise('/friendships/show', {
     source_id: getApp().globalData.account.user.id,
     target_id: targetId
-  }).then(res => {
-    page.setData({
-      relationship: {
-        following: res.relationship.source.following === 'true',
-        followed_by: res.relationship.source.followed_by === 'true',
-        blocking: res.relationship.source.blocking === 'true'
-      }
+  })
+    .then(res => {
+      page.setData({
+        relationship: {
+          following: res.relationship.source.following === 'true',
+          followed_by: res.relationship.source.followed_by === 'true',
+          blocking: res.relationship.source.blocking === 'true'
+        }
+      })
     })
-  }).catch(err => console.error(err))
+    .catch(err => showModal(err.errMsg))
 }
 
 function accept (user, page) {
   ff.postPromise('/friendships/accept', {id: user.unique_id})
     .then(res => {
       if (res.error) {
-        wx.showModal({
-          confirmColor: '#33a5ff',
-          content: res.error,
-          showCancel: false,
-          confirmText: '好的'
-        })
-      } else {
-        console.log(res)
-        for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
-          for (const [feedIndex, feed] of feeds.entries()) {
-            if (feed.unique_id === user.unique_id) {
-              page.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].accept`]: true})
-              return
-            }
+        showModal(res.error)
+        return
+      }
+      for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
+        for (const [feedIndex, feed] of feeds.entries()) {
+          if (feed.unique_id === user.unique_id) {
+            page.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].accept`]: true})
+            return
           }
         }
       }
     })
-    .catch(err => console.error(err))
+    .catch(err => showModal(err.errMsg))
 }
 
 function deny (user, page) {
   ff.postPromise('/friendships/deny', {id: user.unique_id})
     .then(res => {
       if (res.error) {
-        wx.showModal({
-          confirmColor: '#33a5ff',
-          content: res.error,
-          showCancel: false,
-          confirmText: '好的'
-        })
-      } else {
-        console.log(res)
-        for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
-          for (const [feedIndex, feed] of feeds.entries()) {
-            if (feed.unique_id === user.unique_id) {
-              page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
-              page.setData({[`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]})
-              return
-            }
+        showModal(res.error)
+        return
+      }
+      for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
+        for (const [feedIndex, feed] of feeds.entries()) {
+          if (feed.unique_id === user.unique_id) {
+            page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
+            page.setData({[`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]})
+            return
           }
         }
       }
     })
-    .catch(err => console.error(err))
+    .catch(err => showModal(err.errMsg))
 }
 
 module.exports.load = load
@@ -576,3 +533,4 @@ module.exports.postMsg = postMsg
 module.exports.destroyMsg = destroyMsg
 module.exports.updateAvatar = updateAvatar
 module.exports.updateProfile = updateProfile
+module.exports.showModal = showModal
