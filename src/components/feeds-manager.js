@@ -508,29 +508,29 @@ function deny (user, page) {
     .catch(err => showModal(err.errMsg))
 }
 
-module.exports.load = load
-module.exports.loadMore = loadMore
-module.exports.destroy = destroy
-module.exports.post = post
-module.exports.load = load
-module.exports.getAts = getAts
-module.exports.favoriteChange = favoriteChange
-module.exports.showUser = showUser
-module.exports.showFeed = showFeed
-module.exports.showImage = showImage
-module.exports.loadMe = loadMe
-module.exports.loadUser = loadUser
-module.exports.loadFeed = loadFeed
-module.exports.follow = follow
-module.exports.unfollow = unfollow
-module.exports.navigateTo = navigateTo
-module.exports.relationship = relationship
-module.exports.block = block
-module.exports.unblock = unblock
-module.exports.accept = accept
-module.exports.deny = deny
-module.exports.postMsg = postMsg
-module.exports.destroyMsg = destroyMsg
-module.exports.updateAvatar = updateAvatar
-module.exports.updateProfile = updateProfile
-module.exports.showModal = showModal
+module.exports = {
+  load,
+  loadMore,
+  destroy,
+  post,
+  getAts,
+  favoriteChange,
+  showUser,
+  showFeed,
+  showImage,
+  loadMe,
+  loadUser,
+  loadFeed,
+  follow,
+  unfollow,
+  navigateTo,
+  relationship,
+  block,
+  unblock,
+  accept,
+  deny,
+  postMsg,
+  destroyMsg,
+  updateAvatar,
+  updateProfile
+}
