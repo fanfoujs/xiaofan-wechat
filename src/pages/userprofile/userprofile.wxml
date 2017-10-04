@@ -1,7 +1,7 @@
 <import src="/components/templates.wxml" />
 <template wx:if="{{user}}" is="profile" data="{{user, relationship}}" />
 <view class="footer">
-  <text catchtap="tapDistributor" catchlongpress="longpressDistributor">邀请使用小饭</text>
+  <text catchtap="tapDistributor" catchlongpress="longpressDistributor">邀请{{user.taMiddle}}使用小饭{{appid ? ' (' + appid + ')' : ''}}</text>
 </view>
 <block wx:if="{{distributor}}">
   <view class="mask animated fadeIn">
