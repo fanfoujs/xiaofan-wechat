@@ -24,6 +24,9 @@ Fanfou WeApp
 - [@饭小默](https://fanfou.com/lito)
 - [@mogita](https://fanfou.com/mogita)
 
-## License
+## Thank
 
+Thanks [@BillLee](http://fanfou.com/BillLee) for the [deployment tutorial](http://www.billlee.win/archives/139).
+
+## License
 MIT © [FanfouJS](https://github.com/fanfoujs)
