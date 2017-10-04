@@ -313,10 +313,10 @@ function showFeed (feed, id) {
   this.navigateTo(`../feed/feed?id=${id || feed.id}`)
 }
 
-function showModal (err) {
+function showModal (err, title) {
   wx.showModal({
     confirmColor: '#33a5ff',
-    title: '错误',
+    title: title.length > 0 ? title : (title.length === 0 ? '' : '错误'),
     content: err,
     showCancel: false,
     confirmText: '好的'
@@ -402,7 +402,7 @@ function follow (user, page) {
   ff.postPromise('/friendships/create', {id: user.id})
     .then(res => {
       if (res.error) {
-        showModal(res.error)
+        showModal(res.error, '')
         return
       }
       page.setData({'relationship.following': true})

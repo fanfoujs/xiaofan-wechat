@@ -21,14 +21,26 @@ module.exports = {
     fm.showFeed(e.currentTarget.dataset.feed)
   },
   tapFeedDetail (e) {
+    const itemList = ['复制']
+    let id = null
     const feed = e.currentTarget.dataset.feed
-    if (feed.repost_status) {
-      fm.showFeed(feed.repost_status)
-    } else if (feed.repost_status_id) {
-      fm.showFeed(null, feed.repost_status_id)
-    } else if (feed.in_reply_to_status_id) {
-      fm.showFeed(null, feed.in_reply_to_status_id)
+    if (feed.repost_screen_name && feed.repost_status_id) {
+      itemList.push('转自 @' + feed.repost_screen_name)
+      id = feed.repost_status_id
+    } else if (feed.in_reply_to_screen_name && feed.in_reply_to_status_id) {
+      itemList.push('回复给 @' + feed.in_reply_to_screen_name)
+      id = feed.in_reply_to_status_id
     }
+    wx.showActionSheet({
+      itemList,
+      success (res) {
+        if (res.tapIndex === 0) {
+          wx.setClipboardData({data: feed.plain_text})
+        } else if (res.tapIndex === 1) {
+          fm.showFeed(null, id)
+        }
+      }
+    })
   },
   tapListItem (e) {
     fm.navigateTo(`${e.currentTarget.dataset.page}?url=${e.currentTarget.dataset.url}&id=${this.data.user.id}&name=${e.currentTarget.dataset.name}`)

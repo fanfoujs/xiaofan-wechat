@@ -4,7 +4,7 @@
   <text catchtap="tapDistributor" catchlongpress="longpressDistributor">邀请使用小饭</text>
 </view>
 <block wx:if="{{distributor}}">
-  <view class="mask">
+  <view class="mask animated fadeIn">
     <form bindsubmit="saveAppID" bindreset="reset">
       <view class="post_mini">
         <input class="input_bar" name="appid" placeholder-class="gray" placeholder="App ID" />
