@@ -13,9 +13,7 @@
       <template is="list_item" data="{{...logout}}" />
     </view>
   </view>
-  <view class="footer" catchtap="tapLink" data-link="https://github.com/fanfoujs/xiaofan">
-    <image mode="aspectFit" style="height: 15px;width: 150px;" src="../../assets/github.svg" />
-  </view>
+  <view class="footer" catchtap="tapAbout" data-link="https://github.com/fanfoujs/xiaofan">关于小饭</view>
   <template is="notibar" data="{{notis}}" />
 </block>
-<template is="bottom" />
+<template is="space" />

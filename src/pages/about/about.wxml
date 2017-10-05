@@ -1,0 +1,60 @@
+<import src="/components/templates.wxml" />
+<view class="section" style="padding: 18px;margin-top: 0;background: #fff;">
+  <view style="font-size: 14px;">小饭是一款微信小程序饭否客户端。</view>
+  <view style="font-size: 14px;margin-top: 18px;">
+    由
+    <text class="at" data-id="maundytime" catchtap="tapID"> @猫弟 </text>
+    <text class="at" data-id="lito" catchtap="tapID"> @饭小默 </text>
+    <text class="at" data-id="mogita" catchtap="tapID"> @mogita </text>
+    用业余时间一起完成。
+  </view>
+  <view style="font-size: 14px;margin-top: 18px;">
+    由于社交类小程序不能通过微信的审核，所以不会有正式版。但鼓励大家自己动手搭建，过程很简单。具体请查看<text class="link" catchtap="tapLink" data-link="http://www.billlee.win/archives/139">搭建教程</text>。
+  </view>
+  <view style="font-size: 14px;margin-top: 18px;">
+    感谢
+    <text class="at" data-id="BillLee" catchtap="tapID"> @BillLee </text>
+    提供教程。
+  </view>
+  <view style="font-size: 14px;margin-top: 18px;">
+    如搭建或使用时遇到问题，请发私信，或发消息联系
+    <text class="at" data-id="BillLee" catchtap="tapID"> @BillLee </text>
+    <text class="at" data-id="maundytime" catchtap="tapID"> @猫弟 </text>
+    <text class="at" data-id="lito" catchtap="tapID"> @饭小默 </text>
+    <text class="at" data-id="mogita" catchtap="tapID"> @mogita </text>
+  </view>
+</view>
+
+<view class="section" style="padding: 18px;background: #fff;">
+  <view style="font-size: 14px;">小饭的产品方案还有很多不足。以下功能不容易被发现：</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 怎么保存图片？</view>
+  <view style="font-size: 14px;">消息详情页，按图片，进入图片详情页后再长按，选择「保存图片」。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 怎么查看原图？</view>
+  <view style="font-size: 14px;">消息详情页，长按图片。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 怎么不加附言快速转发？</view>
+  <view style="font-size: 14px;">消息详情页，长按转发按钮。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 怎么修改头像？</view>
+  <view style="font-size: 14px;">修改资料页，按头像。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 怎么查看用户头像或背景图大图？</view>
+  <view style="font-size: 14px;">用户个人页，按头像或背景图。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 怎么上传动图？</view>
+  <view style="font-size: 14px;">新消息页，长按「上传照片」，选择动图。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 怎么保存搜索词条？怎么删除词条？</view>
+  <view style="font-size: 14px;">搜索任意词条会自动保存，长按可以删除。饭否能保存最多 10 个搜索词条。这些词条在其他客户端中都会同步。词条是隐私的，不会被其他用户看到。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 怎么拉黑？怎么解除拉黑？</view>
+  <view style="font-size: 14px;">用户个人页，长按「关注」会拉黑。再次长按解除拉黑。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 我是体验者，怎么成为分发者邀请别人使用？</view>
+  <view style="font-size: 14px;">任意用户个人页底部，按「邀请 ta 使用小饭」，然后按照提示操作。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 我是分发者，App ID 设置有误，怎么修改？</view>
+  <view style="font-size: 14px;">任意用户个人页底部，长按「邀请 ta 使用小饭」，删除 App ID，再重新设置。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 怎么查看用户 ID？</view>
+  <view style="font-size: 14px;">用户个人页，按用户名。</view>
+  <view style="margin-top: 18px;font-size: 14px;">🍚 怎么搜索特定用户的消息？怎么进行高级搜索？</view>
+  <view style="font-size: 14px;">
+    例如搜索「太阳 uid:maundytime」可以找到猫弟消息中包含关键词「太阳」的。其中「maundytime」是猫弟的用户 ID。<text class="link" catchtap="tapLink" data-link="http://wiki.fanfou.com/饭否搜索">更多高级搜索规则</text>。
+  </view>
+</view>
+<view class="footer" catchtap="tapLink" data-link="https://github.com/fanfoujs/xiaofan">  
+  <image mode="aspectFit" style="height: 15px;width: 150px;" src="../../assets/github.svg" />
+</view>
+<template is="space" />

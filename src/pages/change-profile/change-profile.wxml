@@ -13,4 +13,4 @@
   <textarea class="input_bar input" name="description" placeholder-class="gray" placeholder="自述" value="{{user.description}}" />
   <button class="btn1 space_item_v" formType="submit">保存</button>
 </form>
-<template is="bottom" />
+<template is="space" />
