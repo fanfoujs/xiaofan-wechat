@@ -333,13 +333,17 @@ function showFeed (feed, id) {
 }
 
 function showModal (err, title) {
-  wx.showModal({
+  const para = {
     confirmColor: '#33a5ff',
-    title: title.length > 0 ? title : (title.length === 0 ? '' : '错误'),
+    title: title || '错误',
     content: err,
     showCancel: false,
     confirmText: '好的'
-  })
+  }
+  if (title === null) {
+    delete para.title
+  }
+  wx.showModal(para)
 }
 
 function loadFeed (page, id) {
@@ -421,7 +425,7 @@ function follow (user, page) {
   ff.postPromise('/friendships/create', {id: user.id})
     .then(res => {
       if (res.error) {
-        showModal(res.error, '')
+        showModal(res.error, null)
         return
       }
       page.setData({'relationship.following': true})
@@ -464,11 +468,18 @@ function block (user, page) {
 }
 
 function unblock (user, page) {
-  ff.postPromise('/blocks/destroy', {id: user.id})
-    .then(() => {
-      page.setData({'relationship.blocking': false})
-    })
-    .catch(err => showModal(err.errMsg))
+  wx.showActionSheet({
+    itemList: ['解除拉黑'],
+    success (res) {
+      if (!res.cancel) {
+        ff.postPromise('/blocks/destroy', {id: user.id})
+        .then(() => {
+          page.setData({'relationship.blocking': false})
+        })
+        .catch(err => showModal(err.errMsg))
+      }
+    }
+  })
 }
 
 function relationship (targetId, page) {

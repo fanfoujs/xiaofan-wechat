@@ -45,7 +45,7 @@
   <view style="height:18px;background:#f9f9fc;" />
 </template>
 
-<template name="bottom">
+<template name="space">
   <view style="height:36px;" />
 </template>
 
@@ -148,7 +148,7 @@
     <view class="label {{user.is_secret ? 'gray' : ''}}">{{name}}</view>
     <view wx:if="{{detail || detail === 0}}" class="gray">{{detail}}</view>
     <view wx:elif="{{badge}}" class="badge">{{badge}}</view>
-    <view wx:elif="{{query}}" class="gray">{{query}}</view>
+    <view wx:elif="{{query && query !== name}}" class="gray">{{query}}</view>
     <view wx:elif="{{user}}" class="gray">{{id}}</view>
   </view>
 </template>
@@ -162,7 +162,7 @@
     </view>
   </view>
   <view class="info">
-    <view class="name">{{user.name}}</view>
+    <view class="name" data-id="{{user.id}}" catchtap="tapName">{{user.name}}</view>
     <view wx:if="{{user.location.length}}" class="description">所在地：{{user.location}}</view>
     <view wx:if="{{user.description.length}}" class="description">自述：<text>{{user.description}}</text></view>
     <view wx:if="{{user.birth_date}}" class="description">生日：{{user.birth_date}} {{user.sign_name}}</view>
@@ -174,7 +174,7 @@
       <view wx:if="{{relationship.following && relationship.followed_by}}" class="btn3 dim space_item_h" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">互相关注</view>
       <view wx:elif="{{!relationship.following && relationship.followed_by}}" class="btn3 space_item_h" catchtap="follow" catchlongpress="block" data-user="{{user}}">回 fo</view>
       <view wx:elif="{{relationship.following && !relationship.followed_by}}" class="btn3 dim space_item_h" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">已关注</view>
-      <view wx:elif="{{relationship.blocking}}" class="btn3 dark space_item_h" catchtap="unblock" data-user="{{user}}">已拉黑</view>
+      <view wx:elif="{{relationship.blocking}}" class="btn3 dark space_item_h" catchlongpress="unblock" data-user="{{user}}">已拉黑</view>
       <view wx:else class="btn3 space_item_h" catchtap="follow" catchlongpress="block" data-user="{{user}}">关注</view>
       <view class="btn3 space_item_h" catchtap="message" data-user="{{user}}">私信</view>
     </view>

@@ -14,8 +14,24 @@ module.exports = {
         this.handleLink(txt.link)
     }
   },
+  tapID (e) {
+    fm.showUser(null, e.currentTarget.dataset.id)
+  },
   tapAvatar (e) {
     fm.showUser(e.currentTarget.dataset.user)
+  },
+  tapName (e) {
+    const id = e.currentTarget.dataset.id
+    wx.showModal({
+      confirmColor: '#33a5ff',
+      content: id,
+      confirmText: '复制',
+      success (res) {
+        if (res.confirm) {
+          wx.setClipboardData({data: id})
+        }
+      }
+    })
   },
   tapFeed (e) {
     const quickDelete = false // 改为 true：点击消息会直接删除，供测试使用
