@@ -32,7 +32,6 @@ Page(extend({}, tap, {
   },
   onPullDownRefresh () {
     fm.loadMe(this)
-    tab.updateNotis()
   },
   tapAbout () {
     fm.navigateTo('../about/about')

@@ -343,6 +343,9 @@ function showModal (err, title) {
   if (title === null) {
     delete para.title
   }
+  if (!err) {
+    delete para.content
+  }
   wx.showModal(para)
 }
 

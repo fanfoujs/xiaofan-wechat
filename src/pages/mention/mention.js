@@ -21,6 +21,7 @@ Page(extend({}, tap, {
   },
   onReachBottom () {
     fm.loadMore(this, urls[this.data.index], para)
+    tab.updateNotis()
   },
   tapIndex (e) {
     const index = e.currentTarget.dataset.index

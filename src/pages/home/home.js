@@ -26,6 +26,7 @@ Page(extend({}, tap, {
   },
   onReachBottom () {
     fm.loadMore(this)
+    tab.updateNotis()
   },
   onShareAppMessage () {
     return {title: '小饭'}

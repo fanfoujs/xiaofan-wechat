@@ -7,9 +7,7 @@ Page(extend({}, tap, post, {
   onLoad (e) {
     const feed = getApp().globalData.feed
     this.setData({feed})
-    if (!feed) {
-      fm.loadFeed(this, e.id)
-    }
+    fm.loadFeed(this, e.id)
     const page = this
     setTimeout(() => {
       fm.load(page, '/statuses/context_timeline', {id: e.id})
