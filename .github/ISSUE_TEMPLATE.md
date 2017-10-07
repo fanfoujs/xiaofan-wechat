@@ -8,7 +8,7 @@ Thanks for opening an issue! A few things to keep in mind:
 - Xiaofan version:
 - Operating system:
 
-### Expeced behavior
+### Expected behavior
 
 <!-- What do you think should happen? -->
 
