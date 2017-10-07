@@ -6,8 +6,11 @@ const tap = require('../../mixins/tap')
 Page(extend({}, tap, post, {
   onLoad (e) {
     const feed = getApp().globalData.feed
-    this.setData({feed})
-    fm.loadFeed(this, e.id)
+    if (feed) {
+      this.setData({feed})
+    } else {
+      fm.loadFeed(this, e.id)
+    }
     const page = this
     setTimeout(() => {
       fm.load(page, '/statuses/context_timeline', {id: e.id})

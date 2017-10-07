@@ -2,7 +2,7 @@
 
 App({
   globalData: {
-    notis: {},
+    notis: null,
     account: null,
     feed: null,
     appid: null

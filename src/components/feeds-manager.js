@@ -25,10 +25,12 @@ function loadMore (page, url, para) {
   }
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
-      page.setData({
-        showLoader: false,
-        ['feeds_arr[' + page.data.feeds_arr.length + ']']: res
-      })
+      page.setData({showLoader: false})
+      if (res.error) {
+        showModal(res.error)
+        return
+      }
+      page.setData({['feeds_arr[' + page.data.feeds_arr.length + ']']: res})
       if (res.length > 0 && maxId === res[0].id) {
         res.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
         param.count -= 1
@@ -52,17 +54,20 @@ function load (page, url, para) {
   }, para)
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
-      page.setData({
-        showLoader: false,
-        feeds_arr: [res]
-      })
       wx.stopPullDownRefresh()
+      page.setData({showLoader: false})
+      if (res.error && url !== '/statuses/context_timeline') {
+        showModal(res.error)
+        return
+      }
+      page.setData({feeds_arr: [res]})
       page.noMore = res.length < param.count
       if (url === '/statuses/mentions') {
         tab.clearNotis('mentions')
       }
     })
     .catch(err => {
+      wx.stopPullDownRefresh()
       page.setData({showLoader: false})
       showModal(err.errMsg)
     })
@@ -71,14 +76,40 @@ function load (page, url, para) {
 function favoriteChange (page) {
   if (page.data.feed.favorited) {
     ff.postPromise('/favorites/destroy/' + page.data.feed.id)
-      .then(() => {
+      .then(res => {
+        if (res.error) {
+          showModal(res.error, null)
+          return
+        }
         page.setData({'feed.favorited': false})
+        const pagePre = getCurrentPages().slice(-2)[0]
+        for (const [feedsIndex, feeds] of pagePre.data.feeds_arr.entries()) {
+          for (const [feedIndex, feed] of feeds.entries()) {
+            if (feed.id === page.data.feed.id) {
+              pagePre.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].favorited`]: false})
+              return
+            }
+          }
+        }
       })
       .catch(err => showModal(err.errMsg))
   } else {
     ff.postPromise('/favorites/create/' + page.data.feed.id)
-      .then(() => {
+      .then(res => {
+        if (res.error) {
+          showModal(res.error, null)
+          return
+        }
         page.setData({'feed.favorited': true})
+        const pagePre = getCurrentPages().slice(-2)[0]
+        for (const [feedsIndex, feeds] of pagePre.data.feeds_arr.entries()) {
+          for (const [feedIndex, feed] of feeds.entries()) {
+            if (feed.id === page.data.feed.id) {
+              pagePre.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].favorited`]: true})
+              return
+            }
+          }
+        }
       })
       .catch(err => showModal(err.errMsg))
   }
