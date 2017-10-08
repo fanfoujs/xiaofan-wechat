@@ -13,7 +13,7 @@
       <template is="list_item" data="{{...logout}}" />
     </view>
   </view>
-  <view class="footer" catchtap="tapAbout" data-link="https://github.com/fanfoujs/xiaofan">关于小饭</view>
+  <view class="footer" catchtap="tapAbout" data-link="https://github.com/fanfoujs/xiaofan">关于小饭 ({{version}})</view>
   <template is="notibar" data="{{notis}}" />
 </block>
 <template is="space" />

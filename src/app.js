@@ -1,6 +1,7 @@
 'use strict'
 
 App({
+  version: '1.0.0',
   globalData: {
     notis: null,
     account: null,
