@@ -79,8 +79,8 @@
 
 <!--加载更多-->
 <template name="loader">
-  <view class="flex_center">
-    <image src="/assets/spinner.svg" style="width: 30px;height: 30px;margin: 18px auto;"/>
+  <view class="flex_center" style="height: 30px;padding: 18px 0;">
+    <image wx:if="{{showLoader}}" mode="aspectFit" src="/assets/spinner.svg" style="height: 100%;"/>
   </view>
 </template>
 
