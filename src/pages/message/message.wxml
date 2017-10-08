@@ -3,7 +3,7 @@
 <view class="aboveToolbar" style="padding-top: {{param ? 235: 0}}px;">
   <template is="message_arr" data="{{message_arr: feeds_arr}}" />
 </view>
-<template wx:if="{{showLoader}}" is="loader" />
+<template data="{{showLoader}}" is="loader" />
 <template is="toolbar_msg" data="{{feed: feed}}" />
 <block wx:if="{{param}}">
   <view class="mask">

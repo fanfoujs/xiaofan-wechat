@@ -1,3 +1,3 @@
 <import src="/components/templates.wxml" />
 <template is="users_arr" data="{{users_arr: feeds_arr, name}}" />
-<template wx:if="{{showLoader}}" is="loader" />
+<template data="{{showLoader}}" is="loader" />

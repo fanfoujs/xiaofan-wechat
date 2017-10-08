@@ -22,7 +22,8 @@
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#FFF",
     "navigationBarTitleText": "小饭",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "onReachBottomDistance": 66
   },
   "tabBar": {
     "backgroundColor": "#FFF",
