@@ -15,11 +15,11 @@ module.exports = {
     this.setData({length: e.detail.value.length})
   },
   reset () {
-    console.log(0)
     this.setData({
       param: null,
       photoPaths: null,
-      posting: false
+      posting: false,
+      length: 0
     })
   },
   addPhoto () {
