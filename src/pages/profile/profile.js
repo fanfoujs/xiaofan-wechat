@@ -5,6 +5,7 @@ const tap = require('../../mixins/tap')
 
 Page(extend({}, tap, {
   data: {
+    version: getApp().version,
     direct_messages: {
       name: '私信',
       page: '../messages/messages'
