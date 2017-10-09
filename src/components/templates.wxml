@@ -164,7 +164,7 @@
   <view class="info">
     <view class="name" data-id="{{user.id}}" catchtap="tapName">{{user.name}}</view>
     <view wx:if="{{user.location.length}}" class="description">所在地：{{user.location}}</view>
-    <view wx:if="{{user.url.length}}" class="description">网站：<text class="link" data-link="{{user.url}}" catchtap="tapLink">{{user.url}}</text></view>
+    <view wx:if="{{user.url.length && user.url !== 'http://'}}" class="description">网站：<text class="link" data-link="{{user.url}}" catchtap="tapLink">{{user.url}}</text></view>
     <view wx:if="{{user.description.length}}" class="description">自述：<text>{{user.description}}</text></view>
     <view wx:if="{{user.birth_date}}" class="description">生日：{{user.birth_date}} {{user.sign_name}}</view>
     <view class="flex_between description">
