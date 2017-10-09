@@ -3,6 +3,7 @@
 # Xiaofan
 
 [![](https://img.shields.io/travis/fanfoujs/xiaofan/master.svg)](https://travis-ci.org/fanfoujs/fanfou-weapp)
+[![](https://img.shields.io/github/release/fanfoujs/xiaofan.svg)](https://github.com/fanfoujs/xiaofan/releases)
 [![](https://img.shields.io/github/license/fanfoujs/xiaofan.svg)](https://github.com/fanfoujs/fanfou-weapp/blob/master/LICENSE)
 [![](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
