@@ -79,6 +79,16 @@ image {
   background: #fff;
 }
 
+.photo_grid {
+  font-size: 0;
+}
+
+.photo_cell {
+  display: inline-flex;
+  width: 250rpx;
+  height: 250rpx;
+}
+
 .bold {
   font-weight: 500;
 }

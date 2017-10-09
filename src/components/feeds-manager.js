@@ -246,7 +246,9 @@ function _postText (page, param, success) {
         })
       } else {
         wx.showToast({title, image, duration: 900})
-        _loadFeedThenAddToReply(res.id)
+        if (param.in_reply_to_status_id) {
+          _loadFeedThenAddToReply(res.id)
+        }
       }
       page.setData({
         param: null,
@@ -284,7 +286,9 @@ function _postPhoto (page, param, photoPaths, success) {
         })
       } else {
         wx.showToast({title, image, duration: 900})
-        _loadFeedThenAddToReply(res.id)
+        if (param.in_reply_to_status_id) {
+          _loadFeedThenAddToReply(res.id)
+        }
       }
       page.setData({
         param: null,
@@ -400,7 +404,7 @@ function _loadFeedThenAddToHome (id) {
       if (res.error) {
         return
       }
-      const page = getCurrentPages().slice(-1)[0]
+      const page = getCurrentPages()[0]
       if (page.route === 'pages/home/home') {
         const feeds = page.data.feeds_arr[0]
         feeds.unshift(res)

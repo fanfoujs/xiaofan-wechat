@@ -1,10 +1,10 @@
 <svg width="30" height="30" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <title>favorite</title>
 <desc>Created using Figma</desc>
-<g id="Canvas" transform="translate(-128 -204)">
+<g id="Canvas" transform="translate(-591 -343)">
 <g id="favorite">
 <g id="Star (Stroke)">
-<use xlink:href="#path0_fill" transform="translate(133.649 210)" fill="#33A5FF"/>
+<use xlink:href="#path0_fill" transform="translate(596.649 349)" fill="#7D8FB2"/>
 </g>
 </g>
 </g>
