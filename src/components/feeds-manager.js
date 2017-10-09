@@ -241,6 +241,7 @@ function _postText (page, param, success) {
           url: '/pages/home/home',
           success: () => {
             wx.showToast({title, image, duration: 900})
+            _loadFeedThenAddToHome(res.id)
           }
         })
       } else {
@@ -249,7 +250,6 @@ function _postText (page, param, success) {
           _loadFeedThenAddToReply(res.id)
         }
       }
-      _loadFeedThenAddToHome(res.id)
       page.setData({
         param: null,
         photoPaths: null,
@@ -281,6 +281,7 @@ function _postPhoto (page, param, photoPaths, success) {
           url: '/pages/home/home',
           success: () => {
             wx.showToast({title, image, duration: 900})
+            _loadFeedThenAddToHome(res.id)
           }
         })
       } else {
@@ -289,7 +290,6 @@ function _postPhoto (page, param, photoPaths, success) {
           _loadFeedThenAddToReply(res.id)
         }
       }
-      _loadFeedThenAddToHome(res.id)
       page.setData({
         param: null,
         photoPaths: null,
