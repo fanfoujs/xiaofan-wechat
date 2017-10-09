@@ -40,6 +40,17 @@
   </view>
 </template>
 
+<!--照片-->
+<template name="photos_arr">
+  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="photos" data="{{feeds}}" />
+</template>
+
+<template name="photos">
+  <view class="photo_grid">
+    <image wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" class="photo_cell" data-feed="{{feed}}" catchtap="tapFeed" src="{{feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl}}" mode="aspectFill" />
+  </view>
+</template>
+
 <!--UI-->
 <template name="divider">
   <view style="height:18px;background:#f9f9fc;" />
@@ -183,7 +194,7 @@
   <view class="section">
     <view class="list">
       <template is="list_item" data="{{name: '消息', detail: user.statuses_count, user, url: '/statuses/user_timeline',  page: '../feeds/feeds'}}" />
-      <template is="list_item" data="{{name: '照片', detail: user.photo_count, user, url: '/photos/user_timeline',  page: '../feeds/feeds'}}" />
+      <template is="list_item" data="{{name: '照片', detail: user.photo_count, user, url: '/photos/user_timeline',  page: '../photos/photos'}}" />
       <template is="list_item" data="{{name: '收藏', detail: user.favourites_count, user, url: '/favorites',  page: '../feeds/feeds'}}" />
     </view>
   </view>
