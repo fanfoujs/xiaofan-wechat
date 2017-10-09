@@ -18,7 +18,8 @@ function loadMore (page, url, para) {
     url === '/users/friends' ||
     url === '/users/followers' ||
     url === '/direct_messages/conversation_list' ||
-    url === '/friendships/requests'
+    url === '/friendships/requests' ||
+    url === '/photos/user_timeline'
   ) {
     param.page = page.data.feeds_arr.length + 1
   } else {
