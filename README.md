@@ -2,8 +2,7 @@
 
 # Xiaofan
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/fanfoujs/xiaofan.svg)](https://greenkeeper.io/)
-
+[![](https://badges.greenkeeper.io/fanfoujs/xiaofan.svg)](https://greenkeeper.io)
 [![](https://img.shields.io/travis/fanfoujs/xiaofan/master.svg)](https://travis-ci.org/fanfoujs/fanfou-weapp)
 [![](https://img.shields.io/github/release/fanfoujs/xiaofan.svg)](https://github.com/fanfoujs/xiaofan/releases)
 [![](https://img.shields.io/github/license/fanfoujs/xiaofan.svg)](https://github.com/fanfoujs/fanfou-weapp/blob/master/LICENSE)
