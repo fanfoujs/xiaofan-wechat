@@ -14,7 +14,7 @@ Fanfou WeApp
 
 ## Deployment
 
-Here is [deployment tutorial](http://www.billlee.win./archives/139).
+Here is [deployment tutorial](http://www.billlee.win/archives/139).
 
 ## Related
 
