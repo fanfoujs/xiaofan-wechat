@@ -3,12 +3,12 @@
 module.exports = {
   listen (page) {
     wx.getNetworkType({
-      success: function (res) {
+      success (res) {
         console.log(res.networkType)
         page.setData({isWiFi: res.networkType === 'wifi'})
       }
     })
-    wx.onNetworkStatusChange(function (res) {
+    wx.onNetworkStatusChange(res => {
       console.log(res.networkType)
       page.setData({isWiFi: res.networkType === 'wifi'})
     })
