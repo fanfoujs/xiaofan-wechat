@@ -1,3 +1,3 @@
 <import src="/components/templates.wxml" />
-<template is="photos_arr" data="{{feeds_arr}}" />
+<template is="photos_arr" data="{{feeds_arr, isWiFi}}" />
 <template data="{{showLoader}}" is="loader" />

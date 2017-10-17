@@ -4,6 +4,6 @@
 <template is="section" data="{{name:'关注的话题', list: saved_searches}}" />
 <view wx:if="{{feeds_arr}}" class="section">
   <view class="section_name">随便看看</view>
-  <template is="feeds_arr" data="{{feeds_arr}}" />
+  <template is="feeds_arr" data="{{feeds_arr, isWiFi}}" />
 </view>
 <template is="notibar" data="{{notis}}" />

@@ -32,11 +32,11 @@ function loadMore (page, url, para) {
         showModal(res.error)
         return
       }
-      page.setData({['feeds_arr[' + page.data.feeds_arr.length + ']']: res})
       if (res.length > 0 && maxId === res[0].id) {
         res.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
         param.count -= 1
       }
+      page.setData({['feeds_arr[' + page.data.feeds_arr.length + ']']: res})
       page.noMore = res.length < param.count
       if (page.noMore) {
         wx.showToast({title: '没有更多了', image: '/assets/toast_blank.png', duration: 900})

@@ -3,6 +3,6 @@
   <view catchtap="tapIndex" class="segment {{index==0?'active':'gray'}}" data-index="0">全部</view>
   <view catchtap="tapIndex" class="segment {{index==1?'active':'gray'}}" data-index="1">回复</view>
 </view>
-<template is="feeds_arr" data="{{feeds_arr}}" />
+<template is="feeds_arr" data="{{feeds_arr, isWiFi}}" />
 <template data="{{showLoader}}" is="loader" />
 <template is="notibar" data="{{notis}}" />
