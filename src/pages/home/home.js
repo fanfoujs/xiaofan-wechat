@@ -8,10 +8,6 @@ const network = require('../../mixins/network')
 
 Page(extend({}, tap, {
   onLoad () {
-    if (!getApp().globalData.account) {
-      wx.redirectTo({url: '/pages/login/login'})
-      return
-    }
     fm.load(this)
     network.listen(this)
   },

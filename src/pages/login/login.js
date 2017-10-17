@@ -58,20 +58,17 @@ Page({
       itemList: ['退出登录'],
       success (res) {
         if (!res.cancel) {
-          const {id} = e.currentTarget.dataset
-          let index = -1
-          for (let i = 0; i < accounts.length; i++) {
-            if (accounts[i].id === id) {
-              index = i
+          for (const [i, account] of accounts.entries()) {
+            if (account.id === e.currentTarget.dataset.id) {
+              accounts.splice(i, 1)
+              wx.setStorageSync('accounts', accounts)
+              getApp().globalData.account = accounts[0]
+              if (accounts.length === 0) {
+                wx.reLaunch({url: '/pages/login/login'})
+              } else if (i === 0) {
+                wx.reLaunch({url: '/pages/home/home'})
+              }
               break
-            }
-          }
-          if (index >= 0) {
-            accounts.splice(index, 1)
-            wx.setStorageSync('accounts', accounts)
-            getApp().globalData.account = accounts[0]
-            if (index === 0) {
-              wx.reLaunch({url: '/pages/home/home'})
             }
           }
           page.setData({accounts})
