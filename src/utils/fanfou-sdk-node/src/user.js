@@ -36,7 +36,7 @@ class User {
     this.fanfou_age = this._getFanfouAge()
     this.birth_date = this._getBirthDate()
     this.is_me = this._isMe(user)
-    this.is_secret = user.protected && !user.following && !this.is_me
+    this.is_secret = user.protected && !user.following
     this.taEnd = user.gender === '男' ? '他' : user.gender === '女' ? '她' : ' ta'
     this.taBegin = user.gender === '男' ? '他' : user.gender === '女' ? '她' : 'ta '
     this.taMiddle = user.gender === '男' ? '他' : user.gender === '女' ? '她' : ' ta '
