@@ -1,6 +1,6 @@
 'use strict'
 
-const { CONSUMER_KEY } = require('/config/fanfou')
+const {CONSUMER_KEY} = require('./config/fanfou')
 
 App({
   version: '1.1.0',
@@ -15,7 +15,7 @@ App({
     const account = wx.getStorageSync('accounts')[0]
     if (!account || account.consumer_key !== CONSUMER_KEY) {
       wx.setStorageSync('accounts', [])
-      wx.redirectTo({ url: '/pages/login/login' })
+      wx.redirectTo({url: '/pages/login/login'})
     } else {
       this.globalData.account = account
     }
