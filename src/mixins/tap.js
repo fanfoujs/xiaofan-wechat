@@ -67,7 +67,9 @@ module.exports = {
     fm.navigateTo(`${e.currentTarget.dataset.page}?url=${e.currentTarget.dataset.url}&id=${this.data.user.id}&name=${e.currentTarget.dataset.name}`)
   },
   tapImage (e) {
-    fm.showImage(e.currentTarget.dataset.photoUrl)
+    if (e.currentTarget.dataset.photoUrl) {
+      fm.showImage(e.currentTarget.dataset.photoUrl)
+    }
   },
   tapLink (e) {
     this.handleLink(e.currentTarget.dataset.link)
