@@ -65,13 +65,15 @@ class Fanfou {
           reject(err)
         } else {
           // Save tokens to local storage
+          const user = new User(res)
+          user.is_me = true
           const account = {
             consumer_key: CONSUMER_KEY,
             consumer_secret: CONSUMER_SECRET,
             tokens,
             id: res.id,
             name: res.name,
-            user: new User(res)
+            user
           }
           // Set global token data
           getApp().globalData.account = account
