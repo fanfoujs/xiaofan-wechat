@@ -2,6 +2,7 @@ const tab = require('../../components/tab')
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
+const network = require('../../mixins/network')
 
 const para = {count: 10}
 const urls = ['/statuses/mentions', '/statuses/replies']
@@ -12,6 +13,7 @@ Page(extend({}, tap, {
   },
   onLoad () {
     fm.load(this, urls[this.data.index], para)
+    network.listen(this)
   },
   onShow () {
     tab.updateNotis()
