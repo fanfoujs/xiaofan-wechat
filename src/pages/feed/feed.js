@@ -18,14 +18,24 @@ Page(extend({}, tap, post, {
   },
   reply () {
     const feed = this.data.feed
+    const status = fm.getAts(feed)
     this.setData({
-      param: {status: fm.getAts(feed), in_reply_to_status_id: feed.id}
+      param: {
+        status,
+        in_reply_to_status_id: feed.id
+      },
+      length: status.length
     })
   },
   repost () {
     const feed = this.data.feed
+    const status = ` 转@${feed.user.name} ${feed.plain_text}`
     this.setData({
-      param: {status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id}
+      param: {
+        status,
+        repost_status_id: feed.id
+      },
+      length: status.length
     })
   },
   re () {
