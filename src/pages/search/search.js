@@ -3,6 +3,7 @@ const fm = require('../../components/feeds-manager')
 const ff = require('../../utils/fanfou')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
+const network = require('../../mixins/network')
 
 const url = '/statuses/public_timeline'
 
@@ -10,6 +11,7 @@ Page(extend({}, tap, {
   onLoad () {
     fm.load(this, url)
     this.loadTrendsAndSavedSearchesList()
+    network.listen(this)
   },
   onShow () {
     tab.updateNotis()

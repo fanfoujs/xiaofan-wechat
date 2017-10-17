@@ -4,6 +4,7 @@ const tab = require('../../components/tab')
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
+const network = require('../../mixins/network')
 
 Page(extend({}, tap, {
   onLoad () {
@@ -12,6 +13,7 @@ Page(extend({}, tap, {
       return
     }
     fm.load(this)
+    network.listen(this)
   },
   onShow () {
     tab.updateNotis()

@@ -15,7 +15,7 @@
 
 <!--消息列表封装成嵌套数组，绕过微信 setData 的 1M 限制-->
 <template name="feeds_arr">
-  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="feeds" data="{{feeds}}" />
+  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="feeds" data="{{feeds, isWiFi}}" />
 </template>
 
 <!--消息列表-->
@@ -34,7 +34,7 @@
         </block>
       </block>
       <view class="photo_container">
-        <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl}}" mode="widthFix" />
+        <image wx:if="{{feed.photo}}" class="photo" src="{{isWiFi ? feed.photo.largeurl : (feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl)}}" mode="widthFix" />
       </view>
     </view>
   </view>
@@ -42,12 +42,12 @@
 
 <!--照片-->
 <template name="photos_arr">
-  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="photos" data="{{feeds}}" />
+  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="photos" data="{{feeds, isWiFi}}" />
 </template>
 
 <template name="photos">
   <view class="photo_grid">
-    <image wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" class="photo_cell" data-feed="{{feed}}" catchtap="tapFeed" src="{{feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl}}" mode="aspectFill" />
+    <image wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" class="photo_cell" data-feed="{{feed}}" catchtap="tapFeed" src="{{isWiFi ? feed.photo.largeurl : (feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl)}}" mode="aspectFill" />
   </view>
 </template>
 
