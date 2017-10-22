@@ -71,7 +71,7 @@
       diff = toInt(diff)
       i *= 2
 
-      if (diff > (i === 0 ? 9 : 1)) i += 1
+      if (diff > 1) i += 1
       return locales[locale](diff, i, total_sec)[agoin].replace('%s', diff)
     }
 
