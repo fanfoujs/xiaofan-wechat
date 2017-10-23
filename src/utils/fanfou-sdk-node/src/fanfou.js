@@ -9,7 +9,6 @@ const qs = require('../modules/querystring/index')
 const oauthSignature = require('../modules/oauth-signature/index')
 const OAuth = require('./oauth')
 const Status = require('./status')
-const User = require('./user')
 const DirectMessage = require('./direct-message')
 
 class Fanfou {
