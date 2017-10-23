@@ -60,19 +60,18 @@ class Fanfou {
   static loadMePromise (tokens) {
     tokens = tokens || getApp().globalData.account.tokens
     return new Promise((resolve, reject) => {
-      this.get('/account/verify_credentials', {}, tokens, (err, res) => {
+      this.get('/account/verify_credentials', {}, tokens, (err, user) => {
         if (err) {
           reject(err)
         } else {
           // Save tokens to local storage
-          const user = new User(res)
           user.is_me = true
           const account = {
             consumer_key: CONSUMER_KEY,
             consumer_secret: CONSUMER_SECRET,
             tokens,
-            id: res.id,
-            name: res.name,
+            id: user.id,
+            name: user.name,
             user
           }
           // Set global token data

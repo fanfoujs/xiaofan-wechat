@@ -32,6 +32,10 @@ class User {
     this.profile_sidebar_border_color = user.profile_sidebar_border_color
     this.profile_background_image_url = user.profile_background_image_url
     this.profile_background_tile = user.profile_background_tile
+    if (user.status) {
+      this.status = user.status
+    }
+
     this.sign_name = this._getSignName()
     this.fanfou_age = this._getFanfouAge()
     this.birth_date = this._getBirthDate()

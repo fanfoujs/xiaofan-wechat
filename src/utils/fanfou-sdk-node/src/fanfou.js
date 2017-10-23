@@ -162,19 +162,24 @@ class Fanfou {
       '/statuses/context_timeline': 'timeline',
       '/statuses/mentions': 'timeline',
       '/favorites': 'timeline',
+
+      // Status
       '/statuses/update': 'status',
       '/statuses/show': 'status',
       '/favorites/destroy': 'status',
       '/favorites/create': 'status',
 
-      // User
+      // Users
       '/users/tagged': 'users',
       '/users/followers': 'users',
       '/users/friends': 'users',
       '/friendships/requests': 'users',
+
+      // User
       '/users/show': 'user',
       '/friendships/create': 'user',
       '/friendships/destroy': 'user',
+      '/account/verify_credentials': 'user',
 
       // Conversation
       '/direct_messages/conversation': 'conversation',
