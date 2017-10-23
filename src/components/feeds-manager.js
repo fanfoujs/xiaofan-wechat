@@ -192,7 +192,6 @@ function postMsg (param, page) {
   ff.postPromise('/direct_messages/new', param)
     .then(res => {
       page.setData({posting: false})
-      console.log(res)
       if (res.error) {
         showModal(res.error)
         return
