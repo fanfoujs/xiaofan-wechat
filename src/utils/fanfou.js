@@ -4,7 +4,6 @@ const {
 } = require('../config/fanfou')
 
 const FanfouSDK = require('./fanfou-sdk-node/index')
-const User = require('./fanfou-sdk-node/src/user')
 
 class Error {
   constructor (message) {
