@@ -154,7 +154,7 @@
 </template>
 
 <template name="list_item">
-  <view class="list_item" catchtap="{{user.is_secret && !user.is_me ? '' : 'tapListItem'}}" catchlongpress="longpressListItem"
+  <view class="list_item" catchtap="{{user.is_secret && !user.is_me ? '' : 'tapListItem'}}" catchlongpress="{{id ? 'longpressListItem' : ''}}"
     data-name="{{name}}" data-id="{{id}}" data-query="{{query}}" data-url="{{url}}" data-user="{{user}}" data-page="{{page}}">
     <view class="label {{user.is_secret && !user.is_me ? 'gray' : ''}}">{{name}}</view>
     <view wx:if="{{detail || detail === 0}}" class="gray">{{detail}}</view>
