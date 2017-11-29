@@ -219,7 +219,7 @@
     </view>
     <view wx:if="{{name === '关注申请'}}" class="cell_item">
       <view wx:if="{{!item.accept}}" class="btn2 dim space_item_h" data-user="{{item}}" catchtap="deny">拒绝</view>
-      <view class="btn2 space_item_h {{item.accept ? 'green' : ''}}" data-user="{{item}}" catchtap="accept">{{item.accept ? '已通过' : '通过'}}</view>
+      <view class="btn2 space_item_h {{item.accept ? 'green' : ''}}" data-user="{{item}}" catchtap="{{item.accept ? 'preventDefault' : 'accept'}}">{{item.accept ? '已通过' : '通过'}}</view>
     </view>
   </view>
 </template>

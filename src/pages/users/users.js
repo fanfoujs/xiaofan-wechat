@@ -35,5 +35,6 @@ Page(extend({}, tap, {
         }
       }
     })
-  }
+  },
+  preventDefault () {}
 }))
