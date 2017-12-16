@@ -9,7 +9,7 @@ const pkg = require('../package')
 
 const macCLI = '/Applications/wechatwebdevtools.app/Contents/Resources/app.nw/bin/cli'
 const {version} = pkg
-const xiaofanPath = path.join(__dirname, '../sc')
+const xiaofanPath = path.join(__dirname, '../src')
 
 process.spinner = ora('Uploading...').start()
 
