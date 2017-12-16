@@ -4,7 +4,8 @@
   "description": "Fanfou WeApp",
   "main": "app.js",
   "scripts": {
-    "test": "xo"
+    "test": "xo",
+    "upload": "cli/upload.js"
   },
   "repository": {
     "type": "git",
@@ -55,5 +56,9 @@
     },
     "semicolon": false,
     "space": 2
+  },
+  "dependencies": {
+    "execa": "^0.8.0",
+    "ora": "^1.3.0"
   }
 }
