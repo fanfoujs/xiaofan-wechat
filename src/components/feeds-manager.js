@@ -5,7 +5,7 @@ const {TIMELINE_COUNT} = require('../config/fanfou')
 
 function loadMore (page, url, para) {
   const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
-  if (page.noMore || page.data.showLoader || !maxId) {
+  if (page.noMore || page.data.showLoader || (!maxId && url !== '/direct_messages/conversation_list')) {
     return
   }
   page.setData({showLoader: true})
