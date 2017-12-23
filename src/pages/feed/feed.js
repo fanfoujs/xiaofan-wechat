@@ -1,3 +1,4 @@
+const qs = require('../../utils/fanfou-sdk-node/modules/querystring/index')
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const post = require('../../mixins/post')
@@ -6,7 +7,7 @@ const tap = require('../../mixins/tap')
 Page(extend({}, tap, post, {
   onLoad (e) {
     const feed = getApp().globalData.feed
-    if (feed) {
+    if (feed && !e.share) {
       this.setData({feed})
     } else {
       fm.loadFeed(this, e.id)
@@ -54,5 +55,15 @@ Page(extend({}, tap, post, {
   },
   longPressImage () {
     fm.showImage(this.data.feed.photo.originurl)
+  },
+  onShareAppMessage () {
+    const options = {
+      id: this.options.id,
+      share: true
+    }
+    return {
+      title: `@${this.data.feed.user.name} 的消息`,
+      path: `/${this.route}?${qs.stringify(options)}`
+    }
   }
 }))

@@ -1,3 +1,4 @@
+const qs = require('../../utils/fanfou-sdk-node/modules/querystring/index')
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
@@ -9,7 +10,7 @@ Page(extend({}, tap, post, {
       user: getApp().globalData.user,
       appid: getApp().globalData.appid
     })
-    if (!this.data.user) {
+    if (!this.data.user || e.share) {
       fm.loadUser(e.id, this)
     }
     fm.relationship(e.id, this)
@@ -118,6 +119,16 @@ Page(extend({}, tap, post, {
           }
         })
       })
+    }
+  },
+  onShareAppMessage () {
+    const options = {
+      id: this.options.id,
+      share: true
+    }
+    return {
+      title: this.data.user.name,
+      path: `/${this.route}?${qs.stringify(options)}`
     }
   }
 }))
