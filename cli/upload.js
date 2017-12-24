@@ -4,6 +4,7 @@
 const path = require('path')
 const ora = require('ora')
 const execa = require('execa')
+const chalk = require('chalk')
 
 const pkg = require('../package')
 
@@ -17,7 +18,7 @@ const run = async () => {
   try {
     const {stdout} = await execa(macCLI, ['-u', `${version}@${xiaofanPath}`], {timeout: 10000})
     if (stdout.match('upload success')) {
-      process.spinner.succeed('上传成功！')
+      process.spinner.succeed(chalk.green(` Xiaofan v${pkg.version} published!`))
       process.exit()
     }
     process.spinner.fail('上传超时！')

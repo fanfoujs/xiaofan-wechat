@@ -58,6 +58,7 @@
     "space": 2
   },
   "dependencies": {
+    "chalk": "^2.3.0",
     "execa": "^0.8.0",
     "ora": "^1.3.0"
   }
