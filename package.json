@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fanfoujs/fanfou-weapp.git"
+    "url": "git+https://github.com/fanfoujs/xiaofan.git"
   },
   "author": "FanfouJS",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fanfoujs/fanfou-weapp/issues"
+    "url": "https://github.com/fanfoujs/xiaofan/issues"
   },
-  "homepage": "https://github.com/fanfoujs/fanfou-weapp#readme",
+  "homepage": "https://github.com/fanfoujs/xiaofan#readme",
   "devDependencies": {
     "xo": "^0.18.2"
   },
