@@ -48,7 +48,15 @@ Page(extend({}, tap, post, {
     fm.favoriteChange(this)
   },
   destroy () {
-    fm.destroy(this.data.feed.id)
+    wx.showModal({
+      title: '',
+      content: '确认删除？',
+      success: res => {
+        if (res.confirm) {
+          fm.destroy(this.data.feed.id)
+        }
+      }
+    })
   },
   tapImage () {
     fm.showImage(this.data.feed.photo.largeurl)
