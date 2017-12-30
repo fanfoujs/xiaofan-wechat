@@ -25,7 +25,7 @@
     <view class="after_avatar full_width">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
-        <text class="meta">{{feed.time_ago}}</text>
+        <text class="meta">{{feed.time_ago}} {{feed.source_name}}</text>
       </view>
       <block wx:for="{{feed.txt}}" wx:key="ignorekeywarn" wx:for-item="txt">
         <text wx:if="{{!txt.bold_arr}}" class="{{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
