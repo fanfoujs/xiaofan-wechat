@@ -3,10 +3,13 @@ const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const post = require('../../mixins/post')
 const tap = require('../../mixins/tap')
+const i18n = require('../../i18n/index')
 
 Page(extend({}, tap, post, {
   onLoad (e) {
+    wx.setNavigationBarTitle({title: i18n.feed.title})
     const feed = getApp().globalData.feed
+    this.setData({i18n})
     if (feed && !e.share) {
       this.setData({feed})
     } else {
@@ -50,7 +53,7 @@ Page(extend({}, tap, post, {
   destroy () {
     wx.showModal({
       title: '',
-      content: '确认删除？',
+      content: i18n.feed.delete_confrim,
       success: res => {
         if (res.confirm) {
           fm.destroy(this.data.feed.id)

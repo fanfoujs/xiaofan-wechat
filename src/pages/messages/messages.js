@@ -1,12 +1,13 @@
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
+const i18n = require('../../i18n/index')
 
 const url = '/direct_messages/conversation_list'
 
 Page(extend({}, tap, {
   onLoad () {
-    this.setData({me: getApp().globalData.account.user})
+    this.setData({me: getApp().globalData.account.user, i18n})
     fm.load(this, url)
   },
   onPullDownRefresh () {

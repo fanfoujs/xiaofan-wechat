@@ -1,11 +1,13 @@
 const fm = require('../components/feeds-manager')
+const i18n = require('../i18n/index')
 
 module.exports = {
   data: {
     param: null,
     photoPaths: null,
     posting: false,
-    length: 0
+    length: 0,
+    i18n
   },
   post (e) {
     const param = Object.assign(this.data.param || {}, {status: e.detail.value.post})
@@ -50,7 +52,7 @@ module.exports = {
   removePhoto () {
     const page = this
     wx.showActionSheet({
-      itemList: ['删除'],
+      itemList: [i18n.compose.remove_attachment],
       success (res) {
         if (!res.cancel) {
           page.setData({

@@ -3,6 +3,7 @@ const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 const network = require('../../mixins/network')
+const i18n = require('../../i18n/index')
 
 const para = {count: 10}
 const urls = ['/statuses/mentions', '/statuses/replies']
@@ -12,6 +13,8 @@ Page(extend({}, tap, {
     index: 0
   },
   onLoad () {
+    wx.setNavigationBarTitle({title: i18n.mentions.title})
+    this.setData({i18n})
     fm.load(this, urls[this.data.index], para)
     network.listen(this)
   },

@@ -1,8 +1,9 @@
 const fm = require('../../components/feeds-manager')
+const i18n = require('../../i18n/index')
 
 Page({
   onLoad () {
-    this.setData({user: getApp().globalData.account.user})
+    this.setData({user: getApp().globalData.account.user, i18n})
   },
   tapAvatar () {
     const page = this
@@ -22,9 +23,9 @@ Page({
       success () {
         wx.showModal({
           confirmColor: '#33a5ff',
-          content: '背景图只能在网页修改，链接已复制，请前往浏览器访问。',
+          content: i18n.common.change_bg_info,
           showCancel: false,
-          confirmText: '好的'
+          confirmText: i18n.common.ok
         })
       }
     })

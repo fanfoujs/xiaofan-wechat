@@ -1,6 +1,7 @@
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const post = require('../../mixins/post')
+const i18n = require('../../i18n/index')
 
 const url = '/direct_messages/conversation'
 
@@ -8,6 +9,7 @@ Page(extend({}, post, {
   id: null,
   onLoad (e) {
     wx.setNavigationBarTitle({title: e.name})
+    this.setData({i18n})
     this.id = e.id
     fm.load(this, url, {id: this.id})
     fm.relationship(this.id, this)

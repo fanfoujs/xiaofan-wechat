@@ -1,5 +1,6 @@
 const ff = require('../utils/fanfou')
 const tab = require('../components/tab')
+const i18n = require('../i18n/index')
 
 const {TIMELINE_COUNT} = require('../config/fanfou')
 
@@ -39,7 +40,7 @@ function loadMore (page, url, para) {
       page.setData({['feeds_arr[' + page.data.feeds_arr.length + ']']: res})
       page.noMore = res.length < param.count
       if (page.noMore) {
-        wx.showToast({title: '没有更多了', image: '/assets/toast_blank.png', duration: 900})
+        wx.showToast({title: i18n.common.no_more, image: '/assets/toast_blank.png', duration: 900})
       }
     })
     .catch(err => {
@@ -123,7 +124,7 @@ function destroy (id) {
       wx.navigateBack({
         complete () {
           wx.showToast({
-            title: '已删除',
+            title: i18n.feed.deleted,
             image: '/assets/toast_delete.png',
             duration: 900
           })
@@ -168,7 +169,7 @@ function destroyMsg (page, id) {
   ff.postPromise('/direct_messages/destroy', {id})
     .then(() => {
       wx.showToast({
-        title: '已删除',
+        title: i18n.feed.deleted,
         image: '/assets/toast_delete.png',
         duration: 900
       })
@@ -196,7 +197,7 @@ function postMsg (param, page) {
         showModal(res.error)
         return
       }
-      wx.showToast({title: '已发送', image: '/assets/toast_reply.png', duration: 900})
+      wx.showToast({title: i18n.compose.sent, image: '/assets/toast_reply.png', duration: 900})
       const message = page.data.feeds_arr[0]
       message.unshift(res)
       page.setData({
@@ -227,8 +228,8 @@ function _postText (page, param, success) {
   '/assets/toast_repost.png' : param.in_reply_to_status_id ?
   '/assets/toast_reply.png' : '/assets/toast_post.png'
   const title = param.repost_status_id ?
-  '已转发' : param.in_reply_to_status_id ?
-  '已回复' : '已发布'
+  i18n.feed.reposted : param.in_reply_to_status_id ?
+  i18n.feed.replied : i18n.feed.published
   ff.postPromise('/statuses/update', param)
     .then(res => {
       page.setData({posting: false})
@@ -267,7 +268,7 @@ function _postText (page, param, success) {
 
 function _postPhoto (page, param, photoPaths, success) {
   const direct = !(param.repost_status_id || param.in_reply_to_status_id)
-  const title = '已发布'
+  const title = i18n.feed.published
   const image = '/assets/toast_photo.png'
   ff.uploadPromise('/photos/upload', photoPaths, param)
     .then(res => {
@@ -306,7 +307,7 @@ function _postPhoto (page, param, photoPaths, success) {
 }
 
 function updateAvatar (page, photoPaths) {
-  const title = '已更新头像'
+  const title = i18n.me.avatar_updated
   const image = '/assets/toast_done.png'
   ff.uploadPromise('/account/update_profile_image', photoPaths)
     .then(res => {
@@ -324,7 +325,7 @@ function updateAvatar (page, photoPaths) {
 }
 
 function updateProfile (page, param) {
-  const title = '已更新资料'
+  const title = i18n.me.profile_updated
   const image = '/assets/toast_done.png'
   ff.postPromise('/account/update_profile', param)
     .then(res => {
@@ -371,10 +372,10 @@ function showFeed (feed, id) {
 function showModal (err, title) {
   const para = {
     confirmColor: '#33a5ff',
-    title: title || '错误',
+    title: title || i18n.common.error,
     content: err,
     showCancel: false,
-    confirmText: '好的'
+    confirmText: i18n.common.ok
   }
   if (title === null) {
     delete para.title
@@ -474,7 +475,7 @@ function follow (user, page) {
 
 function unfollow (user, page) {
   wx.showActionSheet({
-    itemList: ['取消关注'],
+    itemList: [i18n.me.unfollow],
     success (res) {
       if (!res.cancel) {
         ff.postPromise('/friendships/destroy', {id: user.id})
@@ -489,7 +490,7 @@ function unfollow (user, page) {
 
 function block (user, page) {
   wx.showActionSheet({
-    itemList: ['拉黑'],
+    itemList: [i18n.me.block],
     success (res) {
       if (!res.cancel) {
         ff.postPromise('/blocks/create', {id: user.id})
@@ -508,7 +509,7 @@ function block (user, page) {
 
 function unblock (user, page) {
   wx.showActionSheet({
-    itemList: ['解除拉黑'],
+    itemList: [i18n.me.unblock],
     success (res) {
       if (!res.cancel) {
         ff.postPromise('/blocks/destroy', {id: user.id})

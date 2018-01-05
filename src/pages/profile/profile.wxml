@@ -1,6 +1,6 @@
 <import src="/components/templates.wxml" />
 <block wx:if="{{user}}">
-  <template is="profile" data="{{user}}" />
+  <template is="profile" data="{{user, i18n}}" />
   <view class="section">
     <view class="list">
       <template is="list_item" data="{{...direct_messages, badge: notis.direct_messages}}" />
@@ -13,7 +13,7 @@
       <template is="list_item" data="{{...logout}}" />
     </view>
   </view>
-  <view class="footer" catchtap="tapAbout" data-link="https://github.com/fanfoujs/xiaofan">关于小饭 ({{version}})</view>
+  <view class="footer" catchtap="tapAbout" data-link="https://github.com/fanfoujs/xiaofan">{{i18n.me.about_xiaofan}} ({{version}})</view>
   <template is="notibar" data="{{notis}}" />
 </block>
 <template is="space" />
