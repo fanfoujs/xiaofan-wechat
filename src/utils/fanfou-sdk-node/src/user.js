@@ -1,6 +1,7 @@
 'use strict'
 
 const mzsi = require('../modules/mzsi/index')
+const i18n = require('../../../i18n/index')
 
 class User {
   constructor (user) {
@@ -41,9 +42,9 @@ class User {
     this.birth_date = this._getBirthDate()
     this.is_me = this._isMe(user)
     this.is_secret = user.protected && !user.following
-    this.taEnd = user.gender === '男' ? '他' : user.gender === '女' ? '她' : ' ta'
-    this.taBegin = user.gender === '男' ? '他' : user.gender === '女' ? '她' : 'ta '
-    this.taMiddle = user.gender === '男' ? '他' : user.gender === '女' ? '她' : ' ta '
+    this.taEnd = user.gender === '男' ? '他' : user.gender === '女' ? '她' : ' TA'
+    this.taBegin = user.gender === '男' ? '他' : user.gender === '女' ? '她' : 'TA '
+    this.taMiddle = user.gender === '男' ? '他' : user.gender === '女' ? '她' : ' TA '
   }
 
   _isMe (user) {
@@ -106,9 +107,9 @@ class User {
     }
 
     if (years + months + days === 0) {
-      return '不满 1 天'
+      return i18n.me.register_today
     }
-    return `${days === 0 ? '正好 ' : ''}${years ? years + ' 年 ' : ''}${months ? months + ' 个月 ' : ''}${days ? days + ' 天' : ''}`
+    return `${days === 0 ? i18n.common.just : ''}${years ? years + i18n.common.years : ''}${months ? months + i18n.common.months : ''}${days ? days + i18n.common.days : ''}`
   }
 
   _getBirthDate () {
@@ -117,8 +118,8 @@ class User {
       const year = parseInt(match[1], 10)
       const month = parseInt(match[2], 10)
       const day = parseInt(match[3], 10)
-      const yearStr = year ? year.toString() + ' 年 ' : ''
-      const dateStr = month && day ? month.toString() + ' 月 ' + day.toString() + ' 日' : ''
+      const yearStr = year ? year.toString() + i18n.me.year : ''
+      const dateStr = month && day ? month.toString() + i18n.me.month + day.toString() + i18n.me.day : ''
       return yearStr + dateStr
     }
     return ''

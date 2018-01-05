@@ -3,12 +3,15 @@ const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 const post = require('../../mixins/post')
+const i18n = require('../../i18n/index')
 
 Page(extend({}, tap, post, {
   onLoad (e) {
+    wx.setNavigationBarTitle({title: i18n.home.title})
     this.setData({
       user: getApp().globalData.user,
-      appid: getApp().globalData.appid
+      appid: getApp().globalData.appid,
+      i18n
     })
     if (!this.data.user || e.share) {
       fm.loadUser(e.id, this)

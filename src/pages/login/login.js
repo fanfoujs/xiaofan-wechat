@@ -1,17 +1,19 @@
 'use strict'
 
 const ff = require('../../utils/fanfou')
+const i18n = require('../../i18n/index')
 
 Page({
   onLoad () {
+    wx.setNavigationBarTitle({title: i18n.login.title})
     const accounts = this.getAccounts()
-    this.setData({accounts})
+    this.setData({accounts, i18n})
   },
 
   // Login action
   login (e) {
     wx.showLoading({
-      title: '正在登录',
+      title: i18n.login.fetching,
       mask: true
     })
     ff.authPromise(e.detail.value.username, e.detail.value.password)
@@ -20,7 +22,7 @@ Page({
       })
       .catch(() => {
         wx.showToast({
-          title: '登录失败',
+          title: i18n.login.fail,
           image: '/assets/toast_fail.png',
           duration: 900
         })
@@ -55,7 +57,7 @@ Page({
     const page = this
     const accounts = this.getAccounts()
     wx.showActionSheet({
-      itemList: ['退出登录'],
+      itemList: [i18n.login.logout],
       success (res) {
         if (!res.cancel) {
           for (const [i, account] of accounts.entries()) {

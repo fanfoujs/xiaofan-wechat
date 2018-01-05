@@ -1,4 +1,5 @@
 const fm = require('../components/feeds-manager')
+const i18n = require('../i18n/index')
 
 module.exports = {
   tapTxt (e) {
@@ -25,7 +26,7 @@ module.exports = {
     wx.showModal({
       confirmColor: '#33a5ff',
       content: id,
-      confirmText: '复制',
+      confirmText: i18n.feed.copy,
       success (res) {
         if (res.confirm) {
           wx.setClipboardData({data: id})
@@ -42,14 +43,14 @@ module.exports = {
     fm.showFeed(e.currentTarget.dataset.feed)
   },
   tapFeedDetail (e) {
-    const itemList = ['复制']
+    const itemList = [i18n.feed.copy]
     let id = null
     const feed = e.currentTarget.dataset.feed
     if (feed.repost_screen_name && feed.repost_status_id) {
-      itemList.push('转自 @' + feed.repost_screen_name)
+      itemList.push(`${i18n.feed.from} @` + feed.repost_screen_name)
       id = feed.repost_status_id
     } else if (feed.in_reply_to_screen_name && feed.in_reply_to_status_id) {
-      itemList.push('回复给 @' + feed.in_reply_to_screen_name)
+      itemList.push(`${i18n.feed.reply_to} @` + feed.in_reply_to_screen_name)
       id = feed.in_reply_to_status_id
     }
     wx.showActionSheet({
@@ -80,9 +81,9 @@ module.exports = {
       success () {
         wx.showModal({
           confirmColor: '#33a5ff',
-          content: '链接已复制，请前往浏览器访问。',
+          content: i18n.common.copied,
           showCancel: false,
-          confirmText: '好的'
+          confirmText: i18n.common.confrim
         })
       }
     })

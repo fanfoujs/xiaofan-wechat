@@ -1,3 +1,5 @@
+const i18n = require('../../../../i18n/index')
+
 module.exports = (month, day, languageCode) => {
   'use strict'
 
@@ -91,7 +93,7 @@ module.exports = (month, day, languageCode) => {
     languageToDisplay = languageCode
   }
 
-  const aboutSign = require(`i18n/${languageToDisplay}-about`)[sign[0].id]
+  const aboutSign = i18n.zodiac_sign[sign[0].id]
 
   return {
     name: aboutSign.name,

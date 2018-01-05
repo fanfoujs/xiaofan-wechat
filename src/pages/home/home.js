@@ -5,9 +5,12 @@ const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 const network = require('../../mixins/network')
+const i18n = require('../../i18n/index')
 
 Page(extend({}, tap, {
   onLoad () {
+    wx.setNavigationBarTitle({title: i18n.home.title})
+    this.setData({i18n})
     fm.load(this)
     network.listen(this)
   },
@@ -23,6 +26,6 @@ Page(extend({}, tap, {
     tab.updateNotis()
   },
   onShareAppMessage () {
-    return {title: '小饭'}
+    return {title: i18n.home.title}
   }
 }))

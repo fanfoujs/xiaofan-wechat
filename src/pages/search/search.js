@@ -4,11 +4,14 @@ const ff = require('../../utils/fanfou')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 const network = require('../../mixins/network')
+const i18n = require('../../i18n/index')
 
 const url = '/statuses/public_timeline'
 
 Page(extend({}, tap, {
   onLoad () {
+    wx.setNavigationBarTitle({title: i18n.discover.title})
+    this.setData({i18n})
     fm.load(this, url)
     this.loadTrendsAndSavedSearchesList()
     network.listen(this)
@@ -59,7 +62,7 @@ Page(extend({}, tap, {
   longpressListItem (e) {
     const page = this
     wx.showActionSheet({
-      itemList: ['删除'],
+      itemList: [i18n.common.delete],
       success (res) {
         if (!res.cancel) {
           ff.postPromise('/saved_searches/destroy', {id: e.currentTarget.dataset.id})

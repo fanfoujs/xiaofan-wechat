@@ -2,30 +2,32 @@ const tab = require('../../components/tab')
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
+const i18n = require('../../i18n/index')
 
 Page(extend({}, tap, {
   data: {
     version: getApp().version,
     direct_messages: {
-      name: '私信',
+      name: i18n.me.direct_messages,
       page: '../messages/messages'
     },
     friend_requests: {
-      name: '关注申请',
+      name: i18n.request.name,
       url: '/friendships/requests',
       page: '../users/users'
     },
     change_profile: {
-      name: '修改资料',
+      name: i18n.me.profiles,
       page: '../change-profile/change-profile'
     },
     logout: {
-      name: '切换账号',
+      name: i18n.me.switch_account,
       page: '../login/login'
     }
   },
   onLoad () {
-    this.setData({user: getApp().globalData.account.user})
+    wx.setNavigationBarTitle({title: i18n.me.title})
+    this.setData({user: getApp().globalData.account.user, i18n})
   },
   onShow () {
     tab.updateNotis()

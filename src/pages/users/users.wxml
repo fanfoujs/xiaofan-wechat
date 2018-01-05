@@ -1,3 +1,3 @@
 <import src="/components/templates.wxml" />
-<template is="users_arr" data="{{users_arr: feeds_arr, name}}" />
+<template is="users_arr" data="{{users_arr: feeds_arr, name, i18n}}" />
 <template data="{{showLoader}}" is="loader" />

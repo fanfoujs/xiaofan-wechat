@@ -22,7 +22,7 @@
     "backgroundColor": "#FFF",
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#FFF",
-    "navigationBarTitleText": "小饭",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle": "black",
     "onReachBottomDistance": 66
   },

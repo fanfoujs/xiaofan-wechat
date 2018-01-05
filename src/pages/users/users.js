@@ -1,6 +1,7 @@
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
+const i18n = require('../../i18n/index')
 
 Page(extend({}, tap, {
   para: null,
@@ -9,7 +10,7 @@ Page(extend({}, tap, {
     this.url = e.url
     this.para = e
     wx.setNavigationBarTitle({title: e.name})
-    this.setData({name: e.name})
+    this.setData({name: e.name, i18n})
     fm.load(this, this.url, this.para)
   },
   onPullDownRefresh () {
@@ -25,7 +26,7 @@ Page(extend({}, tap, {
     const user = e.currentTarget.dataset.user
     const page = this
     wx.showActionSheet({
-      itemList: ['接受', `接受并关注${user.taEnd}`],
+      itemList: [i18n.request.accept, i18n.request.accept_and_follow],
       success (res) {
         if (res.tapIndex === 0) {
           fm.accept(user, page)

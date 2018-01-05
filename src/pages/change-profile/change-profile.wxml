@@ -7,10 +7,10 @@
     </view>
   </view>
   <view style="height: 6px;" />
-  <input class="input_bar" name="name" placeholder-class="gray" placeholder="昵称" value="{{user.name}}" />
-  <input class="input_bar" name="location" placeholder-class="gray" placeholder="所在地" value="{{user.location}}" />
-  <input class="input_bar" name="url" placeholder-class="gray" placeholder="网站" value="{{user.url}}" />
-  <textarea class="input_bar input" name="description" placeholder-class="gray" placeholder="自述" value="{{user.description}}" auto-height="{{true}}" />
-  <button class="btn1 space_item_v" formType="submit">保存</button>
+  <input class="input_bar" name="name" placeholder-class="gray" placeholder="{{i18n.change_profile.nickname}}" value="{{user.name}}" />
+  <input class="input_bar" name="location" placeholder-class="gray" placeholder="{{i18n.change_profile.location}}" value="{{user.location}}" />
+  <input class="input_bar" name="url" placeholder-class="gray" placeholder="{{i18n.change_profile.website}}" value="{{user.url}}" />
+  <textarea class="input_bar input" name="description" placeholder-class="gray" placeholder="{{i18n.change_profile}}" value="{{user.description}}" auto-height="{{true}}" />
+  <button class="btn1 space_item_v" formType="submit">{{i18n.common.save}}</button>
 </form>
 <template is="space" />

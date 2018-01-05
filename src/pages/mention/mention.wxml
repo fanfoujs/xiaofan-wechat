@@ -1,7 +1,7 @@
 <import src="/components/templates.wxml" />
 <view class="segments">
-  <view catchtap="tapIndex" class="segment {{index==0?'active':'gray'}}" data-index="0">全部</view>
-  <view catchtap="tapIndex" class="segment {{index==1?'active':'gray'}}" data-index="1">回复</view>
+  <view catchtap="tapIndex" class="segment {{index==0?'active':'gray'}}" data-index="0">{{i18n.mentions.all}}</view>
+  <view catchtap="tapIndex" class="segment {{index==1?'active':'gray'}}" data-index="1">{{i18n.mentions.reply}}</view>
 </view>
 <template is="feeds_arr" data="{{feeds_arr, isWiFi}}" />
 <template data="{{showLoader}}" is="loader" />

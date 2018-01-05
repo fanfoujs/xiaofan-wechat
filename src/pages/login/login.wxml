@@ -1,7 +1,7 @@
 <import src="/components/templates.wxml" />
 <form wx:if="{{!authorized}}" bindsubmit="login">
-  <input class="input_bar" name="username" placeholder-class="gray" placeholder="用户名" />
-  <input class="input_bar" name="password" placeholder-class="gray" password="{{true}}" placeholder="密码" />
-  <button class="btn1 space_item_v" formType="submit">登录</button>
+  <input class="input_bar" name="username" placeholder-class="gray" placeholder="{{i18n.login.username}}" />
+  <input class="input_bar" name="password" placeholder-class="gray" password="{{true}}" placeholder="{{i18n.login.password}}" />
+  <button class="btn1 space_item_v" formType="submit">{{i18n.login.submit}}</button>
 </form>
 <template is="section" data="{{list: accounts}}" />
