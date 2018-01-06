@@ -2,6 +2,7 @@
 
 const enUS = require('./languages/en-us')
 const zhCN = require('./languages/zh-cn')
+const esES = require('./languages/es-es')
 
 const {language: langCode} = wx.getSystemInfoSync()
 const DEFAULT_LANG = enUS
@@ -13,6 +14,9 @@ switch (langCode) {
     break
   case 'zh_CN':
     lang = zhCN
+    break
+  case 'es':
+    lang = esES
     break
   default:
     break
