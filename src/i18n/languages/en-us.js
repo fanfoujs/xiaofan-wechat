@@ -97,7 +97,7 @@ module.exports = {
     save: 'Save',
     error: 'Error',
     copied: 'Copied',
-    confirm: 'OK',
+    confirm: 'Nice',
     delete: 'Delete',
     ok: 'OK',
     she: 'She',
