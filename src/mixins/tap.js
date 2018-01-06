@@ -83,7 +83,7 @@ module.exports = {
           confirmColor: '#33a5ff',
           content: i18n.common.copied,
           showCancel: false,
-          confirmText: i18n.common.confrim
+          confirmText: i18n.common.confirm
         })
       }
     })
