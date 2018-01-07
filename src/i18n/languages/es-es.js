@@ -64,7 +64,7 @@ module.exports = {
     profiles: 'Perfil',
     switch_account: 'Cerrar Sesión',
     about_xiaofan: 'Xiaofan',
-    followed_each_other: 'Nos seguimos mutuamente',
+    followed_each_other: 'Amigo',
     become_friend: 'Seguir',
     remove_friend: 'Dejar de Seguir',
     followed: 'Siguiendo',
