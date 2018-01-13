@@ -23,7 +23,7 @@ Page({
       success () {
         wx.showModal({
           confirmColor: '#33a5ff',
-          content: i18n.common.change_bg_info,
+          content: i18n.me.change_bg_info,
           showCancel: false,
           confirmText: i18n.common.ok
         })

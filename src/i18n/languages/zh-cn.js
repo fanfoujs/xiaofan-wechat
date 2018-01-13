@@ -78,7 +78,8 @@ module.exports = {
     year: ' 年 ',
     month: ' 月 ',
     day: '日',
-    change_bg_info: '背景图只能在网页修改，链接已复制，请前往浏览器访问。'
+    change_bg_info: '背景图只能在网页修改，链接已复制，请前往浏览器访问。',
+    no_friend_yet: '对方还没有关注你，请用饭否网页版发送私信。'
   },
   change_profile: {
     nickname: '昵称',

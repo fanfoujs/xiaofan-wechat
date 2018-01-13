@@ -78,7 +78,9 @@ module.exports = {
     register_today: 'Menos de un día',
     year: '-',
     month: '-',
-    day: ''
+    day: '',
+    change_bg_info: 'Enlace copiado',
+    not_friend_yet: 'No es un amigo todavía'
   },
   change_profile: {
     nickname: 'Nombre',
@@ -113,8 +115,7 @@ module.exports = {
     just: 'Solo ',
     years: ' Años ',
     months: ' Meses ',
-    days: ' Días',
-    change_bg_info: 'Enlace copiado'
+    days: ' Días'
   },
   timeago: [
     ['1s', 'hace poco'],

@@ -78,7 +78,9 @@ module.exports = {
     register_today: 'Less then 1 day',
     year: '-',
     month: '-',
-    day: ''
+    day: '',
+    change_bg_info: 'Link copied',
+    not_friend_yet: 'Not friend yet, cannot send message'
   },
   change_profile: {
     nickname: 'Nickname',
@@ -113,8 +115,7 @@ module.exports = {
     just: 'Just ',
     years: ' Y ',
     months: ' M ',
-    days: ' D',
-    change_bg_info: 'Link copied'
+    days: ' D'
   },
   timeago: [
     ['1s', 'just now'],
