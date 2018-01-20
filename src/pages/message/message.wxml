@@ -7,6 +7,6 @@
 <template is="toolbar_msg" data="{{feed: feed}}" />
 <block wx:if="{{param}}">
   <view class="mask">
-    <template is="post" data="{{param, posting, autoFocus: true, noPhoto: true, length}}" />
+    <template is="post" data="{{param, posting, autoFocus: true, noPhoto: true, length, i18n}}" />
   </view>
 </block>
