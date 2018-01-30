@@ -21,7 +21,7 @@ const run = async () => {
       process.spinner.succeed(chalk.green(` Xiaofan v${pkg.version} published!`))
       process.exit()
     }
-    process.spinner.fail('上传超时！')
+    process.spinner.fail('Upload timeout!')
     process.exit()
   } catch (err) {
     const match = err.message.match(/error: '{"code":\d+,"error":"(.+)"}',/)
