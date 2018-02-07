@@ -4,15 +4,6 @@ module.exports = {
   home: {
     title: '小饭'
   },
-  login: {
-    title: '小饭',
-    username: '用户名',
-    password: '密码',
-    submit: '登录',
-    success: '正在登录',
-    fail: '登录失败',
-    logout: '退出登录'
-  },
   feed: {
     title: '小饭',
     copy: '复制',
@@ -24,6 +15,15 @@ module.exports = {
     from: '转自',
     reply_to: '回复给',
     published: '已发布'
+  },
+  login: {
+    title: '小饭',
+    username: '用户名',
+    password: '密码',
+    submit: '登录',
+    fetching: '正在登录',
+    fail: '登录失败',
+    logout: '退出登录'
   },
   mentions: {
     title: '提到我的',
@@ -66,6 +66,7 @@ module.exports = {
     about_xiaofan: '小饭',
     followed_each_other: '好友',
     become_friend: '加好友',
+    remove_friend: '取消关注',
     followed: '已关注',
     block: '拉黑',
     blocked: '已拉黑',
@@ -79,7 +80,7 @@ module.exports = {
     month: ' 月 ',
     day: '日',
     change_bg_info: '背景图只能在网页修改，链接已复制，请前往浏览器访问。',
-    no_friend_yet: '对方还没有关注你，请用饭否网页版发送私信。'
+    not_friend_yet: '对方还没有关注你，请用饭否网页版发送私信。'
   },
   change_profile: {
     nickname: '昵称',
@@ -103,8 +104,13 @@ module.exports = {
     ok: '好的',
     she: '她',
     her: '她的',
+    hers: '她的',
+    he: '他',
     him: '他',
     his: '他的',
+    she_he: 'TA',
+    her_him: 'TA',
+    hers_his: 'TA 的',
     no_more: '没有更多了',
     just: '正好 ',
     years: ' 年 ',
