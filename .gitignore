@@ -1,3 +1,4 @@
 node_modules/
 project.config.json
 yarn.lock
+yarn-error.log*
