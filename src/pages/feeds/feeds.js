@@ -20,5 +20,11 @@ Page(extend({}, tap, {
   },
   onReachBottom () {
     fm.loadMore(this, this.url, this.para)
+  },
+  onTabItemTap () {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
+    })
   }
 }))
