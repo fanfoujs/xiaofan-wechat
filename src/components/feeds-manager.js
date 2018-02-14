@@ -225,11 +225,11 @@ function post (page, para, photoPaths, success) {
 function _postText (page, param, success) {
   const direct = !(param.repost_status_id || param.in_reply_to_status_id || success)
   const image = param.repost_status_id ?
-  '/assets/toast_repost.png' : param.in_reply_to_status_id ?
-  '/assets/toast_reply.png' : '/assets/toast_post.png'
+    '/assets/toast_repost.png' : param.in_reply_to_status_id ?
+      '/assets/toast_reply.png' : '/assets/toast_post.png'
   const title = param.repost_status_id ?
-  i18n.feed.reposted : param.in_reply_to_status_id ?
-  i18n.feed.replied : i18n.feed.published
+    i18n.feed.reposted : param.in_reply_to_status_id ?
+      i18n.feed.replied : i18n.feed.published
   ff.postPromise('/statuses/update', param)
     .then(res => {
       page.setData({posting: false})
@@ -513,10 +513,10 @@ function unblock (user, page) {
     success (res) {
       if (!res.cancel) {
         ff.postPromise('/blocks/destroy', {id: user.id})
-        .then(() => {
-          page.setData({'relationship.blocking': false})
-        })
-        .catch(err => showModal(err.errMsg))
+          .then(() => {
+            page.setData({'relationship.blocking': false})
+          })
+          .catch(err => showModal(err.errMsg))
       }
     }
   })

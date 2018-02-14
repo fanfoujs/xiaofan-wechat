@@ -34,12 +34,7 @@
       "src/utils/fanfou-sdk-node/modules/**"
     ],
     "rules": {
-      "camelcase": [
-        "error",
-        {
-          "properties": "never"
-        }
-      ],
+      "camelcase": 0,
       "import/no-unresolved": 0,
       "max-params": [
         "error",
@@ -54,7 +49,8 @@
       "space-before-function-paren": [
         "error",
         "always"
-      ]
+      ],
+      "unicorn/import-index": 0
     },
     "semicolon": false,
     "space": 2
