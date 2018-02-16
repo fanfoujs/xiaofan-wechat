@@ -3,5 +3,5 @@
   <view style="font-size: 16px;font-weight: 500;margin-top: 18px;">注册微信小程序开发者账号</view>
   <view style="font-size: 16px;margin-top: 18px;">登录mp.weixin.qq.com</view>
   <image mode="widthFix" style="width: 100%;margin-top: 18px;" src="http://www.billlee.win/wp-content/uploads/2017/09/15057148020704.jpg" />
-  <view style="font-size: 12px;margin-top: 9px;color: #ced4e0;">点击右上角的立即注册</view>
+  <view style="font-size: 12px;margin-top: 9px;color: #d4cdc7;">点击右上角的立即注册</view>
 </view>

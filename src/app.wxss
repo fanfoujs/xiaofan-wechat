@@ -8,6 +8,7 @@ page {
   word-break: break-all;
   line-height: 1.5;
   font-size: 16px;
+  background: #fff;
 }
 
 button, button:after {
@@ -112,7 +113,7 @@ image {
   display: inline-flex;
   padding: 12px 16px;
   border-radius: 23px;
-  background: #f1f3f5;
+  background: #f5f2f0;
   color: #000;
   max-width: 500rpx;
 }
@@ -421,8 +422,10 @@ image {
   margin-top: 0;  
 }
 
+/*主题*/
+
 .at, .link {
-  color: #33a5ff;
+  color: #e94028; /*链接字色*/
 }
 
 .active {
@@ -430,16 +433,16 @@ image {
 }
 
 .msg_end .bubble, .btn1, .btn2, .btn3, .btn4, .badge, .noti, .tint {
-  color: #fff;
-  background: #33a5ff;
+  color: #fee3c8; /*按钮字色*/
+  background: #e94028; /*按钮背景色*/
 }
 
 .meta, .section_name, .footer, .dim, .length, .gray, .tag {
-  color: #ced4e0;
+  color: #d4cdc7; /*灰字色*/
 }
 
 .dim {
-  background: #f1f3f5;
+  background: #F2F1F0; /*灰按钮背景色*/
 }
 
 .dark {
