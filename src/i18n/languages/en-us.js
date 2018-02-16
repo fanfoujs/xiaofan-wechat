@@ -42,7 +42,7 @@ module.exports = {
   },
   discover: {
     title: 'Discover',
-    search_placeholder: 'Seach Fanfou',
+    search_placeholder: 'Search Fanfou',
     hot_trends: 'Hot Trends',
     saved_trends: 'Saved Trends',
     public_timeline: 'Public Timeline'
