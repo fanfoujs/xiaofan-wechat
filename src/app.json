@@ -21,13 +21,13 @@
   "window": {
     "backgroundColor": "#FFF",
     "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#FFF",
+    "navigationBarBackgroundColor": "#E94028",
     "navigationBarTitleText": "",
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "onReachBottomDistance": 66
   },
   "tabBar": {
-    "backgroundColor": "#FFF",
+    "backgroundColor": "#E94028",
     "borderStyle": "white",
     "list": [
       {
