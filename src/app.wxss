@@ -4,7 +4,7 @@
 /*全局*/
 
 page {
-  font-family: -apple-system, sans-serif;
+  font-family: "-apple-system", "sans-serif", "Helvetica Neue";
   word-break: break-all;
   line-height: 1.5;
   font-size: 16px;
