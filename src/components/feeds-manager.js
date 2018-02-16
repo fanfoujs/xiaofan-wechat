@@ -588,6 +588,7 @@ module.exports = {
   showUser,
   showFeed,
   showImage,
+  showModal,
   loadMe,
   loadUser,
   loadFeed,

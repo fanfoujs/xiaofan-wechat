@@ -26,9 +26,14 @@ Page(extend({}, tap, {
   loadTrendsAndSavedSearchesList () {
     ff.getPromise('/trends/list')
       .then(res => {
-        this.setData({
-          trends: res.trends
+        const trends = res.trends.map(item => {
+          return {
+            name: item.name,
+            query: item.query.trim().split('|').join(' | '),
+            url: item.url
+          }
         })
+        this.setData({trends})
       })
       .catch(err => fm.showModal(err.errMsg))
     ff.getPromise('/saved_searches/list')
