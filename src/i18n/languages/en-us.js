@@ -53,7 +53,7 @@ module.exports = {
     website: 'Website: ',
     bio: 'Bio: ',
     birth: 'Birth: ',
-    fanfou_age: 'Fan-Age: ',
+    fanfou_age: 'Fan-age: ',
     statuses: 'Statuses',
     photos: 'Photos',
     likes: 'Likes',
