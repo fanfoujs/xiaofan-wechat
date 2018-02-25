@@ -5,7 +5,7 @@
       animation: dash 1.5s ease-in-out infinite;
       stroke-width: 20;
       stroke-linecap: round;
-      stroke: #d4cdc7;
+      stroke: #ced4e0;
       transform-origin: 50% 50%;
     }
 

@@ -53,7 +53,7 @@
 
 <!--UI-->
 <template name="divider">
-  <view style="height:18px;background:#fcfbfa;" />
+  <view style="height:18px;background:#f9f9fc;" />
 </template>
 
 <template name="space">
