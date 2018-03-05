@@ -14,9 +14,9 @@ Page(extend({}, tap, post, {
       i18n
     })
     if (!this.data.user || e.share) {
-      fm.loadUser(e.id, this)
+      fm.loadUser(decodeURIComponent(e.id), this)
     }
-    fm.relationship(e.id, this)
+    fm.relationship(decodeURIComponent(e.id), this)
   },
   onPullDownRefresh () {
     fm.loadUser(this.data.user.id, this)

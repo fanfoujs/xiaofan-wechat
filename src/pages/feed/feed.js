@@ -13,11 +13,11 @@ Page(extend({}, tap, post, {
     if (feed && !e.share) {
       this.setData({feed})
     } else {
-      fm.loadFeed(this, e.id)
+      fm.loadFeed(this, decodeURIComponent(e.id))
     }
     const page = this
     setTimeout(() => {
-      fm.load(page, '/statuses/context_timeline', {id: e.id})
+      fm.load(page, '/statuses/context_timeline', {id: decodeURIComponent(e.id)})
     }, 600)
   },
   reply () {

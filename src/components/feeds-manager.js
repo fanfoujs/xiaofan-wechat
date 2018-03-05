@@ -358,6 +358,10 @@ function loadUser (id, page) {
   ff.getPromise('/users/show', {id, format: 'html'})
     .then(res => {
       wx.stopPullDownRefresh()
+      if (res.error) {
+        showModal(res.error)
+        return
+      }
       const user = res
       page.setData({user})
     })
@@ -447,6 +451,10 @@ function loadMe (page) {
   ff.loadMePromise(getApp().globalData.account.tokens)
     .then(res => {
       wx.stopPullDownRefresh()
+      if (res.error) {
+        showModal(res.error)
+        return
+      }
       page.setData({user: res.user})
     })
 }
@@ -528,6 +536,10 @@ function relationship (targetId, page) {
     target_id: targetId
   })
     .then(res => {
+      if (res.error) {
+        showModal(res.error)
+        return
+      }
       page.setData({
         relationship: {
           following: res.relationship.source.following === 'true',
