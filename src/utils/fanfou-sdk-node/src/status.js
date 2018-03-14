@@ -171,15 +171,15 @@ class Status {
         if (item.substr(0, 1) === '<') {
           const matchText = item.match(/<a href="(.*?)".*?>(.*?)<\/a>/)
           const text = matchText[2]
-          const originText = Status._removeBoldTag(text)
+          const originText = Status.removeBoldTag(text)
           const link = matchText[1]
           const thisTxt = {
             type: 'link',
             text: originText,
             link
           }
-          if (Status._hasBold(text)) {
-            thisTxt.bold_arr = Status._getBoldArr(text)
+          if (Status.hasBold(text)) {
+            thisTxt.bold_arr = Status.getBoldArr(text)
           }
           txt.push(thisTxt)
         }
