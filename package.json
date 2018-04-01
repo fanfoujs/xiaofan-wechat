@@ -2,7 +2,7 @@
   "name": "xiaofan",
   "version": "1.6.3",
   "description": "Fanfou WeApp",
-  "main": "app.js",
+  "private": true,
   "scripts": {
     "test": "xo && ava",
     "upload": "cli/upload.js"
