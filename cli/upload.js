@@ -22,15 +22,16 @@ const run = async () => {
       process.exit()
     }
     process.spinner.fail('Upload timeout!')
-    process.exit()
+    process.exit(1)
   } catch (err) {
     const match = err.message.match(/error: '{"code":\d+,"error":"(.+)"}',/)
     if (match) {
       const message = match[1]
       process.spinner.fail(message + '！')
-      process.exit()
+      process.exit(1)
     } else {
       process.spinner.fail(err.message)
+      process.exit(1)
     }
   }
 }
