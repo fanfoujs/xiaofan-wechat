@@ -9,7 +9,7 @@
   <view class="mask">
     <template
       is="post"
-      data="{{param, photoPaths, posting, autoFocus: true, length, i18n, float: true}}"
+      data="{{param, photoPaths, posting, autoFocus: true, length, i18n, float: true, resetPop, addPhotoPop, sendPop}}"
     />
   </view>
 </block>

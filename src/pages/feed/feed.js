@@ -25,7 +25,10 @@ Page(extend({}, tap, post, {
     const feed = this.data.feed
     const status = fm.getAts(feed)
     this.setData({
-      replyPop: animations.pop().export()
+      replyPop: animations.pop().export(),
+      resetPop: null,
+      addPhotoPop: null,
+      sendPop: null
     }, () => {
       setTimeout(() => {
         this.setData({
@@ -42,7 +45,10 @@ Page(extend({}, tap, post, {
     const feed = this.data.feed
     const status = ` 转@${feed.user.name} ${feed.plain_text}`
     this.setData({
-      repostPop: animations.pop().export()
+      repostPop: animations.pop().export(),
+      resetPop: null,
+      addPhotoPop: null,
+      sendPop: null
     }, () => {
       setTimeout(() => {
         this.setData({

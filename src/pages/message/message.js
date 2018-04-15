@@ -23,7 +23,9 @@ Page(extend({}, post, {
   },
   reply () {
     this.setData({
-      replyPop: animations.pop().export()
+      replyPop: animations.pop().export(),
+      resetPop: null,
+      sendPop: null
     }, () => {
       setTimeout(() => {
         if (!this.data.relationship.followed_by) {

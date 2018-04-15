@@ -301,7 +301,7 @@
         catchtap="unfollow"
         catchlongpress="block"
         data-user="{{user}}"
-        animation="{{initPop || buttonPop}}"
+        animation="{{buttonPop}}"
       >{{i18n.me.followed_each_other}}</view>
       <view
         wx:elif="{{!relationship.following && relationship.followed_by}}"
@@ -309,7 +309,7 @@
         catchtap="follow"
         catchlongpress="block"
         data-user="{{user}}"
-        animation="{{initPop || buttonPop}}"
+        animation="{{buttonPop}}"
       >{{i18n.me.become_friend}}</view>
       <view
         wx:elif="{{relationship.following && !relationship.followed_by}}"
@@ -317,7 +317,7 @@
         catchtap="unfollow"
         catchlongpress="block"
         data-user="{{user}}"
-        animation="{{initPop || buttonPop}}"
+        animation="{{buttonPop}}"
       >{{i18n.me.followed}}</view>
       <view
         wx:elif="{{relationship.blocking}}"
@@ -331,7 +331,7 @@
         catchtap="follow"
         catchlongpress="block"
         data-user="{{user}}"
-        animation="{{initPop || buttonPop}}"
+        animation="{{buttonPop}}"
       >{{i18n.me.follow}}</view>
       <view
         class="btn3 space_item_h"
