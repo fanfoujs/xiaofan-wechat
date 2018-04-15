@@ -115,9 +115,32 @@ module.exports = {
   unblock (e) {
     fm.unblock(e.currentTarget.dataset.user, this)
   },
-  avatarLoad () {
+  avatarLoad (e) {
+    const {id} = e.currentTarget.dataset.user
+    const newFeedsArr = this.data.feeds_arr.map(feeds => {
+      return feeds.map(item => {
+        if (item.user.id === id) {
+          item.avatarFadeIn = animations.fadeIn().export()
+        }
+        return item
+      })
+    })
     this.setData({
-      avatarAnimation: animations.fadeIn().export()
+      feeds_arr: newFeedsArr
+    })
+  },
+  photoLoad (e) {
+    const {originurl} = e.currentTarget.dataset.photo
+    const newFeedsArr = this.data.feeds_arr.map(feeds => {
+      return feeds.map(item => {
+        if (item.photo && item.photo.originurl === originurl) {
+          item.photoFadeIn = animations.fadeIn().export()
+        }
+        return item
+      })
+    })
+    this.setData({
+      feeds_arr: newFeedsArr
     })
   }
 }

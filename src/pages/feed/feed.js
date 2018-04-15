@@ -109,5 +109,10 @@ Page(extend({}, tap, post, {
     this.setData({
       imageFadeIn: animations.fadeIn().export()
     })
+  },
+  userAvatarLoad () {
+    this.setData({
+      userAvatarFadeIn: animations.fadeIn().export()
+    })
   }
 }))

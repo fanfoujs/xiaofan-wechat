@@ -15,7 +15,7 @@
 
 <!--消息列表封装成嵌套数组，绕过微信 setData 的 1M 限制-->
 <template name="feeds_arr">
-  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="feeds" data="{{feeds, isWiFi}}" />
+  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="feeds" data="{{feeds, isWiFi, avatarFadeIn}}" />
 </template>
 
 <!--消息列表-->
@@ -32,11 +32,14 @@
     <image
       class="avatar {{rawid ? 'small_avatar' : ''}}"
       src="{{feed.user.profile_image_url_large}}"
+      style="opacity: 0;"
       data-user="{{feed.user}}"
       catchtap="tapAvatar"
       bindload="avatarLoad"
-      animation="{{avatarAnimation}}"
+      lazy-load="{{true}}"
+      animation="{{feed.avatarFadeIn}}"
     />
+    <text>{{avatarFadeIn}}</text>
     <view class="after_avatar full_width">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
@@ -58,9 +61,13 @@
         <image
           wx:if="{{feed.photo}}"
           class="photo"
+          style="opacity: 0;"
           src="{{isWiFi ? feed.photo.largeurl : (feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl)}}"
+          data-photo="{{feed.photo}}"
           mode="widthFix"
           lazy-load="{{true}}"
+          bindload="photoLoad"
+          animation="{{feed.photoFadeIn}}"
         />
       </view>
     </view>
@@ -103,7 +110,7 @@
     <template is="feeds" data="{{feeds: feeds_arr[0], rawid: feed.rawid, isBefore: true}}" />
     <template is="divider" />
   </block>
-  <template is="feed" data="{{feed, imageFadeIn}}" />
+  <template is="feed" data="{{feed, imageFadeIn, userAvatarFadeIn}}" />
   <block wx:if="{{feeds_arr[0].length > 1 && feeds_arr[0][feeds_arr[0].length - 1].id !== feed.id}}">
     <template is="divider" />
     <template is="feeds" data="{{feeds: feeds_arr[0], rawid: feed.rawid, isBefore: false}}" />
@@ -116,9 +123,12 @@
     <image
       class="avatar"
       src="{{feed.user.profile_image_url_large}}"
+      style="opacity: 0;"
       data-user="{{feed.user}}"
       catchtap="tapAvatar"
+      bindload="userAvatarLoad"
       lazy-load="{{true}}"
+      animation="{{userAvatarFadeIn}}"
     />
     <view class="after_avatar full_width">
       <view class="topline">
