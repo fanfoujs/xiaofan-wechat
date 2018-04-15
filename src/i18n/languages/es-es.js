@@ -102,6 +102,7 @@ module.exports = {
     confirm: 'OK',
     delete: 'Eliminar',
     ok: 'OK',
+    cancel: 'Cancelar',
     she: 'Ella',
     her: 'Su',
     hers: 'Su',

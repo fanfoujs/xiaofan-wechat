@@ -102,6 +102,7 @@ module.exports = {
     confirm: '好的',
     delete: '删除',
     ok: '好的',
+    cancel: '取消',
     she: '她',
     her: '她的',
     hers: '她的',
