@@ -1,5 +1,6 @@
 const fm = require('../components/feeds-manager')
 const i18n = require('../i18n/index')
+const animations = require('../utils/animations')
 
 module.exports = {
   tapTxt (e) {
@@ -27,6 +28,7 @@ module.exports = {
       confirmColor: '#33a5ff',
       content: id,
       confirmText: i18n.feed.copy,
+      cancelText: i18n.common.cancel,
       success (res) {
         if (res.confirm) {
           wx.setClipboardData({data: id})
@@ -83,21 +85,39 @@ module.exports = {
           confirmColor: '#33a5ff',
           content: i18n.common.copied,
           showCancel: false,
-          confirmText: i18n.common.confirm
+          confirmText: i18n.common.confirm,
+          cancelText: i18n.common.cancel
         })
       }
     })
   },
   follow (e) {
-    fm.follow(e.currentTarget.dataset.user, this)
+    this.setData({
+      buttonPop: animations.pop().export()
+    }, () => {
+      setTimeout(() => {
+        fm.follow(e.currentTarget.dataset.user, this)
+      }, 200)
+    })
   },
   unfollow (e) {
-    fm.unfollow(e.currentTarget.dataset.user, this)
+    this.setData({
+      buttonPop: animations.pop().export()
+    }, () => {
+      setTimeout(() => {
+        fm.unfollow(e.currentTarget.dataset.user, this)
+      }, 200)
+    })
   },
   block (e) {
     fm.block(e.currentTarget.dataset.user, this)
   },
   unblock (e) {
     fm.unblock(e.currentTarget.dataset.user, this)
+  },
+  avatarLoad () {
+    this.setData({
+      avatarAnimation: animations.fadeIn().export()
+    })
   }
 }

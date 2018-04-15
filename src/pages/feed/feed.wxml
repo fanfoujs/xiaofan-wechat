@@ -1,12 +1,15 @@
 <import src="/components/templates.wxml" />
 <block wx:if="{{feed}}">
   <view class="aboveToolbar" style="padding-top: {{param ? 235: 0}}px;">
-    <template is="feeds_context" data="{{feed, feeds_arr}}" />
+    <template is="feeds_context" data="{{feed, feeds_arr, imageFadeIn}}" />
   </view>
-  <template is="toolbar" data="{{feed: feed}}" />
+  <template is="toolbar" data="{{feed, replyPop, repostPop, starPop, deletePop}}" />
 </block>
 <block wx:if="{{param}}">
   <view class="mask">
-    <template is="post" data="{{param, photoPaths, posting, autoFocus: true, length, i18n, float: true}}" />
+    <template
+      is="post"
+      data="{{param, photoPaths, posting, autoFocus: true, length, i18n, float: true}}"
+    />
   </view>
 </block>

@@ -1,6 +1,7 @@
 const tab = require('../../components/tab')
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
+const animations = require('../../utils/animations')
 const tap = require('../../mixins/tap')
 const i18n = require('../../i18n/index')
 
@@ -43,6 +44,18 @@ Page(extend({}, tap, {
     wx.pageScrollTo({
       scrollTop: 0,
       duration: 300
+    })
+  },
+  profileLoad () {
+    const fadeIn = animations.fadeIn()
+    this.setData({
+      profileAnimation: fadeIn.export()
+    })
+  },
+  avatarLoad () {
+    const fadeIn = animations.fadeIn()
+    this.setData({
+      avatarAnimation: fadeIn.export()
     })
   }
 }))

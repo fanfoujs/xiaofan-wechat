@@ -1,5 +1,6 @@
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
+const animations = require('../../utils/animations')
 const post = require('../../mixins/post')
 const i18n = require('../../i18n/index')
 
@@ -21,22 +22,35 @@ Page(extend({}, post, {
     fm.loadMore(this, url, {id: this.id})
   },
   reply () {
-    if (!this.data.relationship.followed_by) {
-      wx.showModal({
-        confirmColor: '#33a5ff',
-        content: i18n.me.not_friend_yet,
-        showCancel: false,
-        confirmText: i18n.common.ok
-      })
-      return
-    }
     this.setData({
-      param: {user: this.id, text: ''}
+      replyPop: animations.pop().export()
+    }, () => {
+      setTimeout(() => {
+        if (!this.data.relationship.followed_by) {
+          wx.showModal({
+            confirmColor: '#33a5ff',
+            content: i18n.me.not_friend_yet,
+            showCancel: false,
+            confirmText: i18n.common.ok,
+            cancelText: i18n.common.cancel
+          })
+          return
+        }
+        this.setData({
+          param: {user: this.id, text: ''}
+        })
+      }, 200)
     })
   },
   post (e) {
-    const param = Object.assign(this.data.param || {}, {text: e.detail.value.post})
-    fm.postMsg(param, this)
+    this.setData({
+      sendPop: animations.pop().export()
+    }, () => {
+      setTimeout(() => {
+        const param = Object.assign(this.data.param || {}, {text: e.detail.value.post})
+        fm.postMsg(param, this)
+      }, 200)
+    })
   },
   tapMsg (e) {
     const page = this

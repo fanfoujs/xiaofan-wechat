@@ -1,5 +1,6 @@
 const fm = require('../../components/feeds-manager')
 const i18n = require('../../i18n/index')
+const animations = require('../../utils/animations')
 
 Page({
   onLoad () {
@@ -25,15 +26,22 @@ Page({
           confirmColor: '#33a5ff',
           content: i18n.me.change_bg_info,
           showCancel: false,
-          confirmText: i18n.common.ok
+          confirmText: i18n.common.ok,
+          cancelText: i18n.common.cancel
         })
       }
     })
   },
   save (e) {
-    if (this.data.photoPaths) {
-      fm.updateAvatar(this, this.data.photoPaths)
-    }
-    fm.updateProfile(this, e.detail.value)
+    this.setData({
+      savePop: animations.pop().export()
+    }, () => {
+      setTimeout(() => {
+        if (this.data.photoPaths) {
+          fm.updateAvatar(this, this.data.photoPaths)
+        }
+        fm.updateProfile(this, e.detail.value)
+      }, 200)
+    })
   }
 })

@@ -1,6 +1,6 @@
 <import src="/components/templates.wxml" />
 <block wx:if="{{user}}">
-  <template is="profile" data="{{user, i18n}}" />
+  <template is="profile" data="{{user, i18n, profileAnimation, avatarAnimation}}" />
   <view class="section">
     <view class="list">
       <template is="list_item" data="{{...direct_messages, badge: notis.direct_messages}}" />

@@ -1,3 +1,6 @@
 <import src="/components/templates.wxml" />
-<template is="post" data="{{placeholder: i18n.compose.placeholder, param, photoPaths, posting, length, i18n, float}}" />
+<template
+  is="post"
+  data="{{placeholder: i18n.compose.placeholder, param, photoPaths, posting, length, i18n, float, resetPop, addPhotoPop, sendPop}}"
+/>
 <template is="notibar" data="{{notis}}" />

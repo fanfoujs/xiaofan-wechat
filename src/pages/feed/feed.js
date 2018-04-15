@@ -1,6 +1,7 @@
 const qs = require('../../utils/fanfou-sdk-node/modules/querystring/index')
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
+const animations = require('../../utils/animations')
 const post = require('../../mixins/post')
 const tap = require('../../mixins/tap')
 const i18n = require('../../i18n/index')
@@ -24,22 +25,34 @@ Page(extend({}, tap, post, {
     const feed = this.data.feed
     const status = fm.getAts(feed)
     this.setData({
-      param: {
-        status,
-        in_reply_to_status_id: feed.id
-      },
-      length: status.length
+      replyPop: animations.pop().export()
+    }, () => {
+      setTimeout(() => {
+        this.setData({
+          param: {
+            status,
+            in_reply_to_status_id: feed.id
+          },
+          length: status.length
+        })
+      }, 200)
     })
   },
   repost () {
     const feed = this.data.feed
     const status = ` 转@${feed.user.name} ${feed.plain_text}`
     this.setData({
-      param: {
-        status,
-        repost_status_id: feed.id
-      },
-      length: status.length
+      repostPop: animations.pop().export()
+    }, () => {
+      setTimeout(() => {
+        this.setData({
+          param: {
+            status,
+            repost_status_id: feed.id
+          },
+          length: status.length
+        })
+      }, 200)
     })
   },
   re () {
@@ -48,12 +61,21 @@ Page(extend({}, tap, post, {
     wx.navigateBack()
   },
   favoriteChange () {
-    fm.favoriteChange(this)
+    this.setData({
+      starPop: animations.pop().export()
+    }, () => {
+      fm.favoriteChange(this)
+    })
   },
   destroy () {
+    this.setData({
+      deletePop: animations.pop().export()
+    })
     wx.showModal({
       title: '',
       content: i18n.feed.delete_confrim,
+      confirmText: i18n.common.delete,
+      cancelText: i18n.common.cancel,
       success: res => {
         if (res.confirm) {
           fm.destroy(this.data.feed.id)
@@ -76,5 +98,10 @@ Page(extend({}, tap, post, {
       title: `@${this.data.feed.user.name} 的消息`,
       path: `/${this.route}?${qs.stringify(options)}`
     }
+  },
+  imageLoad () {
+    this.setData({
+      imageFadeIn: animations.fadeIn().export()
+    })
   }
 }))

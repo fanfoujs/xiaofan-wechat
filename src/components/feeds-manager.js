@@ -379,7 +379,8 @@ function showModal (err, title) {
     title: title || i18n.common.error,
     content: err,
     showCancel: false,
-    confirmText: i18n.common.ok
+    confirmText: i18n.common.ok,
+    cancelText: i18n.common.cancel
   }
   if (title === null) {
     delete para.title
@@ -476,7 +477,10 @@ function follow (user, page) {
         showModal(res.error, null)
         return
       }
-      page.setData({'relationship.following': true})
+      page.setData({
+        'relationship.following': true,
+        buttonPop: null
+      })
     })
     .catch(err => showModal(err.errMsg))
 }
@@ -488,7 +492,10 @@ function unfollow (user, page) {
       if (!res.cancel) {
         ff.postPromise('/friendships/destroy', {id: user.id})
           .then(() => {
-            page.setData({'relationship.following': false})
+            page.setData({
+              'relationship.following': false,
+              buttonPop: null
+            })
           })
           .catch(err => showModal(err.errMsg))
       }

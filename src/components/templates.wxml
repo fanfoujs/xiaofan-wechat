@@ -20,8 +20,23 @@
 
 <!--消息列表-->
 <template name="feeds">
-  <view wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" wx:if="{{rawid ? (isBefore ? rawid > feed.rawid : rawid < feed.rawid) : true}}" class="feed {{rawid ? 'animated expand' : ''}}" data-feed="{{feed}}" catchtap="tapFeed">
-    <image class="avatar {{rawid ? 'small_avatar' : ''}}" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar" />
+  <view
+    wx:for="{{feeds}}"
+    wx:for-item="feed"
+    wx:key="id"
+    wx:if="{{rawid ? (isBefore ? rawid > feed.rawid : rawid < feed.rawid) : true}}"
+    class="feed {{rawid ? 'animated expand' : ''}}"
+    data-feed="{{feed}}"
+    catchtap="tapFeed"
+  >
+    <image
+      class="avatar {{rawid ? 'small_avatar' : ''}}"
+      src="{{feed.user.profile_image_url_large}}"
+      data-user="{{feed.user}}"
+      catchtap="tapAvatar"
+      bindload="avatarLoad"
+      animation="{{avatarAnimation}}"
+    />
     <view class="after_avatar full_width">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
@@ -30,11 +45,23 @@
       <block wx:for="{{feed.txt}}" wx:key="ignorekeywarn" wx:for-item="txt">
         <text wx:if="{{!txt.bold_arr}}" class="{{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
         <block wx:else>
-            <text wx:for="{{txt.bold_arr}}" wx:key="ignorekeywarn" class="{{txt.type}} {{item.bold?'bold':''}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{item.text}}</text>
+            <text
+              wx:for="{{txt.bold_arr}}"
+              wx:key="ignorekeywarn"
+              class="{{txt.type}} {{item.bold?'bold':''}}"
+              data-value="{{txt}}"
+              catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}"
+            >{{item.text}}</text>
         </block>
       </block>
       <view class="photo_container">
-        <image wx:if="{{feed.photo}}" class="photo" src="{{isWiFi ? feed.photo.largeurl : (feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl)}}" mode="widthFix" />
+        <image
+          wx:if="{{feed.photo}}"
+          class="photo"
+          src="{{isWiFi ? feed.photo.largeurl : (feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl)}}"
+          mode="widthFix"
+          lazy-load="{{true}}"
+        />
       </view>
     </view>
   </view>
@@ -47,7 +74,17 @@
 
 <template name="photos">
   <view class="photo_grid">
-    <image wx:for="{{feeds}}" wx:for-item="feed" wx:key="id" class="photo_cell" data-feed="{{feed}}" catchtap="tapFeed" src="{{isWiFi ? feed.photo.largeurl : (feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl)}}" mode="aspectFill" />
+    <image
+      wx:for="{{feeds}}"
+      wx:for-item="feed"
+      wx:key="id"
+      class="photo_cell"
+      data-feed="{{feed}}"
+      catchtap="tapFeed"
+      src="{{isWiFi ? feed.photo.largeurl : (feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl)}}"
+      mode="aspectFill"
+      lazy-load="{{true}}"
+    />
   </view>
 </template>
 
@@ -66,7 +103,7 @@
     <template is="feeds" data="{{feeds: feeds_arr[0], rawid: feed.rawid, isBefore: true}}" />
     <template is="divider" />
   </block>
-  <template is="feed" data="{{feed}}" />
+  <template is="feed" data="{{feed, imageFadeIn}}" />
   <block wx:if="{{feeds_arr[0].length > 1 && feeds_arr[0][feeds_arr[0].length - 1].id !== feed.id}}">
     <template is="divider" />
     <template is="feeds" data="{{feeds: feeds_arr[0], rawid: feed.rawid, isBefore: false}}" />
@@ -76,16 +113,40 @@
 <!--详情消息-->
 <template name="feed">
   <view class="feed" data-feed="{{feed}}" catchtap="tapFeedDetail">
-    <image class="avatar" src="{{feed.user.profile_image_url_large}}" data-user="{{feed.user}}" catchtap="tapAvatar" />
+    <image
+      class="avatar"
+      src="{{feed.user.profile_image_url_large}}"
+      data-user="{{feed.user}}"
+      catchtap="tapAvatar"
+      lazy-load="{{true}}"
+    />
     <view class="after_avatar full_width">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
         <text class="meta">{{feed.time_tag}} {{feed.source_name}}</text>
       </view>
-      <text wx:for="{{feed.txt}}" wx:key="ignorekeywarn" wx:for-item="txt" class="detail_txt {{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
+      <text
+        wx:for="{{feed.txt}}"
+        wx:key="ignorekeywarn"
+        wx:for-item="txt"
+        class="detail_txt {{txt.type}}"
+        data-value="{{txt}}"
+        catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}"
+      >{{txt.text}}</text>
     </view>
   </view>
-  <image wx:if="{{feed.photo}}" class="photo" src="{{feed.photo.largeurl}}" mode="widthFix" catchtap="tapImage" catchlongpress="longPressImage" />
+  <image
+    wx:if="{{feed.photo}}"
+    class="photo"
+    style="opacity: 0;"
+    src="{{feed.photo.largeurl}}"
+    mode="widthFix"
+    catchtap="tapImage"
+    catchlongpress="longPressImage"
+    bindload="imageLoad"
+    animation="{{imageFadeIn}}"
+    lazy-load="{{true}}"
+  />
 </template>
 
 <!--加载更多-->
@@ -99,17 +160,49 @@
 <template name="post">
   <view class="post">
     <form bindsubmit="post" bindreset="reset">
-      <textarea class="input" name="post" placeholder-class="gray" placeholder="{{placeholder}}" fixed="{{true}}" maxlength="-1" value="{{param.status}}" auto-focus="{{autoFocus}}" cursor="{{param.repost_status_id ? 0 : -1}}" bindinput="bindinput" />
+      <textarea
+        class="input"
+        name="post"
+        placeholder-class="gray"
+        placeholder="{{placeholder}}"
+        fixed="{{true}}"
+        maxlength="-1"
+        value="{{param.status}}"
+        auto-focus="{{autoFocus}}"
+        cursor="{{param.repost_status_id ? 0 : -1}}"
+        bindinput="bindinput"
+      />
       <view class="length space_item_v {{length > 140 ? 'red' : ''}}">{{140 - length}}</view>
       <view class="flex_between space_item_v">
-        <button class="btn2 dim" formType="reset">{{float === true ? i18n.compose.close : i18n.compose.reset}}</button>
-        <button wx:if="{{!noPhoto}}" class="btn2 dim" catchtap="{{photoPaths[0] ? 'removePhoto' : 'addPhoto'}}" catchlongpress="{{photoPaths[0] ? 'removePhoto' : 'addGif'}}">
+        <button
+          class="btn2 dim"
+          formType="reset"
+          animation="{{resetPop}}"
+        >{{float === true ? i18n.compose.close : i18n.compose.reset}}</button>
+        <button
+          wx:if="{{!noPhoto}}"
+          class="btn2 dim"
+          catchtap="{{photoPaths[0] ? 'removePhoto' : 'addPhoto'}}"
+          catchlongpress="{{photoPaths[0] ? 'removePhoto' : 'addGif'}}"
+          animation="{{addPhotoPop}}"
+        >
           <text>{{i18n.compose.attachment}}</text>
-          <image wx:if="{{photoPaths[0]}}" src="{{photoPaths[0]}}" mode="aspectFill" style='position:absolute;width:100%;height:100%;filter:brightness(0.9);' />
+          <image
+            wx:if="{{photoPaths[0]}}"
+            src="{{photoPaths[0]}}"
+            mode="aspectFill"
+            style='position:absolute;width:100%;height:100%;filter:brightness(0.9);'
+          />
         </button>
-        <button class="btn2" formType="{{posting ? '' : 'submit'}}">
+        <button class="btn2" formType="{{posting ? '' : 'submit'}}" animation="{{sendPop}}">
           <text>{{i18n.compose.send}}</text>
-          <image wx:if="{{posting}}" src="/assets/spinner_white.svg" mode="aspectFit" class="tint" style='position:absolute;width:100%;height:100%;' />
+          <image
+            wx:if="{{posting}}"
+            src="/assets/spinner_white.svg"
+            mode="aspectFit"
+            class="tint"
+            style='position:absolute;width:100%;height:100%;'
+          />
         </button>
       </view>
     </form>
@@ -120,16 +213,16 @@
 <template name="toolbar">
   <view class="toolbar">
     <view class="flex_item" catchtap="reply">
-      <image src="/assets/reply.svg" class="size30" />
+      <image src="/assets/reply.svg" class="size30" animation="{{replyPop}}" />
     </view>
     <view class="flex_item" catchtap="repost" catchlongpress="re">
-      <image src="/assets/repost.svg" class="size30" />
+      <image src="/assets/repost.svg" class="size30" animation="{{repostPop}}" />
     </view>
     <view class="flex_item" catchtap="favoriteChange">
-      <image src="/assets/favorite{{feed.favorited ? '_a' : ''}}.svg" class="size30" />
+      <image src="/assets/favorite{{feed.favorited ? '_a' : ''}}.svg" class="size30" animation="{{starPop}}" />
     </view>
     <view wx:if="{{feed.user.is_me}}" class="flex_item" catchtap="destroy">
-      <image src="/assets/delete.svg" class="size30" />
+      <image src="/assets/delete.svg" class="size30" animation="{{deletePop}}" />
     </view>
   </view>
 </template>
@@ -138,7 +231,7 @@
 <template name="toolbar_msg">
   <view class="toolbar">
     <view class="flex_item" catchtap="reply">
-      <image src="/assets/reply.svg" class="size30" />
+      <image src="/assets/reply.svg" class="size30" animation="{{replyPop}}" />
     </view>
   </view>
 </template>
@@ -166,16 +259,35 @@
 
 <!--profile-->
 <template name="profile">
-  <view class="header" catchtap="tapImage" data-photo-url="{{user.profile_background_image_url}}">
-    <image class="profile_background" style="background: {{user.profile_background_color}};" mode="aspectFill" src="{{user.profile_background_image_url}}" />
+  <view
+    class="header"
+    catchtap="tapImage"
+    data-photo-url="{{user.profile_background_image_url}}"
+  >
+    <image
+      class="profile_background"
+      mode="aspectFill"
+      src="{{user.profile_background_image_url}}"
+      bindload="profileLoad"
+      animation="{{profileAnimation}}"
+      lazy-load="{{true}}"
+    />
     <view class="avatar_container" catchtap="tapImage" data-photo-url="{{user.profile_image_url_large}}">
-      <image class="avatar" src="{{user.profile_image_url_large}}" />
+      <image
+        class="avatar"
+        style="opacity: 0;"
+        src="{{user.profile_image_url_large}}"
+        bindload="avatarLoad"
+        animation="{{avatarAnimation}}"
+      />
     </view>
   </view>
   <view class="info">
     <view class="name" data-id="{{user.id}}" catchtap="tapName">{{user.name}}</view>
     <view wx:if="{{user.location.length}}" class="description">{{i18n.me.location}}{{user.location}}</view>
-    <view wx:if="{{user.url.length && user.url !== 'http://'}}" class="description">{{i18n.me.website}}<text class="link" data-link="{{user.url}}" catchtap="tapLink">{{user.url}}</text></view>
+    <view
+      wx:if="{{user.url.length && user.url !== 'http://'}}"
+      class="description">{{i18n.me.website}}<text class="link" data-link="{{user.url}}" catchtap="tapLink">{{user.url}}</text></view>
     <view wx:if="{{user.description.length}}" class="description">{{i18n.me.bio}}<text>{{user.description}}</text></view>
     <view wx:if="{{user.birth_date}}" class="description">{{i18n.me.birth}}{{user.birth_date}} {{user.sign_name}}</view>
     <view class="flex_between description">
@@ -183,12 +295,50 @@
       <image wx:if="{{user.protected}}" class="protected" src="/assets/private.svg"/>
     </view>
     <view wx:if="{{relationship && !user.is_me}}" class="flex_between space_item_v">
-      <view wx:if="{{relationship.following && relationship.followed_by}}" class="btn3 dim space_item_h" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">{{i18n.me.followed_each_other}}</view>
-      <view wx:elif="{{!relationship.following && relationship.followed_by}}" class="btn3 space_item_h" catchtap="follow" catchlongpress="block" data-user="{{user}}">{{i18n.me.become_friend}}</view>
-      <view wx:elif="{{relationship.following && !relationship.followed_by}}" class="btn3 dim space_item_h" catchtap="unfollow" catchlongpress="block" data-user="{{user}}">{{i18n.me.followed}}</view>
-      <view wx:elif="{{relationship.blocking}}" class="btn3 dark space_item_h" catchlongpress="unblock" data-user="{{user}}">{{i18n.me.blocked}}</view>
-      <view wx:else class="btn3 space_item_h" catchtap="follow" catchlongpress="block" data-user="{{user}}">{{i18n.me.follow}}</view>
-      <view class="btn3 space_item_h" catchtap="message" data-user="{{user}}">{{i18n.me.direct_messages}}</view>
+      <view
+        wx:if="{{relationship.following && relationship.followed_by}}"
+        class="btn3 dim space_item_h"
+        catchtap="unfollow"
+        catchlongpress="block"
+        data-user="{{user}}"
+        animation="{{initPop || buttonPop}}"
+      >{{i18n.me.followed_each_other}}</view>
+      <view
+        wx:elif="{{!relationship.following && relationship.followed_by}}"
+        class="btn3 space_item_h"
+        catchtap="follow"
+        catchlongpress="block"
+        data-user="{{user}}"
+        animation="{{initPop || buttonPop}}"
+      >{{i18n.me.become_friend}}</view>
+      <view
+        wx:elif="{{relationship.following && !relationship.followed_by}}"
+        class="btn3 dim space_item_h"
+        catchtap="unfollow"
+        catchlongpress="block"
+        data-user="{{user}}"
+        animation="{{initPop || buttonPop}}"
+      >{{i18n.me.followed}}</view>
+      <view
+        wx:elif="{{relationship.blocking}}"
+        class="btn3 dark space_item_h"
+        catchlongpress="unblock"
+        data-user="{{user}}"
+      >{{i18n.me.blocked}}</view>
+      <view
+        wx:else
+        class="btn3 space_item_h"
+        catchtap="follow"
+        catchlongpress="block"
+        data-user="{{user}}"
+        animation="{{initPop || buttonPop}}"
+      >{{i18n.me.follow}}</view>
+      <view
+        class="btn3 space_item_h"
+        catchtap="message"
+        data-user="{{user}}"
+        animation="{{messagePop}}"
+      >{{i18n.me.direct_messages}}</view>
     </view>
   </view>
   <view class="section">
@@ -230,7 +380,14 @@
 </template>
 
 <template name="messages">
-  <view wx:for="{{messages}}" wx:for-item="message" wx:key="ignorekeywarn" class="feed" data-message="{{message}}" catchtap="tapMessage">
+  <view
+    wx:for="{{messages}}"
+    wx:for-item="message"
+    wx:key="ignorekeywarn"
+    class="feed"
+    data-message="{{message}}"
+    catchtap="tapMessage"
+  >
     <view>
       <view wx:if="{{message.new_conv && !message.dm.sender.is_me}}" class="new" />
       <image
@@ -256,7 +413,14 @@
 </template>
 
 <template name="message">
-  <view wx:for="{{message}}" wx:for-item="msg" wx:key="id" class="msg {{msg.sender.is_me ? 'msg_end' : ''}}" data-msg="{{msg}}" catchtap="tapMsg">
+  <view
+    wx:for="{{message}}"
+    wx:for-item="msg"
+    wx:key="id"
+    class="msg {{msg.sender.is_me ? 'msg_end' : ''}}"
+    data-msg="{{msg}}"
+    catchtap="tapMsg"
+  >
     <text class="bubble">{{msg.text}}</text>
     <view class="meta">{{msg.time_tag}}</view>
   </view>

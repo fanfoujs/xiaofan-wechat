@@ -1,6 +1,7 @@
 const qs = require('../../utils/fanfou-sdk-node/modules/querystring/index')
 const fm = require('../../components/feeds-manager')
 const extend = require('../../utils/extend')
+const animations = require('../../utils/animations')
 const tap = require('../../mixins/tap')
 const post = require('../../mixins/post')
 const i18n = require('../../i18n/index')
@@ -23,7 +24,13 @@ Page(extend({}, tap, post, {
     fm.relationship(this.data.user.id, this)
   },
   message (e) {
-    fm.navigateTo(`../message/message?id=${e.currentTarget.dataset.user.id}&name=${e.currentTarget.dataset.user.name}`)
+    this.setData({
+      messagePop: animations.pop().export()
+    }, () => {
+      setTimeout(() => {
+        fm.navigateTo(`../message/message?id=${e.currentTarget.dataset.user.id}&name=${e.currentTarget.dataset.user.name}`)
+      }, 200)
+    })
   },
   tapDistributor () {
     const page = this
@@ -98,7 +105,13 @@ Page(extend({}, tap, post, {
     // WIP: fm.navigateTo('../tutorial/tutorial')
   },
   reset () {
-    this.setData({distributor: false})
+    this.setData({
+      cancelPop: animations.pop().export()
+    }, () => {
+      setTimeout(() => {
+        this.setData({distributor: false})
+      }, 200)
+    })
   },
   saveAppID (e) {
     const page = this
@@ -133,5 +146,15 @@ Page(extend({}, tap, post, {
       title: this.data.user.name,
       path: `/${this.route}?${qs.stringify(options)}`
     }
+  },
+  profileLoad () {
+    this.setData({
+      profileAnimation: animations.fadeIn().export()
+    })
+  },
+  avatarLoad () {
+    this.setData({
+      avatarAnimation: animations.fadeIn().export()
+    })
   }
 }))
