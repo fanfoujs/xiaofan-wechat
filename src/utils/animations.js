@@ -9,13 +9,13 @@ module.exports = {
   },
 
   fadeIn () {
-    const ani = wx.createAnimation()
+    const ani = wx.createAnimation({duration: 200})
     ani.opacity(1).step()
     return ani
   },
 
   fadeOut () {
-    const ani = wx.createAnimation()
+    const ani = wx.createAnimation({duration: 200})
     ani.opacity(0).step()
     return ani
   }

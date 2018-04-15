@@ -119,8 +119,8 @@ module.exports = {
     const {id} = e.currentTarget.dataset.user
     const newFeedsArr = this.data.feeds_arr.map(feeds => {
       return feeds.map(item => {
-        if (item.user.id === id) {
-          item.avatarFadeIn = animations.fadeIn().export()
+        if (item.user.id === id && !item.avatarFadeIn) {
+          item.avatarFadeIn = animations.fadeIn()
         }
         return item
       })
@@ -133,8 +133,8 @@ module.exports = {
     const {originurl} = e.currentTarget.dataset.photo
     const newFeedsArr = this.data.feeds_arr.map(feeds => {
       return feeds.map(item => {
-        if (item.photo && item.photo.originurl === originurl) {
-          item.photoFadeIn = animations.fadeIn().export()
+        if (item.photo && item.photo.originurl === originurl && !item.photoFadeIn) {
+          item.photoFadeIn = animations.fadeIn()
         }
         return item
       })
