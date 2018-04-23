@@ -396,12 +396,23 @@ function loadFeed (page, id) {
     .then(res => {
       wx.stopPullDownRefresh()
       if (res.error) {
-        showModal(res.error)
+        wx.showModal({
+          confirmColor: '#33a5ff',
+          title: i18n.common.error,
+          content: res.error,
+          showCancel: false,
+          confirmText: i18n.common.ok,
+          success: () => {
+            wx.navigateBack()
+          }
+        })
         return
       }
       page.setData({feed: res})
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(err => {
+      showModal(err.errMsg)
+    })
 }
 
 function _loadFeedThenAddToHome (id) {
