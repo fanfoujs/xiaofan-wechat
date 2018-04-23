@@ -128,19 +128,5 @@ module.exports = {
     this.setData({
       feeds_arr: newFeedsArr
     })
-  },
-  photoLoad (e) {
-    const {originurl} = e.currentTarget.dataset.photo
-    const newFeedsArr = this.data.feeds_arr.map(feeds => {
-      return feeds.map(item => {
-        if (item.photo && item.photo.originurl === originurl && !item.photoFadeIn) {
-          item.photoFadeIn = animations.fadeIn()
-        }
-        return item
-      })
-    })
-    this.setData({
-      feeds_arr: newFeedsArr
-    })
   }
 }

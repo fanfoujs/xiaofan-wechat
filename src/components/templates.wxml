@@ -32,12 +32,9 @@
     <image
       class="avatar {{rawid ? 'small_avatar' : ''}}"
       src="{{feed.user.profile_image_url_large}}"
-      style="opacity: 0;"
       data-user="{{feed.user}}"
       catchtap="tapAvatar"
-      bindload="avatarLoad"
       lazy-load="{{true}}"
-      animation="{{feed.avatarFadeIn}}"
     />
     <text>{{avatarFadeIn}}</text>
     <view class="after_avatar full_width">
@@ -61,13 +58,10 @@
         <image
           wx:if="{{feed.photo}}"
           class="photo"
-          style="opacity: 0;"
           src="{{isWiFi ? feed.photo.largeurl : (feed.photo.type != 'gif' ? feed.photo.largeurl : feed.photo.imageurl)}}"
           data-photo="{{feed.photo}}"
           mode="widthFix"
           lazy-load="{{true}}"
-          bindload="photoLoad"
-          animation="{{feed.photoFadeIn}}"
         />
       </view>
     </view>
