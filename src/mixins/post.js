@@ -8,7 +8,8 @@ module.exports = {
     photoPaths: null,
     posting: false,
     length: 0,
-    i18n
+    i18n,
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
   },
   post (e) {
     this.setData({

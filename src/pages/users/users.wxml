@@ -1,3 +1,5 @@
 <import src="/components/templates.wxml" />
+<view style="padding-top: {{statusBarHeight}}px;">
 <template is="users_arr" data="{{users_arr: feeds_arr, name, i18n}}" />
+</view>
 <template data="{{showLoader}}" is="loader" />

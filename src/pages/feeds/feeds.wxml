@@ -1,3 +1,5 @@
 <import src="/components/templates.wxml" />
-<template is="feeds_arr" data="{{feeds_arr, isWiFi, avatarFadeIn}}" />
+<view style="padding-top: {{statusBarHeight}}px;">
+  <template is="feeds_arr" data="{{feeds_arr, isWiFi, avatarFadeIn}}" />
+</view>
 <template data="{{showLoader}}" is="loader" />

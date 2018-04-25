@@ -6,6 +6,9 @@ const i18n = require('../../i18n/index')
 const url = '/direct_messages/conversation_list'
 
 Page(extend({}, tap, {
+  data: {
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+  },
   onLoad () {
     this.setData({me: getApp().globalData.account.user, i18n})
     fm.load(this, url)

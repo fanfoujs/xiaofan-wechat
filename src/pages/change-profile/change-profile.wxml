@@ -1,9 +1,21 @@
 <import src="/components/templates.wxml" />
 <form bindsubmit="save">
   <view class="header" catchtap="tapBackground">
-    <image class="profile_background" style="background: {{user.profile_background_color}};" mode="aspectFill" src="{{user.profile_background_image_url}}" />
+    <image
+      class="profile_background"
+      style="background: {{user.profile_background_color}};"
+      mode="aspectFill"
+      src="{{user.profile_background_image_url}}"
+      bindload="profileLoad"
+      animation="{{profileAnimation}}"
+    />
     <view class="avatar_container" catchtap="tapAvatar">
-      <image class="avatar" src="{{photoPaths || user.profile_image_url_large}}" />
+      <image
+        class="avatar"
+        src="{{photoPaths || user.profile_image_url_large}}"
+        bindload="avatarLoad"
+        animation="{{avatarAniamtion}}"
+      />
     </view>
   </view>
   <view style="height: 6px;" />

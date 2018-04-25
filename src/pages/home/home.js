@@ -8,6 +8,9 @@ const network = require('../../mixins/network')
 const i18n = require('../../i18n/index')
 
 Page(extend({}, tap, {
+  data: {
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+  },
   onLoad () {
     wx.setNavigationBarTitle({title: i18n.home.title})
     this.setData({i18n})

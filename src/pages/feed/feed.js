@@ -7,6 +7,9 @@ const tap = require('../../mixins/tap')
 const i18n = require('../../i18n/index')
 
 Page(extend({}, tap, post, {
+  data: {
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+  },
   onLoad (e) {
     wx.setNavigationBarTitle({title: i18n.feed.title})
     const feed = getApp().globalData.feed

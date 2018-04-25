@@ -63,6 +63,17 @@ function load (page, url, para) {
         showModal(res.error)
         return
       }
+      if (res.length > 0) {
+        switch (url) {
+          case '/statuses/mentions':
+          case '/statuses/public_timeline':
+            break
+          default:
+            res[0].time_ago = ''
+            res[0].source_name = ''
+            break
+        }
+      }
       page.setData({feeds_arr: [res]})
       page.noMore = res.length < param.count
       if (url === '/statuses/mentions') {

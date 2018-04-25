@@ -1,9 +1,12 @@
 <import src="/components/templates.wxml" />
-<input class="input_bar" placeholder-class="gray" bindconfirm="search" placeholder="{{i18n.discover.search_placeholder}}" value="{{value}}" />
-<template is="section" data="{{name: i18n.discover.hot_trends, list: trends}}" />
-<template is="section" data="{{name: i18n.discover.saved_trends, list: saved_searches}}" />
-<view wx:if="{{feeds_arr}}" class="section">
-  <view class="section_name">{{i18n.discover.public_timeline}}</view>
-  <template is="feeds_arr" data="{{feeds_arr, isWiFi}}" />
-</view>
+  <input
+    style="padding-top: {{statusBarHeight + 12}}px;"
+    class="input_bar"
+    placeholder-class="gray" bindconfirm="search" placeholder="{{i18n.discover.search_placeholder}}" value="{{value}}" />
+  <template is="section" data="{{name: i18n.discover.hot_trends, list: trends}}" />
+  <template is="section" data="{{name: i18n.discover.saved_trends, list: saved_searches}}" />
+  <view wx:if="{{feeds_arr}}" class="section">
+    <view class="section_name">{{i18n.discover.public_timeline}}</view>
+    <template is="feeds_arr" data="{{feeds_arr, isWiFi}}" />
+  </view>
 <template is="notibar" data="{{notis}}" />

@@ -10,7 +10,8 @@ const urls = ['/statuses/mentions', '/statuses/replies']
 
 Page(extend({}, tap, {
   data: {
-    index: 0
+    index: 0,
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
   },
   onLoad () {
     wx.setNavigationBarTitle({title: i18n.mentions.title})

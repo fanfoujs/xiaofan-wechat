@@ -1,12 +1,13 @@
 <import src="/components/templates.wxml" />
-<!-- work in progress... -->
-<view class="aboveToolbar" style="padding-top: {{param ? 235: 0}}px;">
-  <template is="message_arr" data="{{message_arr: feeds_arr}}" />
-</view>
-<template data="{{showLoader}}" is="loader" />
-<template is="toolbar_msg" data="{{feed, replyPop}}" />
-<block wx:if="{{param}}">
-  <view class="mask">
-    <template is="post" data="{{param, posting, autoFocus: true, noPhoto: true, length, i18n, resetPop, sendPop}}" />
+<view style="padding-top: {{statusBarHeight}}px;">
+  <view class="aboveToolbar" style="padding-top: {{param ? 235: 0}}px;">
+    <template is="message_arr" data="{{message_arr: feeds_arr}}" />
   </view>
-</block>
+  <template data="{{showLoader}}" is="loader" />
+  <template is="toolbar_msg" data="{{feed, replyPop}}" />
+  <block wx:if="{{param}}">
+    <view class="mask">
+      <template is="post" data="{{param, posting, autoFocus: true, noPhoto: true, length, i18n, resetPop, sendPop, statusBarHeight}}" />
+    </view>
+  </block>
+</view>

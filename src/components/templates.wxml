@@ -162,10 +162,11 @@
 
 <!--发消息-->
 <template name="post">
-  <view class="post">
+  <view class="post" style="padding-top: {{statusBarHeight * 2}}px;">
     <form bindsubmit="post" bindreset="reset">
       <textarea
         class="input"
+        style="height: {{statusBarHeight * 2 + 108}}px;"
         name="post"
         placeholder-class="gray"
         placeholder="{{placeholder}}"

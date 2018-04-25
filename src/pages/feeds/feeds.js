@@ -7,6 +7,9 @@ const i18n = require('../../i18n/index')
 Page(extend({}, tap, {
   para: null,
   url: null,
+  data: {
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+  },
   onLoad (e) {
     this.url = e.url || '/search/public_timeline'
     this.para = e

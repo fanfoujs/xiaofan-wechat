@@ -1,8 +1,10 @@
 <import src="/components/templates.wxml" />
-<view class="segments">
-  <view catchtap="tapIndex" class="segment {{index==0?'active':'gray'}}" data-index="0">{{i18n.mentions.all}}</view>
-  <view catchtap="tapIndex" class="segment {{index==1?'active':'gray'}}" data-index="1">{{i18n.mentions.reply}}</view>
+<view style="padding-top: {{statusBarHeight}}px;">
+  <view class="segments">
+    <view catchtap="tapIndex" class="segment {{index==0?'active':'gray'}}" data-index="0">{{i18n.mentions.all}}</view>
+    <view catchtap="tapIndex" class="segment {{index==1?'active':'gray'}}" data-index="1">{{i18n.mentions.reply}}</view>
+  </view>
+  <template is="feeds_arr" data="{{feeds_arr, isWiFi}}" />
+  <template data="{{showLoader}}" is="loader" />
 </view>
-<template is="feeds_arr" data="{{feeds_arr, isWiFi}}" />
-<template data="{{showLoader}}" is="loader" />
 <template is="notibar" data="{{notis}}" />

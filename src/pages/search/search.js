@@ -9,6 +9,9 @@ const i18n = require('../../i18n/index')
 const url = '/statuses/public_timeline'
 
 Page(extend({}, tap, {
+  data: {
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+  },
   onLoad () {
     wx.setNavigationBarTitle({title: i18n.discover.title})
     this.setData({i18n})

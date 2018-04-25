@@ -21,6 +21,7 @@
   "window": {
     "backgroundColor": "#FFF",
     "backgroundTextStyle": "dark",
+    "navigationStyle": "custom",
     "navigationBarBackgroundColor": "#FFF",
     "navigationBarTitleText": "",
     "navigationBarTextStyle": "black",

@@ -239,7 +239,7 @@ image {
   font-weight: 500;
   padding: 12px 18px;
   display: flex;
-  width: 100%;
+  width: 125rpx;
   justify-content: center;
 }
 
@@ -266,7 +266,6 @@ image {
 
 .input {
   width: auto;
-  height: 108px;
 }
 
 .info {

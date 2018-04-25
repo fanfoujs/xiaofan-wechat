@@ -43,5 +43,17 @@ Page({
         fm.updateProfile(this, e.detail.value)
       }, 200)
     })
+  },
+  profileLoad () {
+    const fadeIn = animations.fadeIn()
+    this.setData({
+      profileAnimation: fadeIn.export()
+    })
+  },
+  avatarLoad () {
+    const fadeIn = animations.fadeIn()
+    this.setData({
+      avatarAnimation: fadeIn.export()
+    })
   }
 })
