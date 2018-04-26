@@ -4,6 +4,9 @@ const ff = require('../../utils/fanfou')
 const i18n = require('../../i18n/index')
 
 Page({
+  data: {
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+  },
   onLoad () {
     wx.setNavigationBarTitle({title: i18n.login.title})
     const accounts = this.getAccounts()
