@@ -69,9 +69,13 @@ function load (page, url, para) {
       if (settings.hideBlocks) {
         res = res.filter(status => {
           const userId = status.user.id
+          const userUniqueId = status.user.unique_id
           const users = getUsers(status)
           const usersIds = users.map(item => item.id)
           if (blockIds.indexOf(userId) !== -1) {
+            return false
+          }
+          if (blockIds.indexOf(userUniqueId) !== -1) {
             return false
           }
           for (let i = 0; i < usersIds.length; i++) {
