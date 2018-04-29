@@ -66,30 +66,44 @@ function load (page, url, para) {
       const blocks = getBlocks()
       const blockIds = getBlockIds()
       const blockNames = blocks.map(item => item.name)
-      if (settings.hideBlocks) {
-        res = res.filter(status => {
-          const userId = status.user.id
-          const userUniqueId = status.user.unique_id
-          const users = getUsers(status)
-          const usersIds = users.map(item => item.id)
-          if (blockIds.indexOf(userId) !== -1) {
-            return false
+      switch (url || '/statuses/home_timeline') {
+        case '/statuses/home_timeline':
+        case '/statuses/public_timeline':
+        case '/statuses/mentions':
+        case '/search/public_timeline':
+        case '/statuses/friends_timeline':
+        case '/statuses/replies':
+        case '/statuses/context_timeline':
+        case '/search/user_timeline':
+        case '/favorites':
+          if (settings.hideBlocks) {
+            res = res.filter(status => {
+              const userId = status.user.id
+              const userUniqueId = status.user.unique_id
+              const users = getUsers(status)
+              const usersIds = users.map(item => item.id)
+              if (blockIds.indexOf(userId) !== -1) {
+                return false
+              }
+              if (blockIds.indexOf(userUniqueId) !== -1) {
+                return false
+              }
+              for (let i = 0; i < usersIds.length; i++) {
+                if (blockIds.indexOf(usersIds[i]) !== -1) {
+                  return false
+                }
+              }
+              for (let i = 0; i < blockNames.length; i++) {
+                if (status.plain_text.indexOf(blockNames[i]) !== -1) {
+                  return false
+                }
+              }
+              return true
+            })
           }
-          if (blockIds.indexOf(userUniqueId) !== -1) {
-            return false
-          }
-          for (let i = 0; i < usersIds.length; i++) {
-            if (blockIds.indexOf(usersIds[i]) !== -1) {
-              return false
-            }
-          }
-          for (let i = 0; i < blockNames.length; i++) {
-            if (status.plain_text.indexOf(blockNames[i]) !== -1) {
-              return false
-            }
-          }
-          return true
-        })
+          break
+        default:
+          break
       }
       page.setData({feeds_arr: [res]})
       page.noMore = res.length < param.count
