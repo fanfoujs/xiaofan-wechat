@@ -26,6 +26,9 @@ function updateNotis () {
     ff.getPromise('/blocks/blocking').then(res => {
       wx.setStorage({key: 'blocks', data: res})
     })
+    ff.getPromise('/blocks/ids').then(res => {
+      wx.setStorage({key: 'blockIds', data: res})
+    })
   }
 }
 

@@ -30,8 +30,14 @@ function getBlocks () {
   return blocks
 }
 
+function getBlockIds () {
+  const blockIds = wx.getStorageSync('blockIds') || []
+  return blockIds
+}
+
 module.exports = {
   formatTime,
   getSettings,
-  getBlocks
+  getBlocks,
+  getBlockIds
 }

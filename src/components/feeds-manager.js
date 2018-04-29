@@ -1,5 +1,5 @@
 const ff = require('../utils/fanfou')
-const {getSettings, getBlocks} = require('../utils/util')
+const {getSettings, getBlocks, getBlockIds} = require('../utils/util')
 const tab = require('../components/tab')
 const i18n = require('../i18n/index')
 
@@ -64,7 +64,7 @@ function load (page, url, para) {
       }
       const settings = getSettings()
       const blocks = getBlocks()
-      const blockIds = blocks.map(item => item.id)
+      const blockIds = getBlockIds()
       const blockNames = blocks.map(item => item.name)
       if (settings.hideBlocks) {
         res = res.filter(status => {
@@ -72,18 +72,15 @@ function load (page, url, para) {
           const users = getUsers(status)
           const usersIds = users.map(item => item.id)
           if (blockIds.indexOf(userId) !== -1) {
-            console.log(status, 'blocked')
             return false
           }
           for (let i = 0; i < usersIds.length; i++) {
             if (blockIds.indexOf(usersIds[i]) !== -1) {
-              console.log(status, 'blocked')
               return false
             }
           }
           for (let i = 0; i < blockNames.length; i++) {
             if (status.plain_text.indexOf(blockNames[i]) !== -1) {
-              console.log(status, 'blocked')
               return false
             }
           }
