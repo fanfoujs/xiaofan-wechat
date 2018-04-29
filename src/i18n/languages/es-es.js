@@ -62,6 +62,7 @@ module.exports = {
     friend_requests: 'Solicitud de Amistad',
     direct_messages: 'Mensaje Directo',
     profiles: 'Perfil',
+    settings: 'Ajustes',
     switch_account: 'Cerrar Sesión',
     about_xiaofan: 'Xiaofan',
     followed_each_other: 'Amigo',
@@ -117,6 +118,14 @@ module.exports = {
     years: ' Años ',
     months: ' Meses ',
     days: ' Días'
+  },
+  settings: {
+    status_display: 'Visualización de estados',
+    time: 'Mostrar el tiempo',
+    source_name: 'Mostrar la fuente',
+    status_count: 'Mostrar el conteo',
+    blocks: 'Cuentas Bloqueadas',
+    hide_blocked_users: 'Ocultar los usuarios bloqueados'
   },
   timeago: [
     ['1s', 'hace poco'],

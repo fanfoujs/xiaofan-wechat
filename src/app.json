@@ -16,7 +16,8 @@
     "pages/users/users",
     "pages/change-profile/change-profile",
     "pages/tutorial/tutorial",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/settings/settings"
   ],
   "window": {
     "backgroundColor": "#FFF",

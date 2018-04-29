@@ -10,6 +10,7 @@
   <view class="section">
     <view class="list">
       <template is="list_item" data="{{...change_profile}}" />
+      <template is="list_item" data="{{...settings}}" />
       <template is="list_item" data="{{...logout}}" />
     </view>
   </view>

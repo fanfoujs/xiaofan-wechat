@@ -1,6 +1,6 @@
 <import src="/components/templates.wxml" />
 <view style="padding-top: {{statusBarHeight}}px;">
-  <template is="feeds_arr" data="{{feeds_arr, isWiFi, statusBarHeight}}" />
+  <template is="feeds_arr" data="{{feeds_arr, isWiFi, statusBarHeight, settings}}" />
 </view>
 <template data="{{showLoader}}" is="loader" />
 <template is="notibar" data="{{notis}}" />

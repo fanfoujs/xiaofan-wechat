@@ -23,6 +23,9 @@ function updateNotis () {
       getApp().globalData.notis = res
       render()
     })
+    ff.getPromise('/blocks/blocking').then(res => {
+      wx.setStorage({key: 'blocks', data: res})
+    })
   }
 }
 

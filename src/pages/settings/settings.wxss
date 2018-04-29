@@ -1,0 +1,7 @@
+page {
+  background-color: #f9f9fc;
+}
+
+slider {
+  width: 100%;
+}

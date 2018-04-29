@@ -62,6 +62,7 @@ module.exports = {
     friend_requests: 'Requests',
     direct_messages: 'Messages',
     profiles: 'Profiles',
+    settings: 'Settings',
     switch_account: 'Logout',
     about_xiaofan: 'Xiaofan',
     followed_each_other: 'Friend',
@@ -117,6 +118,14 @@ module.exports = {
     years: ' Y ',
     months: ' M ',
     days: ' D'
+  },
+  settings: {
+    status_display: 'Status Display',
+    time: 'Time',
+    source_name: 'Source Name',
+    status_count: 'Status Count',
+    blocks: 'Blocks',
+    hide_blocked_users: 'Hide_blocked_users'
   },
   timeago: [
     ['1s', 'just now'],

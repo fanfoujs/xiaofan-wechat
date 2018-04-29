@@ -1,0 +1,85 @@
+<view style="padding-top: {{statusBarHeight}}px;">
+
+  <view class="section">
+    <view class="section_name">{{i18n.settings.status_display}}</view>
+
+    <view>
+      <view class="feed" data-feed="{{feed}}">
+        <image
+          class="avatar"
+          src="{{feed.user.profile_image_url_large}}"
+          data-user="{{feed.user}}"
+          lazy-load="{{true}}"
+        />
+        <view class="after_avatar full_width">
+          <view class="topline">
+            <text class="name">{{feed.user.name}}</text>
+            <text class="meta">{{showTimeago ? feed.time_ago : ''}} {{showSource ? feed.source_name : ''}}</text>
+          </view>
+          <text
+            wx:for="{{feed.txt}}"
+            wx:key="ignorekeywarn"
+            wx:for-item="txt"
+            class="detail_txt {{txt.type}}"
+            data-value="{{txt}}"
+          >{{txt.text}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="list">
+      <view class="list_item">
+        <view class="label">{{i18n.settings.time}}</view>
+        <view class="switch">
+          <switch
+            color="#33a5ff"
+            bindchange="onTimeagoChange"
+            checked="{{showTimeago}}"
+          />
+        </view>
+      </view>
+
+      <view class="list_item">
+        <view class="label">{{i18n.settings.source_name}}</view>
+        <view class="switch">
+          <switch
+            color="#33a5ff"
+            bindchange="onSourceChange"
+            checked="{{showSource}}"
+          />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section_name">{{i18n.settings.status_count}}</view>
+    <view class="list">
+      <view class="list_item" style="padding: 0 10px;">
+        <slider
+          selected-color="#33a5ff"
+          min="10"
+          max="60"
+          step="5"
+          show-value
+          value="{{timelineCount}}"
+          bindchange="onStatusCountChange"
+        />
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section_name">{{i18n.settings.blocks}}</view>
+    <view class="list">
+      <view class="list_item">
+        <view class="label">{{i18n.settings.hide_blocked_users}}</view>
+        <switch
+          color="#33a5ff"
+          bindchange="onBlocksChange"
+          checked="{{hideBlocks}}"
+        />
+      </view>
+    </view>
+  </view>
+</view>

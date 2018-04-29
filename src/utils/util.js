@@ -15,6 +15,23 @@ function formatNumber (n) {
   return n[1] ? n : '0' + n
 }
 
+function getSettings () {
+  const settings = wx.getStorageSync('settings') || {
+    showTimeago: true,
+    showSource: true,
+    timelineCount: 30,
+    hideBlocks: false
+  }
+  return settings
+}
+
+function getBlocks () {
+  const blocks = wx.getStorageSync('blocks') || []
+  return blocks
+}
+
 module.exports = {
-  formatTime
+  formatTime,
+  getSettings,
+  getBlocks
 }

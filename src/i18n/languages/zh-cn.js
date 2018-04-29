@@ -62,6 +62,7 @@ module.exports = {
     friend_requests: '好友请求',
     direct_messages: '私信',
     profiles: '修改资料',
+    settings: '设置',
     switch_account: '切换账号',
     about_xiaofan: '小饭',
     followed_each_other: '好友',
@@ -117,6 +118,14 @@ module.exports = {
     years: ' 年 ',
     months: ' 个月 ',
     days: ' 天'
+  },
+  settings: {
+    status_display: '显示设置',
+    time: '时间',
+    source_name: '小尾巴',
+    status_count: '每页消息数量',
+    blocks: '屏蔽选项',
+    hide_blocked_users: '屏蔽拉黑用户'
   },
   timeago: [
     ['1 秒前', '刚刚'],

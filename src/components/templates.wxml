@@ -15,7 +15,7 @@
 
 <!--消息列表封装成嵌套数组，绕过微信 setData 的 1M 限制-->
 <template name="feeds_arr">
-  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="feeds" data="{{feeds, isWiFi, avatarFadeIn}}" />
+  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="feeds" data="{{feeds, isWiFi, avatarFadeIn, settings}}" />
 </template>
 
 <!--消息列表-->
@@ -40,7 +40,7 @@
     <view class="after_avatar full_width">
       <view class="topline">
         <text class="name">{{feed.user.name}}</text>
-        <text class="meta">{{feed.time_ago}} {{feed.source_name}}</text>
+        <text class="meta">{{settings.showTimeago ? feed.time_ago : ''}} {{settings.showSource ? feed.source_name : ''}}</text>
       </view>
       <block wx:for="{{feed.txt}}" wx:key="ignorekeywarn" wx:for-item="txt">
         <text wx:if="{{!txt.bold_arr}}" class="{{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>

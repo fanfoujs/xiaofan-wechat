@@ -6,19 +6,22 @@ const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 const network = require('../../mixins/network')
 const i18n = require('../../i18n/index')
+const {getSettings} = require('../../utils/util')
 
 Page(extend({}, tap, {
   data: {
-    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+    i18n,
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
+    settings: getSettings()
   },
   onLoad () {
     wx.setNavigationBarTitle({title: i18n.home.title})
-    this.setData({i18n})
     fm.load(this)
     network.listen(this)
   },
   onShow () {
     tab.updateNotis()
+    this.setData({settings: getSettings()})
   },
   onPullDownRefresh () {
     fm.load(this)

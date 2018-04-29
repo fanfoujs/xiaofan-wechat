@@ -1,8 +1,7 @@
 const ff = require('../utils/fanfou')
+const {getSettings, getBlocks} = require('../utils/util')
 const tab = require('../components/tab')
 const i18n = require('../i18n/index')
-
-const {TIMELINE_COUNT} = require('../config/fanfou')
 
 function loadMore (page, url, para) {
   const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
@@ -11,7 +10,7 @@ function loadMore (page, url, para) {
   }
   page.setData({showLoader: true})
   const param = Object.assign({
-    count: TIMELINE_COUNT,
+    count: getSettings().timelineCount,
     format: 'html'
   }, para)
   if (
@@ -52,7 +51,7 @@ function loadMore (page, url, para) {
 function load (page, url, para) {
   page.setData({showLoader: true})
   const param = Object.assign({
-    count: TIMELINE_COUNT,
+    count: getSettings().timelineCount,
     format: 'html'
   }, para)
   ff.getPromise(url || '/statuses/home_timeline', param)
@@ -63,16 +62,33 @@ function load (page, url, para) {
         showModal(res.error)
         return
       }
-      if (res.length > 0) {
-        switch (url) {
-          case '/statuses/mentions':
-          case '/statuses/public_timeline':
-            break
-          default:
-            res[0].time_ago = ''
-            res[0].source_name = ''
-            break
-        }
+      const settings = getSettings()
+      const blocks = getBlocks()
+      const blockIds = blocks.map(item => item.id)
+      const blockNames = blocks.map(item => item.name)
+      if (settings.hideBlocks) {
+        res = res.filter(status => {
+          const userId = status.user.id
+          const users = getUsers(status)
+          const usersIds = users.map(item => item.id)
+          if (blockIds.indexOf(userId) !== -1) {
+            console.log(status, 'blocked')
+            return false
+          }
+          for (let i = 0; i < usersIds.length; i++) {
+            if (blockIds.indexOf(usersIds[i]) !== -1) {
+              console.log(status, 'blocked')
+              return false
+            }
+          }
+          for (let i = 0; i < blockNames.length; i++) {
+            if (status.plain_text.indexOf(blockNames[i]) !== -1) {
+              console.log(status, 'blocked')
+              return false
+            }
+          }
+          return true
+        })
       }
       page.setData({feeds_arr: [res]})
       page.noMore = res.length < param.count
@@ -468,6 +484,17 @@ function getAts (status) {
     }
   })
   return [...(new Set(ats))].join(' ') + ' '
+}
+
+function getUsers (status) {
+  const fanfouId = getApp().globalData.account.user.id
+  const users = []
+  status.txt.forEach(item => {
+    if (item.type === 'at' && item.id !== fanfouId) {
+      users.push(item)
+    }
+  })
+  return [...(new Set(users))]
 }
 
 function loadMe (page) {

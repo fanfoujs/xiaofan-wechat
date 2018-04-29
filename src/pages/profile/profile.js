@@ -21,6 +21,10 @@ Page(extend({}, tap, {
       name: i18n.me.profiles,
       page: '../change-profile/change-profile'
     },
+    settings: {
+      name: i18n.me.settings,
+      page: '../settings/settings'
+    },
     logout: {
       name: i18n.me.switch_account,
       page: '../login/login'
