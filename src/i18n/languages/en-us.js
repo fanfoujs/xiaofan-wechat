@@ -125,7 +125,7 @@ module.exports = {
     source_name: 'Source Name',
     status_count: 'Status Count',
     blocks: 'Blocks',
-    hide_blocked_users: 'Hide_blocked_users'
+    hide_blocked_users: 'Hide blocked users'
   },
   timeago: [
     ['1s', 'just now'],
