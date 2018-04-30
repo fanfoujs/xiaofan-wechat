@@ -69,7 +69,6 @@ function load (page, url, para) {
         case '/search/public_timeline':
         case '/statuses/friends_timeline':
         case '/statuses/replies':
-        case '/statuses/context_timeline':
         case '/search/user_timeline':
         case '/favorites': {
           const settings = getSettings()
