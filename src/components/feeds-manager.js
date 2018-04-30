@@ -114,7 +114,7 @@ function load (page, url, para) {
     .catch(err => {
       wx.stopPullDownRefresh()
       page.setData({showLoader: false})
-      if (err.message !== 'not authed') {
+      if (err.message !== 'not authed' && url !== '/stautses/context_timeline') {
         showModal(err.errMsg || err.message)
       }
     })
