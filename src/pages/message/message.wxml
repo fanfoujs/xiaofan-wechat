@@ -1,5 +1,5 @@
 <import src="/components/templates.wxml" />
-<view style="padding-top: {{statusBarHeight}}px;">
+<view style="padding-top: {{posting ? 0 : statusBarHeight}}px;">
   <view class="aboveToolbar" style="padding-top: {{param ? 235: 0}}px;">
     <template is="message_arr" data="{{message_arr: feeds_arr}}" />
   </view>

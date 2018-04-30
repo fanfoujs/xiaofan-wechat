@@ -9,7 +9,7 @@ const url = '/direct_messages/conversation'
 Page(extend({}, post, {
   id: null,
   data: {
-    statusBarHeight: wx.getSystemInfoSync().statusBarHeight * 2
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
   },
   onLoad (e) {
     this.setData({i18n})
