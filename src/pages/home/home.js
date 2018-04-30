@@ -15,7 +15,6 @@ Page(extend({}, tap, {
     settings: getSettings()
   },
   onLoad () {
-    wx.setNavigationBarTitle({title: i18n.home.title})
     fm.load(this)
     network.listen(this)
   },

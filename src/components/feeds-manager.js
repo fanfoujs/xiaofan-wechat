@@ -62,10 +62,6 @@ function load (page, url, para) {
         showModal(res.error)
         return
       }
-      const settings = getSettings()
-      const blocks = getBlocks()
-      const blockIds = getBlockIds()
-      const blockNames = blocks.map(item => item.name)
       switch (url || '/statuses/home_timeline') {
         case '/statuses/home_timeline':
         case '/statuses/public_timeline':
@@ -75,7 +71,11 @@ function load (page, url, para) {
         case '/statuses/replies':
         case '/statuses/context_timeline':
         case '/search/user_timeline':
-        case '/favorites':
+        case '/favorites': {
+          const settings = getSettings()
+          const blocks = getBlocks()
+          const blockIds = getBlockIds()
+          const blockNames = blocks.map(item => item.name)
           if (settings.hideBlocks) {
             res = res.filter(status => {
               const userId = status.user.id
@@ -102,6 +102,7 @@ function load (page, url, para) {
             })
           }
           break
+        }
         default:
           break
       }
@@ -114,7 +115,9 @@ function load (page, url, para) {
     .catch(err => {
       wx.stopPullDownRefresh()
       page.setData({showLoader: false})
-      showModal(err.errMsg)
+      if (err.message !== 'not authed') {
+        showModal(err.errMsg || err.message)
+      }
     })
 }
 

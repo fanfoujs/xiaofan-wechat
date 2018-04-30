@@ -112,9 +112,10 @@ class Fanfou {
         consumer_key,
         consumer_secret,
         tokens
-      } = getApp().globalData.account
+      } = getApp().globalData.account || {}
       if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) {
-        return reject(new Error(`Not authed, will not make get request to <${uri}>`))
+        reject(new Error('not authed'))
+        wx.redirectTo({url: '/pages/login/login'})
       }
       const ff = new FanfouSDK({
         auth_type: 'oauth',
