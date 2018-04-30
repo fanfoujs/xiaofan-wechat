@@ -4,11 +4,12 @@ const tap = require('../../mixins/tap')
 const i18n = require('../../i18n/index')
 
 const url = '/direct_messages/conversation_list'
+const {account} = getApp().globalData
 
 Page(extend({}, tap, {
   data: {
     statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-    me: getApp().globalData.account.user,
+    me: account ? account.user : {},
     i18n
   },
   onLoad () {

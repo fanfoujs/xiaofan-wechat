@@ -409,7 +409,11 @@ function loadUser (id, page) {
       const user = res
       page.setData({user})
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(err => {
+      if (err.message !== 'not authed') {
+        showModal(err.errMsg || err.message)
+      }
+    })
 }
 
 function showFeed (feed, id) {
@@ -455,7 +459,9 @@ function loadFeed (page, id) {
       page.setData({feed: res})
     })
     .catch(err => {
-      showModal(err.errMsg)
+      if (err.message !== 'not authed') {
+        showModal(err.errMsg || err.message)
+      }
     })
 }
 
