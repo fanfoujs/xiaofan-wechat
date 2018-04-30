@@ -2,6 +2,7 @@
 
 const ff = require('../../utils/fanfou')
 const i18n = require('../../i18n/index')
+const animations = require('../../utils/animations')
 
 Page({
   data: {
@@ -15,21 +16,27 @@ Page({
 
   // Login action
   login (e) {
-    wx.showLoading({
-      title: i18n.login.fetching,
-      mask: true
-    })
-    ff.authPromise(e.detail.value.username, e.detail.value.password)
-      .then(() => {
-        wx.reLaunch({url: '/pages/home/home'})
-      })
-      .catch(() => {
-        wx.showToast({
-          title: i18n.login.fail,
-          image: '/assets/toast_fail.png',
-          duration: 900
+    this.setData({
+      loginButtonPop: animations.pop().export()
+    }, () => {
+      setTimeout(() => {
+        wx.showLoading({
+          title: i18n.login.fetching,
+          mask: true
         })
-      })
+        ff.authPromise(e.detail.value.username, e.detail.value.password)
+          .then(() => {
+            wx.reLaunch({url: '/pages/home/home'})
+          })
+          .catch(() => {
+            wx.showToast({
+              title: i18n.login.fail,
+              image: '/assets/toast_fail.png',
+              duration: 900
+            })
+          })
+      }, 100)
+    })
   },
 
   // Get accounts from stroage

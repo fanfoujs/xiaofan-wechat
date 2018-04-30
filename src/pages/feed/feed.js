@@ -79,17 +79,21 @@ Page(extend({}, tap, post, {
   destroy () {
     this.setData({
       deletePop: animations.pop().export()
-    })
-    wx.showModal({
-      title: '',
-      content: i18n.feed.delete_confrim,
-      confirmText: i18n.common.delete,
-      cancelText: i18n.common.cancel,
-      success: res => {
-        if (res.confirm) {
-          fm.destroy(this.data.feed.id)
-        }
-      }
+    }, () => {
+      setTimeout(() => {
+        wx.showModal({
+          title: '',
+          content: i18n.feed.delete_confrim,
+          confirmText: i18n.common.delete,
+          cancelText: i18n.common.cancel,
+          confirmColor: '#33a5ff',
+          success: res => {
+            if (res.confirm) {
+              fm.destroy(this.data.feed.id)
+            }
+          }
+        })
+      }, 100)
     })
   },
   tapImage () {

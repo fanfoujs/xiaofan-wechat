@@ -18,7 +18,7 @@ module.exports = {
       setTimeout(() => {
         const param = Object.assign(this.data.param || {}, {status: e.detail.value.post})
         fm.post(this, param, this.data.photoPaths)
-      }, 200)
+      }, 100)
     })
   },
   bindinput (e) {
@@ -35,7 +35,7 @@ module.exports = {
           posting: false,
           length: 0
         })
-      }, 200)
+      }, 100)
     })
   },
   addPhoto () {
@@ -53,7 +53,7 @@ module.exports = {
             })
           }
         })
-      }, 200)
+      }, 100)
     })
   },
   addGif () {
