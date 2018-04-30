@@ -20,6 +20,9 @@ Page(extend({}, tap, {
     fm.load(this, this.url, this.para)
     network.listen(this)
   },
+  onShow () {
+    this.setData({settings: getSettings()})
+  },
   onPullDownRefresh () {
     fm.load(this, this.url, this.para)
   },

@@ -23,6 +23,7 @@ Page(extend({}, tap, {
   },
   onShow () {
     tab.updateNotis()
+    this.setData({settings: getSettings()})
   },
   onPullDownRefresh () {
     fm.load(this, url)
