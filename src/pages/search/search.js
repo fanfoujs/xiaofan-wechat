@@ -5,12 +5,14 @@ const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 const network = require('../../mixins/network')
 const i18n = require('../../i18n/index')
+const {getSettings} = require('../../utils/util')
 
 const url = '/statuses/public_timeline'
 
 Page(extend({}, tap, {
   data: {
-    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
+    settings: getSettings()
   },
   onLoad () {
     wx.setNavigationBarTitle({title: i18n.discover.title})

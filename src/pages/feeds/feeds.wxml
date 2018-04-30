@@ -1,5 +1,5 @@
 <import src="/components/templates.wxml" />
 <view style="padding-top: {{statusBarHeight}}px;">
-  <template is="feeds_arr" data="{{feeds_arr, isWiFi, avatarFadeIn}}" />
+  <template is="feeds_arr" data="{{feeds_arr, isWiFi, avatarFadeIn, settings}}" />
 </view>
 <template data="{{showLoader}}" is="loader" />

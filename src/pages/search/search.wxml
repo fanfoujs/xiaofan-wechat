@@ -7,6 +7,6 @@
   <template is="section" data="{{name: i18n.discover.saved_trends, list: saved_searches}}" />
   <view wx:if="{{feeds_arr}}" class="section">
     <view class="section_name">{{i18n.discover.public_timeline}}</view>
-    <template is="feeds_arr" data="{{feeds_arr, isWiFi}}" />
+    <template is="feeds_arr" data="{{feeds_arr, isWiFi, settings}}" />
   </view>
 <template is="notibar" data="{{notis}}" />

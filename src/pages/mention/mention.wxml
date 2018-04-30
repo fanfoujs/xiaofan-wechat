@@ -4,7 +4,7 @@
     <view catchtap="tapIndex" class="segment {{index==0?'active':'gray'}}" data-index="0">{{i18n.mentions.all}}</view>
     <view catchtap="tapIndex" class="segment {{index==1?'active':'gray'}}" data-index="1">{{i18n.mentions.reply}}</view>
   </view>
-  <template is="feeds_arr" data="{{feeds_arr, isWiFi}}" />
+  <template is="feeds_arr" data="{{feeds_arr, isWiFi, settings}}" />
   <template data="{{showLoader}}" is="loader" />
 </view>
 <template is="notibar" data="{{notis}}" />

@@ -3,12 +3,14 @@ const extend = require('../../utils/extend')
 const tap = require('../../mixins/tap')
 const network = require('../../mixins/network')
 const i18n = require('../../i18n/index')
+const {getSettings} = require('../../utils/util')
 
 Page(extend({}, tap, {
   para: null,
   url: null,
   data: {
-    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
+    settings: getSettings()
   },
   onLoad (e) {
     this.url = e.url || '/search/public_timeline'
