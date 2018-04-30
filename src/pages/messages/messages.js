@@ -7,10 +7,11 @@ const url = '/direct_messages/conversation_list'
 
 Page(extend({}, tap, {
   data: {
-    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
+    me: getApp().globalData.account.user,
+    i18n
   },
   onLoad () {
-    this.setData({me: getApp().globalData.account.user, i18n})
     fm.load(this, url)
   },
   onPullDownRefresh () {

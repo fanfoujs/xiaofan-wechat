@@ -119,6 +119,9 @@ module.exports = {
     months: ' 个月 ',
     days: ' 天'
   },
+  dm: {
+    me: '我：'
+  },
   settings: {
     status_display: '显示设置',
     time: '时间',

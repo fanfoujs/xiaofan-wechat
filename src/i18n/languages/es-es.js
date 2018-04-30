@@ -119,6 +119,9 @@ module.exports = {
     months: ' Meses ',
     days: ' Días'
   },
+  dm: {
+    me: 'Yo: '
+  },
   settings: {
     status_display: 'Visualización de estados',
     time: 'Mostrar el tiempo',

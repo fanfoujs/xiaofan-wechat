@@ -1,6 +1,6 @@
 <import src="/components/templates.wxml" />
 
 <view style="padding-top: {{statusBarHeight}}px;">
-  <template is="messages_arr" data="{{messages_arr: feeds_arr}}" />
+  <template is="messages_arr" data="{{messages_arr: feeds_arr, i18n}}" />
   <template data="{{showLoader}}" is="loader" />
 </view>

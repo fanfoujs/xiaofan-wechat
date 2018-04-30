@@ -381,7 +381,7 @@
 
 <!--messages-->
 <template name="messages_arr">
-  <template wx:for="{{messages_arr}}" wx:key="ignorekeywarn" wx:for-item="messages" is="messages" data="{{messages}}" />
+  <template wx:for="{{messages_arr}}" wx:key="ignorekeywarn" wx:for-item="messages" is="messages" data="{{messages, i18n}}" />
 </template>
 
 <template name="messages">
@@ -407,7 +407,7 @@
         <text class="name">{{message.dm.sender.is_me ? message.dm.recipient.name : message.dm.sender.name}}</text>
         <text class="meta">{{message.dm.time_ago}}</text>
       </view>
-      <text>{{message.dm.text}}</text>
+      <text class="dm-text {{message.dm.sender.is_me ? 'sender-is-me' : ''}}">{{message.dm.sender.is_me ? i18n.dm.me + message.dm.text : message.dm.text}}</text>
     </view>
   </view>
 </template>
