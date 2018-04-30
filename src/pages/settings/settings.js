@@ -7,9 +7,12 @@ const {getSettings} = require('../../utils/util')
 const {statusBarHeight} = wx.getSystemInfoSync()
 const {showTimeago, showSource, timelineCount, hideBlocks} = getSettings()
 
-const fetchStatus = async () => {
-  const user = await ff.getPromise('/account/verify_credentials')
-  return ff.getPromise('/statuses/show', {id: user.status.id, format: 'html'})
+const fetchStatus = () => {
+  return new Promise(resolve => {
+    ff.getPromise('/account/verify_credentials').then(user => {
+      ff.getPromise('/statuses/show', {id: user.status.id, format: 'html'}).then(res => resolve(res))
+    })
+  })
 }
 
 const updateSettings = settings => {
@@ -29,12 +32,14 @@ Page({
   },
 
   onShow () {
-    this.setData({...getSettings()})
+    const settings = getSettings()
+    this.setData(settings)
   },
 
-  async onLoad () {
-    const feed = await fetchStatus()
-    this.setData({feed})
+  onLoad () {
+    fetchStatus().then(feed => {
+      this.setData({feed})
+    })
   },
 
   onTimeagoChange (e) {
