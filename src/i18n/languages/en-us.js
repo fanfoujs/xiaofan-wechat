@@ -122,7 +122,7 @@ module.exports = {
   settings: {
     status_display: 'Status Display',
     time: 'Time',
-    source_name: 'Source Name',
+    source_name: 'Source name',
     status_count: 'Status Count',
     blocks: 'Blocks',
     hide_blocked_users: 'Hide blocked users'
