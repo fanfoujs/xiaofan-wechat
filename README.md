@@ -18,7 +18,8 @@ Here is [deployment tutorial](http://www.billlee.win/archives/139).
 
 ## Related
 
-- [fanfou-sdk](https://github.com/LitoMore/fanfou-sdk-node) - Fanfou SDK for this WeApp
+- [fanfou-sdk-weapp](https://github.com/LitoMore/fanfou-sdk-weapp) - Fanfou SDK for WeApp
+- [fanfou-sdk](https://github.com/LitoMore/fanfou-sdk-node) - Fanfou SDK for Node.js
 - [xiaofan-bot](https://github.com/fanfoujs/xiaofan-bot) - Repost bot for Xiaofan
 
 ## Team
