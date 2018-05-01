@@ -57,6 +57,7 @@ module.exports = {
     statuses: 'Posts',
     photos: 'Fotos',
     likes: 'Favoritos',
+    timeline: 'Cronología',
     following: 'Siguiendo',
     followers: 'Seguidores',
     friend_requests: 'Solicitud de Amistad',

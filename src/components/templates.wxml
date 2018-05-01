@@ -348,9 +348,10 @@
   </view>
   <view class="section">
     <view class="list">
-      <template is="list_item" data="{{name: i18n.me.statuses, detail: user.statuses_count, user, url: '/statuses/user_timeline',  page: '../feeds/feeds'}}" />
-      <template is="list_item" data="{{name: i18n.me.photos, detail: user.photo_count, user, url: '/photos/user_timeline',  page: '../photos/photos'}}" />
-      <template is="list_item" data="{{name: i18n.me.likes, detail: user.favourites_count, user, url: '/favorites',  page: '../feeds/feeds'}}" />
+      <template is="list_item" data="{{name: i18n.me.statuses, detail: user.statuses_count, user, url: '/statuses/user_timeline', page: '../feeds/feeds'}}" />
+      <template is="list_item" data="{{name: i18n.me.photos, detail: user.photo_count, user, url: '/photos/user_timeline', page: '../photos/photos'}}" />
+      <template is="list_item" data="{{name: i18n.me.likes, detail: user.favourites_count, user, url: '/favorites', page: '../feeds/feeds'}}" />
+      <template wx:if="{{!user.is_me}}" is="list_item" data="{{name: i18n.me.timeline, user, url: '/statuses/home_timeline', page: '../feeds/feeds'}}" />
     </view>
   </view>
   <view class="section">

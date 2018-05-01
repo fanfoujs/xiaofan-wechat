@@ -57,6 +57,7 @@ module.exports = {
     statuses: 'Statuses',
     photos: 'Photos',
     likes: 'Likes',
+    timeline: 'Timeline',
     following: 'Following',
     followers: 'Followers',
     friend_requests: 'Requests',
