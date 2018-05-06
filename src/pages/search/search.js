@@ -91,11 +91,5 @@ Page(extend({}, tap, {
         }
       }
     })
-  },
-  onTabItemTap () {
-    wx.pageScrollTo({
-      scrollTop: 0,
-      duration: 300
-    })
   }
 }))

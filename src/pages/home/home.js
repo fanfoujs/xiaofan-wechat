@@ -33,10 +33,4 @@ Page(extend({}, tap, {
   onShareAppMessage () {
     return {title: i18n.home.title}
   },
-  onTabItemTap () {
-    wx.pageScrollTo({
-      scrollTop: 0,
-      duration: 300
-    })
-  }
 }))

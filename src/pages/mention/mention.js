@@ -41,11 +41,5 @@ Page(extend({}, tap, {
       })
       fm.load(this, urls[this.data.index], para)
     }
-  },
-  onTabItemTap () {
-    wx.pageScrollTo({
-      scrollTop: 0,
-      duration: 300
-    })
   }
 }))

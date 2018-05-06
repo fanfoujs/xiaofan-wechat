@@ -44,12 +44,6 @@ Page(extend({}, tap, {
   tapAbout () {
     fm.navigateTo('../about/about')
   },
-  onTabItemTap () {
-    wx.pageScrollTo({
-      scrollTop: 0,
-      duration: 300
-    })
-  },
   profileLoad () {
     const fadeIn = animations.fadeIn()
     this.setData({
