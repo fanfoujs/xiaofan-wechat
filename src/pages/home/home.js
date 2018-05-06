@@ -32,5 +32,5 @@ Page(extend({}, tap, {
   },
   onShareAppMessage () {
     return {title: i18n.home.title}
-  },
+  }
 }))
