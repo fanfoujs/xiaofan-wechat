@@ -128,5 +128,21 @@ module.exports = {
     this.setData({
       feeds_arr: newFeedsArr
     })
+  },
+  onTabItemTap () {
+    if (!this.tabClick) {
+      this.tabClick = 0
+    }
+    this.tabClick++
+    if (this.tabClick > 1) {
+      this.tabClick = 0
+      wx.pageScrollTo({
+        scrollTop: 0,
+        duration: 300
+      })
+    }
+    setTimeout(() => {
+      this.tabClick = 0
+    }, 500)
   }
 }
