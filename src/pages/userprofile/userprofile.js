@@ -16,7 +16,7 @@ Page(extend({}, tap, post, {
     let shisTimeline = null
     switch (i18n.lang) {
       case 'zhCN':
-        shisTimelineArr = [she, he, her_his]
+        shisTimelineArr = [she, he, she_he]
         break
       default:
         shisTimelineArr = [her, his, her_his]
