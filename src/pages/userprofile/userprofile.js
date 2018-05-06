@@ -43,7 +43,7 @@ Page(extend({}, tap, post, {
     const {user = {}, appid} = getApp().globalData
     this.setData({user, appid, i18n})
     if (!this.data.user || e.share) {
-      fm.loadUser(decodeURIComponent(e.id), this).then(user => {
+      fm.loadUser(decodeURIComponent(e.id), this).then(() => {
         getShisTimeline(this, this.data.user)
       })
     } else {

@@ -413,22 +413,22 @@ function showUser (user, id) {
 function loadUser (id, page) {
   return new Promise(resolve => {
     ff.getPromise('/users/show', {id, format: 'html'})
-    .then(res => {
-      wx.stopPullDownRefresh()
-      if (res.error) {
-        showModal(res.error)
-        return
-      }
-      const user = res
-      page.setData({user}, () => {
-        resolve(user)
+      .then(res => {
+        wx.stopPullDownRefresh()
+        if (res.error) {
+          showModal(res.error)
+          return
+        }
+        const user = res
+        page.setData({user}, () => {
+          resolve(user)
+        })
       })
-    })
-    .catch(err => {
-      if (err.message !== 'not authed') {
-        showModal(err.errMsg || err.message)
-      }
-    })
+      .catch(err => {
+        if (err.message !== 'not authed') {
+          showModal(err.errMsg || err.message)
+        }
+      })
   })
 }
 
