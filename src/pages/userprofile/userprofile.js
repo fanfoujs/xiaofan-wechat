@@ -6,36 +6,48 @@ const tap = require('../../mixins/tap')
 const post = require('../../mixins/post')
 const i18n = require('../../i18n/index')
 
+const getShisTimeline = (page, user) => {
+  const {he, she, she_he, his, her, her_his} = i18n.common
+  const {timeline} = i18n.me
+  let shisTimelineArr = null
+  let shisTimeline = null
+  switch (i18n.lang) {
+    case 'zhCN':
+      shisTimelineArr = [she, he, she_he]
+      break
+    default:
+      shisTimelineArr = [her, his, her_his]
+      break
+  }
+  let [h0, h1, h2] = shisTimelineArr
+  switch (user.gender) {
+    case '女':
+      shisTimeline = h0 + timeline
+      break
+    case '男':
+      shisTimeline = h1 + timeline
+      break
+    default:
+      if (h2 === 'TA') {
+        h2 += ' '
+      }
+      shisTimeline = h2 + timeline
+      break
+  }
+  page.setData({shisTimeline})
+}
+
 Page(extend({}, tap, post, {
   onLoad (e) {
     wx.setNavigationBarTitle({title: i18n.home.title})
-    const {user, appid} = getApp().globalData
-    const {he, she, she_he, his, her, her_his} = i18n.common
-    const {timeline} = i18n.me
-    let shisTimelineArr = null
-    let shisTimeline = null
-    switch (i18n.lang) {
-      case 'zhCN':
-        shisTimelineArr = [she, he, she_he]
-        break
-      default:
-        shisTimelineArr = [her, his, her_his]
-        break
-    }
-    const [h0, h1, h2] = shisTimelineArr
-    switch (user.gender) {
-      case '女':
-        shisTimeline = h0 + timeline
-        break
-      case '男':
-        shisTimeline = h1 + timeline
-        break
-      default:
-        shisTimeline = h2 + timeline
-    }
-    this.setData({user, appid, i18n, shisTimeline})
+    const {user = {}, appid} = getApp().globalData
+    this.setData({user, appid, i18n})
     if (!this.data.user || e.share) {
-      fm.loadUser(decodeURIComponent(e.id), this)
+      fm.loadUser(decodeURIComponent(e.id), this).then(user => {
+        getShisTimeline(this, this.data.user)
+      })
+    } else {
+      getShisTimeline(this, this.data.user)
     }
     fm.relationship(decodeURIComponent(e.id), this)
   },

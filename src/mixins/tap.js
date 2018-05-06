@@ -20,7 +20,7 @@ module.exports = {
     fm.showUser(null, e.currentTarget.dataset.id)
   },
   tapAvatar (e) {
-    fm.showUser(e.currentTarget.dataset.user)
+    fm.showUser(e.currentTarget.dataset.user, e.currentTarget.dataset.user.id)
   },
   tapName (e) {
     const {id} = e.currentTarget.dataset

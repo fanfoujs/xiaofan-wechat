@@ -411,7 +411,8 @@ function showUser (user, id) {
 }
 
 function loadUser (id, page) {
-  ff.getPromise('/users/show', {id, format: 'html'})
+  return new Promise(resolve => {
+    ff.getPromise('/users/show', {id, format: 'html'})
     .then(res => {
       wx.stopPullDownRefresh()
       if (res.error) {
@@ -419,13 +420,16 @@ function loadUser (id, page) {
         return
       }
       const user = res
-      page.setData({user})
+      page.setData({user}, () => {
+        resolve(user)
+      })
     })
     .catch(err => {
       if (err.message !== 'not authed') {
         showModal(err.errMsg || err.message)
       }
     })
+  })
 }
 
 function showFeed (feed, id) {
