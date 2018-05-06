@@ -2,7 +2,10 @@
 
 module.exports = {
   pop () {
-    const ani = wx.createAnimation({duration: 100})
+    const ani = wx.createAnimation({
+      duration: 100,
+      timingFunction: 'ease'
+    })
     ani.scale(0.7).step()
     ani.scale(1).step()
     return ani
