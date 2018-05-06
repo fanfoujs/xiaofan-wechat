@@ -10,16 +10,16 @@ Page(extend({}, tap, post, {
   onLoad (e) {
     wx.setNavigationBarTitle({title: i18n.home.title})
     const {user, appid} = getApp().globalData
-    const {he, she, she_he, his, her, hers_his} = i18n.common
+    const {he, she, she_he, his, her, her_his} = i18n.common
     const {timeline} = i18n.me
     let shisTimelineArr = null
     let shisTimeline = null
     switch (i18n.lang) {
       case 'zhCN':
-        shisTimelineArr = [she, he, she_he]
+        shisTimelineArr = [she, he, her_his]
         break
       default:
-        shisTimelineArr = [her, his, hers_his]
+        shisTimelineArr = [her, his, her_his]
         break
     }
     const [h0, h1, h2] = shisTimelineArr

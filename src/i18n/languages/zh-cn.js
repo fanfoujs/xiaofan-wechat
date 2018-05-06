@@ -114,6 +114,7 @@ module.exports = {
     his: '他的',
     she_he: 'TA',
     her_him: 'TA',
+    her_his: 'TA 的',
     hers_his: 'TA 的',
     no_more: '没有更多了',
     just: '正好 ',

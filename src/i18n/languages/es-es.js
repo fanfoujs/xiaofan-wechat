@@ -114,6 +114,7 @@ module.exports = {
     his: 'Su',
     she_he: 'Ella/Él',
     her_him: 'Su',
+    her_his: 'Su',
     hers_his: 'Su',
     no_more: 'No más resultado',
     just: 'Solo ',

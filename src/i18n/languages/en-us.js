@@ -114,6 +114,7 @@ module.exports = {
     his: 'His',
     she_he: 'She/He',
     her_him: 'Her/Him',
+    her_his: 'Her/His',
     hers_his: 'Hers/His',
     no_more: 'No more',
     just: 'Just ',
