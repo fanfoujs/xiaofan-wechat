@@ -139,7 +139,7 @@ class Fanfou {
       name,
       formData: parameters,
       success (res) {
-        const data = res.data
+        const {data} = res
         callback(null, data)
       },
       fail () {

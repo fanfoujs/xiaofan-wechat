@@ -33,7 +33,7 @@ Page(extend({}, tap, {
     tab.updateNotis()
   },
   tapIndex (e) {
-    const index = e.currentTarget.dataset.index
+    const {index} = e.currentTarget.dataset
     if (index !== this.data.index) {
       this.setData({
         feeds_arr: null,

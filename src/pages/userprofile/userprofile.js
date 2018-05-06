@@ -36,7 +36,7 @@ Page(extend({}, tap, post, {
     const page = this
     if (this.data.appid) {
       const ta = this.data.user.taMiddle
-      const name = this.data.user.name
+      const {name} = this.data.user
       wx.showActionSheet({
         itemList: [`问 @${name} 要微信号`, '已配置好微信权限'],
         success (res) {
@@ -115,9 +115,8 @@ Page(extend({}, tap, post, {
   },
   saveAppID (e) {
     const page = this
-    const appid = e.detail.value.appid
-    const ta = this.data.user.taMiddle
-    const name = this.data.user.name
+    const {appid} = e.detail.value
+    const {name, taMiddle: ta} = this.data.user
     if (appid) {
       wx.setStorageSync('appid', appid)
       getApp().globalData.appid = appid

@@ -56,7 +56,7 @@ Page({
       }
     }
     if (index >= 0) {
-      const account = accounts.splice(index, 1)[0]
+      const [account] = accounts.splice(index, 1)
       accounts.unshift(account)
       getApp().globalData.account = account
       wx.reLaunch({url: '/pages/home/home'})
@@ -74,7 +74,8 @@ Page({
             if (account.id === e.currentTarget.dataset.id) {
               accounts.splice(i, 1)
               wx.setStorageSync('accounts', accounts)
-              getApp().globalData.account = accounts[0]
+              const [account] = accounts
+              getApp().globalData.account = account
               if (accounts.length === 0) {
                 wx.reLaunch({url: '/pages/login/login'})
               } else if (i === 0) {

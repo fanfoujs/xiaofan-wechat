@@ -170,9 +170,8 @@ class Status {
         // Link
         if (item.substr(0, 1) === '<') {
           const matchText = item.match(/<a href="(.*?)".*?>(.*?)<\/a>/)
-          const text = matchText[2]
+          const [, link, text] = matchText
           const originText = Status.removeBoldTag(text)
-          const link = matchText[1]
           const thisTxt = {
             type: 'link',
             text: originText,
@@ -240,7 +239,7 @@ class Status {
             bold: false
           })
         }
-        const t = item.match(/<b>([\s\S\n]*?)<\/b>/)[1]
+        const [, t] = item.match(/<b>([\s\S\n]*?)<\/b>/)
         textArr.push({
           text: he.decode(t),
           bold: true

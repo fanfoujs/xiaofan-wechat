@@ -12,7 +12,7 @@ Page(extend({}, tap, post, {
   },
   onLoad (e) {
     wx.setNavigationBarTitle({title: i18n.feed.title})
-    const feed = getApp().globalData.feed
+    const {feed} = getApp().globalData
     this.setData({i18n})
     if (feed && !e.share) {
       this.setData({feed})
@@ -25,7 +25,7 @@ Page(extend({}, tap, post, {
     }, 600)
   },
   reply () {
-    const feed = this.data.feed
+    const {feed} = this.data
     const status = fm.getAts(feed)
     this.setData({
       replyPop: animations.pop().export(),
@@ -45,7 +45,7 @@ Page(extend({}, tap, post, {
     })
   },
   repost () {
-    const feed = this.data.feed
+    const {feed} = this.data
     const status = ` 转@${feed.user.name} ${feed.plain_text}`
     this.setData({
       repostPop: animations.pop().export(),
@@ -65,7 +65,7 @@ Page(extend({}, tap, post, {
     })
   },
   re () {
-    const feed = this.data.feed
+    const {feed} = this.data
     fm.post(this, {status: ` 转@${feed.user.name} ${feed.plain_text}`, repost_status_id: feed.id})
     wx.navigateBack()
   },

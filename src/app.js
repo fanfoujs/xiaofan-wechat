@@ -15,7 +15,7 @@ App({
     this.checkLogin()
   },
   checkLogin () {
-    const account = wx.getStorageSync('accounts')[0]
+    const [account] = wx.getStorageSync('accounts')
     if (!account || account.length === 0 || account.consumer_key !== CONSUMER_KEY) {
       wx.setStorageSync('accounts', [])
       wx.redirectTo({url: '/pages/login/login'})

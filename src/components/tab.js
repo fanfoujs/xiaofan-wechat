@@ -5,7 +5,7 @@ const ff = require('../utils/fanfou')
 const {CONSUMER_KEY} = require('../config/fanfou')
 
 function render () {
-  const page = getCurrentPages().slice(-1)[0]
+  const [page] = getCurrentPages().slice(-1)
   if (page) {
     page.setData({notis: getApp().globalData.notis})
   }

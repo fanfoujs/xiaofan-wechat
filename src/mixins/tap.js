@@ -23,7 +23,7 @@ module.exports = {
     fm.showUser(e.currentTarget.dataset.user)
   },
   tapName (e) {
-    const id = e.currentTarget.dataset.id
+    const {id} = e.currentTarget.dataset
     wx.showModal({
       confirmColor: '#33a5ff',
       content: id,
@@ -47,7 +47,7 @@ module.exports = {
   tapFeedDetail (e) {
     const itemList = [i18n.feed.copy]
     let id = null
-    const feed = e.currentTarget.dataset.feed
+    const {feed} = e.currentTarget.dataset
     if (feed.repost_screen_name && feed.repost_status_id) {
       itemList.push(`${i18n.feed.from} @` + feed.repost_screen_name)
       id = feed.repost_status_id

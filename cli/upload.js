@@ -26,7 +26,7 @@ const run = async () => {
   } catch (err) {
     const match = err.message.match(/error: '{"code":\d+,"error":"(.+)"}',/)
     if (match) {
-      const message = match[1]
+      const [, message] = match
       process.spinner.fail(message + '！')
       process.exit(1)
     } else {

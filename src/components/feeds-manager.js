@@ -141,7 +141,7 @@ function favoriteChange (page) {
           return
         }
         page.setData({'feed.favorited': false})
-        const pagePre = getCurrentPages().slice(-2)[0]
+        const [pagePre] = getCurrentPages().slice(-2)
         for (const [feedsIndex, feeds] of pagePre.data.feeds_arr.entries()) {
           for (const [feedIndex, feed] of feeds.entries()) {
             if (feed.id === page.data.feed.id) {
@@ -160,7 +160,7 @@ function favoriteChange (page) {
           return
         }
         page.setData({'feed.favorited': true})
-        const pagePre = getCurrentPages().slice(-2)[0]
+        const [pagePre] = getCurrentPages().slice(-2)
         for (const [feedsIndex, feeds] of pagePre.data.feeds_arr.entries()) {
           for (const [feedIndex, feed] of feeds.entries()) {
             if (feed.id === page.data.feed.id) {
@@ -184,7 +184,7 @@ function destroy (id) {
             image: '/assets/toast_delete.png',
             duration: 900
           })
-          const page = getCurrentPages().slice(-2)[0]
+          const [page] = getCurrentPages().slice(-2)
           for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
             for (const [feedIndex, feed] of feeds.entries()) {
               if (feed.id === id) {
@@ -205,7 +205,7 @@ function destroy (id) {
 function destroyForTest (id) {
   ff.postPromise('/statuses/destroy', {id})
     .then(() => {
-      const page = getCurrentPages().slice(-1)[0]
+      const [page] = getCurrentPages().slice(-1)
       for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
         for (const [feedIndex, feed] of feeds.entries()) {
           if (feed.id === id) {
@@ -254,7 +254,7 @@ function postMsg (param, page) {
         return
       }
       wx.showToast({title: i18n.compose.sent, image: '/assets/toast_reply.png', duration: 900})
-      const message = page.data.feeds_arr[0]
+      const [message] = page.data.feeds_arr
       message.unshift(res)
       page.setData({
         param: null,
@@ -372,7 +372,7 @@ function updateAvatar (page, photoPaths) {
         return
       }
       wx.showToast({title, image, duration: 900})
-      const currentPage = getCurrentPages().slice(-1)[0]
+      const [currentPage] = getCurrentPages().slice(-1)
       if (currentPage.route === 'pages/profile/profile') {
         this.loadMe(currentPage)
       }
@@ -483,9 +483,9 @@ function _loadFeedThenAddToHome (id) {
       if (res.error) {
         return
       }
-      const page = getCurrentPages()[0]
+      const [page] = getCurrentPages()
       if (page.route === 'pages/home/home') {
-        const feeds = page.data.feeds_arr[0]
+        const [feeds] = page.data.feeds_arr
         feeds.unshift(res)
         page.setData({'feeds_arr[0]': feeds})
       }
@@ -499,9 +499,9 @@ function _loadFeedThenAddToReply (id) {
       if (res.error) {
         return
       }
-      const page = getCurrentPages().slice(-1)[0]
+      const [page] = getCurrentPages().slice(-1)
       if (page.route === 'pages/feed/feed') {
-        const feeds = page.data.feeds_arr[0]
+        const [feeds] = page.data.feeds_arr
         feeds.push(res)
         page.setData({'feeds_arr[0]': feeds})
       }

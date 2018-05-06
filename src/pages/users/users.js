@@ -26,7 +26,7 @@ Page(extend({}, tap, {
     fm.deny(e.currentTarget.dataset.user, this)
   },
   accept (e) {
-    const user = e.currentTarget.dataset.user
+    const {user} = e.currentTarget.dataset
     const page = this
     wx.showActionSheet({
       itemList: [i18n.request.accept, i18n.request.accept_and_follow],
