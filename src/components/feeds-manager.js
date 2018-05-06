@@ -5,7 +5,7 @@ const i18n = require('../i18n/index')
 
 function loadMore (page, url, para) {
   const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
-  if (page.noMore || page.data.showLoader || (!maxId && url !== '/direct_messages/conversation_list')) {
+  if (page.data.noMore || page.data.showLoader || (!maxId && url !== '/direct_messages/conversation_list')) {
     return
   }
   page.setData({showLoader: true})
@@ -27,7 +27,10 @@ function loadMore (page, url, para) {
   }
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
-      page.setData({showLoader: false})
+      page.setData({
+        showLoader: false,
+        noMore: res.length < param.count
+      })
       if (res.error) {
         showModal(res.error)
         return
@@ -36,11 +39,14 @@ function loadMore (page, url, para) {
         res.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
         param.count -= 1
       }
-      page.setData({['feeds_arr[' + page.data.feeds_arr.length + ']']: res})
-      page.noMore = res.length < param.count
-      if (page.noMore) {
-        wx.showToast({title: i18n.common.no_more, image: '/assets/toast_blank.png', duration: 900})
-      }
+      res = blockFilter(url, res)
+      page.setData({
+        ['feeds_arr[' + page.data.feeds_arr.length + ']']: res
+      }, () => {
+        if (page.data.noMore) {
+          wx.showToast({title: i18n.common.no_more, image: '/assets/toast_blank.png', duration: 900})
+        }
+      })
     })
     .catch(err => {
       page.setData({showLoader: false})
@@ -57,56 +63,16 @@ function load (page, url, para) {
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
       wx.stopPullDownRefresh()
-      page.setData({showLoader: false})
+      page.setData({
+        showLoader: false,
+        noMore: res.length < param.count
+      })
       if (res.error && url !== '/statuses/context_timeline') {
         showModal(res.error)
         return
       }
-      switch (url || '/statuses/home_timeline') {
-        case '/statuses/home_timeline':
-        case '/statuses/public_timeline':
-        case '/statuses/mentions':
-        case '/search/public_timeline':
-        case '/statuses/friends_timeline':
-        case '/statuses/replies':
-        case '/search/user_timeline':
-        case '/favorites': {
-          const settings = getSettings()
-          const blocks = getBlocks()
-          const blockIds = getBlockIds()
-          const blockNames = blocks.map(item => item.name)
-          if (settings.hideBlocks) {
-            res = res.filter(status => {
-              const userId = status.user.id
-              const userUniqueId = status.user.unique_id
-              const users = getUsers(status)
-              const usersIds = users.map(item => item.id)
-              if (blockIds.indexOf(userId) !== -1) {
-                return false
-              }
-              if (blockIds.indexOf(userUniqueId) !== -1) {
-                return false
-              }
-              for (let i = 0; i < usersIds.length; i++) {
-                if (blockIds.indexOf(usersIds[i]) !== -1) {
-                  return false
-                }
-              }
-              for (let i = 0; i < blockNames.length; i++) {
-                if (status.plain_text.indexOf(blockNames[i]) !== -1) {
-                  return false
-                }
-              }
-              return true
-            })
-          }
-          break
-        }
-        default:
-          break
-      }
+      res = blockFilter(url, res)
       page.setData({feeds_arr: [res]})
-      page.noMore = res.length < param.count
       if (url === '/statuses/mentions') {
         tab.clearNotis('mentions')
       }
@@ -118,6 +84,52 @@ function load (page, url, para) {
         showModal(err.errMsg || err.message)
       }
     })
+}
+
+function blockFilter (url, res) {
+  switch (url || '/statuses/home_timeline') {
+    case '/statuses/home_timeline':
+    case '/statuses/public_timeline':
+    case '/statuses/mentions':
+    case '/search/public_timeline':
+    case '/statuses/friends_timeline':
+    case '/statuses/replies':
+    case '/search/user_timeline':
+    case '/favorites': {
+      const settings = getSettings()
+      const blocks = getBlocks()
+      const blockIds = getBlockIds()
+      const blockNames = blocks.map(item => item.name)
+      if (settings.hideBlocks) {
+        res = res.filter(status => {
+          const userId = status.user.id
+          const userUniqueId = status.user.unique_id
+          const users = getUsers(status)
+          const usersIds = users.map(item => item.id)
+          if (blockIds.indexOf(userId) !== -1) {
+            return false
+          }
+          if (blockIds.indexOf(userUniqueId) !== -1) {
+            return false
+          }
+          for (let i = 0; i < usersIds.length; i++) {
+            if (blockIds.indexOf(usersIds[i]) !== -1) {
+              return false
+            }
+          }
+          for (let i = 0; i < blockNames.length; i++) {
+            if (status.plain_text.indexOf(blockNames[i]) !== -1) {
+              return false
+            }
+          }
+          return true
+        })
+      }
+      return res
+    }
+    default:
+      return res
+  }
 }
 
 function favoriteChange (page) {
