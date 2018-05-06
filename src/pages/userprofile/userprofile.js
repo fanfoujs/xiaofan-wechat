@@ -9,11 +9,31 @@ const i18n = require('../../i18n/index')
 Page(extend({}, tap, post, {
   onLoad (e) {
     wx.setNavigationBarTitle({title: i18n.home.title})
-    this.setData({
-      user: getApp().globalData.user,
-      appid: getApp().globalData.appid,
-      i18n
-    })
+    const {user, appid} = getApp().globalData
+    const {he, she, she_he, his, her, hers_his} = i18n.common
+    const {timeline} = i18n.me
+    let shisTimelineArr = null
+    let shisTimeline = null
+    switch (i18n.lang) {
+      case 'zhCN':
+        shisTimelineArr = [she, he, she_he]
+        break
+      default:
+        shisTimelineArr = [her, his, hers_his]
+        break
+    }
+    const [h0, h1, h2] = shisTimelineArr
+    switch (user.gender) {
+      case '女':
+        shisTimeline = h0 + timeline
+        break
+      case '男':
+        shisTimeline = h1 + timeline
+        break
+      default:
+        shisTimeline = h2 + timeline
+    }
+    this.setData({user, appid, i18n, shisTimeline})
     if (!this.data.user || e.share) {
       fm.loadUser(decodeURIComponent(e.id), this)
     }

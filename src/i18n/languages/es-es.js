@@ -1,6 +1,7 @@
 'use strict'
 
 module.exports = {
+  lang: 'esES',
   home: {
     title: 'Xiaofan'
   },
@@ -57,7 +58,7 @@ module.exports = {
     statuses: 'Posts',
     photos: 'Fotos',
     likes: 'Favoritos',
-    timeline: 'Cronología',
+    timeline: ' Cronología',
     following: 'Siguiendo',
     followers: 'Seguidores',
     friend_requests: 'Solicitud de Amistad',

@@ -1,6 +1,7 @@
 'use strict'
 
 module.exports = {
+  lang: 'zhCN',
   home: {
     title: '小饭'
   },
@@ -57,7 +58,7 @@ module.exports = {
     statuses: '消息',
     photos: '照片',
     likes: '收藏',
-    timeline: '他看到的',
+    timeline: '看到的',
     following: '关注',
     followers: '被关注',
     friend_requests: '好友请求',

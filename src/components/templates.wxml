@@ -361,7 +361,7 @@
   </view>
   <view wx:if="{{!user.is_me}}" class="section">
     <view class="list">
-      <template is="list_item" data="{{name: i18n.me.timeline, user, url: '/statuses/home_timeline', page: '../feeds/feeds'}}" />
+      <template is="list_item" data="{{name: shisTimeline, user, url: '/statuses/home_timeline', page: '../feeds/feeds'}}" />
     </view>
   </view>
 </template>

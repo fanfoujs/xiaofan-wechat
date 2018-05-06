@@ -1,6 +1,7 @@
 'use strict'
 
 module.exports = {
+  lang: 'enUS',
   home: {
     title: 'Xiaofan'
   },
@@ -57,7 +58,7 @@ module.exports = {
     statuses: 'Statuses',
     photos: 'Photos',
     likes: 'Likes',
-    timeline: 'Timeline',
+    timeline: ' Timeline',
     following: 'Following',
     followers: 'Followers',
     friend_requests: 'Requests',
