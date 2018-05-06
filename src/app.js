@@ -3,7 +3,7 @@
 const {CONSUMER_KEY} = require('./config/fanfou')
 
 App({
-  version: '1.10.1',
+  version: '1.10.2',
   globalData: {
     notis: null,
     account: null,
