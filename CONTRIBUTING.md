@@ -12,7 +12,7 @@ As a user of Xiaofan you're the perfect candidate to help us improve our documen
 
 ### Improve issues
 
-Some issues are created with missing information, not reproducible, or plain invalid. Help make them easier to resolve. Handling issues takes a lot of time that we could rather spend on fixing bugs and adding features.
+Some issues are created with missing information, not reproducible, or plain invalid. Help make them easier to resolve. Handling issues takes a lot of time that we would rather spend on fixing bugs and adding features.
 
 ### Give feedback on issues
 
