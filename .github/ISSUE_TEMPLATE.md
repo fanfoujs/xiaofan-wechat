@@ -14,9 +14,9 @@ Thanks for opening an issue! A few things to keep in mind:
 
 ### Actual behavior
 
-<!-- What actually happends? -->
+<!-- What actually happens? -->
 
-### How to reproduct
+### How to reproduce
 
 <!--
 
