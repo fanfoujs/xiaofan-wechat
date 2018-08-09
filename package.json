@@ -19,7 +19,10 @@
   "homepage": "https://github.com/fanfoujs/xiaofan#readme",
   "devDependencies": {
     "ava": "^0.25.0",
+    "chalk": "^2.4.1",
     "deep-keys": "^0.5.0",
+    "execa": "^0.10.0",
+    "ora": "^3.0.0",
     "xo": "^0.22.0"
   },
   "xo": {
@@ -57,9 +60,5 @@
     "semicolon": false,
     "space": 2
   },
-  "dependencies": {
-    "chalk": "^2.3.0",
-    "execa": "^0.10.0",
-    "ora": "^3.0.0"
-  }
+  "dependencies": {}
 }
