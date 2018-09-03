@@ -153,7 +153,7 @@ Page(extend({}, tap, post, {
       wx.setStorageSync('appid', appid)
       getApp().globalData.appid = appid
       page.setData({appid, distributor: false})
-      fm.post(page, {status: `@小饭师傅 我成为了分发者。`}, null, () => {
+      fm.post(page, {status: '@小饭师傅 我成为了分发者。'}, null, () => {
         wx.showModal({
           confirmColor: '#33a5ff',
           content: `你已成为分发者。请获取 @${name} 的微信号，然后去 https://mp.weixin.qq.com 用户身份页，为${ta}添加体验权者权限，再来完成邀请。`,
