@@ -209,8 +209,8 @@ class Fanfou {
           try {
             const result = JSON.parse(res)
             resolve(result)
-          } catch (err) {
-            reject(err)
+          } catch (err2) {
+            reject(err2)
           }
         }
       })

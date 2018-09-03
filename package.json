@@ -55,7 +55,13 @@
         "error",
         "always"
       ],
-      "unicorn/import-index": 0
+      "unicorn/import-index": 0,
+      "unicorn/catch-error-name": [
+        "error",
+        {
+          "name": "err"
+        }
+      ]
     },
     "semicolon": false,
     "space": 2
