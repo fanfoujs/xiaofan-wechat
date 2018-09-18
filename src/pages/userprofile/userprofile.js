@@ -123,18 +123,7 @@ Page(extend({}, tap, post, {
     })
   },
   showTutorial () {
-    wx.setClipboardData({
-      data: 'http://www.billlee.win/archives/139',
-      success () {
-        wx.showModal({
-          confirmColor: '#33a5ff',
-          content: '教程链接已复制，请前往浏览器访问。',
-          showCancel: false,
-          confirmText: '好的'
-        })
-      }
-    })
-    // WIP: fm.navigateTo('../tutorial/tutorial')
+    wx.setClipboardData({data: 'http://www.billlee.win/archives/139'})
   },
   reset () {
     this.setData({

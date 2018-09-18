@@ -77,19 +77,8 @@ module.exports = {
   tapLink (e) {
     this.handleLink(e.currentTarget.dataset.link)
   },
-  handleLink (link) {
-    wx.setClipboardData({
-      data: link,
-      success () {
-        wx.showModal({
-          confirmColor: '#33a5ff',
-          content: i18n.common.copied,
-          showCancel: false,
-          confirmText: i18n.common.confirm,
-          cancelText: i18n.common.cancel
-        })
-      }
-    })
+  handleLink (data) {
+    wx.setClipboardData({data})
   },
   follow (e) {
     this.setData({

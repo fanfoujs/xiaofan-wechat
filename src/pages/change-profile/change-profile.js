@@ -19,18 +19,7 @@ Page({
     })
   },
   tapBackground () {
-    wx.setClipboardData({
-      data: 'http://fanfou.com/settings/theme',
-      success () {
-        wx.showModal({
-          confirmColor: '#33a5ff',
-          content: i18n.me.change_bg_info,
-          showCancel: false,
-          confirmText: i18n.common.ok,
-          cancelText: i18n.common.cancel
-        })
-      }
-    })
+    wx.setClipboardData({data: 'http://fanfou.com/settings/theme'})
   },
   save (e) {
     this.setData({
