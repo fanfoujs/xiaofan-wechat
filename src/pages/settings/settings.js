@@ -9,9 +9,12 @@ const {showTimeago, showSource, timelineCount, hideBlocks} = getSettings()
 
 const fetchStatus = () => {
   return new Promise(resolve => {
-    ff.getPromise('/account/verify_credentials').then(user => {
-      ff.getPromise('/statuses/show', {id: user.status.id, format: 'html'}).then(res => resolve(res))
-    })
+    ff.getPromise('/account/verify_credentials')
+      .then(user => {
+        const {status = {id: '_k0GYlD6yhM'}} = user
+        ff.getPromise('/statuses/show', {id: status.id, format: 'html'})
+          .then(resolve)
+      })
   })
 }
 
@@ -38,6 +41,7 @@ Page({
 
   onLoad () {
     fetchStatus().then(feed => {
+      console.log(feed)
       this.setData({feed})
     })
   },
