@@ -41,7 +41,6 @@ Page({
 
   onLoad () {
     fetchStatus().then(feed => {
-      console.log(feed)
       this.setData({feed})
     })
   },
