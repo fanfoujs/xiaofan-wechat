@@ -44,9 +44,9 @@ module.exports = {
   discover: {
     title: 'Discover',
     search_placeholder: 'Search Fanfou',
-    hot_trends: 'Hot Trends',
-    saved_trends: 'Saved Trends',
-    public_timeline: 'Public Timeline'
+    hot_trends: 'HOT TRENDS',
+    saved_trends: 'SAVED TRENDS',
+    public_timeline: 'PUBLIC TIMELINE'
   },
   me: {
     title: 'Me',
@@ -126,11 +126,11 @@ module.exports = {
     me: 'Me: '
   },
   settings: {
-    status_display: 'Status Display',
+    status_display: 'STATUS DISPLAY',
     time: 'Time',
-    source_name: 'Source name',
-    status_count: 'Status Count',
-    blocks: 'Blocks',
+    source_name: 'Source Name',
+    status_count: 'STATUS COUNT',
+    blocks: 'BLOCKS',
     hide_blocked_users: 'Hide blocked users'
   },
   timeago: [
