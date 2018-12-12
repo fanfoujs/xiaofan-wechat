@@ -55,7 +55,7 @@
   <view class="section">
     <view class="section_name">{{i18n.settings.sounds}}</view>
     <view class="list">
-      <view class="list_item" style="padding: 0 10px;">
+      <view class="list_item">
         <view class="label">{{i18n.settings.timeline_audio}}</view>
         <switch
           color="#33a5ff"
