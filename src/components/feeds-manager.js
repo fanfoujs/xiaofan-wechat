@@ -2,6 +2,7 @@ const ff = require('../utils/fanfou')
 const {getSettings, getBlocks, getBlockIds} = require('../utils/util')
 const tab = require('../components/tab')
 const i18n = require('../i18n/index')
+const audio = require('../utils/audio')
 
 function loadMore (page, url, para) {
   const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
@@ -72,7 +73,22 @@ function load (page, url, para) {
         return
       }
       res = blockFilter(url, res)
-      page.setData({feeds_arr: [res]})
+      let lastRawId = 0
+      try {
+        [lastRawId] = page.data.feeds_arr[0].map(item => item.rawid)
+      } catch (error) {}
+      page.setData({feeds_arr: [res]}, () => {
+        if (isTimeline(url)) {
+          let withTimelineAudio = false
+          try {
+            const [latestRawId] = res.map(item => item.rawid)
+            withTimelineAudio = latestRawId > lastRawId
+          } catch (error) {}
+          if (getSettings().timelineAudio && withTimelineAudio) {
+            audio.bubble()
+          }
+        }
+      })
       if (url === '/statuses/mentions') {
         tab.clearNotis('mentions')
       }
@@ -84,6 +100,22 @@ function load (page, url, para) {
         showModal(err.errMsg || err.message)
       }
     })
+}
+
+function isTimeline (url) {
+  switch (url || '/statuses/home_timeline') {
+    case '/statuses/home_timeline':
+    case '/statuses/public_timeline':
+    case '/statuses/mentions':
+    case '/search/public_timeline':
+    case '/statuses/friends_timeline':
+    case '/statuses/replies':
+    case '/search/user_timeline':
+    case '/favorites':
+      return true
+    default:
+      return false
+  }
 }
 
 function blockFilter (url, res) {

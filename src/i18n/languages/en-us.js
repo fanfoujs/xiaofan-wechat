@@ -128,7 +128,9 @@ module.exports = {
   settings: {
     status_display: 'STATUS DISPLAY',
     time: 'Time',
-    source_name: 'Source Name',
+    source_name: 'Source name',
+    sounds: 'SOUNDS',
+    timeline_audio: 'Timeline sound',
     status_count: 'STATUS COUNT',
     blocks: 'BLOCKS',
     hide_blocked_users: 'Hide blocked users'

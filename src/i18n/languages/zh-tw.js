@@ -129,6 +129,8 @@ module.exports = {
     status_display: '顯示設置',
     time: '時間',
     source_name: '小尾巴',
+    sounds: '音效設置',
+    timeline_audio: '時間線音效',
     status_count: '每頁消息數量',
     blocks: '屏蔽選項',
     hide_blocked_users: '屏蔽拉黑用戶'

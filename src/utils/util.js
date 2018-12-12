@@ -20,7 +20,8 @@ function getSettings () {
     showTimeago: true,
     showSource: true,
     timelineCount: 30,
-    hideBlocks: false
+    hideBlocks: false,
+    timelineAudio: true
   }
   return settings
 }

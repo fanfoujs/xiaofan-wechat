@@ -53,6 +53,20 @@
   </view>
 
   <view class="section">
+    <view class="section_name">{{i18n.settings.sounds}}</view>
+    <view class="list">
+      <view class="list_item" style="padding: 0 10px;">
+        <view class="label">{{i18n.settings.timeline_audio}}</view>
+        <switch
+          color="#33a5ff"
+          bindchange="onTimelineAudioChange"
+          checked="{{timelineAudio}}"
+        />
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
     <view class="section_name">{{i18n.settings.status_count}}</view>
     <view class="list">
       <view class="list_item" style="padding: 0 10px;">
