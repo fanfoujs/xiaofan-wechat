@@ -8,13 +8,13 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
+	"libVersion": "2.4.3",
 	"appid": "wx0034a2596f5eaee7",
 	"projectname": "%E5%B0%8F%E9%A5%ADBeta",
-	"svr": "",
-	"client": "",
-	"qcloudRoot": "",
-	"miniprogramRoot": "./src/",
+	"svr": "/",
+	"client": "/",
+	"qcloudRoot": "/",
+	"miniprogramRoot": "src/",
 	"condition": {
 		"search": {
 			"current": -1,
