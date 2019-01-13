@@ -1,6 +1,5 @@
 <div align="right">
   <img width="100px" height="100px" src="https://raw.githubusercontent.com/fanfoujs/xiaofan/master/media/weapp-code.jpg" align="right">
-  <img width="100px" height="100px" src="https://raw.githubusercontent.com/fanfoujs/xiaofan/master/logo.png" align="right" />
 </div>
 
 # Xiaofan
