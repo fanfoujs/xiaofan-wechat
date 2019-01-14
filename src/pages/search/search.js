@@ -60,6 +60,7 @@ Page(extend({}, tap, {
           return
         }
       }
+
       ff.postPromise('/saved_searches/create', {query: e.detail.value})
         .then(res => {
           this.setData({['saved_searches[' + this.data.saved_searches.length + ']']: res})

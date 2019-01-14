@@ -21,6 +21,7 @@ Object.assign(OAuth.prototype, {
           callback(new Error(error))
           return
         }
+
         const results = qs.parse(data)
         const oauthAccessToken = results.oauth_token
         delete results.oauth_token

@@ -9,6 +9,7 @@ function loadMore (page, url, para) {
   if (page.data.noMore || page.data.showLoader || (!maxId && url !== '/direct_messages/conversation_list')) {
     return
   }
+
   page.setData({showLoader: true})
   const param = Object.assign({
     count: getSettings().timelineCount,
@@ -26,6 +27,7 @@ function loadMore (page, url, para) {
   } else {
     param.max_id = maxId
   }
+
   ff.getPromise(url || '/statuses/home_timeline', param)
     .then(res => {
       page.setData({
@@ -36,10 +38,12 @@ function loadMore (page, url, para) {
         showModal(res.error)
         return
       }
+
       if (res.length > 0 && maxId === res[0].id) {
         res.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
         param.count -= 1
       }
+
       res = blockFilter(url, res)
       page.setData({
         ['feeds_arr[' + page.data.feeds_arr.length + ']']: res
@@ -72,11 +76,13 @@ function load (page, url, para) {
         showModal(res.error)
         return
       }
+
       res = blockFilter(url, res)
       let lastRawId = 0
       try {
         [lastRawId] = page.data.feeds_arr[0].map(item => item.rawid)
       } catch (error) {}
+
       page.setData({feeds_arr: [res]}, () => {
         if (isTimeline(url)) {
           let withTimelineAudio = false
@@ -84,6 +90,7 @@ function load (page, url, para) {
             const [latestRawId] = res.map(item => item.rawid)
             withTimelineAudio = latestRawId > lastRawId
           } catch (error) {}
+
           if (getSettings().timelineAudio && withTimelineAudio) {
             audio.bubble()
           }
@@ -141,24 +148,30 @@ function blockFilter (url, res) {
           if (blockIds.indexOf(userId) !== -1) {
             return false
           }
+
           if (blockIds.indexOf(userUniqueId) !== -1) {
             return false
           }
+
           for (let i = 0; i < usersIds.length; i++) {
             if (blockIds.indexOf(usersIds[i]) !== -1) {
               return false
             }
           }
+
           for (let i = 0; i < blockNames.length; i++) {
             if (status.plain_text.indexOf(blockNames[i]) !== -1) {
               return false
             }
           }
+
           return true
         })
       }
+
       return res
     }
+
     default:
       return res
   }
@@ -172,6 +185,7 @@ function favoriteChange (page) {
           showModal(res.error, null)
           return
         }
+
         page.setData({'feed.favorited': false})
         const [pagePre] = getCurrentPages().slice(-2)
         for (const [feedsIndex, feeds] of pagePre.data.feeds_arr.entries()) {
@@ -191,6 +205,7 @@ function favoriteChange (page) {
           showModal(res.error, null)
           return
         }
+
         page.setData({'feed.favorited': true})
         const [pagePre] = getCurrentPages().slice(-2)
         for (const [feedsIndex, feeds] of pagePre.data.feeds_arr.entries()) {
@@ -285,6 +300,7 @@ function postMsg (param, page) {
         showModal(res.error)
         return
       }
+
       wx.showToast({title: i18n.compose.sent, image: '/assets/toast_reply.png', duration: 900})
       const [message] = page.data.feeds_arr
       message.unshift(res)
@@ -325,6 +341,7 @@ function _postText (page, param, success) {
         showModal(res.error)
         return
       }
+
       if (direct) {
         wx.switchTab({
           url: '/pages/home/home',
@@ -339,6 +356,7 @@ function _postText (page, param, success) {
           _loadFeedThenAddToReply(res.id)
         }
       }
+
       page.setData({
         param: null,
         photoPaths: null,
@@ -365,6 +383,7 @@ function _postPhoto (page, param, photoPaths, success) {
         showModal(res.error)
         return
       }
+
       if (direct) {
         wx.switchTab({
           url: '/pages/home/home',
@@ -379,6 +398,7 @@ function _postPhoto (page, param, photoPaths, success) {
           _loadFeedThenAddToReply(res.id)
         }
       }
+
       page.setData({
         param: null,
         photoPaths: null,
@@ -403,6 +423,7 @@ function updateAvatar (page, photoPaths) {
         showModal(res.error)
         return
       }
+
       wx.showToast({title, image, duration: 900})
       const [currentPage] = getCurrentPages().slice(-1)
       if (currentPage.route === 'pages/profile/profile') {
@@ -421,6 +442,7 @@ function updateProfile (page, param) {
         showModal(res.error)
         return
       }
+
       wx.navigateBack({
         complete () {
           wx.showToast({title, image, duration: 900})
@@ -451,6 +473,7 @@ function loadUser (id, page) {
           showModal(res.error)
           return
         }
+
         const user = res
         page.setData({user}, () => {
           resolve(user)
@@ -481,9 +504,11 @@ function showModal (err, title) {
   if (title === null) {
     delete para.title
   }
+
   if (!err) {
     delete para.content
   }
+
   wx.showModal(para)
 }
 
@@ -504,6 +529,7 @@ function loadFeed (page, id) {
         })
         return
       }
+
       page.setData({feed: res})
     })
     .catch(err => {
@@ -519,6 +545,7 @@ function _loadFeedThenAddToHome (id) {
       if (res.error) {
         return
       }
+
       const [page] = getCurrentPages()
       if (page.route === 'pages/home/home') {
         const [feeds] = page.data.feeds_arr
@@ -535,6 +562,7 @@ function _loadFeedThenAddToReply (id) {
       if (res.error) {
         return
       }
+
       const [page] = getCurrentPages().slice(-1)
       if (page.route === 'pages/feed/feed') {
         const [feeds] = page.data.feeds_arr
@@ -576,6 +604,7 @@ function loadMe (page) {
         showModal(res.error)
         return
       }
+
       page.setData({user: res.user})
     })
 }
@@ -597,6 +626,7 @@ function follow (user, page) {
         showModal(res.error, null)
         return
       }
+
       page.setData({
         'relationship.following': true,
         buttonPop: null
@@ -667,6 +697,7 @@ function relationship (targetId, page) {
         showModal(res.error)
         return
       }
+
       page.setData({
         relationship: {
           following: res.relationship.source.following === 'true',
@@ -685,6 +716,7 @@ function accept (user, page) {
         showModal(res.error)
         return
       }
+
       for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
         for (const [feedIndex, feed] of feeds.entries()) {
           if (feed.unique_id === user.unique_id) {
@@ -704,6 +736,7 @@ function deny (user, page) {
         showModal(res.error)
         return
       }
+
       for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
         for (const [feedIndex, feed] of feeds.entries()) {
           if (feed.unique_id === user.unique_id) {

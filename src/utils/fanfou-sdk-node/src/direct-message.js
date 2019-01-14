@@ -38,9 +38,11 @@ class DirectMessage {
     if (nowDate === createDate) {
       return dateFormat('hh:mm', create)
     }
+
     if (nowYear === createYear) {
       return dateFormat('MM/dd hh:mm', create)
     }
+
     return dateFormat('yyyy/MM/dd hh:mm', create)
   }
 }

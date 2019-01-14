@@ -14,6 +14,7 @@ function updateTimeAgo (feeds) {
   for (let i = 0; i < feeds.length; i++) {
     feeds[i].time_ago = timeago().format(feeds[i].created_at, 'fanfou_weapp')
   }
+
   return feeds
 }
 

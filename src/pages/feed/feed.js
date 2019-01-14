@@ -19,6 +19,7 @@ Page(extend({}, tap, post, {
     } else {
       fm.loadFeed(this, decodeURIComponent(e.id))
     }
+
     const page = this
     setTimeout(() => {
       fm.load(page, '/statuses/context_timeline', {id: decodeURIComponent(e.id)})

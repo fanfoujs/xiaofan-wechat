@@ -19,6 +19,7 @@ const getShisTimeline = (page, user) => {
       shisTimelineArr = [her, his, her_his]
       break
   }
+
   let [h0, h1, h2] = shisTimelineArr
   switch (user.gender) {
     case '女':
@@ -31,9 +32,11 @@ const getShisTimeline = (page, user) => {
       if (h2 === 'TA') {
         h2 += ' '
       }
+
       shisTimeline = h2 + timeline
       break
   }
+
   page.setData({shisTimeline})
 }
 
@@ -49,6 +52,7 @@ Page(extend({}, tap, post, {
     } else {
       getShisTimeline(this, this.data.user)
     }
+
     fm.relationship(decodeURIComponent(e.id), this)
   },
   onPullDownRefresh () {

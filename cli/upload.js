@@ -21,6 +21,7 @@ const run = async () => {
       process.spinner.succeed(chalk.green(` Xiaofan v${pkg.version} published!`))
       process.exit()
     }
+
     process.spinner.fail('Upload timeout!')
     process.exit(1)
   } catch (err) {
