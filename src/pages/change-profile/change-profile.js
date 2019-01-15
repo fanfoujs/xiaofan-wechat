@@ -29,6 +29,7 @@ Page({
         if (this.data.photoPaths) {
           fm.updateAvatar(this, this.data.photoPaths)
         }
+
         fm.updateProfile(this, e.detail.value)
       }, 200)
     })

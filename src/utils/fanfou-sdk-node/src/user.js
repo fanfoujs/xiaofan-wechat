@@ -68,6 +68,7 @@ class User {
         return mzsi(month, day).name
       }
     }
+
     return ''
   }
 
@@ -103,12 +104,14 @@ class User {
       } else {
         months -= 1
       }
+
       days += daySum
     }
 
     if (years + months + days === 0) {
       return i18n.me.register_today
     }
+
     return `${days === 0 ? i18n.common.just : ''}${years ? years + i18n.common.years : ''}${months ? months + i18n.common.months : ''}${days ? days + i18n.common.days : ''}`
   }
 
@@ -122,6 +125,7 @@ class User {
       const dateStr = month && day ? month.toString() + i18n.me.month + day.toString() + i18n.me.day : ''
       return yearStr + dateStr
     }
+
     return ''
   }
 }

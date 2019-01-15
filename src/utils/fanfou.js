@@ -36,9 +36,11 @@ class Fanfou {
       if (typeof username !== 'string' || username.length === 0) {
         reject(new Error('Need username'))
       }
+
       if (typeof password !== 'string' || password.length === 0) {
         reject(new Error('Need password'))
       }
+
       const ff = new FanfouSDK({
         auth_type: 'xauth',
         consumer_key: CONSUMER_KEY,
@@ -82,9 +84,11 @@ class Fanfou {
               index = i
             }
           }
+
           if (index >= 0) {
             accounts.splice(index, 1)
           }
+
           accounts.unshift(account)
           wx.setStorageSync('accounts', accounts)
           resolve({user: account.user, tokens})
@@ -117,6 +121,7 @@ class Fanfou {
         reject(new Error('not authed'))
         wx.redirectTo({url: '/pages/login/login'})
       }
+
       const ff = new FanfouSDK({
         auth_type: 'oauth',
         consumer_key,
@@ -196,6 +201,7 @@ class Fanfou {
       if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) {
         reject(new Error(`Not authed, will not make upload image <${filePaths}>`))
       }
+
       const ff = new FanfouSDK({
         auth_type: 'oauth',
         consumer_key,

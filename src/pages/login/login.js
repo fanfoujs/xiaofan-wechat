@@ -55,12 +55,14 @@ Page({
         break
       }
     }
+
     if (index >= 0) {
       const [account] = accounts.splice(index, 1)
       accounts.unshift(account)
       getApp().globalData.account = account
       wx.reLaunch({url: '/pages/home/home'})
     }
+
     wx.setStorageSync('accounts', accounts)
   },
   longpressListItem (e) {
@@ -81,9 +83,11 @@ Page({
               } else if (i === 0) {
                 wx.reLaunch({url: '/pages/home/home'})
               }
+
               break
             }
           }
+
           page.setData({accounts})
         }
       }

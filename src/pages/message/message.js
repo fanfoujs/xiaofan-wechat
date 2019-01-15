@@ -40,6 +40,7 @@ Page(extend({}, post, {
           })
           return
         }
+
         this.setData({
           param: {user: this.id, text: ''}
         })

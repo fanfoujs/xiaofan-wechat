@@ -42,6 +42,7 @@ module.exports = {
       fm.destroyForTest(e.currentTarget.dataset.feed.id)
       return
     }
+
     fm.showFeed(e.currentTarget.dataset.feed)
   },
   tapFeedDetail (e) {
@@ -55,6 +56,7 @@ module.exports = {
       itemList.push(`${i18n.feed.reply_to} @` + feed.in_reply_to_screen_name)
       id = feed.in_reply_to_status_id
     }
+
     wx.showActionSheet({
       itemList,
       success (res) {
@@ -111,6 +113,7 @@ module.exports = {
         if (item.user.id === id && !item.avatarFadeIn) {
           item.avatarFadeIn = animations.fadeIn()
         }
+
         return item
       })
     })
@@ -122,6 +125,7 @@ module.exports = {
     if (!this.tabClick) {
       this.tabClick = 0
     }
+
     this.tabClick++
     if (this.tabClick > 1) {
       this.tabClick = 0
@@ -130,6 +134,7 @@ module.exports = {
         duration: 300
       })
     }
+
     setTimeout(() => {
       this.tabClick = 0
     }, 500)
