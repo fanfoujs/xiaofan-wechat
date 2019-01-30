@@ -123,6 +123,9 @@ class Status {
 
   _getTxt () {
     const pattern = /[@#]?<a href="(.*?)".*?>([\s\S\n]*?)<\/a>#?/g
+    const tagPattern = /#<a href="\/q\/(.*?)".?>([\s\S\n]*)<\/a>#/
+    const atPattern = /@<a href="(http|https):\/\/(?:[.a-z0-9-]*)fanfou.com\/(.*?)".*?>(.*?)<\/a>/
+    const linkPattern = /<a href="(.*?)".*?>(.*?)<\/a>/
     const match = this.text.match(pattern)
     const txt = []
     let theText = this.text
@@ -147,8 +150,8 @@ class Status {
         }
 
         // Tag
-        if (item.substr(0, 1) === '#') {
-          const matchText = item.match(/#<a href="\/q\/(.*?)".?>([\s\S\n]*)<\/a>#/)
+        if (item.substr(0, 1) === '#' && tagPattern.test(item)) {
+          const matchText = item.match(tagPattern)
           const text = `#${matchText[2]}#`
           const originText = he.decode(Status.removeBoldTag(text))
           const thisTxt = {
@@ -165,8 +168,8 @@ class Status {
         }
 
         // At
-        if (item.substr(0, 1) === '@') {
-          const matchText = item.match(/@<a href="(http|https):\/\/(?:[.a-z0-9-]*)fanfou.com\/(.*?)".*?>(.*?)<\/a>/)
+        if (item.substr(0, 1) === '@' && atPattern.test(item)) {
+          const matchText = item.match(atPattern)
           const text = `@${matchText[3]}`
           const originText = he.decode(Status.removeBoldTag(text))
           const thisTxt = {
@@ -183,8 +186,8 @@ class Status {
         }
 
         // Link
-        if (item.substr(0, 1) === '<') {
-          const matchText = item.match(/<a href="(.*?)".*?>(.*?)<\/a>/)
+        if (item.substr(0, 1) === '<' && linkPattern.test(item)) {
+          const matchText = item.match(linkPattern)
           const [, link, text] = matchText
           const originText = Status.removeBoldTag(text)
           const thisTxt = {
