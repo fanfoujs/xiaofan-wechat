@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/fanfoujs/xiaofan#readme",
   "devDependencies": {
-    "ava": "^1.0.0-rc.1",
-    "chalk": "^2.4.1",
+    "ava": "^1.2.1",
+    "chalk": "^2.4.2",
     "deep-keys": "^0.5.0",
     "execa": "^1.0.0",
-    "ora": "^3.0.0",
+    "ora": "^3.1.0",
     "xo": "^0.24.0"
   },
   "xo": {
