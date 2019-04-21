@@ -37,32 +37,27 @@
       {
         "pagePath": "pages/home/home",
         "iconPath": "assets/tab_home.png",
-        "selectedIconPath": "assets/tab_home_a.png",
-        "text": "Home"
+        "selectedIconPath": "assets/tab_home_a.png"
       },
       {
         "pagePath": "pages/mention/mention",
         "iconPath": "assets/tab_mention.png",
-        "selectedIconPath": "assets/tab_mention_a.png",
-        "text": "Mentions"
+        "selectedIconPath": "assets/tab_mention_a.png"
       },
       {
         "pagePath": "pages/post/post",
         "iconPath": "assets/tab_post.png",
-        "selectedIconPath": "assets/tab_post_a.png",
-        "text": "Post"
+        "selectedIconPath": "assets/tab_post_a.png"
       },
       {
         "pagePath": "pages/search/search",
         "iconPath": "assets/tab_search.png",
-        "selectedIconPath": "assets/tab_search_a.png",
-        "text": "Search"
+        "selectedIconPath": "assets/tab_search_a.png"
       },
       {
         "pagePath": "pages/profile/profile",
         "iconPath": "assets/tab_profile.png",
-        "selectedIconPath": "assets/tab_profile_a.png",
-        "text": "Profile"
+        "selectedIconPath": "assets/tab_profile_a.png"
       }
     ]
   },
