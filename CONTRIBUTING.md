@@ -22,11 +22,11 @@ We're always looking for more opinions on discussions in the issue tracker. It's
 
 You can use issue labels to discover issues you could help out with:
 
-- [`fanfou-sdk` issues](https://github.com/fanfoujs/xiaofan/labels/fanfou-sdk) related to fanfou-sdk infrastructure
-- [`blocked` issues](https://github.com/fanfoujs/xiaofan/labels/blocked) need help getting unstuck
-- [`bug` issues](https://github.com/fanfoujs/xiaofan/labels/bug) are known bugs we'd like to fix
-- [`enhancement` issues](https://github.com/fanfoujs/xiaofan/labels/enhancement) are features we're open to including
-- [`performance` issues](https://github.com/fanfoujs/xiaofan/labels/performance) track ideas on how to improve Xiaofan's performance
+- [`fanfou-sdk` issues](https://github.com/fanfoujs/xiaofan-wechat/labels/fanfou-sdk) related to fanfou-sdk infrastructure
+- [`blocked` issues](https://github.com/fanfoujs/xiaofan-wechat/labels/blocked) need help getting unstuck
+- [`bug` issues](https://github.com/fanfoujs/xiaofan-wechat/labels/bug) are known bugs we'd like to fix
+- [`enhancement` issues](https://github.com/fanfoujs/xiaofan-wechat/labels/enhancement) are features we're open to including
+- [`performance` issues](https://github.com/fanfoujs/xiaofan-wechat/labels/performance) track ideas on how to improve Xiaofan's performance
 
 ## Submitting an issue
 

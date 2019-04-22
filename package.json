@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fanfoujs/xiaofan.git"
+    "url": "git+https://github.com/fanfoujs/xiaofan-wechat.git"
   },
   "author": "FanfouJS",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fanfoujs/xiaofan/issues"
+    "url": "https://github.com/fanfoujs/xiaofan-wechat/issues"
   },
-  "homepage": "https://github.com/fanfoujs/xiaofan#readme",
+  "homepage": "https://github.com/fanfoujs/xiaofan-wechat#readme",
   "devDependencies": {
     "ava": "^1.2.1",
     "chalk": "^2.4.2",

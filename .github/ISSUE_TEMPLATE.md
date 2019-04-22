@@ -22,7 +22,7 @@ Thanks for opening an issue! A few things to keep in mind:
 
 Your best chance of getting this bug looked at quickly is to provide a REPOSITORY that can be cloned and run.
 
-You can for https://github.com/fanfoujs/xiaofan and include a link to the branch with your changes.
+You can for https://github.com/fanfoujs/xiaofan-wechat and include a link to the branch with your changes.
 
 If you provide a URL, please list the commands required to clone/setup/run your repo e.g.
 

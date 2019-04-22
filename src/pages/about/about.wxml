@@ -54,7 +54,7 @@
     例如搜索「太阳 uid:maundytime」可以找到猫弟消息中包含关键词「太阳」的。其中「maundytime」是猫弟的用户 ID。<text class="link" catchtap="tapLink" data-link="http://wiki.fanfou.com/饭否搜索">更多高级搜索规则</text>。
   </view>
 </view>
-<view class="footer" catchtap="tapLink" data-link="https://github.com/fanfoujs/xiaofan">  
+<view class="footer" catchtap="tapLink" data-link="https://github.com/fanfoujs/xiaofan-wechat">  
   <image mode="aspectFit" style="height: 15px;width: 150px;" src="../../assets/github.svg" />
 </view>
 <template is="space" />
