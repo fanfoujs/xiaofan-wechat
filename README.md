@@ -33,7 +33,6 @@ Here is [deployment tutorial](http://www.billlee.win/archives/139).
 ## Team
 
 - [@猫弟](https://fanfou.com/maundytime)
-- [@饭小默](https://fanfou.com/lito)
 - [@mogita](https://fanfou.com/mogita)
 
 ## Thank
