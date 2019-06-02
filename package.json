@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/fanfoujs/xiaofan-wechat#readme",
   "devDependencies": {
-    "ava": "^1.2.1",
+    "ava": "^2.0.0",
     "chalk": "^2.4.2",
     "deep-keys": "^0.5.0",
     "execa": "^1.0.0",
