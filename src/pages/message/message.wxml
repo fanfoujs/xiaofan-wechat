@@ -4,7 +4,7 @@
     <template is="message_arr" data="{{message_arr: feeds_arr}}" />
   </view>
   <template data="{{showLoader}}" is="loader" />
-  <template is="toolbar_msg" data="{{feed, replyPop}}" />
+  <template is="toolbar_msg" data="{{feed, replyPop, bottomHeight}}" />
   <block wx:if="{{param}}">
     <view class="mask">
       <template is="post" data="{{param, posting, autoFocus: true, noPhoto: true, length, i18n, resetPop, sendPop, statusBarHeight}}" />

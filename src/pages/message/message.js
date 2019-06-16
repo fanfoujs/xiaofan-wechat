@@ -3,13 +3,15 @@ const extend = require('../../utils/extend')
 const animations = require('../../utils/animations')
 const post = require('../../mixins/post')
 const i18n = require('../../i18n/index')
+const util = require('../../utils/util')
 
 const url = '/direct_messages/conversation'
 
 Page(extend({}, post, {
   id: null,
   data: {
-    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
+    bottomHeight: util.isIpx() ? 68 : 0
   },
   onLoad (e) {
     this.setData({i18n})
