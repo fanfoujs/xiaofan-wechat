@@ -10,7 +10,7 @@ const util = require('../../utils/util')
 Page(extend({}, tap, post, {
   data: {
     statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-    bottomHeight: util.isIpx() ? 68 : 0
+    bottomHeight: util.isIpx() ? 64 : 0
   },
   onLoad (e) {
     wx.setNavigationBarTitle({title: i18n.feed.title})

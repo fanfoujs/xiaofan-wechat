@@ -11,7 +11,7 @@ Page(extend({}, post, {
   id: null,
   data: {
     statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-    bottomHeight: util.isIpx() ? 68 : 0
+    bottomHeight: util.isIpx() ? 64 : 0
   },
   onLoad (e) {
     this.setData({i18n})
