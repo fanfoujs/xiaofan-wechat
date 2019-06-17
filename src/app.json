@@ -64,5 +64,6 @@
   "networkTimeout": {
     "request": 10000,
     "downloadFile": 20000
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
