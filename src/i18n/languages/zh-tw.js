@@ -38,6 +38,7 @@ module.exports = {
     close: '放棄',
     attachment: '上傳照片',
     send: '發表',
+    preview_attachment: '預覽照片',
     remove_attachment: '刪除',
     sent: '已發表'
   },

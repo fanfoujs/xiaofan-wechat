@@ -72,12 +72,27 @@ module.exports = {
   removePhoto () {
     const page = this
     wx.showActionSheet({
-      itemList: [i18n.compose.remove_attachment],
+      itemList: [
+        i18n.compose.preview_attachment,
+        i18n.compose.remove_attachment
+      ],
       success (res) {
-        if (!res.cancel) {
-          page.setData({
-            photoPaths: null
-          })
+        const {tapIndex} = res
+        switch (tapIndex) {
+          case 0: {
+            wx.previewImage({urls: page.data.photoPaths})
+            break
+          }
+
+          case 1: {
+            page.setData({
+              photoPaths: null
+            })
+            break
+          }
+
+          default:
+            break
         }
       }
     })

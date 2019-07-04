@@ -38,6 +38,7 @@ module.exports = {
     close: 'Cerrar',
     attachment: 'Añadir una Foto',
     send: 'Enviar',
+    preview_attachment: 'Preestrenar',
     remove_attachment: 'Eliminar la Foto',
     sent: 'Enviado'
   },

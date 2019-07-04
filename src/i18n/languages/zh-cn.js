@@ -38,6 +38,7 @@ module.exports = {
     close: '取消',
     attachment: '上传照片',
     send: '发送',
+    preview_attachment: '预览照片',
     remove_attachment: '删除',
     sent: '已发送'
   },

@@ -38,6 +38,7 @@ module.exports = {
     close: 'Close',
     attachment: 'Add Photo',
     send: 'Send',
+    preview_attachment: 'Preview',
     remove_attachment: 'Remove Photo',
     sent: 'Sent'
   },
