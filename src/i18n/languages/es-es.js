@@ -45,6 +45,7 @@ module.exports = {
   discover: {
     title: 'Descubrir',
     search_placeholder: 'Buscar en Fanfou',
+    search_user_placeholder: 'Buscar en Fanfou',
     hot_trends: 'Tendencias',
     saved_trends: 'Búsquedas Guardadas',
     public_timeline: 'Cronología Pública'

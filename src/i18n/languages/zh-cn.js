@@ -45,6 +45,7 @@ module.exports = {
   discover: {
     title: '发现',
     search_placeholder: '搜索消息',
+    search_user_placeholder: '搜索消息',
     hot_trends: '热门话题',
     saved_trends: '关注的话题',
     public_timeline: '随便看看'

@@ -45,6 +45,7 @@ module.exports = {
   discover: {
     title: 'Discover',
     search_placeholder: 'Search Fanfou',
+    search_user_placeholder: 'Search Status',
     hot_trends: 'HOT TRENDS',
     saved_trends: 'SAVED TRENDS',
     public_timeline: 'PUBLIC TIMELINE'

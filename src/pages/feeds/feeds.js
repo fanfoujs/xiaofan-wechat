@@ -10,12 +10,15 @@ Page(extend({}, tap, {
   url: null,
   data: {
     statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-    settings: getSettings()
+    settings: getSettings(),
+    isUserTimeline: false
   },
   onLoad (e) {
     this.url = e.url || '/search/public_timeline'
     this.para = e
-    this.setData({i18n})
+    this.id = e.id
+    const isUserTimeline = this.url === '/statuses/user_timeline'
+    this.setData({i18n, isUserTimeline, id: this.id})
     wx.setNavigationBarTitle({title: e.name || e.q || e.url})
     fm.load(this, this.url, this.para)
     network.listen(this)
@@ -33,6 +36,14 @@ Page(extend({}, tap, {
     wx.pageScrollTo({
       scrollTop: 0,
       duration: 300
+    })
+  },
+  search (e) {
+    const url = '/search/user_timeline'
+    fm.navigateTo(`../feeds/feeds?url=${url}&q=${e.detail.value}&id=${this.id}`, () => {
+      this.setData({
+        value: null
+      })
     })
   }
 }))

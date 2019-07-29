@@ -1,5 +1,15 @@
 <import src="/components/templates.wxml" />
-<view style="padding-top: {{statusBarHeight}}px;">
+<view wx:if="{{isUserTimeline}}">
+  <input
+    style="padding-top: {{statusBarHeight + 12}}px;"
+    class="input_bar"
+    placeholder-class="gray"
+    bindconfirm="search"
+    placeholder="{{i18n.discover.search_user_placeholder}}"
+    value="{{value}}"
+  />
+</view>
+<view style="padding-top: {{isUserTimeline ? 0 : statusBarHeight}}px;">
   <template is="feeds_arr" data="{{feeds_arr, isWiFi, avatarFadeIn, settings}}" />
 </view>
 <template data="{{showLoader}}" is="loader" />
