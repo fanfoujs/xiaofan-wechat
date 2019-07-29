@@ -48,7 +48,8 @@ module.exports = {
     search_user_placeholder: '搜索消息',
     hot_trends: '热门话题',
     saved_trends: '关注的话题',
-    public_timeline: '随便看看'
+    public_timeline: '随便看看',
+    no_more: '没有更多消息了'
   },
   me: {
     title: '我',

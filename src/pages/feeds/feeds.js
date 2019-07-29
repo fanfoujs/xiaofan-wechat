@@ -16,7 +16,7 @@ Page(extend({}, tap, {
   onLoad (e) {
     this.url = e.url || '/search/public_timeline'
     this.para = e
-    this.id = e.id
+    this.id = e.id || null
     const isUserTimeline = this.url === '/statuses/user_timeline'
     this.setData({i18n, isUserTimeline, id: this.id})
     wx.setNavigationBarTitle({title: e.name || e.q || e.url})

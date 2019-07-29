@@ -48,7 +48,8 @@ module.exports = {
     search_user_placeholder: '搜索消息',
     hot_trends: '熱門話題',
     saved_trends: '關注的話題',
-    public_timeline: '隨便看看'
+    public_timeline: '隨便看看',
+    no_more: '沒有更多消息了'
   },
   me: {
     title: '我',

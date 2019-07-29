@@ -48,7 +48,8 @@ module.exports = {
     search_user_placeholder: 'Search Status',
     hot_trends: 'HOT TRENDS',
     saved_trends: 'SAVED TRENDS',
-    public_timeline: 'PUBLIC TIMELINE'
+    public_timeline: 'PUBLIC TIMELINE',
+    no_more: 'No more'
   },
   me: {
     title: 'Me',

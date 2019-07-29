@@ -48,7 +48,8 @@ module.exports = {
     search_user_placeholder: 'Buscar en Fanfou',
     hot_trends: 'Tendencias',
     saved_trends: 'Búsquedas Guardadas',
-    public_timeline: 'Cronología Pública'
+    public_timeline: 'Cronología Pública',
+    no_more: 'No mas'
   },
   me: {
     title: 'Yo',

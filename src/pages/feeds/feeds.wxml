@@ -11,5 +11,8 @@
 </view>
 <view style="padding-top: {{isUserTimeline ? 0 : statusBarHeight}}px;">
   <template is="feeds_arr" data="{{feeds_arr, isWiFi, avatarFadeIn, settings}}" />
+  <view wx:if="{{feeds_arr[0] && feeds_arr[0].length === 0}}">
+    <view class="footer">{{i18n.discover.no_more}}</view>
+  </view>
 </view>
 <template data="{{showLoader}}" is="loader" />
