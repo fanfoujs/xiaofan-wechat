@@ -131,7 +131,7 @@ class Fanfou {
         this.oauth._makeArrayOfArgumentsHash(params)
       ).concat([['oauth_signature', signature]])
     )
-    const name = uri === '/photos/upload' ? 'photo' : uri === '/account/update_profile_image' ? 'image' : 'file'
+    const name = uri === '/photos/upload' ? 'photo' : (uri === '/account/update_profile_image' ? 'image' : 'file')
     wx.uploadFile({
       url,
       filePath: filePaths[0],

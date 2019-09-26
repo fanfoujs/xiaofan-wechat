@@ -49,8 +49,8 @@ Page({
     const {id} = e.currentTarget.dataset
     const accounts = this.getAccounts()
     let index = -1
-    for (let i = 0; i < accounts.length; i++) {
-      if (accounts[i].id === id) {
+    for (const [i, element] of accounts.entries()) {
+      if (element.id === id) {
         index = i
         break
       }

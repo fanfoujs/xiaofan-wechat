@@ -79,8 +79,8 @@ class Fanfou {
           getApp().globalData.account = account
           const accounts = wx.getStorageSync('accounts') || []
           let index = -1
-          for (let i = 0; i < accounts.length; i++) {
-            if (account.id === accounts[i].id) {
+          for (const [i, element] of accounts.entries()) {
+            if (account.id === element.id) {
               index = i
             }
           }
@@ -215,8 +215,8 @@ class Fanfou {
           try {
             const result = JSON.parse(res)
             resolve(result)
-          } catch (err2) {
-            reject(err2)
+          } catch (err_) {
+            reject(err_)
           }
         }
       })

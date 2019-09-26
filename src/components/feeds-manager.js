@@ -81,7 +81,7 @@ function load (page, url, para) {
       let lastRawId = 0
       try {
         [lastRawId] = page.data.feeds_arr[0].map(item => item.rawid)
-      } catch (error) {}
+      } catch (_) {}
 
       page.setData({feeds_arr: [res]}, () => {
         if (isTimeline(url)) {
@@ -89,7 +89,7 @@ function load (page, url, para) {
           try {
             const [latestRawId] = res.map(item => item.rawid)
             withTimelineAudio = latestRawId > lastRawId
-          } catch (error) {}
+          } catch (_) {}
 
           if (getSettings().timelineAudio && withTimelineAudio) {
             audio.bubble()
@@ -145,22 +145,22 @@ function blockFilter (url, res) {
           const userUniqueId = status.user.unique_id
           const users = getUsers(status)
           const usersIds = users.map(item => item.id)
-          if (blockIds.indexOf(userId) !== -1) {
+          if (blockIds.includes(userId)) {
             return false
           }
 
-          if (blockIds.indexOf(userUniqueId) !== -1) {
+          if (blockIds.includes(userUniqueId)) {
             return false
           }
 
-          for (let i = 0; i < usersIds.length; i++) {
-            if (blockIds.indexOf(usersIds[i]) !== -1) {
+          for (const element of usersIds) {
+            if (blockIds.includes(element)) {
               return false
             }
           }
 
-          for (let i = 0; i < blockNames.length; i++) {
-            if (status.plain_text.indexOf(blockNames[i]) !== -1) {
+          for (const element of blockNames) {
+            if (status.plain_text.includes(element)) {
               return false
             }
           }
@@ -329,11 +329,11 @@ function post (page, para, photoPaths, success) {
 function _postText (page, param, success) {
   const direct = !(param.repost_status_id || param.in_reply_to_status_id || success)
   const image = param.repost_status_id ?
-    '/assets/toast_repost.png' : param.in_reply_to_status_id ?
-      '/assets/toast_reply.png' : '/assets/toast_post.png'
+    '/assets/toast_repost.png' : (param.in_reply_to_status_id ?
+      '/assets/toast_reply.png' : '/assets/toast_post.png')
   const title = param.repost_status_id ?
-    i18n.feed.reposted : param.in_reply_to_status_id ?
-      i18n.feed.replied : i18n.feed.published
+    i18n.feed.reposted : (param.in_reply_to_status_id ?
+      i18n.feed.replied : i18n.feed.published)
   ff.postPromise('/statuses/update', param)
     .then(res => {
       page.setData({posting: false})
