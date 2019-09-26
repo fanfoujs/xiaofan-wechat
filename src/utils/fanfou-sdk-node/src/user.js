@@ -42,9 +42,9 @@ class User {
     this.birth_date = this._getBirthDate()
     this.is_me = this._isMe(user)
     this.is_secret = user.protected && !user.following
-    this.taEnd = user.gender === '男' ? '他' : user.gender === '女' ? '她' : ' TA'
-    this.taBegin = user.gender === '男' ? '他' : user.gender === '女' ? '她' : 'TA '
-    this.taMiddle = user.gender === '男' ? '他' : user.gender === '女' ? '她' : ' TA '
+    this.taEnd = user.gender === '男' ? '他' : (user.gender === '女' ? '她' : ' TA')
+    this.taBegin = user.gender === '男' ? '他' : (user.gender === '女' ? '她' : 'TA ')
+    this.taMiddle = user.gender === '男' ? '他' : (user.gender === '女' ? '她' : ' TA ')
   }
 
   _isMe (user) {

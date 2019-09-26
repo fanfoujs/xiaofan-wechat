@@ -11,8 +11,8 @@ const fanfouWeAppDict = function (number, index) {
 timeago.register('fanfou_weapp', fanfouWeAppDict)
 
 function updateTimeAgo (feeds) {
-  for (let i = 0; i < feeds.length; i++) {
-    feeds[i].time_ago = timeago().format(feeds[i].created_at, 'fanfou_weapp')
+  for (const element of feeds) {
+    element.time_ago = timeago().format(element.created_at, 'fanfou_weapp')
   }
 
   return feeds
