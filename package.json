@@ -40,6 +40,7 @@
       "ava/no-ignored-test-files": 0,
       "camelcase": 0,
       "import/no-unresolved": 0,
+      "promise/prefer-await-to-then": 0,
       "max-params": [
         "error",
         6
@@ -51,6 +52,8 @@
         }
       ],
       "prefer-rest-params": 0,
+      "prefer-object-spread": 0,
+      "prefer-named-capture-group": 0,
       "space-before-function-paren": [
         "error",
         "always"
