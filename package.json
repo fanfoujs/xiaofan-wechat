@@ -23,7 +23,7 @@
     "deep-keys": "^0.5.0",
     "execa": "^4.0.0",
     "ora": "^4.0.0",
-    "xo": "^0.25.3"
+    "xo": "^0.26.0"
   },
   "xo": {
     "globals": [
@@ -40,6 +40,7 @@
       "ava/no-ignored-test-files": 0,
       "camelcase": 0,
       "import/no-unresolved": 0,
+      "promise/prefer-await-to-then": 0,
       "max-params": [
         "error",
         6
@@ -51,6 +52,8 @@
         }
       ],
       "prefer-rest-params": 0,
+      "prefer-object-spread": 0,
+      "prefer-named-capture-group": 0,
       "space-before-function-paren": [
         "error",
         "always"
