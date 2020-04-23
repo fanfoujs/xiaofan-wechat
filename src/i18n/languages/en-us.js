@@ -132,8 +132,9 @@ module.exports = {
     status_display: 'STATUS DISPLAY',
     time: 'Time',
     source_name: 'Source name',
-    sounds: 'SOUNDS',
+    sounds: 'SOUNDS & VIBRATIONS',
     timeline_audio: 'Timeline sound',
+    vibration: 'Vibration',
     status_count: 'STATUS COUNT',
     blocks: 'BLOCKS',
     hide_blocked_users: 'Hide blocked users'

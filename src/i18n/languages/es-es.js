@@ -132,8 +132,9 @@ module.exports = {
     status_display: 'Visualización de estados',
     time: 'Mostrar el tiempo',
     source_name: 'Mostrar la fuente',
-    sounds: 'Ajustes de sonido',
+    sounds: 'Ajustar el sonido y la vibración',
     timeline_audio: 'Linea de tiempo',
+    vibration: 'Vibración',
     status_count: 'Mostrar el conteo',
     blocks: 'Cuentas Bloqueadas',
     hide_blocked_users: 'Ocultar los usuarios bloqueados'

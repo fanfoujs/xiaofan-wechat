@@ -3,6 +3,7 @@ const {getSettings, getBlocks, getBlockIds} = require('../utils/util')
 const tab = require('../components/tab')
 const i18n = require('../i18n/index')
 const audio = require('../utils/audio')
+const vibrate = require('../utils/vibrate')
 
 function loadMore (page, url, para) {
   const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
@@ -52,6 +53,8 @@ function loadMore (page, url, para) {
           wx.showToast({title: i18n.common.no_more, image: '/assets/toast_blank.png', duration: 900})
         }
       })
+
+      vibrate()
     })
     .catch(err => {
       page.setData({showLoader: false})
@@ -90,6 +93,10 @@ function load (page, url, para) {
             const [latestRawId] = result.map(item => item.rawid)
             withTimelineAudio = latestRawId > lastRawId
           } catch (_) {}
+
+          if (withTimelineAudio) {
+            vibrate()
+          }
 
           if (getSettings().timelineAudio && withTimelineAudio) {
             audio.bubble()
@@ -196,6 +203,8 @@ function favoriteChange (page) {
             }
           }
         }
+
+        vibrate()
       })
       .catch(err => showModal(err.errMsg))
   } else {
@@ -216,6 +225,8 @@ function favoriteChange (page) {
             }
           }
         }
+
+        vibrate()
       })
       .catch(err => showModal(err.errMsg))
   }
@@ -243,6 +254,8 @@ function destroy (id) {
               }
             }
           }
+
+          vibrate()
         }
       })
     })
@@ -264,6 +277,8 @@ function destroyForTest (id) {
           }
         }
       }
+
+      vibrate()
     })
     .catch(err => showModal(err.errMsg))
 }
@@ -287,6 +302,8 @@ function destroyMessage (page, id) {
           }
         }
       }
+
+      vibrate()
     })
     .catch(err => showModal(err.errMsg))
 }
@@ -309,6 +326,8 @@ function postMessage (parameter, page) {
         photoPaths: null,
         'feeds_arr[0]': message
       })
+
+      vibrate()
     })
     .catch(err => {
       page.setData({posting: false})
@@ -631,6 +650,8 @@ function follow (user, page) {
         'relationship.following': true,
         buttonPop: null
       })
+
+      vibrate()
     })
     .catch(err => showModal(err.errMsg))
 }
@@ -646,6 +667,8 @@ function unfollow (user, page) {
               'relationship.following': false,
               buttonPop: null
             })
+
+            vibrate()
           })
           .catch(err => showModal(err.errMsg))
       }
@@ -665,6 +688,8 @@ function block (user, page) {
               'relationship.following': false,
               'relationship.followed_by': false
             })
+
+            vibrate()
           })
           .catch(err => showModal(err.errMsg))
       }
@@ -680,6 +705,7 @@ function unblock (user, page) {
         ff.postPromise('/blocks/destroy', {id: user.id})
           .then(() => {
             page.setData({'relationship.blocking': false})
+            vibrate()
           })
           .catch(err => showModal(err.errMsg))
       }
@@ -725,6 +751,8 @@ function accept (user, page) {
           }
         }
       }
+
+      vibrate()
     })
     .catch(err => showModal(err.errMsg))
 }
@@ -746,6 +774,8 @@ function deny (user, page) {
           }
         }
       }
+
+      vibrate()
     })
     .catch(err => showModal(err.errMsg))
 }

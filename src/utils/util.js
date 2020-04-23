@@ -21,7 +21,8 @@ function getSettings () {
     showSource: true,
     timelineCount: 30,
     hideBlocks: false,
-    timelineAudio: true
+    timelineAudio: true,
+    vibrate: true
   }
   return settings
 }

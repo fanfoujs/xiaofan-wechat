@@ -129,11 +129,12 @@ module.exports = {
     me: '我：'
   },
   settings: {
-    status_display: '顯示設置',
+    status_display: '顯示設定',
     time: '時間',
     source_name: '小尾巴',
-    sounds: '音效設置',
+    sounds: '音效及觸覺設定',
     timeline_audio: '時間線音效',
+    vibration: '觸覺回饋',
     status_count: '每頁消息數量',
     blocks: '屏蔽選項',
     hide_blocked_users: '屏蔽拉黑用戶'

@@ -63,6 +63,14 @@
           checked="{{timelineAudio}}"
         />
       </view>
+      <view class="list_item">
+        <view class="label">{{i18n.settings.vibration}}</view>
+        <switch
+          color="#33a5ff"
+          bindchange="onVibrateChange"
+          checked="{{vibrate}}"
+        />
+      </view>
     </view>
   </view>
 

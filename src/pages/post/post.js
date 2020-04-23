@@ -2,6 +2,7 @@ const tab = require('../../components/tab')
 const extend = require('../../utils/extend')
 const post = require('../../mixins/post')
 const i18n = require('../../i18n/index')
+const vibrate = require('../../utils/vibrate')
 
 Page(extend({}, post, {
   onLoad () {
@@ -9,5 +10,8 @@ Page(extend({}, post, {
   },
   onShow () {
     tab.updateNotis()
+  },
+  onTabItemTap () {
+    vibrate()
   }
 }))

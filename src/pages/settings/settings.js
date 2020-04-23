@@ -6,7 +6,7 @@ const {getSettings} = require('../../utils/util')
 const audio = require('../../utils/audio')
 
 const {statusBarHeight} = wx.getSystemInfoSync()
-const {showTimeago, showSource, timelineCount, hideBlocks, timelineAudio} = getSettings()
+const {showTimeago, showSource, timelineCount, hideBlocks, timelineAudio, vibrate} = getSettings()
 
 const fetchStatus = () => {
   return new Promise(resolve => {
@@ -33,7 +33,8 @@ Page({
     showSource,
     timelineCount,
     hideBlocks,
-    timelineAudio
+    timelineAudio,
+    vibrate
   },
 
   onShow () {
@@ -79,5 +80,11 @@ Page({
       }
     })
     updateSettings({timelineAudio})
+  },
+
+  onVibrateChange (event) {
+    const {value: vibrate} = event.detail
+    this.setData({vibrate})
+    updateSettings({vibrate})
   }
 })

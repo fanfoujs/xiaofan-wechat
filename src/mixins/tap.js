@@ -1,6 +1,7 @@
 const fm = require('../components/feeds-manager')
 const i18n = require('../i18n/index')
 const animations = require('../utils/animations')
+const vibrate = require('../utils/vibrate')
 
 module.exports = {
   tapTxt (event) {
@@ -122,6 +123,8 @@ module.exports = {
     })
   },
   onTabItemTap () {
+    vibrate()
+
     if (!this.tabClick) {
       this.tabClick = 0
     }
