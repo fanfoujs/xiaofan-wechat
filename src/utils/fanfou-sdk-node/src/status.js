@@ -124,7 +124,7 @@ class Status {
   _getTxt () {
     const pattern = /[@#]?<a href="(.*?)".*?>([\s\S\n]*?)<\/a>#?/g
     const tagPattern = /#<a href="\/q\/(.*?)".?>([\s\S\n]*)<\/a>#/
-    const atPattern = /@<a href="(http|https):\/\/(?:[.a-z0-9-]*)fanfou.com\/(.*?)".*?>(.*?)<\/a>/
+    const atPattern = /@<a href="(http|https):\/\/[.a-z\d-]*fanfou.com\/(.*?)".*?>(.*?)<\/a>/
     const linkPattern = /<a href="(.*?)".*?>(.*?)<\/a>/
     const match = this.text.match(pattern)
     const txt = []
@@ -252,33 +252,33 @@ class Status {
     const pattern = /<b>[\s\S\n]*?<\/b>/g
     let theText = text
     const match = text.match(pattern)
-    const textArr = []
+    const textArray = []
     if (match) {
       match.forEach(item => {
         const index = theText.indexOf(item)
         if (index > 0) {
           const t = theText.slice(0, index)
-          textArr.push({
+          textArray.push({
             text: he.decode(t),
             bold: false
           })
         }
 
         const [, t] = item.match(/<b>([\s\S\n]*?)<\/b>/)
-        textArr.push({
+        textArray.push({
           text: he.decode(t),
           bold: true
         })
         theText = theText.slice(index + item.length)
       })
       if (theText.length > 0) {
-        textArr.push({
+        textArray.push({
           text: he.decode(theText),
           bold: false
         })
       }
 
-      return textArr
+      return textArray
     }
 
     return [{

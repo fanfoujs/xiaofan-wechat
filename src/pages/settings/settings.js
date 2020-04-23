@@ -20,8 +20,8 @@ const fetchStatus = () => {
 }
 
 const updateSettings = settings => {
-  const prevSettings = getSettings()
-  settings = Object.assign(prevSettings, settings)
+  const previousSettings = getSettings()
+  settings = Object.assign(previousSettings, settings)
   wx.setStorageSync('settings', settings)
 }
 
@@ -47,32 +47,32 @@ Page({
     })
   },
 
-  onTimeagoChange (e) {
-    const {value: showTimeago} = e.detail
+  onTimeagoChange (event) {
+    const {value: showTimeago} = event.detail
     this.setData({showTimeago})
     updateSettings({showTimeago})
   },
 
-  onSourceChange (e) {
-    const {value: showSource} = e.detail
+  onSourceChange (event) {
+    const {value: showSource} = event.detail
     this.setData({showSource})
     updateSettings({showSource})
   },
 
-  onStatusCountChange (e) {
-    const {value: timelineCount} = e.detail
+  onStatusCountChange (event) {
+    const {value: timelineCount} = event.detail
     this.setData({timelineCount})
     updateSettings({timelineCount})
   },
 
-  onBlocksChange (e) {
-    const {value: hideBlocks} = e.detail
+  onBlocksChange (event) {
+    const {value: hideBlocks} = event.detail
     this.setData({hideBlocks})
     updateSettings({hideBlocks})
   },
 
-  onTimelineAudioChange (e) {
-    const {value: timelineAudio} = e.detail
+  onTimelineAudioChange (event) {
+    const {value: timelineAudio} = event.detail
     this.setData({timelineAudio}, () => {
       if (timelineAudio) {
         audio.bubble()

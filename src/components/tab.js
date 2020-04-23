@@ -19,15 +19,15 @@ function updateNotis () {
     getApp().globalData.account.consumer_key === CONSUMER_KEY
   ) {
     render()
-    ff.getPromise('/account/notification').then(res => {
-      getApp().globalData.notis = res
+    ff.getPromise('/account/notification').then(result => {
+      getApp().globalData.notis = result
       render()
     })
-    ff.getPromise('/blocks/blocking').then(res => {
-      wx.setStorage({key: 'blocks', data: res})
+    ff.getPromise('/blocks/blocking').then(result => {
+      wx.setStorage({key: 'blocks', data: result})
     })
-    ff.getPromise('/blocks/ids').then(res => {
-      wx.setStorage({key: 'blockIds', data: res})
+    ff.getPromise('/blocks/ids').then(result => {
+      wx.setStorage({key: 'blockIds', data: result})
     })
   }
 }

@@ -62,8 +62,8 @@ class User {
   _getSignName () {
     if (this.birthday.length > 0) {
       const matchYMD = this.birthday.match(/\d{4}-(\d{2})-(\d{2})/)
-      const month = parseInt(matchYMD[1], 10)
-      const day = parseInt(matchYMD[2], 10)
+      const month = Number.parseInt(matchYMD[1], 10)
+      const day = Number.parseInt(matchYMD[2], 10)
       if (month > 0 && day > 0) {
         return mzsi(month, day).name
       }
@@ -118,12 +118,12 @@ class User {
   _getBirthDate () {
     const match = this.birthday.match(/(\d{4})-(\d{2})-(\d{2})/)
     if (match) {
-      const year = parseInt(match[1], 10)
-      const month = parseInt(match[2], 10)
-      const day = parseInt(match[3], 10)
-      const yearStr = year ? year.toString() + i18n.me.year : ''
-      const dateStr = month && day ? month.toString() + i18n.me.month + day.toString() + i18n.me.day : ''
-      return yearStr + dateStr
+      const year = Number.parseInt(match[1], 10)
+      const month = Number.parseInt(match[2], 10)
+      const day = Number.parseInt(match[3], 10)
+      const yearString = year ? year.toString() + i18n.me.year : ''
+      const dateString = month && day ? month.toString() + i18n.me.month + day.toString() + i18n.me.day : ''
+      return yearString + dateString
     }
 
     return ''

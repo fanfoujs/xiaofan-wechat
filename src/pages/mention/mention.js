@@ -32,8 +32,8 @@ Page(extend({}, tap, {
     fm.loadMore(this, urls[this.data.index], para)
     tab.updateNotis()
   },
-  tapIndex (e) {
-    const {index} = e.currentTarget.dataset
+  tapIndex (event) {
+    const {index} = event.currentTarget.dataset
     if (index !== this.data.index) {
       this.setData({
         feeds_arr: null,

@@ -12,19 +12,19 @@ Page(extend({}, tap, post, {
     statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
     bottomHeight: util.isIpx() ? 64 : 0
   },
-  onLoad (e) {
+  onLoad (event) {
     wx.setNavigationBarTitle({title: i18n.feed.title})
     const {feed} = getApp().globalData
     this.setData({i18n})
-    if (feed && !e.share) {
+    if (feed && !event.share) {
       this.setData({feed})
     } else {
-      fm.loadFeed(this, decodeURIComponent(e.id))
+      fm.loadFeed(this, decodeURIComponent(event.id))
     }
 
     const page = this
     setTimeout(() => {
-      fm.load(page, '/statuses/context_timeline', {id: decodeURIComponent(e.id)})
+      fm.load(page, '/statuses/context_timeline', {id: decodeURIComponent(event.id)})
     }, 600)
   },
   reply () {
@@ -90,8 +90,8 @@ Page(extend({}, tap, post, {
           confirmText: i18n.common.delete,
           cancelText: i18n.common.cancel,
           confirmColor: '#33a5ff',
-          success: res => {
-            if (res.confirm) {
+          success: result => {
+            if (result.confirm) {
               fm.destroy(this.data.feed.id)
             }
           }

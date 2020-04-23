@@ -21,9 +21,9 @@ class Fanfou {
       password
     })
 
-    ff.xauth((e, tokens) => {
-      if (e) {
-        callback(e)
+    ff.xauth((error, tokens) => {
+      if (error) {
+        callback(error)
       } else {
         callback(null, tokens)
       }
@@ -97,20 +97,18 @@ class Fanfou {
     })
   }
 
-  static get (uri, params, tokens, callback) {
+  static get (uri, parameters, tokens, callback) {
     const ff = new FanfouSDK({
       auth_type: 'oauth',
       consumer_key: CONSUMER_KEY,
       consumer_secret: CONSUMER_SECRET
     })
 
-    ff.get(uri, params, tokens, (e, res) => {
-      callback(e, res)
-    })
+    ff.get(uri, parameters, tokens, callback)
   }
 
   // Promisified get method
-  static getPromise (uri, params) {
+  static getPromise (uri, parameters) {
     return new Promise((resolve, reject) => {
       const {
         consumer_key,
@@ -128,30 +126,28 @@ class Fanfou {
         consumer_secret
       })
 
-      ff.get(uri, params, tokens, (e, res) => {
-        if (e) {
-          reject(e)
+      ff.get(uri, parameters, tokens, (error, result) => {
+        if (error) {
+          reject(error)
         } else {
-          resolve(res)
+          resolve(result)
         }
       })
     })
   }
 
-  static post (uri, params, tokens, callback) {
+  static post (uri, parameters, tokens, callback) {
     const ff = new FanfouSDK({
       auth_type: 'oauth',
       consumer_key: CONSUMER_KEY,
       consumer_secret: CONSUMER_SECRET
     })
 
-    ff.post(uri, params, tokens, (e, res) => {
-      callback(e, res)
-    })
+    ff.post(uri, parameters, tokens, callback)
   }
 
   // Promisified post method
-  static postPromise (uri, params) {
+  static postPromise (uri, parameters) {
     return new Promise((resolve, reject) => {
       const {
         consumer_key,
@@ -168,11 +164,11 @@ class Fanfou {
         consumer_secret
       })
 
-      ff.post(uri, params, tokens, (e, res) => {
-        if (e) {
-          reject(e)
+      ff.post(uri, parameters, tokens, (error, result) => {
+        if (error) {
+          reject(error)
         } else {
-          resolve(res)
+          resolve(result)
         }
       })
     })
@@ -185,9 +181,7 @@ class Fanfou {
       consumer_secret: CONSUMER_SECRET
     })
 
-    ff.upload(uri, filePaths, parameters, tokens, (e, res) => {
-      callback(e, res)
-    })
+    ff.upload(uri, filePaths, parameters, tokens, callback)
   }
 
   // Promisified upload method
@@ -208,15 +202,15 @@ class Fanfou {
         consumer_secret
       })
 
-      ff.upload(uri, filePaths, parameters, tokens, (err, res) => {
-        if (err) {
-          reject(err)
+      ff.upload(uri, filePaths, parameters, tokens, (error, response) => {
+        if (error) {
+          reject(error)
         } else {
           try {
-            const result = JSON.parse(res)
+            const result = JSON.parse(response)
             resolve(result)
-          } catch (err_) {
-            reject(err_)
+          } catch (err) {
+            reject(err)
           }
         }
       })

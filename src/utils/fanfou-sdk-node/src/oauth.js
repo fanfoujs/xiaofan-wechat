@@ -5,13 +5,13 @@ const qs = require('../modules/querystring/index')
 
 Object.assign(OAuth.prototype, {
   getXAuthAccessToken (username, password, callback) {
-    const xauthParams = {
+    const xauthParameters = {
       x_auth_mode: 'client_auth',
       x_auth_password: password,
       x_auth_username: username
     }
 
-    this._performSecureRequest(null, null, this._clientOptions.accessTokenHttpMethod, this._accessUrl, xauthParams, null, null, (error, data, response) => {
+    this._performSecureRequest(null, null, this._clientOptions.accessTokenHttpMethod, this._accessUrl, xauthParameters, null, null, (error, data, response) => {
       if (error) {
         callback(error)
       } else {

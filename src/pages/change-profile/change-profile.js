@@ -11,9 +11,9 @@ Page({
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
-      success (res) {
+      success (result) {
         page.setData({
-          photoPaths: res.tempFilePaths
+          photoPaths: result.tempFilePaths
         })
       }
     })
@@ -21,7 +21,7 @@ Page({
   tapBackground () {
     wx.setClipboardData({data: 'http://fanfou.com/settings/theme'})
   },
-  save (e) {
+  save (event) {
     this.setData({
       savePop: animations.pop().export()
     }, () => {
@@ -30,7 +30,7 @@ Page({
           fm.updateAvatar(this, this.data.photoPaths)
         }
 
-        fm.updateProfile(this, e.detail.value)
+        fm.updateProfile(this, event.detail.value)
       }, 200)
     })
   },

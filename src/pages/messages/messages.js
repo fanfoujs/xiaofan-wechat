@@ -21,9 +21,9 @@ Page(extend({}, tap, {
   onReachBottom () {
     fm.loadMore(this, url)
   },
-  tapMessage (e) {
-    const {otherid} = e.currentTarget.dataset.message
-    const user = e.currentTarget.dataset.message.dm.sender.is_me ? e.currentTarget.dataset.message.dm.recipient : e.currentTarget.dataset.message.dm.sender
+  tapMessage (event) {
+    const {otherid} = event.currentTarget.dataset.message
+    const user = event.currentTarget.dataset.message.dm.sender.is_me ? event.currentTarget.dataset.message.dm.recipient : event.currentTarget.dataset.message.dm.sender
     const page = this
     for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
       for (const [feedIndex, feed] of feeds.entries()) {

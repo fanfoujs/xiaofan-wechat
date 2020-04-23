@@ -11,7 +11,7 @@ function loadMore (page, url, para) {
   }
 
   page.setData({showLoader: true})
-  const param = Object.assign({
+  const parameter = Object.assign({
     count: getSettings().timelineCount,
     format: 'html'
   }, para)
@@ -23,30 +23,30 @@ function loadMore (page, url, para) {
     url === '/friendships/requests' ||
     url === '/photos/user_timeline'
   ) {
-    param.page = page.data.feeds_arr.length + 1
+    parameter.page = page.data.feeds_arr.length + 1
   } else {
-    param.max_id = maxId
+    parameter.max_id = maxId
   }
 
-  ff.getPromise(url || '/statuses/home_timeline', param)
-    .then(res => {
+  ff.getPromise(url || '/statuses/home_timeline', parameter)
+    .then(result => {
       page.setData({
         showLoader: false,
-        noMore: res.length < param.count
+        noMore: result.length < parameter.count
       })
-      if (res.error) {
-        showModal(res.error)
+      if (result.error) {
+        showModal(result.error)
         return
       }
 
-      if (res.length > 0 && maxId === res[0].id) {
-        res.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
-        param.count -= 1
+      if (result.length > 0 && maxId === result[0].id) {
+        result.shift() // 饭否图片 timeline api 在使用 max_id 时有第 1 条消重复息的 bug，在这里移除
+        parameter.count -= 1
       }
 
-      res = blockFilter(url, res)
+      result = blockFilter(url, result)
       page.setData({
-        ['feeds_arr[' + page.data.feeds_arr.length + ']']: res
+        ['feeds_arr[' + page.data.feeds_arr.length + ']']: result
       }, () => {
         if (page.data.noMore) {
           wx.showToast({title: i18n.common.no_more, image: '/assets/toast_blank.png', duration: 900})
@@ -61,33 +61,33 @@ function loadMore (page, url, para) {
 
 function load (page, url, para) {
   page.setData({showLoader: true})
-  const param = Object.assign({
+  const parameter = Object.assign({
     count: getSettings().timelineCount,
     format: 'html'
   }, para)
-  ff.getPromise(url || '/statuses/home_timeline', param)
-    .then(res => {
+  ff.getPromise(url || '/statuses/home_timeline', parameter)
+    .then(result => {
       wx.stopPullDownRefresh()
       page.setData({
         showLoader: false,
-        noMore: res.length < param.count
+        noMore: result.length < parameter.count
       })
-      if (res.error && url !== '/statuses/context_timeline') {
-        showModal(res.error)
+      if (result.error && url !== '/statuses/context_timeline') {
+        showModal(result.error)
         return
       }
 
-      res = blockFilter(url, res)
+      result = blockFilter(url, result)
       let lastRawId = 0
       try {
         [lastRawId] = page.data.feeds_arr[0].map(item => item.rawid)
       } catch (_) {}
 
-      page.setData({feeds_arr: [res]}, () => {
+      page.setData({feeds_arr: [result]}, () => {
         if (isTimeline(url)) {
           let withTimelineAudio = false
           try {
-            const [latestRawId] = res.map(item => item.rawid)
+            const [latestRawId] = result.map(item => item.rawid)
             withTimelineAudio = latestRawId > lastRawId
           } catch (_) {}
 
@@ -125,7 +125,7 @@ function isTimeline (url) {
   }
 }
 
-function blockFilter (url, res) {
+function blockFilter (url, result) {
   switch (url || '/statuses/home_timeline') {
     case '/statuses/home_timeline':
     case '/statuses/public_timeline':
@@ -140,7 +140,7 @@ function blockFilter (url, res) {
       const blockIds = getBlockIds()
       const blockNames = blocks.map(item => item.name)
       if (settings.hideBlocks) {
-        res = res.filter(status => {
+        result = result.filter(status => {
           const userId = status.user.id
           const userUniqueId = status.user.unique_id
           const users = getUsers(status)
@@ -169,20 +169,20 @@ function blockFilter (url, res) {
         })
       }
 
-      return res
+      return result
     }
 
     default:
-      return res
+      return result
   }
 }
 
 function favoriteChange (page) {
   if (page.data.feed.favorited) {
     ff.postPromise('/favorites/destroy/' + page.data.feed.id)
-      .then(res => {
-        if (res.error) {
-          showModal(res.error, null)
+      .then(result => {
+        if (result.error) {
+          showModal(result.error, null)
           return
         }
 
@@ -200,9 +200,9 @@ function favoriteChange (page) {
       .catch(err => showModal(err.errMsg))
   } else {
     ff.postPromise('/favorites/create/' + page.data.feed.id)
-      .then(res => {
-        if (res.error) {
-          showModal(res.error, null)
+      .then(result => {
+        if (result.error) {
+          showModal(result.error, null)
           return
         }
 
@@ -268,7 +268,7 @@ function destroyForTest (id) {
     .catch(err => showModal(err.errMsg))
 }
 
-function destroyMsg (page, id) {
+function destroyMessage (page, id) {
   ff.postPromise('/direct_messages/destroy', {id})
     .then(() => {
       wx.showToast({
@@ -291,19 +291,19 @@ function destroyMsg (page, id) {
     .catch(err => showModal(err.errMsg))
 }
 
-function postMsg (param, page) {
+function postMessage (parameter, page) {
   page.setData({posting: true})
-  ff.postPromise('/direct_messages/new', param)
-    .then(res => {
+  ff.postPromise('/direct_messages/new', parameter)
+    .then(result => {
       page.setData({posting: false})
-      if (res.error) {
-        showModal(res.error)
+      if (result.error) {
+        showModal(result.error)
         return
       }
 
       wx.showToast({title: i18n.compose.sent, image: '/assets/toast_reply.png', duration: 900})
       const [message] = page.data.feeds_arr
-      message.unshift(res)
+      message.unshift(result)
       page.setData({
         param: null,
         photoPaths: null,
@@ -317,28 +317,28 @@ function postMsg (param, page) {
 }
 
 function post (page, para, photoPaths, success) {
-  const param = Object.assign({format: 'html'}, para)
+  const parameter = Object.assign({format: 'html'}, para)
   page.setData({posting: true})
   if (photoPaths) {
-    _postPhoto(page, param, photoPaths, success)
+    _postPhoto(page, parameter, photoPaths, success)
   } else {
-    _postText(page, param, success)
+    _postText(page, parameter, success)
   }
 }
 
-function _postText (page, param, success) {
-  const direct = !(param.repost_status_id || param.in_reply_to_status_id || success)
-  const image = param.repost_status_id ?
-    '/assets/toast_repost.png' : (param.in_reply_to_status_id ?
+function _postText (page, parameter, success) {
+  const direct = !(parameter.repost_status_id || parameter.in_reply_to_status_id || success)
+  const image = parameter.repost_status_id ?
+    '/assets/toast_repost.png' : (parameter.in_reply_to_status_id ?
       '/assets/toast_reply.png' : '/assets/toast_post.png')
-  const title = param.repost_status_id ?
-    i18n.feed.reposted : (param.in_reply_to_status_id ?
+  const title = parameter.repost_status_id ?
+    i18n.feed.reposted : (parameter.in_reply_to_status_id ?
       i18n.feed.replied : i18n.feed.published)
-  ff.postPromise('/statuses/update', param)
-    .then(res => {
+  ff.postPromise('/statuses/update', parameter)
+    .then(result => {
       page.setData({posting: false})
-      if (res.error) {
-        showModal(res.error)
+      if (result.error) {
+        showModal(result.error)
         return
       }
 
@@ -347,13 +347,13 @@ function _postText (page, param, success) {
           url: '/pages/home/home',
           success: () => {
             wx.showToast({title, image, duration: 900})
-            _loadFeedThenAddToHome(res.id)
+            _loadFeedThenAddToHome(result.id)
           }
         })
       } else {
         wx.showToast({title, image, duration: 900})
-        if (param.in_reply_to_status_id) {
-          _loadFeedThenAddToReply(res.id)
+        if (parameter.in_reply_to_status_id) {
+          _loadFeedThenAddToReply(result.id)
         }
       }
 
@@ -372,15 +372,15 @@ function _postText (page, param, success) {
     })
 }
 
-function _postPhoto (page, param, photoPaths, success) {
-  const direct = !(param.repost_status_id || param.in_reply_to_status_id)
+function _postPhoto (page, parameter, photoPaths, success) {
+  const direct = !(parameter.repost_status_id || parameter.in_reply_to_status_id)
   const title = i18n.feed.published
   const image = '/assets/toast_photo.png'
-  ff.uploadPromise('/photos/upload', photoPaths, param)
-    .then(res => {
+  ff.uploadPromise('/photos/upload', photoPaths, parameter)
+    .then(result => {
       page.setData({posting: false})
-      if (res.error) {
-        showModal(res.error)
+      if (result.error) {
+        showModal(result.error)
         return
       }
 
@@ -389,13 +389,13 @@ function _postPhoto (page, param, photoPaths, success) {
           url: '/pages/home/home',
           success: () => {
             wx.showToast({title, image, duration: 900})
-            _loadFeedThenAddToHome(res.id)
+            _loadFeedThenAddToHome(result.id)
           }
         })
       } else {
         wx.showToast({title, image, duration: 900})
-        if (param.in_reply_to_status_id) {
-          _loadFeedThenAddToReply(res.id)
+        if (parameter.in_reply_to_status_id) {
+          _loadFeedThenAddToReply(result.id)
         }
       }
 
@@ -418,9 +418,9 @@ function updateAvatar (page, photoPaths) {
   const title = i18n.me.avatar_updated
   const image = '/assets/toast_done.png'
   ff.uploadPromise('/account/update_profile_image', photoPaths)
-    .then(res => {
-      if (res.error) {
-        showModal(res.error)
+    .then(result => {
+      if (result.error) {
+        showModal(result.error)
         return
       }
 
@@ -433,13 +433,13 @@ function updateAvatar (page, photoPaths) {
     .catch(err => showModal(err.errMsg))
 }
 
-function updateProfile (page, param) {
+function updateProfile (page, parameter) {
   const title = i18n.me.profile_updated
   const image = '/assets/toast_done.png'
-  ff.postPromise('/account/update_profile', param)
-    .then(res => {
-      if (res.error) {
-        showModal(res.error)
+  ff.postPromise('/account/update_profile', parameter)
+    .then(result => {
+      if (result.error) {
+        showModal(result.error)
         return
       }
 
@@ -467,14 +467,14 @@ function showUser (user, id) {
 function loadUser (id, page) {
   return new Promise(resolve => {
     ff.getPromise('/users/show', {id, format: 'html'})
-      .then(res => {
+      .then(result => {
         wx.stopPullDownRefresh()
-        if (res.error) {
-          showModal(res.error)
+        if (result.error) {
+          showModal(result.error)
           return
         }
 
-        const user = res
+        const user = result
         page.setData({user}, () => {
           resolve(user)
         })
@@ -514,13 +514,13 @@ function showModal (err, title) {
 
 function loadFeed (page, id) {
   ff.getPromise('/statuses/show', {id, format: 'html'})
-    .then(res => {
+    .then(result => {
       wx.stopPullDownRefresh()
-      if (res.error) {
+      if (result.error) {
         wx.showModal({
           confirmColor: '#33a5ff',
           title: i18n.common.error,
-          content: res.error,
+          content: result.error,
           showCancel: false,
           confirmText: i18n.common.ok,
           success: () => {
@@ -530,7 +530,7 @@ function loadFeed (page, id) {
         return
       }
 
-      page.setData({feed: res})
+      page.setData({feed: result})
     })
     .catch(err => {
       if (err.message !== 'not authed') {
@@ -541,15 +541,15 @@ function loadFeed (page, id) {
 
 function _loadFeedThenAddToHome (id) {
   ff.getPromise('/statuses/show', {id, format: 'html'})
-    .then(res => {
-      if (res.error) {
+    .then(result => {
+      if (result.error) {
         return
       }
 
       const [page] = getCurrentPages()
       if (page.route === 'pages/home/home') {
         const [feeds] = page.data.feeds_arr
-        feeds.unshift(res)
+        feeds.unshift(result)
         page.setData({'feeds_arr[0]': feeds})
       }
     })
@@ -558,15 +558,15 @@ function _loadFeedThenAddToHome (id) {
 
 function _loadFeedThenAddToReply (id) {
   ff.getPromise('/statuses/show', {id, format: 'html'})
-    .then(res => {
-      if (res.error) {
+    .then(result => {
+      if (result.error) {
         return
       }
 
       const [page] = getCurrentPages().slice(-1)
       if (page.route === 'pages/feed/feed') {
         const [feeds] = page.data.feeds_arr
-        feeds.push(res)
+        feeds.push(result)
         page.setData({'feeds_arr[0]': feeds})
       }
     })
@@ -598,14 +598,14 @@ function getUsers (status) {
 
 function loadMe (page) {
   ff.loadMePromise(getApp().globalData.account.tokens)
-    .then(res => {
+    .then(result => {
       wx.stopPullDownRefresh()
-      if (res.error) {
-        showModal(res.error)
+      if (result.error) {
+        showModal(result.error)
         return
       }
 
-      page.setData({user: res.user})
+      page.setData({user: result.user})
     })
 }
 
@@ -621,9 +621,9 @@ function navigateTo (url, success) {
 
 function follow (user, page) {
   ff.postPromise('/friendships/create', {id: user.id})
-    .then(res => {
-      if (res.error) {
-        showModal(res.error, null)
+    .then(result => {
+      if (result.error) {
+        showModal(result.error, null)
         return
       }
 
@@ -638,8 +638,8 @@ function follow (user, page) {
 function unfollow (user, page) {
   wx.showActionSheet({
     itemList: [i18n.me.unfollow],
-    success (res) {
-      if (!res.cancel) {
+    success (result) {
+      if (!result.cancel) {
         ff.postPromise('/friendships/destroy', {id: user.id})
           .then(() => {
             page.setData({
@@ -656,8 +656,8 @@ function unfollow (user, page) {
 function block (user, page) {
   wx.showActionSheet({
     itemList: [i18n.me.block],
-    success (res) {
-      if (!res.cancel) {
+    success (result) {
+      if (!result.cancel) {
         ff.postPromise('/blocks/create', {id: user.id})
           .then(() => {
             page.setData({
@@ -675,8 +675,8 @@ function block (user, page) {
 function unblock (user, page) {
   wx.showActionSheet({
     itemList: [i18n.me.unblock],
-    success (res) {
-      if (!res.cancel) {
+    success (result) {
+      if (!result.cancel) {
         ff.postPromise('/blocks/destroy', {id: user.id})
           .then(() => {
             page.setData({'relationship.blocking': false})
@@ -692,17 +692,17 @@ function relationship (targetId, page) {
     source_id: getApp().globalData.account.user.id,
     target_id: targetId
   })
-    .then(res => {
-      if (res.error) {
-        showModal(res.error)
+    .then(result => {
+      if (result.error) {
+        showModal(result.error)
         return
       }
 
       page.setData({
         relationship: {
-          following: res.relationship.source.following === 'true',
-          followed_by: res.relationship.source.followed_by === 'true',
-          blocking: res.relationship.source.blocking === 'true'
+          following: result.relationship.source.following === 'true',
+          followed_by: result.relationship.source.followed_by === 'true',
+          blocking: result.relationship.source.blocking === 'true'
         }
       })
     })
@@ -711,9 +711,9 @@ function relationship (targetId, page) {
 
 function accept (user, page) {
   ff.postPromise('/friendships/accept', {id: user.unique_id})
-    .then(res => {
-      if (res.error) {
-        showModal(res.error)
+    .then(result => {
+      if (result.error) {
+        showModal(result.error)
         return
       }
 
@@ -731,9 +731,9 @@ function accept (user, page) {
 
 function deny (user, page) {
   ff.postPromise('/friendships/deny', {id: user.unique_id})
-    .then(res => {
-      if (res.error) {
-        showModal(res.error)
+    .then(result => {
+      if (result.error) {
+        showModal(result.error)
         return
       }
 
@@ -772,8 +772,8 @@ module.exports = {
   unblock,
   accept,
   deny,
-  postMsg,
-  destroyMsg,
+  postMsg: postMessage,
+  destroyMsg: destroyMessage,
   updateAvatar,
   updateProfile,
   destroyForTest

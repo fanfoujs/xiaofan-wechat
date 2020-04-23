@@ -9,11 +9,11 @@ Page(extend({}, tap, {
   data: {
     statusBarHeight: wx.getSystemInfoSync().statusBarHeight
   },
-  onLoad (e) {
-    this.url = e.url
-    this.para = e
-    wx.setNavigationBarTitle({title: e.name})
-    this.setData({name: e.name, i18n})
+  onLoad (event) {
+    this.url = event.url
+    this.para = event
+    wx.setNavigationBarTitle({title: event.name})
+    this.setData({name: event.name, i18n})
     fm.load(this, this.url, this.para)
   },
   onPullDownRefresh () {
@@ -22,18 +22,18 @@ Page(extend({}, tap, {
   onReachBottom () {
     fm.loadMore(this, this.url, this.para)
   },
-  deny (e) {
-    fm.deny(e.currentTarget.dataset.user, this)
+  deny (event) {
+    fm.deny(event.currentTarget.dataset.user, this)
   },
-  accept (e) {
-    const {user} = e.currentTarget.dataset
+  accept (event) {
+    const {user} = event.currentTarget.dataset
     const page = this
     wx.showActionSheet({
       itemList: [i18n.request.accept, i18n.request.accept_and_follow],
-      success (res) {
-        if (res.tapIndex === 0) {
+      success (result) {
+        if (result.tapIndex === 0) {
           fm.accept(user, page)
-        } else if (res.tapIndex === 1) {
+        } else if (result.tapIndex === 1) {
           fm.accept(user, page)
           fm.follow(user, page)
         }

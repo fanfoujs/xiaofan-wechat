@@ -13,9 +13,9 @@ Page(extend({}, post, {
     statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
     bottomHeight: util.isIpx() ? 64 : 0
   },
-  onLoad (e) {
+  onLoad (event) {
     this.setData({i18n})
-    this.id = e.id
+    this.id = event.id
     fm.load(this, url, {id: this.id})
     fm.relationship(this.id, this)
   },
@@ -49,25 +49,25 @@ Page(extend({}, post, {
       }, 200)
     })
   },
-  post (e) {
+  post (event) {
     this.setData({
       sendPop: animations.pop().export()
     }, () => {
       setTimeout(() => {
-        const param = Object.assign(this.data.param || {}, {text: e.detail.value.post})
-        fm.postMsg(param, this)
+        const parameter = Object.assign(this.data.param || {}, {text: event.detail.value.post})
+        fm.postMsg(parameter, this)
       }, 200)
     })
   },
-  tapMsg (e) {
+  tapMsg (event) {
     const page = this
     wx.showActionSheet({
       itemList: ['复制', '删除'],
-      success (res) {
-        if (res.tapIndex === 0) {
-          wx.setClipboardData({data: e.currentTarget.dataset.msg.text})
-        } else if (res.tapIndex === 1) {
-          fm.destroyMsg(page, e.currentTarget.dataset.msg.id)
+      success (result) {
+        if (result.tapIndex === 0) {
+          wx.setClipboardData({data: event.currentTarget.dataset.msg.text})
+        } else if (result.tapIndex === 1) {
+          fm.destroyMsg(page, event.currentTarget.dataset.msg.id)
         }
       }
     })

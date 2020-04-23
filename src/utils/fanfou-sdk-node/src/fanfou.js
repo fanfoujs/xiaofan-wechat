@@ -52,9 +52,9 @@ class Fanfou {
   }
 
   xauth (callback) {
-    this.oauth.getXAuthAccessToken(this.username, this.password, (e, oauthToken, oauthTokenSecret) => {
-      if (e) {
-        callback(e)
+    this.oauth.getXAuthAccessToken(this.username, this.password, (error, oauthToken, oauthTokenSecret) => {
+      if (error) {
+        callback(error)
       } else {
         this.oauth.oauth_token = oauthToken
         this.oauth.oauth_token_secret = oauthTokenSecret
@@ -72,9 +72,9 @@ class Fanfou {
       url + '?' + qs.stringify(parameters),
       tokens.oauth_token,
       tokens.oauth_token_secret,
-      (e, data) => {
-        if (e) {
-          callback(e, null, null)
+      (error, data) => {
+        if (error) {
+          callback(error, null, null)
         } else if (data.error) {
           callback(null, data)
         } else {
@@ -92,9 +92,9 @@ class Fanfou {
       tokens.oauth_token,
       tokens.oauth_token_secret,
       parameters,
-      (e, data) => {
-        if (e) {
-          callback(e)
+      (error, data) => {
+        if (error) {
+          callback(error)
         } else if (data.error) {
           callback(null, data)
         } else {
@@ -110,7 +110,7 @@ class Fanfou {
     this.oauth.oauth_token_secret = tokens.oauth_token_secret
     const method = 'POST'
     const url = this.protocol + '//' + this.api_domain + uri + '.json'
-    const params = {
+    const parameters_ = {
       oauth_consumer_key: this.consumer_key,
       oauth_token: tokens.oauth_token,
       oauth_signature_method: 'HMAC-SHA1',
@@ -121,14 +121,14 @@ class Fanfou {
     const signature = oauthSignature.generate(
       method,
       url.replace(/https/, 'http').replace(/fanfou\.pro/, 'fanfou.com'),
-      params,
+      parameters_,
       this.consumer_secret,
       tokens.oauth_token_secret,
       {encodeSignature: false}
     )
     const authorizationHeader = this.oauth._buildAuthorizationHeaders(
       this.oauth._sortRequestParams(
-        this.oauth._makeArrayOfArgumentsHash(params)
+        this.oauth._makeArrayOfArgumentsHash(parameters_)
       ).concat([['oauth_signature', signature]])
     )
     const name = uri === '/photos/upload' ? 'photo' : (uri === '/account/update_profile_image' ? 'image' : 'file')
@@ -138,8 +138,8 @@ class Fanfou {
       header: {Authorization: authorizationHeader},
       name,
       formData: parameters,
-      success (res) {
-        const {data} = res
+      success (result) {
+        const {data} = result
         callback(null, data)
       },
       fail () {
@@ -203,22 +203,22 @@ class Fanfou {
   }
 
   static _parseList (data, type) {
-    const arr = []
+    const array = []
     for (const i in data) {
       if (data[i]) {
         switch (type) {
           case 'timeline':
-            arr.push(new Status(data[i]))
+            array.push(new Status(data[i]))
             break
           case 'users':
-            arr.push(new User(data[i]))
+            array.push(new User(data[i]))
             break
           case 'conversation':
-            arr.push(new DirectMessage(data[i]))
+            array.push(new DirectMessage(data[i]))
             break
           case 'conversation-list':
             data[i].dm = new DirectMessage(data[i].dm)
-            arr.push(data[i])
+            array.push(data[i])
             break
           default:
             break
@@ -226,7 +226,7 @@ class Fanfou {
       }
     }
 
-    return arr
+    return array
   }
 
   static _parseData (data, type) {

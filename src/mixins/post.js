@@ -11,18 +11,18 @@ module.exports = {
     i18n,
     statusBarHeight: wx.getSystemInfoSync().statusBarHeight
   },
-  post (e) {
+  post (event) {
     this.setData({
       sendPop: animations.pop().export()
     }, () => {
       setTimeout(() => {
-        const param = Object.assign(this.data.param || {}, {status: e.detail.value.post})
-        fm.post(this, param, this.data.photoPaths)
+        const parameter = Object.assign(this.data.param || {}, {status: event.detail.value.post})
+        fm.post(this, parameter, this.data.photoPaths)
       }, 100)
     })
   },
-  bindinput (e) {
-    this.setData({length: e.detail.value.length})
+  bindinput (event) {
+    this.setData({length: event.detail.value.length})
   },
   reset () {
     this.setData({
@@ -47,9 +47,9 @@ module.exports = {
         wx.chooseImage({
           count: 1,
           sizeType: ['original', 'compressed'],
-          success (res) {
+          success (result) {
             page.setData({
-              photoPaths: res.tempFilePaths
+              photoPaths: result.tempFilePaths
             })
           }
         })
@@ -62,9 +62,9 @@ module.exports = {
       count: 1,
       sizeType: ['original'],
       sourceType: ['album'],
-      success (res) {
+      success (result) {
         page.setData({
-          photoPaths: res.tempFilePaths
+          photoPaths: result.tempFilePaths
         })
       }
     })
@@ -76,8 +76,8 @@ module.exports = {
         i18n.compose.preview_attachment,
         i18n.compose.remove_attachment
       ],
-      success (res) {
-        const {tapIndex} = res
+      success (result) {
+        const {tapIndex} = result
         switch (tapIndex) {
           case 0: {
             wx.previewImage({urls: page.data.photoPaths})

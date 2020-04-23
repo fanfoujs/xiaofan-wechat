@@ -15,7 +15,7 @@ Page({
   },
 
   // Login action
-  login (e) {
+  login (event) {
     this.setData({
       loginButtonPop: animations.pop().export()
     }, () => {
@@ -24,7 +24,7 @@ Page({
           title: i18n.login.fetching,
           mask: true
         })
-        ff.authPromise(e.detail.value.username, e.detail.value.password)
+        ff.authPromise(event.detail.value.username, event.detail.value.password)
           .then(() => {
             wx.reLaunch({url: '/pages/home/home'})
           })
@@ -45,8 +45,8 @@ Page({
   },
 
   // Tap to switch account
-  tapListItem (e) {
-    const {id} = e.currentTarget.dataset
+  tapListItem (event) {
+    const {id} = event.currentTarget.dataset
     const accounts = this.getAccounts()
     let index = -1
     for (const [i, element] of accounts.entries()) {
@@ -65,15 +65,15 @@ Page({
 
     wx.setStorageSync('accounts', accounts)
   },
-  longpressListItem (e) {
+  longpressListItem (event) {
     const page = this
     const accounts = this.getAccounts()
     wx.showActionSheet({
       itemList: [i18n.login.logout],
-      success (res) {
-        if (!res.cancel) {
+      success (result) {
+        if (!result.cancel) {
           for (const [i, account] of accounts.entries()) {
-            if (account.id === e.currentTarget.dataset.id) {
+            if (account.id === event.currentTarget.dataset.id) {
               accounts.splice(i, 1)
               wx.setStorageSync('accounts', accounts)
               const [account] = accounts

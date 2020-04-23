@@ -9,18 +9,18 @@ const i18n = require('../../i18n/index')
 const getShisTimeline = (page, user) => {
   const {he, she, she_he, his, her, her_his} = i18n.common
   const {timeline} = i18n.me
-  let shisTimelineArr = null
+  let shisTimelineArray = null
   let shisTimeline = null
   switch (i18n.lang) {
     case 'zhCN':
-      shisTimelineArr = [she, he, she_he]
+      shisTimelineArray = [she, he, she_he]
       break
     default:
-      shisTimelineArr = [her, his, her_his]
+      shisTimelineArray = [her, his, her_his]
       break
   }
 
-  let [h0, h1, h2] = shisTimelineArr
+  let [h0, h1, h2] = shisTimelineArray
   switch (user.gender) {
     case '女':
       shisTimeline = h0 + timeline
@@ -41,30 +41,30 @@ const getShisTimeline = (page, user) => {
 }
 
 Page(extend({}, tap, post, {
-  onLoad (e) {
+  onLoad (event) {
     wx.setNavigationBarTitle({title: i18n.home.title})
     const {user = {}, appid} = getApp().globalData
     this.setData({user, appid, i18n})
-    if (!this.data.user || e.share) {
-      fm.loadUser(decodeURIComponent(e.id), this).then(() => {
+    if (!this.data.user || event.share) {
+      fm.loadUser(decodeURIComponent(event.id), this).then(() => {
         getShisTimeline(this, this.data.user)
       })
     } else {
       getShisTimeline(this, this.data.user)
     }
 
-    fm.relationship(decodeURIComponent(e.id), this)
+    fm.relationship(decodeURIComponent(event.id), this)
   },
   onPullDownRefresh () {
     fm.loadUser(this.data.user.id, this)
     fm.relationship(this.data.user.id, this)
   },
-  message (e) {
+  message (event) {
     this.setData({
       messagePop: animations.pop().export()
     }, () => {
       setTimeout(() => {
-        fm.navigateTo(`../message/message?id=${e.currentTarget.dataset.user.id}&name=${e.currentTarget.dataset.user.name}`)
+        fm.navigateTo(`../message/message?id=${event.currentTarget.dataset.user.id}&name=${event.currentTarget.dataset.user.name}`)
       }, 200)
     })
   },
@@ -75,8 +75,8 @@ Page(extend({}, tap, post, {
       const {name} = this.data.user
       wx.showActionSheet({
         itemList: [`问 @${name} 要微信号`, '已配置好微信权限'],
-        success (res) {
-          if (res.tapIndex === 0) {
+        success (result) {
+          if (result.tapIndex === 0) {
             fm.post(page, {status: `@${name} 需要你的微信号，来帮你配置小饭体验者权限。`}, null, () => {
               wx.showModal({
                 confirmColor: '#33a5ff',
@@ -85,7 +85,7 @@ Page(extend({}, tap, post, {
                 confirmText: '好的'
               })
             })
-          } else if (res.tapIndex === 1) {
+          } else if (result.tapIndex === 1) {
             const appidlink = `open.weixin.qq.com/sns/getexpappinfo?appid=${this.data.appid}#wechat-redirect`
             fm.post(page, {status: `@${name} 复制地址并在微信中访问体验小饭：${appidlink}`}, null, () => {
               wx.showModal({
@@ -101,10 +101,10 @@ Page(extend({}, tap, post, {
     } else {
       wx.showActionSheet({
         itemList: ['已搭建好小饭', '查看搭建教程'],
-        success (res) {
-          if (res.tapIndex === 0) {
+        success (result) {
+          if (result.tapIndex === 0) {
             page.setData({distributor: true})
-          } else if (res.tapIndex === 1) {
+          } else if (result.tapIndex === 1) {
             page.showTutorial()
           }
         }
@@ -115,12 +115,12 @@ Page(extend({}, tap, post, {
     const page = this
     wx.showActionSheet({
       itemList: ['删除 App ID', '查看搭建教程'],
-      success (res) {
-        if (res.tapIndex === 0) {
+      success (result) {
+        if (result.tapIndex === 0) {
           wx.removeStorageSync('appid')
           getApp().globalData.appid = null
           page.setData({appid: null})
-        } else if (res.tapIndex === 1) {
+        } else if (result.tapIndex === 1) {
           page.showTutorial()
         }
       }
@@ -138,9 +138,9 @@ Page(extend({}, tap, post, {
       }, 200)
     })
   },
-  saveAppID (e) {
+  saveAppID (event) {
     const page = this
-    const {appid} = e.detail.value
+    const {appid} = event.detail.value
     const {name, taMiddle: ta} = this.data.user
     if (appid) {
       wx.setStorageSync('appid', appid)
@@ -152,8 +152,8 @@ Page(extend({}, tap, post, {
           content: `你已成为分发者。请获取 @${name} 的微信号，然后去 https://mp.weixin.qq.com 用户身份页，为${ta}添加体验权者权限，再来完成邀请。`,
           showCancel: false,
           confirmText: '好的',
-          success (res) {
-            if (res.confirm) {
+          success (result) {
+            if (result.confirm) {
               page.tapDistributor()
             }
           }

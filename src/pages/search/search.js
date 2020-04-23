@@ -31,8 +31,8 @@ Page(extend({}, tap, {
   },
   loadTrendsAndSavedSearchesList () {
     ff.getPromise('/trends/list')
-      .then(res => {
-        const trends = res.trends.map(item => {
+      .then(result => {
+        const trends = result.trends.map(item => {
           return {
             name: item.name,
             query: item.query.trim().split('|').join(' | '),
@@ -43,45 +43,45 @@ Page(extend({}, tap, {
       })
       .catch(err => fm.showModal(err.errMsg))
     ff.getPromise('/saved_searches/list')
-      .then(res => {
+      .then(result => {
         this.setData({
-          saved_searches: res
+          saved_searches: result
         })
       })
       .catch(err => fm.showModal(err.errMsg))
   },
-  search (e) {
-    fm.navigateTo(`../feeds/feeds?q=${e.detail.value}`, () => {
+  search (event) {
+    fm.navigateTo(`../feeds/feeds?q=${event.detail.value}`, () => {
       this.setData({
         value: null
       })
       for (const value of this.data.saved_searches) {
-        if (value.query === e.detail.value) {
+        if (value.query === event.detail.value) {
           return
         }
       }
 
-      ff.postPromise('/saved_searches/create', {query: e.detail.value})
-        .then(res => {
-          this.setData({['saved_searches[' + this.data.saved_searches.length + ']']: res})
+      ff.postPromise('/saved_searches/create', {query: event.detail.value})
+        .then(result => {
+          this.setData({['saved_searches[' + this.data.saved_searches.length + ']']: result})
         })
         .catch(err => fm.showModal(err.errMsg))
     })
   },
-  tapListItem (e) {
-    fm.navigateTo(`../feeds/feeds?q=${e.currentTarget.dataset.query}`)
+  tapListItem (event) {
+    fm.navigateTo(`../feeds/feeds?q=${event.currentTarget.dataset.query}`)
   },
-  longpressListItem (e) {
+  longpressListItem (event) {
     const page = this
     wx.showActionSheet({
       itemList: [i18n.common.delete],
-      success (res) {
-        if (!res.cancel) {
-          ff.postPromise('/saved_searches/destroy', {id: e.currentTarget.dataset.id})
+      success (result) {
+        if (!result.cancel) {
+          ff.postPromise('/saved_searches/destroy', {id: event.currentTarget.dataset.id})
             .then(() => {})
             .catch(err => fm.showModal(err.errMsg))
           for (const [index, value] of page.data.saved_searches.entries()) {
-            if (value.id === e.currentTarget.dataset.id) {
+            if (value.id === event.currentTarget.dataset.id) {
               page.data.saved_searches.splice(index, 1)
               page.setData({
                 saved_searches: page.data.saved_searches

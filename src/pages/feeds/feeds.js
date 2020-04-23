@@ -13,13 +13,13 @@ Page(extend({}, tap, {
     settings: getSettings(),
     isUserTimeline: false
   },
-  onLoad (e) {
-    this.url = e.url || '/search/public_timeline'
-    this.para = e
-    this.id = e.id || null
+  onLoad (event) {
+    this.url = event.url || '/search/public_timeline'
+    this.para = event
+    this.id = event.id || null
     const isUserTimeline = this.url === '/statuses/user_timeline'
     this.setData({i18n, isUserTimeline, id: this.id})
-    wx.setNavigationBarTitle({title: e.name || e.q || e.url})
+    wx.setNavigationBarTitle({title: event.name || event.q || event.url})
     fm.load(this, this.url, this.para)
     network.listen(this)
   },
@@ -38,9 +38,9 @@ Page(extend({}, tap, {
       duration: 300
     })
   },
-  search (e) {
+  search (event) {
     const url = '/search/user_timeline'
-    fm.navigateTo(`../feeds/feeds?url=${url}&q=${e.detail.value}&id=${this.id}`, () => {
+    fm.navigateTo(`../feeds/feeds?url=${url}&q=${event.detail.value}&id=${this.id}`, () => {
       this.setData({
         value: null
       })
