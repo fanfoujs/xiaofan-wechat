@@ -4,7 +4,7 @@ const animations = require('../../utils/animations')
 const post = require('../../mixins/post')
 const i18n = require('../../i18n/index')
 const util = require('../../utils/util')
-const vibrate = require('../../vibrate')
+const vibrate = require('../../utils/vibrate')
 
 const url = '/direct_messages/conversation'
 

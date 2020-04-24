@@ -114,7 +114,6 @@ function load (page, url, para) {
 }
 
 function isTimeline (url) {
-  console.log(url)
   switch (url || '/statuses/home_timeline') {
     case '/statuses/home_timeline':
     case '/statuses/user_timeline':
