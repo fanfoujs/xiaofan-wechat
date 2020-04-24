@@ -88,15 +88,12 @@ function load (page, url, para) {
 
       page.setData({feeds_arr: [result]}, () => {
         if (isTimeline(url)) {
+          vibrate()
           let withTimelineAudio = false
           try {
             const [latestRawId] = result.map(item => item.rawid)
             withTimelineAudio = latestRawId > lastRawId
           } catch (_) {}
-
-          if (withTimelineAudio) {
-            vibrate()
-          }
 
           if (getSettings().timelineAudio && withTimelineAudio) {
             audio.bubble()
@@ -117,8 +114,11 @@ function load (page, url, para) {
 }
 
 function isTimeline (url) {
+  console.log(url)
   switch (url || '/statuses/home_timeline') {
     case '/statuses/home_timeline':
+    case '/statuses/user_timeline':
+    case '/photos/user_timeline':
     case '/statuses/public_timeline':
     case '/statuses/mentions':
     case '/search/public_timeline':
@@ -126,6 +126,10 @@ function isTimeline (url) {
     case '/statuses/replies':
     case '/search/user_timeline':
     case '/favorites':
+    case '/users/friends':
+    case '/users/followers':
+    case '/direct_messages/conversation_list':
+    case '/direct_messages/conversation':
       return true
     default:
       return false
@@ -199,12 +203,11 @@ function favoriteChange (page) {
           for (const [feedIndex, feed] of feeds.entries()) {
             if (feed.id === page.data.feed.id) {
               pagePre.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].favorited`]: false})
+              vibrate()
               return
             }
           }
         }
-
-        vibrate()
       })
       .catch(err => showModal(err.errMsg))
   } else {
@@ -221,12 +224,11 @@ function favoriteChange (page) {
           for (const [feedIndex, feed] of feeds.entries()) {
             if (feed.id === page.data.feed.id) {
               pagePre.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].favorited`]: true})
+              vibrate()
               return
             }
           }
         }
-
-        vibrate()
       })
       .catch(err => showModal(err.errMsg))
   }
@@ -250,12 +252,11 @@ function destroy (id) {
                 page.setData({
                   [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
                 })
+                vibrate()
                 return
               }
             }
           }
-
-          vibrate()
         }
       })
     })
@@ -273,12 +274,11 @@ function destroyForTest (id) {
             page.setData({
               [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
             })
+            vibrate()
             return
           }
         }
       }
-
-      vibrate()
     })
     .catch(err => showModal(err.errMsg))
 }
@@ -298,12 +298,11 @@ function destroyMessage (page, id) {
             page.setData({
               [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
             })
+            vibrate()
             return
           }
         }
       }
-
-      vibrate()
     })
     .catch(err => showModal(err.errMsg))
 }

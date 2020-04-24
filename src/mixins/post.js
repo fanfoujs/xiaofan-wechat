@@ -1,6 +1,7 @@
 const fm = require('../components/feeds-manager')
 const i18n = require('../i18n/index')
 const animations = require('../utils/animations')
+const vibrate = require('../utils/vibrate')
 
 module.exports = {
   data: {
@@ -28,6 +29,7 @@ module.exports = {
     this.setData({
       resetPop: animations.pop().export()
     }, () => {
+      vibrate()
       setTimeout(() => {
         this.setData({
           param: null,
@@ -42,6 +44,7 @@ module.exports = {
     this.setData({
       addPhotoPop: animations.pop().export()
     }, () => {
+      vibrate()
       setTimeout(() => {
         const page = this
         wx.chooseImage({
@@ -57,6 +60,7 @@ module.exports = {
     })
   },
   addGif () {
+    vibrate()
     const page = this
     wx.chooseImage({
       count: 1,

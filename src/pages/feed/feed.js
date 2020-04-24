@@ -6,6 +6,7 @@ const post = require('../../mixins/post')
 const tap = require('../../mixins/tap')
 const i18n = require('../../i18n/index')
 const util = require('../../utils/util')
+const vibrate = require('../../utils/vibrate')
 
 Page(extend({}, tap, post, {
   data: {
@@ -37,6 +38,7 @@ Page(extend({}, tap, post, {
       sendPop: null
     }, () => {
       setTimeout(() => {
+        vibrate()
         this.setData({
           param: {
             status,
@@ -57,6 +59,7 @@ Page(extend({}, tap, post, {
       sendPop: null
     }, () => {
       setTimeout(() => {
+        vibrate()
         this.setData({
           param: {
             status,
