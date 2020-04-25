@@ -15,6 +15,18 @@ Page(extend({}, tap, {
     settings: getSettings()
   },
   onLoad () {
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
+    this.setData({hide: isDebug})
+    if (isDebug) {
+      wx.hideTabBar()
+    }
+
+    if (isDebug) {
+      fm.load(this, '/statuses/user_timeline', {id: 'yocat'})
+      return
+    }
+
     fm.load(this)
     network.listen(this)
   },
@@ -23,10 +35,32 @@ Page(extend({}, tap, {
     this.setData({settings: getSettings()})
   },
   onPullDownRefresh () {
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
+    if (isDebug) {
+      wx.hideTabBar()
+    }
+
+    if (isDebug) {
+      fm.load(this, '/statuses/user_timeline', {id: 'yocat'})
+      return
+    }
+
     fm.load(this)
     tab.updateNotis()
   },
   onReachBottom () {
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
+    if (isDebug) {
+      wx.hideTabBar()
+    }
+
+    if (isDebug) {
+      fm.loadMore(this, '/statuses/user_timeline', {id: 'yocat'})
+      return
+    }
+
     fm.loadMore(this)
     tab.updateNotis()
   },

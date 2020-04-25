@@ -2,9 +2,9 @@
 <view style="padding-top: {{statusBarHeight}}px;">
 <block wx:if="{{feed}}">
   <view class="aboveToolbar" style="padding-top: {{param ? 235: 0}}px;">
-    <template is="feeds_context" data="{{feed, feeds_arr, imageFadeIn, userAvatarFadeIn}}" />
+    <template is="feeds_context" data="{{feed, feeds_arr, imageFadeIn, userAvatarFadeIn, hide}}" />
   </view>
-  <template is="toolbar" data="{{feed, replyPop, repostPop, starPop, deletePop, bottomHeight}}" />
+  <template wx:if="{{!hide}}" is="toolbar" data="{{feed, replyPop, repostPop, starPop, deletePop, bottomHeight}}" />
 </block>
 <block wx:if="{{param}}">
   <view class="mask">

@@ -5,6 +5,12 @@ const vibrate = require('../utils/vibrate')
 
 module.exports = {
   tapTxt (event) {
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
+    if (isDebug) {
+      return
+    }
+
     const txt = event.currentTarget.dataset.value
     switch (txt.type) {
       case 'at':
@@ -18,12 +24,30 @@ module.exports = {
     }
   },
   tapID (event) {
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
+    if (isDebug) {
+      return
+    }
+
     fm.showUser(null, event.currentTarget.dataset.id)
   },
   tapAvatar (event) {
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
+    if (isDebug) {
+      return
+    }
+
     fm.showUser(event.currentTarget.dataset.user, event.currentTarget.dataset.user.id)
   },
   tapName (event) {
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
+    if (isDebug) {
+      return
+    }
+
     const {id} = event.currentTarget.dataset
     wx.showModal({
       confirmColor: '#33a5ff',
@@ -47,6 +71,12 @@ module.exports = {
     fm.showFeed(event.currentTarget.dataset.feed)
   },
   tapFeedDetail (event) {
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
+    if (isDebug) {
+      return
+    }
+
     const itemList = [i18n.feed.copy]
     let id = null
     const {feed} = event.currentTarget.dataset
@@ -70,6 +100,12 @@ module.exports = {
     })
   },
   tapListItem (event) {
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
+    if (isDebug) {
+      return
+    }
+
     fm.navigateTo(`${event.currentTarget.dataset.page}?url=${event.currentTarget.dataset.url}&id=${this.data.user.id}&name=${event.currentTarget.dataset.name}`)
   },
   tapImage (event) {

@@ -11,12 +11,15 @@ const vibrate = require('../../utils/vibrate')
 Page(extend({}, tap, post, {
   data: {
     statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-    bottomHeight: util.isIpx() ? 64 : 0
+    bottomHeight: util.isIpx() ? 64 : 0,
+    hide: false
   },
   onLoad (event) {
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
     wx.setNavigationBarTitle({title: i18n.feed.title})
     const {feed} = getApp().globalData
-    this.setData({i18n})
+    this.setData({i18n, hide: isDebug})
     if (feed && !event.share) {
       this.setData({feed})
     } else {

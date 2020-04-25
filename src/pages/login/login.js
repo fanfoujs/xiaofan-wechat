@@ -11,7 +11,9 @@ Page({
   onLoad () {
     wx.setNavigationBarTitle({title: i18n.login.title})
     const accounts = this.getAccounts()
-    this.setData({accounts, i18n})
+    const as = wx.getStorageSync('accounts') || []
+    const isDebug = as.length === 1 && as[0].id === 'debug'
+    this.setData({accounts, i18n, hide: isDebug})
   },
 
   // Login action

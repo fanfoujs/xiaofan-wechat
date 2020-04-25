@@ -15,7 +15,7 @@
 
 <!--消息列表封装成嵌套数组，绕过微信 setData 的 1M 限制-->
 <template name="feeds_arr">
-  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="feeds" data="{{feeds, isWiFi, avatarFadeIn, settings}}" />
+  <template wx:for="{{feeds_arr}}" wx:key="ignorekeywarn" wx:for-item="feeds" is="feeds" data="{{feeds, isWiFi, avatarFadeIn, settings, hide}}" />
 </template>
 
 <!--消息列表-->
@@ -39,10 +39,10 @@
     <text>{{avatarFadeIn}}</text>
     <view class="after_avatar full_width">
       <view class="topline">
-        <text class="name">{{feed.user.name}}</text>
-        <text class="meta">{{settings.showTimeago ? feed.time_ago : ''}} {{settings.showSource ? feed.source_name : ''}}</text>
+        <text wx:if="{{!hide}}" class="name">{{feed.user.name}}</text>
+        <text class="meta">{{settings.showTimeago ? feed.time_ago : ''}} {{!hide && settings.showSource ? feed.source_name : ''}}</text>
       </view>
-      <block wx:for="{{feed.txt}}" wx:key="ignorekeywarn" wx:for-item="txt">
+      <block wx:if="{{!hide}}" wx:for="{{feed.txt}}" wx:key="ignorekeywarn" wx:for-item="txt">
         <text wx:if="{{!txt.bold_arr}}" class="{{txt.type}}" data-value="{{txt}}" catchtap="{{txt.type !== 'text' ? 'tapTxt' : ''}}">{{txt.text}}</text>
         <block wx:else>
             <text
@@ -100,12 +100,12 @@
 
 <!--对话-->
 <template name="feeds_context">
-  <block wx:if="{{feeds_arr[0].length > 1 && feeds_arr[0][0].id !== feed.id}}">
+  <block wx:if="{{!hide && feeds_arr[0].length > 1 && feeds_arr[0][0].id !== feed.id}}">
     <template is="feeds" data="{{feeds: feeds_arr[0], rawid: feed.rawid, isBefore: true}}" />
     <template is="divider" />
   </block>
-  <template is="feed" data="{{feed, imageFadeIn, userAvatarFadeIn}}" />
-  <block wx:if="{{feeds_arr[0].length > 1 && feeds_arr[0][feeds_arr[0].length - 1].id !== feed.id}}">
+  <template is="feed" data="{{feed, imageFadeIn, userAvatarFadeIn, hide}}" />
+  <block wx:if="{{!hide && feeds_arr[0].length > 1 && feeds_arr[0][feeds_arr[0].length - 1].id !== feed.id}}">
     <template is="divider" />
     <template is="feeds" data="{{feeds: feeds_arr[0], rawid: feed.rawid, isBefore: false}}" />
   </block>
@@ -126,10 +126,11 @@
     />
     <view class="after_avatar full_width">
       <view class="topline">
-        <text class="name">{{feed.user.name}}</text>
-        <text class="meta">{{feed.time_tag}} {{feed.source_name}}</text>
+        <text wx:if="{{!hide}}" class="name">{{feed.user.name}}</text>
+        <text class="meta">{{feed.time_tag}} {{!hide ? feed.source_name : ''}}</text>
       </view>
       <text
+        wx:if="{{!hide}}"
         wx:for="{{feed.txt}}"
         wx:key="ignorekeywarn"
         wx:for-item="txt"

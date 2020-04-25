@@ -18,7 +18,10 @@ Page(extend({}, tap, {
     this.para = event
     this.id = event.id || null
     const isUserTimeline = this.url === '/statuses/user_timeline'
-    this.setData({i18n, isUserTimeline, id: this.id})
+    const accounts = wx.getStorageSync('accounts') || []
+    const isDebug = accounts.length === 1 && accounts[0].id === 'debug'
+    this.setData({i18n, isUserTimeline, id: this.id, hide: isDebug})
+    console.log(isDebug)
     wx.setNavigationBarTitle({title: event.name || event.q || event.url})
     fm.load(this, this.url, this.para)
     network.listen(this)

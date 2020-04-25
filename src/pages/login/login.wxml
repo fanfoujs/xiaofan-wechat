@@ -1,6 +1,7 @@
 <import src="/components/templates.wxml" />
 <form wx:if="{{!authorized}}" bindsubmit="login">
-  <input style="margin-top: {{statusBarHeight * 2}}px;" class="input_bar" name="username" placeholder-class="gray" placeholder="{{i18n.login.username}}" />
+  <view style="margin-left: 20px; color: #444;margin-top: {{statusBarHeight * 2}}px; margin-bottom: 10px;">使用饭否帐号登录</view>
+  <input class="input_bar" name="username" placeholder-class="gray" placeholder="{{i18n.login.username}}" />
   <input class="input_bar" name="password" placeholder-class="gray" password="{{true}}" placeholder="{{i18n.login.password}}" />
   <button
     class="btn1 space_item_v"
