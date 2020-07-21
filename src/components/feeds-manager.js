@@ -84,7 +84,7 @@ function load (page, url, para) {
       let lastRawId = 0
       try {
         [lastRawId] = page.data.feeds_arr[0].map(item => item.rawid)
-      } catch (_) {}
+      } catch {}
 
       page.setData({feeds_arr: [result]}, () => {
         if (isTimeline(url)) {
@@ -93,7 +93,7 @@ function load (page, url, para) {
           try {
             const [latestRawId] = result.map(item => item.rawid)
             withTimelineAudio = latestRawId > lastRawId
-          } catch (_) {}
+          } catch {}
 
           if (getSettings().timelineAudio && withTimelineAudio) {
             audio.bubble()
