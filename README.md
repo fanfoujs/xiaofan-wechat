@@ -32,7 +32,7 @@ Here is [deployment tutorial](http://www.billlee.win/archives/139).
 
 ## Team
 
-- [@猫弟](https://fanfou.com/maundytime)
+- [@maundytime](https://fanfou.com/maundytime)
 - [@mogita](https://fanfou.com/mogita)
 
 ## Thank
