@@ -48,9 +48,9 @@ class Fanfou {
         username,
         password
       })
-      ff.xauth((err, tokens) => {
-        if (err) {
-          reject(err)
+      ff.xauth((error, tokens) => {
+        if (error) {
+          reject(error)
         } else {
           this.loadMePromise(tokens).then(resolve).catch(reject)
         }
@@ -61,9 +61,9 @@ class Fanfou {
   static loadMePromise (tokens) {
     tokens = tokens || getApp().globalData.account.tokens
     return new Promise((resolve, reject) => {
-      this.get('/account/verify_credentials', {}, tokens, (err, user) => {
-        if (err) {
-          reject(err)
+      this.get('/account/verify_credentials', {}, tokens, (error, user) => {
+        if (error) {
+          reject(error)
         } else {
           // Save tokens to local storage
           user.is_me = true
@@ -155,7 +155,8 @@ class Fanfou {
         tokens
       } = getApp().globalData.account
       if (!tokens || !tokens.oauth_token || !tokens.oauth_token_secret) {
-        return reject(new Error(`Not authed, will not make post request to <${uri}>`))
+        reject(new Error(`Not authed, will not make post request to <${uri}>`))
+        return
       }
 
       const ff = new FanfouSDK({
@@ -209,8 +210,8 @@ class Fanfou {
           try {
             const result = JSON.parse(response)
             resolve(result)
-          } catch (err) {
-            reject(err)
+          } catch (error_) {
+            reject(error_)
           }
         }
       })

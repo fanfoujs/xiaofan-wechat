@@ -41,14 +41,14 @@ Page(extend({}, tap, {
         })
         this.setData({trends})
       })
-      .catch(err => fm.showModal(err.errMsg))
+      .catch(error => fm.showModal(error.errMsg))
     ff.getPromise('/saved_searches/list')
       .then(result => {
         this.setData({
           saved_searches: result
         })
       })
-      .catch(err => fm.showModal(err.errMsg))
+      .catch(error => fm.showModal(error.errMsg))
   },
   search (event) {
     fm.navigateTo(`../feeds/feeds?q=${event.detail.value}`, () => {
@@ -65,7 +65,7 @@ Page(extend({}, tap, {
         .then(result => {
           this.setData({['saved_searches[' + this.data.saved_searches.length + ']']: result})
         })
-        .catch(err => fm.showModal(err.errMsg))
+        .catch(error => fm.showModal(error.errMsg))
     })
   },
   tapListItem (event) {
@@ -79,7 +79,7 @@ Page(extend({}, tap, {
         if (!result.cancel) {
           ff.postPromise('/saved_searches/destroy', {id: event.currentTarget.dataset.id})
             .then(() => {})
-            .catch(err => fm.showModal(err.errMsg))
+            .catch(error => fm.showModal(error.errMsg))
           for (const [index, value] of page.data.saved_searches.entries()) {
             if (value.id === event.currentTarget.dataset.id) {
               page.data.saved_searches.splice(index, 1)

@@ -1,5 +1,5 @@
 const extend = function (object) {
-  ([].slice.call(arguments, 1) || []).forEach(source => {
+  for (const source of ([].slice.call(arguments, 1) || [])) {
     if (source) {
       for (const prop in source) {
         if (source[prop]) {
@@ -7,7 +7,8 @@ const extend = function (object) {
         }
       }
     }
-  })
+  }
+
   return object
 }
 

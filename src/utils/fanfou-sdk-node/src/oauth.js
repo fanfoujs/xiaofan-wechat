@@ -16,7 +16,7 @@ Object.assign(OAuth.prototype, {
         callback(error)
       } else {
         const contentType = response.header['Content-Type']
-        if (contentType.match(/application\/xml/)) {
+        if (/application\/xml/.test(contentType)) {
           const error = data.match(/<error>(.*)<\/error>/)
           callback(new Error(error))
           return

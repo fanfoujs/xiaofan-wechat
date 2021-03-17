@@ -56,9 +56,9 @@ function loadMore (page, url, para) {
 
       vibrate()
     })
-    .catch(err => {
+    .catch(error => {
       page.setData({showLoader: false})
-      showModal(err.errMsg)
+      showModal(error.errMsg)
     })
 }
 
@@ -104,11 +104,11 @@ function load (page, url, para) {
         tab.clearNotis('mentions')
       }
     })
-    .catch(err => {
+    .catch(error => {
       wx.stopPullDownRefresh()
       page.setData({showLoader: false})
-      if (err.message !== 'not authed' && url !== '/stautses/context_timeline') {
-        showModal(err.errMsg || err.message)
+      if (error.message !== 'not authed' && url !== '/stautses/context_timeline') {
+        showModal(error.errMsg || error.message)
       }
     })
 }
@@ -208,7 +208,7 @@ function favoriteChange (page) {
           }
         }
       })
-      .catch(err => showModal(err.errMsg))
+      .catch(error => showModal(error.errMsg))
   } else {
     ff.postPromise('/favorites/create/' + page.data.feed.id)
       .then(result => {
@@ -229,7 +229,7 @@ function favoriteChange (page) {
           }
         }
       })
-      .catch(err => showModal(err.errMsg))
+      .catch(error => showModal(error.errMsg))
   }
 }
 
@@ -259,7 +259,7 @@ function destroy (id) {
         }
       })
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 function destroyForTest (id) {
@@ -279,7 +279,7 @@ function destroyForTest (id) {
         }
       }
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 function destroyMessage (page, id) {
@@ -303,7 +303,7 @@ function destroyMessage (page, id) {
         }
       }
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 function postMessage (parameter, page) {
@@ -327,9 +327,9 @@ function postMessage (parameter, page) {
 
       vibrate()
     })
-    .catch(err => {
+    .catch(error => {
       page.setData({posting: false})
-      showModal(err.errMsg)
+      showModal(error.errMsg)
     })
 }
 
@@ -383,9 +383,9 @@ function _postText (page, parameter, success) {
         success()
       }
     })
-    .catch(err => {
+    .catch(error => {
       page.setData({posting: false})
-      showModal(err.errMsg)
+      showModal(error.errMsg)
     })
 }
 
@@ -425,9 +425,9 @@ function _postPhoto (page, parameter, photoPaths, success) {
         success()
       }
     })
-    .catch(err => {
+    .catch(error => {
       page.setData({posting: false})
-      showModal(err.errMsg)
+      showModal(error.errMsg)
     })
 }
 
@@ -447,7 +447,7 @@ function updateAvatar (page, photoPaths) {
         this.loadMe(currentPage)
       }
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 function updateProfile (page, parameter) {
@@ -466,7 +466,7 @@ function updateProfile (page, parameter) {
         }
       })
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 function showImage (url) {
@@ -496,9 +496,9 @@ function loadUser (id, page) {
           resolve(user)
         })
       })
-      .catch(err => {
-        if (err.message !== 'not authed') {
-          showModal(err.errMsg || err.message)
+      .catch(error => {
+        if (error.message !== 'not authed') {
+          showModal(error.errMsg || error.message)
         }
       })
   })
@@ -509,11 +509,11 @@ function showFeed (feed, id) {
   this.navigateTo(`../feed/feed?id=${id || feed.id}`)
 }
 
-function showModal (err, title) {
+function showModal (error, title) {
   const para = {
     confirmColor: '#33a5ff',
     title: title || i18n.common.error,
-    content: err,
+    content: error,
     showCancel: false,
     confirmText: i18n.common.ok,
     cancelText: i18n.common.cancel
@@ -522,7 +522,7 @@ function showModal (err, title) {
     delete para.title
   }
 
-  if (!err) {
+  if (!error) {
     delete para.content
   }
 
@@ -549,9 +549,9 @@ function loadFeed (page, id) {
 
       page.setData({feed: result})
     })
-    .catch(err => {
-      if (err.message !== 'not authed') {
-        showModal(err.errMsg || err.message)
+    .catch(error => {
+      if (error.message !== 'not authed') {
+        showModal(error.errMsg || error.message)
       }
     })
 }
@@ -570,7 +570,7 @@ function _loadFeedThenAddToHome (id) {
         page.setData({'feeds_arr[0]': feeds})
       }
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 function _loadFeedThenAddToReply (id) {
@@ -587,29 +587,31 @@ function _loadFeedThenAddToReply (id) {
         page.setData({'feeds_arr[0]': feeds})
       }
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 function getAts (status) {
   const fanfouId = getApp().globalData.account.user.id
   const ats = []
   ats.push(`@${status.user.name}`)
-  status.txt.forEach(item => {
+  for (const item of status.txt) {
     if (item.type === 'at' && item.id !== fanfouId) {
       ats.push(item.text)
     }
-  })
+  }
+
   return [...(new Set(ats))].join(' ') + ' '
 }
 
 function getUsers (status) {
   const fanfouId = getApp().globalData.account.user.id
   const users = []
-  status.txt.forEach(item => {
+  for (const item of status.txt) {
     if (item.type === 'at' && item.id !== fanfouId) {
       users.push(item)
     }
-  })
+  }
+
   return [...(new Set(users))]
 }
 
@@ -651,7 +653,7 @@ function follow (user, page) {
 
       vibrate()
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 function unfollow (user, page) {
@@ -668,7 +670,7 @@ function unfollow (user, page) {
 
             vibrate()
           })
-          .catch(err => showModal(err.errMsg))
+          .catch(error => showModal(error.errMsg))
       }
     }
   })
@@ -689,7 +691,7 @@ function block (user, page) {
 
             vibrate()
           })
-          .catch(err => showModal(err.errMsg))
+          .catch(error => showModal(error.errMsg))
       }
     }
   })
@@ -705,7 +707,7 @@ function unblock (user, page) {
             page.setData({'relationship.blocking': false})
             vibrate()
           })
-          .catch(err => showModal(err.errMsg))
+          .catch(error => showModal(error.errMsg))
       }
     }
   })
@@ -730,7 +732,7 @@ function relationship (targetId, page) {
         }
       })
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 function accept (user, page) {
@@ -752,7 +754,7 @@ function accept (user, page) {
 
       vibrate()
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 function deny (user, page) {
@@ -775,7 +777,7 @@ function deny (user, page) {
 
       vibrate()
     })
-    .catch(err => showModal(err.errMsg))
+    .catch(error => showModal(error.errMsg))
 }
 
 module.exports = {

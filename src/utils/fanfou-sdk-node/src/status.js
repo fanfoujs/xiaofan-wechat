@@ -83,7 +83,7 @@ class Status {
   }
 
   _getSourceUrl () {
-    if (this.source.match(/<a href="(.*)" target="_blank">.+<\/a>/)) {
+    if (/<a href="(.*)" target="_blank">.+<\/a>/.test(this.source)) {
       return this.source.match(/<a href="(.*)" target="_blank">.+<\/a>/)[1]
     }
 
@@ -91,7 +91,7 @@ class Status {
   }
 
   _getSourceName () {
-    if (this.source.match(/<a href=".*" target="_blank">(.+)<\/a>/)) {
+    if (/<a href=".*" target="_blank">(.+)<\/a>/.test(this.source)) {
       return this.source.match(/<a href=".*" target="_blank">(.+)<\/a>/)[1]
     }
 
@@ -130,7 +130,7 @@ class Status {
     const txt = []
     let theText = this.text
     if (match) {
-      match.forEach(item => {
+      for (const item of match) {
         const index = theText.indexOf(item)
 
         // Text
@@ -203,7 +203,8 @@ class Status {
         }
 
         theText = theText.slice(index + item.length)
-      })
+      }
+
       if (theText.length > 0) {
         const text = theText
         const originText = he.decode(Status.removeBoldTag(text))
@@ -238,9 +239,10 @@ class Status {
 
   _getPlainText () {
     let text = ''
-    this.txt.forEach(t => {
+    for (const t of this.txt) {
       text += t.text
-    })
+    }
+
     return he.decode(text)
   }
 
@@ -254,7 +256,7 @@ class Status {
     const match = text.match(pattern)
     const textArray = []
     if (match) {
-      match.forEach(item => {
+      for (const item of match) {
         const index = theText.indexOf(item)
         if (index > 0) {
           const t = theText.slice(0, index)
@@ -270,7 +272,8 @@ class Status {
           bold: true
         })
         theText = theText.slice(index + item.length)
-      })
+      }
+
       if (theText.length > 0) {
         textArray.push({
           text: he.decode(theText),

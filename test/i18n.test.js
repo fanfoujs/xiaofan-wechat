@@ -11,7 +11,7 @@ const files = fs.readdirSync(languageFilesPath).filter(name => name.match(/[a-z]
 test('Check language files', t => {
   const langs = []
 
-  files.forEach((filename, index) => {
+  for (const [index, filename] of files.entries()) {
     const lang = require(path.join(languageFilesPath, filename))
     langs.push(lang)
 
@@ -21,5 +21,5 @@ test('Check language files', t => {
     if (index > 0) {
       t.deepEqual(deepKeys(langs[0]), deepKeys(langs[index]))
     }
-  })
+  }
 })

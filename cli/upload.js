@@ -24,14 +24,14 @@ const run = async () => {
 
     process.spinner.fail('Upload timeout!')
     process.exit(1)
-  } catch (err) {
-    const match = err.message.match(/error: '{"code":\d+,"error":"(.+)"}',/)
+  } catch (error) {
+    const match = error.message.match(/error: '{"code":\d+,"error":"(.+)"}',/)
     if (match) {
       const [, message] = match
       process.spinner.fail(message + '！')
       process.exit(1)
     } else {
-      process.spinner.fail(err.message)
+      process.spinner.fail(error.message)
       process.exit(1)
     }
   }
