@@ -1,5 +1,3 @@
-'use strict'
-
 const {CONSUMER_KEY} = require('./config/fanfou')
 
 App({
@@ -8,19 +6,23 @@ App({
     notis: null,
     account: null,
     feed: null,
-    appid: null
+    appid: null,
   },
-  onLaunch () {
+  onLaunch() {
     this.globalData.appid = wx.getStorageSync('appid')
     this.checkLogin()
   },
-  checkLogin () {
+  checkLogin() {
     const [account] = wx.getStorageSync('accounts')
-    if (!account || account.length === 0 || account.consumer_key !== CONSUMER_KEY) {
+    if (
+      !account ||
+      account.length === 0 ||
+      account.consumer_key !== CONSUMER_KEY
+    ) {
       wx.setStorageSync('accounts', [])
       wx.redirectTo({url: '/pages/login/login'})
     } else {
       this.globalData.account = account || {}
     }
-  }
+  },
 })

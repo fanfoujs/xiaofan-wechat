@@ -18,14 +18,15 @@
   },
   "homepage": "https://github.com/fanfoujs/xiaofan-wechat#readme",
   "devDependencies": {
-    "ava": "^3.0.0",
-    "chalk": "^4.0.0",
+    "ava": "^3.15.0",
+    "chalk": "^4.1.2",
     "deep-keys": "^0.5.0",
-    "execa": "^4.0.0",
-    "ora": "^4.0.0",
-    "xo": "^0.38.2"
+    "execa": "^5.1.1",
+    "ora": "^6.0.0",
+    "xo": "^0.44.0"
   },
   "xo": {
+    "prettier": true,
     "globals": [
       "App",
       "wx",
@@ -37,6 +38,8 @@
       "src/utils/fanfou-sdk-node/modules/**"
     ],
     "rules": {
+      "unicorn/prefer-module": 0,
+      "import/extensions": 0,
       "ava/no-ignored-test-files": 0,
       "camelcase": 0,
       "import/no-unresolved": 0,
@@ -54,10 +57,6 @@
       "prefer-rest-params": 0,
       "prefer-object-spread": 0,
       "prefer-named-capture-group": 0,
-      "space-before-function-paren": [
-        "error",
-        "always"
-      ],
       "unicorn/import-index": 0,
       "unicorn/no-this-assignment": 0
     },

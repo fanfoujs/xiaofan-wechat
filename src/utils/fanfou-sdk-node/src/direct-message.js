@@ -1,11 +1,9 @@
-'use strict'
-
 const timeago = require('../../timeago')
 const dateFormat = require('../modules/date-format/index')
 const User = require('./user')
 
 class DirectMessage {
-  constructor (dm) {
+  constructor(dm) {
     this.id = dm.id
     this.text = dm.text
     this.sender_id = dm.sender_id
@@ -23,11 +21,11 @@ class DirectMessage {
     this.time_tag = this._getTimeTag()
   }
 
-  _getTimeAgo () {
+  _getTimeAgo() {
     return timeago().format(this.created_at, 'fanfou_weapp')
   }
 
-  _getTimeTag () {
+  _getTimeTag() {
     const date = new Date()
     const create = new Date(this.created_at)
     const nowYear = dateFormat('yyyy', date)

@@ -1,14 +1,14 @@
-'use strict'
-
 const fs = require('fs')
 const path = require('path')
 const test = require('ava')
 const deepKeys = require('deep-keys')
 
 const languageFilesPath = path.join(__dirname, '../src/i18n/languages')
-const files = fs.readdirSync(languageFilesPath).filter(name => name.match(/[a-z]{2}-[a-z]{2}\.js/))
+const files = fs
+  .readdirSync(languageFilesPath)
+  .filter((name) => name.match(/[a-z]{2}-[a-z]{2}\.js/))
 
-test('Check language files', t => {
+test('Check language files', (t) => {
   const langs = []
 
   for (const [index, filename] of files.entries()) {

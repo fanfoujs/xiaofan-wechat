@@ -1,10 +1,8 @@
-'use strict'
-
 const mzsi = require('../modules/mzsi/index')
 const i18n = require('../../../i18n/index')
 
 class User {
-  constructor (user) {
+  constructor(user) {
     this.id = user.id
     this.name = user.name
     this.screen_name = user.screen_name
@@ -42,12 +40,15 @@ class User {
     this.birth_date = this._getBirthDate()
     this.is_me = this._isMe(user)
     this.is_secret = user.protected && !user.following
-    this.taEnd = user.gender === '男' ? '他' : (user.gender === '女' ? '她' : ' TA')
-    this.taBegin = user.gender === '男' ? '他' : (user.gender === '女' ? '她' : 'TA ')
-    this.taMiddle = user.gender === '男' ? '他' : (user.gender === '女' ? '她' : ' TA ')
+    this.taEnd =
+      user.gender === '男' ? '他' : user.gender === '女' ? '她' : ' TA'
+    this.taBegin =
+      user.gender === '男' ? '他' : user.gender === '女' ? '她' : 'TA '
+    this.taMiddle =
+      user.gender === '男' ? '他' : user.gender === '女' ? '她' : ' TA '
   }
 
-  _isMe (user) {
+  _isMe(user) {
     if (
       getApp() &&
       getApp().globalData &&
@@ -59,7 +60,7 @@ class User {
     }
   }
 
-  _getSignName () {
+  _getSignName() {
     if (this.birthday.length > 0) {
       const matchYMD = this.birthday.match(/\d{4}-(\d{2})-(\d{2})/)
       const month = Number.parseInt(matchYMD[1], 10)
@@ -72,10 +73,8 @@ class User {
     return ''
   }
 
-  _getFanfouAge () {
-    const getDays = (year, month) => {
-      return new Date(year, month, 0).getDate()
-    }
+  _getFanfouAge() {
+    const getDays = (year, month) => new Date(year, month, 0).getDate()
 
     const reg = new Date(this.created_at)
     const now = new Date()
@@ -112,17 +111,24 @@ class User {
       return i18n.me.register_today
     }
 
-    return `${days === 0 ? i18n.common.just : ''}${years ? years + i18n.common.years : ''}${months ? months + i18n.common.months : ''}${days ? days + i18n.common.days : ''}`
+    return `${days === 0 ? i18n.common.just : ''}${
+      years ? years + i18n.common.years : ''
+    }${months ? months + i18n.common.months : ''}${
+      days ? days + i18n.common.days : ''
+    }`
   }
 
-  _getBirthDate () {
+  _getBirthDate() {
     const match = this.birthday.match(/(\d{4})-(\d{2})-(\d{2})/)
     if (match) {
       const year = Number.parseInt(match[1], 10)
       const month = Number.parseInt(match[2], 10)
       const day = Number.parseInt(match[3], 10)
       const yearString = year ? year.toString() + i18n.me.year : ''
-      const dateString = month && day ? month.toString() + i18n.me.month + day.toString() + i18n.me.day : ''
+      const dateString =
+        month && day
+          ? month.toString() + i18n.me.month + day.toString() + i18n.me.day
+          : ''
       return yearString + dateString
     }
 

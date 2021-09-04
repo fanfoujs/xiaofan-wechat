@@ -1,5 +1,3 @@
-'use strict'
-
 const enUS = require('./languages/en-us')
 const zhCN = require('./languages/zh-cn')
 const esES = require('./languages/es-es')

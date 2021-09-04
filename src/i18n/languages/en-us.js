@@ -1,9 +1,7 @@
-'use strict'
-
 module.exports = {
   lang: 'enUS',
   home: {
-    title: 'Xiaofan'
+    title: 'Xiaofan',
   },
   feed: {
     title: 'Xiaofan',
@@ -15,7 +13,7 @@ module.exports = {
     replied: 'Replied',
     from: 'From',
     reply_to: 'Reply to',
-    published: 'Published'
+    published: 'Published',
   },
   login: {
     title: 'Xiaofan',
@@ -24,23 +22,23 @@ module.exports = {
     submit: 'Login',
     fetching: 'Fetching',
     fail: 'Login Failed',
-    logout: 'Logout'
+    logout: 'Logout',
   },
   mentions: {
     title: 'Mentions',
     all: 'All',
-    reply: 'Replies'
+    reply: 'Replies',
   },
   compose: {
     title: 'Compose',
-    placeholder: 'What\'s going on?',
+    placeholder: "What's going on?",
     reset: 'Reset',
     close: 'Close',
     attachment: 'Add Photo',
     send: 'Send',
     preview_attachment: 'Preview',
     remove_attachment: 'Remove Photo',
-    sent: 'Sent'
+    sent: 'Sent',
   },
   discover: {
     title: 'Discover',
@@ -49,7 +47,7 @@ module.exports = {
     hot_trends: 'HOT TRENDS',
     saved_trends: 'SAVED TRENDS',
     public_timeline: 'PUBLIC TIMELINE',
-    no_more: 'No more'
+    no_more: 'No more',
   },
   me: {
     title: 'Me',
@@ -86,20 +84,20 @@ module.exports = {
     month: '-',
     day: '',
     change_bg_info: 'Link copied',
-    not_friend_yet: 'Not friend yet, cannot send message'
+    not_friend_yet: 'Not friend yet, cannot send message',
   },
   change_profile: {
     nickname: 'Nickname',
     location: 'Location',
     website: 'Website',
-    bio: 'Bio'
+    bio: 'Bio',
   },
   request: {
     name: 'Requests',
     accept: 'Accept',
     accept_and_follow: 'Accept & Follow',
     accepted: 'Accepted',
-    reject: 'Reject'
+    reject: 'Reject',
   },
   common: {
     save: 'Save',
@@ -123,10 +121,10 @@ module.exports = {
     just: 'Just ',
     years: ' Y ',
     months: ' M ',
-    days: ' D'
+    days: ' D',
   },
   dm: {
-    me: 'Me: '
+    me: 'Me: ',
   },
   settings: {
     status_display: 'STATUS DISPLAY',
@@ -137,7 +135,7 @@ module.exports = {
     vibration: 'Vibration',
     status_count: 'STATUS COUNT',
     blocks: 'BLOCKS',
-    hide_blocked_users: 'Hide blocked users'
+    hide_blocked_users: 'Hide blocked users',
   },
   timeago: [
     ['1s', 'just now'],
@@ -153,56 +151,56 @@ module.exports = {
     ['1 month', '1 month'],
     ['%s months', '%s months'],
     ['1 year', '1 year'],
-    ['%s years', '%s years']
+    ['%s years', '%s years'],
   ],
   zodiac_sign: {
     1: {
       name: 'Aquarius',
-      element: 'Air'
+      element: 'Air',
     },
     2: {
       name: 'Pisces',
-      element: 'Water'
+      element: 'Water',
     },
     3: {
       name: 'Aries',
-      element: 'Fire'
+      element: 'Fire',
     },
     4: {
       name: 'Taurus',
-      element: 'Earth'
+      element: 'Earth',
     },
     5: {
       name: 'Gemini',
-      element: 'Air'
+      element: 'Air',
     },
     6: {
       name: 'Cancer',
-      element: 'Water'
+      element: 'Water',
     },
     7: {
       name: 'Leo',
-      element: 'Fire'
+      element: 'Fire',
     },
     8: {
       name: 'Virgo',
-      element: 'Earth'
+      element: 'Earth',
     },
     9: {
       name: 'Libra',
-      element: 'Air'
+      element: 'Air',
     },
     10: {
       name: 'Scorpio',
-      element: 'Water'
+      element: 'Water',
     },
     11: {
       name: 'Sagittarius',
-      element: 'Fire'
+      element: 'Fire',
     },
     12: {
       name: 'Capricorn',
-      element: 'Earth'
-    }
-  }
+      element: 'Earth',
+    },
+  },
 }

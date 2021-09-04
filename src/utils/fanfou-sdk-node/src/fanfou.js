@@ -1,9 +1,4 @@
-'use strict'
-
-const {
-  OAUTH_DOMAIN,
-  API_DOMAIN
-} = require('../../../config/fanfou')
+const {OAUTH_DOMAIN, API_DOMAIN} = require('../../../config/fanfou')
 
 const qs = require('../modules/querystring/index')
 const oauthSignature = require('../modules/oauth-signature/index')
@@ -13,7 +8,7 @@ const User = require('./user')
 const DirectMessage = require('./direct-message')
 
 class Fanfou {
-  constructor (options) {
+  constructor(options) {
     options = options || {}
 
     // Required
@@ -24,8 +19,10 @@ class Fanfou {
     // Optional
     this.protocol = options.protocol || 'https:'
     this.api_domain = options.api_domain || API_DOMAIN
-    this.request_url = options.request_url || `https://${OAUTH_DOMAIN}/oauth/request_token`
-    this.access_url = options.access_url || `https://${OAUTH_DOMAIN}/oauth/access_token`
+    this.request_url =
+      options.request_url || `https://${OAUTH_DOMAIN}/oauth/request_token`
+    this.access_url =
+      options.access_url || `https://${OAUTH_DOMAIN}/oauth/access_token`
 
     // Oauth required
     if (this.auth_type === 'oauth') {
@@ -47,26 +44,30 @@ class Fanfou {
       this.consumer_secret,
       '1.0',
       null,
-      'HMAC-SHA1'
+      'HMAC-SHA1',
     )
   }
 
-  xauth (callback) {
-    this.oauth.getXAuthAccessToken(this.username, this.password, (error, oauthToken, oauthTokenSecret) => {
-      if (error) {
-        callback(error)
-      } else {
-        this.oauth.oauth_token = oauthToken
-        this.oauth.oauth_token_secret = oauthTokenSecret
-        callback(null, {
-          oauth_token: oauthToken,
-          oauth_token_secret: oauthTokenSecret
-        })
-      }
-    })
+  xauth(callback) {
+    this.oauth.getXAuthAccessToken(
+      this.username,
+      this.password,
+      (error, oauthToken, oauthTokenSecret) => {
+        if (error) {
+          callback(error)
+        } else {
+          this.oauth.oauth_token = oauthToken
+          this.oauth.oauth_token_secret = oauthTokenSecret
+          callback(null, {
+            oauth_token: oauthToken,
+            oauth_token_secret: oauthTokenSecret,
+          })
+        }
+      },
+    )
   }
 
-  get (uri, parameters, tokens, callback) {
+  get(uri, parameters, tokens, callback) {
     const url = this.protocol + '//' + this.api_domain + uri + '.json'
     this.oauth.get(
       url + '?' + qs.stringify(parameters),
@@ -81,11 +82,11 @@ class Fanfou {
           const result = Fanfou._parseData(data, Fanfou._uriType(uri))
           callback(null, result)
         }
-      }
+      },
     )
   }
 
-  post (uri, parameters, tokens, callback) {
+  post(uri, parameters, tokens, callback) {
     const url = this.protocol + '//' + this.api_domain + uri + '.json'
     this.oauth.post(
       url,
@@ -101,11 +102,11 @@ class Fanfou {
           const result = Fanfou._parseData(data, Fanfou._uriType(uri))
           callback(null, result)
         }
-      }
+      },
     )
   }
 
-  upload (uri, filePaths, parameters, tokens, callback) {
+  upload(uri, filePaths, parameters, tokens, callback) {
     this.oauth.oauth_token = tokens.oauth_token
     this.oauth.oauth_token_secret = tokens.oauth_token_secret
     const method = 'POST'
@@ -116,7 +117,7 @@ class Fanfou {
       oauth_signature_method: 'HMAC-SHA1',
       oauth_timestamp: Math.floor(Date.now() / 1000),
       oauth_nonce: this.oauth._getNonce(6),
-      oauth_version: '1.0'
+      oauth_version: '1.0',
     }
     const signature = oauthSignature.generate(
       method,
@@ -124,31 +125,36 @@ class Fanfou {
       parameters_,
       this.consumer_secret,
       tokens.oauth_token_secret,
-      {encodeSignature: false}
+      {encodeSignature: false},
     )
     const authorizationHeader = this.oauth._buildAuthorizationHeaders(
-      this.oauth._sortRequestParams(
-        this.oauth._makeArrayOfArgumentsHash(parameters_)
-      ).concat([['oauth_signature', signature]])
+      this.oauth
+        ._sortRequestParams(this.oauth._makeArrayOfArgumentsHash(parameters_))
+        .concat([['oauth_signature', signature]]),
     )
-    const name = uri === '/photos/upload' ? 'photo' : (uri === '/account/update_profile_image' ? 'image' : 'file')
+    const name =
+      uri === '/photos/upload'
+        ? 'photo'
+        : uri === '/account/update_profile_image'
+        ? 'image'
+        : 'file'
     wx.uploadFile({
       url,
       filePath: filePaths[0],
       header: {Authorization: authorizationHeader},
       name,
       formData: parameters,
-      success (result) {
+      success(result) {
         const {data} = result
         callback(null, data)
       },
-      fail () {
+      fail() {
         callback(new Error('upload failed'))
-      }
+      },
     })
   }
 
-  static _uriType (uri) {
+  static _uriType(uri) {
     const uriList = {
       // Timeline
       '/search/public_timeline': 'timeline',
@@ -191,7 +197,7 @@ class Fanfou {
 
       // Direct Message
       '/direct_messages/new': 'dm',
-      '/direct_messages/destroy': 'dm'
+      '/direct_messages/destroy': 'dm',
     }
 
     const type = uriList[uri] || null
@@ -202,7 +208,7 @@ class Fanfou {
     return type
   }
 
-  static _parseList (data, type) {
+  static _parseList(data, type) {
     const array = []
     for (const i in data) {
       if (data[i]) {
@@ -229,7 +235,7 @@ class Fanfou {
     return array
   }
 
-  static _parseData (data, type) {
+  static _parseData(data, type) {
     switch (type) {
       case 'timeline':
       case 'users':

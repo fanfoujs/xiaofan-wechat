@@ -1,9 +1,7 @@
-'use strict'
-
 module.exports = {
   lang: 'zhHK',
   home: {
-    title: '小飯'
+    title: '小飯',
   },
   feed: {
     title: '小飯',
@@ -15,7 +13,7 @@ module.exports = {
     replied: '已回復',
     from: '來自',
     reply_to: '回復至',
-    published: '已發表'
+    published: '已發表',
   },
   login: {
     title: '小飯',
@@ -24,12 +22,12 @@ module.exports = {
     submit: '登錄',
     fetching: '登錄中',
     fail: '登錄失敗',
-    logout: '登出'
+    logout: '登出',
   },
   mentions: {
     title: '提及我的',
     all: '所有',
-    reply: '提及'
+    reply: '提及',
   },
   compose: {
     title: '新狀態',
@@ -40,7 +38,7 @@ module.exports = {
     send: '發表',
     preview_attachment: '預覽照片',
     remove_attachment: '刪除',
-    sent: '已發表'
+    sent: '已發表',
   },
   discover: {
     title: '發現',
@@ -49,7 +47,7 @@ module.exports = {
     hot_trends: '熱門話題',
     saved_trends: '關注的話題',
     public_timeline: '隨便看看',
-    no_more: '沒有更多消息了'
+    no_more: '沒有更多消息了',
   },
   me: {
     title: '我',
@@ -86,20 +84,20 @@ module.exports = {
     month: ' 月 ',
     day: '日',
     change_bg_info: '背景圖只能網頁修改，鏈接已複製。',
-    not_friend_yet: '對方還沒關注你，請使用網頁版發送私信。'
+    not_friend_yet: '對方還沒關注你，請使用網頁版發送私信。',
   },
   change_profile: {
     nickname: '暱稱',
     location: '所在地',
     website: '網址',
-    bio: '自述'
+    bio: '自述',
   },
   request: {
     name: '關注申請',
     accept: '接受',
     accept_and_follow: '接受並關注',
     accepted: '已接受',
-    reject: '拒絕'
+    reject: '拒絕',
   },
   common: {
     save: '保存',
@@ -123,10 +121,10 @@ module.exports = {
     just: '正好 ',
     years: ' 年 ',
     months: ' 個月 ',
-    days: ' 天'
+    days: ' 天',
   },
   dm: {
-    me: '我：'
+    me: '我：',
   },
   settings: {
     status_display: '顯示設定',
@@ -137,7 +135,7 @@ module.exports = {
     vibration: '觸覺回饋',
     status_count: '每頁消息數量',
     blocks: '屏蔽選項',
-    hide_blocked_users: '屏蔽拉黑用戶'
+    hide_blocked_users: '屏蔽拉黑用戶',
   },
   timeago: [
     ['1 秒前', '剛剛'],
@@ -153,56 +151,56 @@ module.exports = {
     ['1 月前', '1 个月內'],
     ['%s 月前', '%s 个月內'],
     ['1 年前', '1 年內'],
-    ['%s 年前', '%s 年內']
+    ['%s 年前', '%s 年內'],
   ],
   zodiac_sign: {
     1: {
       name: '水瓶座',
-      element: '風'
+      element: '風',
     },
     2: {
       name: '雙魚座',
-      element: '水'
+      element: '水',
     },
     3: {
       name: '白羊座',
-      element: '火'
+      element: '火',
     },
     4: {
       name: '金牛座',
-      element: '土'
+      element: '土',
     },
     5: {
       name: '雙子座',
-      element: '風'
+      element: '風',
     },
     6: {
       name: '巨蟹座',
-      element: '水'
+      element: '水',
     },
     7: {
       name: '獅子座',
-      element: '火'
+      element: '火',
     },
     8: {
       name: '處女座',
-      element: '土'
+      element: '土',
     },
     9: {
       name: '天秤座',
-      element: '風'
+      element: '風',
     },
     10: {
       name: '天蠍座',
-      element: '水'
+      element: '水',
     },
     11: {
       name: '射手座',
-      element: '火'
+      element: '火',
     },
     12: {
       name: '摩羯座',
-      element: '土'
-    }
-  }
+      element: '土',
+    },
+  },
 }

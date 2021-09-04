@@ -5,17 +5,24 @@ const i18n = require('../i18n/index')
 const audio = require('../utils/audio')
 const vibrate = require('../utils/vibrate')
 
-function loadMore (page, url, para) {
+function loadMore(page, url, para) {
   const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
-  if (page.data.noMore || page.data.showLoader || (!maxId && url !== '/direct_messages/conversation_list')) {
+  if (
+    page.data.noMore ||
+    page.data.showLoader ||
+    (!maxId && url !== '/direct_messages/conversation_list')
+  ) {
     return
   }
 
   page.setData({showLoader: true})
-  const parameter = Object.assign({
-    count: getSettings().timelineCount,
-    format: 'html'
-  }, para)
+  const parameter = Object.assign(
+    {
+      count: getSettings().timelineCount,
+      format: 'html',
+    },
+    para,
+  )
   if (
     url === '/favorites' ||
     url === '/users/friends' ||
@@ -30,10 +37,10 @@ function loadMore (page, url, para) {
   }
 
   ff.getPromise(url || '/statuses/home_timeline', parameter)
-    .then(result => {
+    .then((result) => {
       page.setData({
         showLoader: false,
-        noMore: result.length < parameter.count
+        noMore: result.length < parameter.count,
       })
       if (result.error) {
         showModal(result.error)
@@ -46,34 +53,44 @@ function loadMore (page, url, para) {
       }
 
       result = blockFilter(url, result)
-      page.setData({
-        ['feeds_arr[' + page.data.feeds_arr.length + ']']: result
-      }, () => {
-        if (page.data.noMore) {
-          wx.showToast({title: i18n.common.no_more, image: '/assets/toast_blank.png', duration: 900})
-        }
-      })
+      page.setData(
+        {
+          ['feeds_arr[' + page.data.feeds_arr.length + ']']: result,
+        },
+        () => {
+          if (page.data.noMore) {
+            wx.showToast({
+              title: i18n.common.no_more,
+              image: '/assets/toast_blank.png',
+              duration: 900,
+            })
+          }
+        },
+      )
 
       vibrate()
     })
-    .catch(error => {
+    .catch((error) => {
       page.setData({showLoader: false})
       showModal(error.errMsg)
     })
 }
 
-function load (page, url, para) {
+function load(page, url, para) {
   page.setData({showLoader: true})
-  const parameter = Object.assign({
-    count: getSettings().timelineCount,
-    format: 'html'
-  }, para)
+  const parameter = Object.assign(
+    {
+      count: getSettings().timelineCount,
+      format: 'html',
+    },
+    para,
+  )
   ff.getPromise(url || '/statuses/home_timeline', parameter)
-    .then(result => {
+    .then((result) => {
       wx.stopPullDownRefresh()
       page.setData({
         showLoader: false,
-        noMore: result.length < parameter.count
+        noMore: result.length < parameter.count,
       })
       if (result.error && url !== '/statuses/context_timeline') {
         showModal(result.error)
@@ -83,7 +100,7 @@ function load (page, url, para) {
       result = blockFilter(url, result)
       let lastRawId = 0
       try {
-        [lastRawId] = page.data.feeds_arr[0].map(item => item.rawid)
+        ;[lastRawId] = page.data.feeds_arr[0].map((item) => item.rawid)
       } catch {}
 
       page.setData({feeds_arr: [result]}, () => {
@@ -91,7 +108,7 @@ function load (page, url, para) {
           vibrate()
           let withTimelineAudio = false
           try {
-            const [latestRawId] = result.map(item => item.rawid)
+            const [latestRawId] = result.map((item) => item.rawid)
             withTimelineAudio = latestRawId > lastRawId
           } catch {}
 
@@ -104,16 +121,19 @@ function load (page, url, para) {
         tab.clearNotis('mentions')
       }
     })
-    .catch(error => {
+    .catch((error) => {
       wx.stopPullDownRefresh()
       page.setData({showLoader: false})
-      if (error.message !== 'not authed' && url !== '/stautses/context_timeline') {
+      if (
+        error.message !== 'not authed' &&
+        url !== '/stautses/context_timeline'
+      ) {
         showModal(error.errMsg || error.message)
       }
     })
 }
 
-function isTimeline (url) {
+function isTimeline(url) {
   switch (url || '/statuses/home_timeline') {
     case '/statuses/home_timeline':
     case '/statuses/user_timeline':
@@ -135,7 +155,7 @@ function isTimeline (url) {
   }
 }
 
-function blockFilter (url, result) {
+function blockFilter(url, result) {
   switch (url || '/statuses/home_timeline') {
     case '/statuses/home_timeline':
     case '/statuses/public_timeline':
@@ -148,13 +168,13 @@ function blockFilter (url, result) {
       const settings = getSettings()
       const blocks = getBlocks()
       const blockIds = getBlockIds()
-      const blockNames = blocks.map(item => item.name)
+      const blockNames = blocks.map((item) => item.name)
       if (settings.hideBlocks) {
-        result = result.filter(status => {
+        result = result.filter((status) => {
           const userId = status.user.id
           const userUniqueId = status.user.unique_id
           const users = getUsers(status)
-          const usersIds = users.map(item => item.id)
+          const usersIds = users.map((item) => item.id)
           if (blockIds.includes(userId)) {
             return false
           }
@@ -187,10 +207,10 @@ function blockFilter (url, result) {
   }
 }
 
-function favoriteChange (page) {
+function favoriteChange(page) {
   if (page.data.feed.favorited) {
     ff.postPromise('/favorites/destroy/' + page.data.feed.id)
-      .then(result => {
+      .then((result) => {
         if (result.error) {
           showModal(result.error, null)
           return
@@ -201,17 +221,19 @@ function favoriteChange (page) {
         for (const [feedsIndex, feeds] of pagePre.data.feeds_arr.entries()) {
           for (const [feedIndex, feed] of feeds.entries()) {
             if (feed.id === page.data.feed.id) {
-              pagePre.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].favorited`]: false})
+              pagePre.setData({
+                [`feeds_arr[${feedsIndex}][${feedIndex}].favorited`]: false,
+              })
               vibrate()
               return
             }
           }
         }
       })
-      .catch(error => showModal(error.errMsg))
+      .catch((error) => showModal(error.errMsg))
   } else {
     ff.postPromise('/favorites/create/' + page.data.feed.id)
-      .then(result => {
+      .then((result) => {
         if (result.error) {
           showModal(result.error, null)
           return
@@ -222,26 +244,28 @@ function favoriteChange (page) {
         for (const [feedsIndex, feeds] of pagePre.data.feeds_arr.entries()) {
           for (const [feedIndex, feed] of feeds.entries()) {
             if (feed.id === page.data.feed.id) {
-              pagePre.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].favorited`]: true})
+              pagePre.setData({
+                [`feeds_arr[${feedsIndex}][${feedIndex}].favorited`]: true,
+              })
               vibrate()
               return
             }
           }
         }
       })
-      .catch(error => showModal(error.errMsg))
+      .catch((error) => showModal(error.errMsg))
   }
 }
 
-function destroy (id) {
+function destroy(id) {
   ff.postPromise('/statuses/destroy', {id})
     .then(() => {
       wx.navigateBack({
-        complete () {
+        complete() {
           wx.showToast({
             title: i18n.feed.deleted,
             image: '/assets/toast_delete.png',
-            duration: 900
+            duration: 900,
           })
           const [page] = getCurrentPages().slice(-2)
           for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
@@ -249,20 +273,20 @@ function destroy (id) {
               if (feed.id === id) {
                 page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
                 page.setData({
-                  [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
+                  [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex],
                 })
                 vibrate()
                 return
               }
             }
           }
-        }
+        },
       })
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
-function destroyForTest (id) {
+function destroyForTest(id) {
   ff.postPromise('/statuses/destroy', {id})
     .then(() => {
       const [page] = getCurrentPages().slice(-1)
@@ -271,7 +295,7 @@ function destroyForTest (id) {
           if (feed.id === id) {
             page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
             page.setData({
-              [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
+              [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex],
             })
             vibrate()
             return
@@ -279,23 +303,23 @@ function destroyForTest (id) {
         }
       }
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
-function destroyMessage (page, id) {
+function destroyMessage(page, id) {
   ff.postPromise('/direct_messages/destroy', {id})
     .then(() => {
       wx.showToast({
         title: i18n.feed.deleted,
         image: '/assets/toast_delete.png',
-        duration: 900
+        duration: 900,
       })
       for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
         for (const [feedIndex, feed] of feeds.entries()) {
           if (feed.id === id) {
             page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
             page.setData({
-              [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]
+              [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex],
             })
             vibrate()
             return
@@ -303,37 +327,41 @@ function destroyMessage (page, id) {
         }
       }
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
-function postMessage (parameter, page) {
+function postMessage(parameter, page) {
   page.setData({posting: true})
   ff.postPromise('/direct_messages/new', parameter)
-    .then(result => {
+    .then((result) => {
       page.setData({posting: false})
       if (result.error) {
         showModal(result.error)
         return
       }
 
-      wx.showToast({title: i18n.compose.sent, image: '/assets/toast_reply.png', duration: 900})
+      wx.showToast({
+        title: i18n.compose.sent,
+        image: '/assets/toast_reply.png',
+        duration: 900,
+      })
       const [message] = page.data.feeds_arr
       message.unshift(result)
       page.setData({
         param: null,
         photoPaths: null,
-        'feeds_arr[0]': message
+        'feeds_arr[0]': message,
       })
 
       vibrate()
     })
-    .catch(error => {
+    .catch((error) => {
       page.setData({posting: false})
       showModal(error.errMsg)
     })
 }
 
-function post (page, para, photoPaths, success) {
+function post(page, para, photoPaths, success) {
   const parameter = Object.assign({format: 'html'}, para)
   page.setData({posting: true})
   if (photoPaths) {
@@ -343,16 +371,24 @@ function post (page, para, photoPaths, success) {
   }
 }
 
-function _postText (page, parameter, success) {
-  const direct = !(parameter.repost_status_id || parameter.in_reply_to_status_id || success)
-  const image = parameter.repost_status_id ?
-    '/assets/toast_repost.png' : (parameter.in_reply_to_status_id ?
-      '/assets/toast_reply.png' : '/assets/toast_post.png')
-  const title = parameter.repost_status_id ?
-    i18n.feed.reposted : (parameter.in_reply_to_status_id ?
-      i18n.feed.replied : i18n.feed.published)
+function _postText(page, parameter, success) {
+  const direct = !(
+    parameter.repost_status_id ||
+    parameter.in_reply_to_status_id ||
+    success
+  )
+  const image = parameter.repost_status_id
+    ? '/assets/toast_repost.png'
+    : parameter.in_reply_to_status_id
+    ? '/assets/toast_reply.png'
+    : '/assets/toast_post.png'
+  const title = parameter.repost_status_id
+    ? i18n.feed.reposted
+    : parameter.in_reply_to_status_id
+    ? i18n.feed.replied
+    : i18n.feed.published
   ff.postPromise('/statuses/update', parameter)
-    .then(result => {
+    .then((result) => {
       page.setData({posting: false})
       if (result.error) {
         showModal(result.error)
@@ -365,7 +401,7 @@ function _postText (page, parameter, success) {
           success: () => {
             wx.showToast({title, image, duration: 900})
             _loadFeedThenAddToHome(result.id)
-          }
+          },
         })
       } else {
         wx.showToast({title, image, duration: 900})
@@ -377,24 +413,26 @@ function _postText (page, parameter, success) {
       page.setData({
         param: null,
         photoPaths: null,
-        length: 0
+        length: 0,
       })
       if (typeof success === 'function') {
         success()
       }
     })
-    .catch(error => {
+    .catch((error) => {
       page.setData({posting: false})
       showModal(error.errMsg)
     })
 }
 
-function _postPhoto (page, parameter, photoPaths, success) {
-  const direct = !(parameter.repost_status_id || parameter.in_reply_to_status_id)
+function _postPhoto(page, parameter, photoPaths, success) {
+  const direct = !(
+    parameter.repost_status_id || parameter.in_reply_to_status_id
+  )
   const title = i18n.feed.published
   const image = '/assets/toast_photo.png'
   ff.uploadPromise('/photos/upload', photoPaths, parameter)
-    .then(result => {
+    .then((result) => {
       page.setData({posting: false})
       if (result.error) {
         showModal(result.error)
@@ -407,7 +445,7 @@ function _postPhoto (page, parameter, photoPaths, success) {
           success: () => {
             wx.showToast({title, image, duration: 900})
             _loadFeedThenAddToHome(result.id)
-          }
+          },
         })
       } else {
         wx.showToast({title, image, duration: 900})
@@ -419,23 +457,23 @@ function _postPhoto (page, parameter, photoPaths, success) {
       page.setData({
         param: null,
         photoPaths: null,
-        length: 0
+        length: 0,
       })
       if (typeof success === 'function') {
         success()
       }
     })
-    .catch(error => {
+    .catch((error) => {
       page.setData({posting: false})
       showModal(error.errMsg)
     })
 }
 
-function updateAvatar (page, photoPaths) {
+function updateAvatar(page, photoPaths) {
   const title = i18n.me.avatar_updated
   const image = '/assets/toast_done.png'
   ff.uploadPromise('/account/update_profile_image', photoPaths)
-    .then(result => {
+    .then((result) => {
       if (result.error) {
         showModal(result.error)
         return
@@ -447,44 +485,44 @@ function updateAvatar (page, photoPaths) {
         this.loadMe(currentPage)
       }
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
-function updateProfile (page, parameter) {
+function updateProfile(page, parameter) {
   const title = i18n.me.profile_updated
   const image = '/assets/toast_done.png'
   ff.postPromise('/account/update_profile', parameter)
-    .then(result => {
+    .then((result) => {
       if (result.error) {
         showModal(result.error)
         return
       }
 
       wx.navigateBack({
-        complete () {
+        complete() {
           wx.showToast({title, image, duration: 900})
-        }
+        },
       })
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
-function showImage (url) {
+function showImage(url) {
   wx.previewImage({
     current: url,
-    urls: [url]
+    urls: [url],
   })
 }
 
-function showUser (user, id) {
+function showUser(user, id) {
   getApp().globalData.user = user
   this.navigateTo(`../userprofile/userprofile?id=${id || user.id}`)
 }
 
-function loadUser (id, page) {
-  return new Promise(resolve => {
+function loadUser(id, page) {
+  return new Promise((resolve) => {
     ff.getPromise('/users/show', {id, format: 'html'})
-      .then(result => {
+      .then((result) => {
         wx.stopPullDownRefresh()
         if (result.error) {
           showModal(result.error)
@@ -496,7 +534,7 @@ function loadUser (id, page) {
           resolve(user)
         })
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.message !== 'not authed') {
           showModal(error.errMsg || error.message)
         }
@@ -504,19 +542,19 @@ function loadUser (id, page) {
   })
 }
 
-function showFeed (feed, id) {
+function showFeed(feed, id) {
   getApp().globalData.feed = feed
   this.navigateTo(`../feed/feed?id=${id || feed.id}`)
 }
 
-function showModal (error, title) {
+function showModal(error, title) {
   const para = {
     confirmColor: '#33a5ff',
     title: title || i18n.common.error,
     content: error,
     showCancel: false,
     confirmText: i18n.common.ok,
-    cancelText: i18n.common.cancel
+    cancelText: i18n.common.cancel,
   }
   if (title === null) {
     delete para.title
@@ -529,9 +567,9 @@ function showModal (error, title) {
   wx.showModal(para)
 }
 
-function loadFeed (page, id) {
+function loadFeed(page, id) {
   ff.getPromise('/statuses/show', {id, format: 'html'})
-    .then(result => {
+    .then((result) => {
       wx.stopPullDownRefresh()
       if (result.error) {
         wx.showModal({
@@ -542,23 +580,23 @@ function loadFeed (page, id) {
           confirmText: i18n.common.ok,
           success: () => {
             wx.navigateBack()
-          }
+          },
         })
         return
       }
 
       page.setData({feed: result})
     })
-    .catch(error => {
+    .catch((error) => {
       if (error.message !== 'not authed') {
         showModal(error.errMsg || error.message)
       }
     })
 }
 
-function _loadFeedThenAddToHome (id) {
+function _loadFeedThenAddToHome(id) {
   ff.getPromise('/statuses/show', {id, format: 'html'})
-    .then(result => {
+    .then((result) => {
       if (result.error) {
         return
       }
@@ -570,12 +608,12 @@ function _loadFeedThenAddToHome (id) {
         page.setData({'feeds_arr[0]': feeds})
       }
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
-function _loadFeedThenAddToReply (id) {
+function _loadFeedThenAddToReply(id) {
   ff.getPromise('/statuses/show', {id, format: 'html'})
-    .then(result => {
+    .then((result) => {
       if (result.error) {
         return
       }
@@ -587,10 +625,10 @@ function _loadFeedThenAddToReply (id) {
         page.setData({'feeds_arr[0]': feeds})
       }
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
-function getAts (status) {
+function getAts(status) {
   const fanfouId = getApp().globalData.account.user.id
   const ats = []
   ats.push(`@${status.user.name}`)
@@ -600,10 +638,10 @@ function getAts (status) {
     }
   }
 
-  return [...(new Set(ats))].join(' ') + ' '
+  return [...new Set(ats)].join(' ') + ' '
 }
 
-function getUsers (status) {
+function getUsers(status) {
   const fanfouId = getApp().globalData.account.user.id
   const users = []
   for (const item of status.txt) {
@@ -612,35 +650,34 @@ function getUsers (status) {
     }
   }
 
-  return [...(new Set(users))]
+  return [...new Set(users)]
 }
 
-function loadMe (page) {
-  ff.loadMePromise(getApp().globalData.account.tokens)
-    .then(result => {
-      wx.stopPullDownRefresh()
-      if (result.error) {
-        showModal(result.error)
-        return
-      }
+function loadMe(page) {
+  ff.loadMePromise(getApp().globalData.account.tokens).then((result) => {
+    wx.stopPullDownRefresh()
+    if (result.error) {
+      showModal(result.error)
+      return
+    }
 
-      page.setData({user: result.user})
-    })
-}
-
-function navigateTo (url, success) {
-  wx.navigateTo({
-    url,
-    fail () {
-      wx.redirectTo({url})
-    },
-    success
+    page.setData({user: result.user})
   })
 }
 
-function follow (user, page) {
+function navigateTo(url, success) {
+  wx.navigateTo({
+    url,
+    fail() {
+      wx.redirectTo({url})
+    },
+    success,
+  })
+}
+
+function follow(user, page) {
   ff.postPromise('/friendships/create', {id: user.id})
-    .then(result => {
+    .then((result) => {
       if (result.error) {
         showModal(result.error, null)
         return
@@ -648,77 +685,77 @@ function follow (user, page) {
 
       page.setData({
         'relationship.following': true,
-        buttonPop: null
+        buttonPop: null,
       })
 
       vibrate()
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
-function unfollow (user, page) {
+function unfollow(user, page) {
   wx.showActionSheet({
     itemList: [i18n.me.unfollow],
-    success (result) {
+    success(result) {
       if (!result.cancel) {
         ff.postPromise('/friendships/destroy', {id: user.id})
           .then(() => {
             page.setData({
               'relationship.following': false,
-              buttonPop: null
+              buttonPop: null,
             })
 
             vibrate()
           })
-          .catch(error => showModal(error.errMsg))
+          .catch((error) => showModal(error.errMsg))
       }
-    }
+    },
   })
 }
 
-function block (user, page) {
+function block(user, page) {
   wx.showActionSheet({
     itemList: [i18n.me.block],
-    success (result) {
+    success(result) {
       if (!result.cancel) {
         ff.postPromise('/blocks/create', {id: user.id})
           .then(() => {
             page.setData({
               'relationship.blocking': true,
               'relationship.following': false,
-              'relationship.followed_by': false
+              'relationship.followed_by': false,
             })
 
             vibrate()
           })
-          .catch(error => showModal(error.errMsg))
+          .catch((error) => showModal(error.errMsg))
       }
-    }
+    },
   })
 }
 
-function unblock (user, page) {
+function unblock(user, page) {
   wx.showActionSheet({
     itemList: [i18n.me.unblock],
-    success (result) {
+    success(result) {
       if (!result.cancel) {
         ff.postPromise('/blocks/destroy', {id: user.id})
           .then(() => {
             page.setData({'relationship.blocking': false})
             vibrate()
           })
-          .catch(error => showModal(error.errMsg))
+          .catch((error) => showModal(error.errMsg))
       }
-    }
+    },
   })
 }
 
-function relationship (targetId, page) {
+function relationship(targetId, page) {
   ff.getPromise('/friendships/show', {
     source_id: getApp().globalData.account.user.id,
-    target_id: targetId
+    target_id: targetId,
   })
-    .then(result => {
+    .then((result) => {
       if (result.error) {
         showModal(result.error)
         return
@@ -728,16 +765,16 @@ function relationship (targetId, page) {
         relationship: {
           following: result.relationship.source.following === 'true',
           followed_by: result.relationship.source.followed_by === 'true',
-          blocking: result.relationship.source.blocking === 'true'
-        }
+          blocking: result.relationship.source.blocking === 'true',
+        },
       })
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
-function accept (user, page) {
+function accept(user, page) {
   ff.postPromise('/friendships/accept', {id: user.unique_id})
-    .then(result => {
+    .then((result) => {
       if (result.error) {
         showModal(result.error)
         return
@@ -746,7 +783,9 @@ function accept (user, page) {
       for (const [feedsIndex, feeds] of page.data.feeds_arr.entries()) {
         for (const [feedIndex, feed] of feeds.entries()) {
           if (feed.unique_id === user.unique_id) {
-            page.setData({[`feeds_arr[${feedsIndex}][${feedIndex}].accept`]: true})
+            page.setData({
+              [`feeds_arr[${feedsIndex}][${feedIndex}].accept`]: true,
+            })
             return
           }
         }
@@ -754,12 +793,12 @@ function accept (user, page) {
 
       vibrate()
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
-function deny (user, page) {
+function deny(user, page) {
   ff.postPromise('/friendships/deny', {id: user.unique_id})
-    .then(result => {
+    .then((result) => {
       if (result.error) {
         showModal(result.error)
         return
@@ -769,7 +808,9 @@ function deny (user, page) {
         for (const [feedIndex, feed] of feeds.entries()) {
           if (feed.unique_id === user.unique_id) {
             page.data.feeds_arr[feedsIndex].splice(feedIndex, 1)
-            page.setData({[`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex]})
+            page.setData({
+              [`feeds_arr[${feedsIndex}]`]: page.data.feeds_arr[feedsIndex],
+            })
             return
           }
         }
@@ -777,7 +818,7 @@ function deny (user, page) {
 
       vibrate()
     })
-    .catch(error => showModal(error.errMsg))
+    .catch((error) => showModal(error.errMsg))
 }
 
 module.exports = {
@@ -806,5 +847,5 @@ module.exports = {
   destroyMsg: destroyMessage,
   updateAvatar,
   updateProfile,
-  destroyForTest
+  destroyForTest,
 }

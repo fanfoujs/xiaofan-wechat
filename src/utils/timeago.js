@@ -1,5 +1,3 @@
-'use strict'
-
 const i18n = require('../i18n/index')
 const timeago = require('./fanfou-sdk-node/modules/timeago/timeago')
 
@@ -10,7 +8,7 @@ const fanfouWeAppDict = function (number, index) {
 
 timeago.register('fanfou_weapp', fanfouWeAppDict)
 
-function updateTimeAgo (feeds) {
+function updateTimeAgo(feeds) {
   for (const element of feeds) {
     element.time_ago = timeago().format(element.created_at, 'fanfou_weapp')
   }

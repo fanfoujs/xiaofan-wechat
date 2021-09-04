@@ -1,14 +1,12 @@
-'use strict'
-
 module.exports = {
-  listen (page) {
+  listen(page) {
     wx.getNetworkType({
-      success (result) {
+      success(result) {
         page.setData({isWiFi: result.networkType === 'wifi'})
-      }
+      },
     })
-    wx.onNetworkStatusChange(result => {
+    wx.onNetworkStatusChange((result) => {
       page.setData({isWiFi: result.networkType === 'wifi'})
     })
-  }
+  },
 }

@@ -1,7 +1,5 @@
-'use strict'
-
 class Photo {
-  constructor (photo) {
+  constructor(photo) {
     this.url = photo.url
     this.imageurl = photo.imageurl
     this.thumburl = photo.thumburl

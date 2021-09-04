@@ -10,77 +10,88 @@ module.exports = {
     posting: false,
     length: 0,
     i18n,
-    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+    statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
   },
-  post (event) {
-    this.setData({
-      sendPop: animations.pop().export()
-    }, () => {
-      setTimeout(() => {
-        const parameter = Object.assign(this.data.param || {}, {status: event.detail.value.post})
-        fm.post(this, parameter, this.data.photoPaths)
-      }, 100)
-    })
+  post(event) {
+    this.setData(
+      {
+        sendPop: animations.pop().export(),
+      },
+      () => {
+        setTimeout(() => {
+          const parameter = Object.assign(this.data.param || {}, {
+            status: event.detail.value.post,
+          })
+          fm.post(this, parameter, this.data.photoPaths)
+        }, 100)
+      },
+    )
   },
-  bindinput (event) {
+  bindinput(event) {
     this.setData({length: event.detail.value.length})
   },
-  reset () {
-    this.setData({
-      resetPop: animations.pop().export()
-    }, () => {
-      vibrate()
-      setTimeout(() => {
-        this.setData({
-          param: null,
-          photoPaths: null,
-          posting: false,
-          length: 0
-        })
-      }, 100)
-    })
+  reset() {
+    this.setData(
+      {
+        resetPop: animations.pop().export(),
+      },
+      () => {
+        vibrate()
+        setTimeout(() => {
+          this.setData({
+            param: null,
+            photoPaths: null,
+            posting: false,
+            length: 0,
+          })
+        }, 100)
+      },
+    )
   },
-  addPhoto () {
-    this.setData({
-      addPhotoPop: animations.pop().export()
-    }, () => {
-      vibrate()
-      setTimeout(() => {
-        const page = this
-        wx.chooseImage({
-          count: 1,
-          sizeType: ['original', 'compressed'],
-          success (result) {
-            page.setData({
-              photoPaths: result.tempFilePaths
-            })
-          }
-        })
-      }, 100)
-    })
+  addPhoto() {
+    this.setData(
+      {
+        addPhotoPop: animations.pop().export(),
+      },
+      () => {
+        vibrate()
+        setTimeout(() => {
+          const page = this
+          wx.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'],
+            success(result) {
+              page.setData({
+                photoPaths: result.tempFilePaths,
+              })
+            },
+          })
+        }, 100)
+      },
+    )
   },
-  addGif () {
+  addGif() {
     vibrate()
     const page = this
     wx.chooseImage({
       count: 1,
       sizeType: ['original'],
       sourceType: ['album'],
-      success (result) {
+      success(result) {
         page.setData({
-          photoPaths: result.tempFilePaths
+          photoPaths: result.tempFilePaths,
         })
-      }
+      },
     })
   },
-  removePhoto () {
+  removePhoto() {
     const page = this
     wx.showActionSheet({
       itemList: [
         i18n.compose.preview_attachment,
-        i18n.compose.remove_attachment
+        i18n.compose.remove_attachment,
       ],
-      success (result) {
+      success(result) {
         const {tapIndex} = result
         switch (tapIndex) {
           case 0: {
@@ -90,7 +101,7 @@ module.exports = {
 
           case 1: {
             page.setData({
-              photoPaths: null
+              photoPaths: null,
             })
             break
           }
@@ -98,7 +109,7 @@ module.exports = {
           default:
             break
         }
-      }
+      },
     })
-  }
+  },
 }
