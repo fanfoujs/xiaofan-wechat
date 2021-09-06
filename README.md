@@ -4,7 +4,6 @@
 
 # Xiaofan WeChat
 
-[![](https://badges.greenkeeper.io/fanfoujs/xiaofan-wechat.svg)](https://greenkeeper.io)
 [![](https://github.com/fanfoujs/xiaofan-wechat/workflows/CI/badge.svg)](https://github.com/fanfoujs/xiaofan-wechat/actions)
 [![](https://img.shields.io/github/release/fanfoujs/xiaofan-wechat.svg)](https://github.com/fanfoujs/xiaofan-wechat/releases)
 [![](https://img.shields.io/github/license/fanfoujs/xiaofan-wechat.svg)](https://github.com/fanfoujs/xiaofan-wechat/blob/master/LICENSE)
