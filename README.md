@@ -13,10 +13,6 @@ WeApp for Fanfou
 
 <div align="center"><img width="50%" height="50%" src="https://raw.githubusercontent.com/fanfoujs/xiaofan/master/screenshot.png" /></div>
 
-## Deployment
-
-Here is [deployment tutorial](http://www.billlee.win/archives/139).
-
 ## Related
 
 - [fanfou-sdk-weapp](https://github.com/LitoMore/fanfou-sdk-weapp) - Fanfou SDK for WeApp
@@ -27,10 +23,6 @@ Here is [deployment tutorial](http://www.billlee.win/archives/139).
 
 - [@maundytime](https://fanfou.com/maundytime)
 - [@mogita](https://fanfou.com/mogita)
-
-## Thank
-
-Thanks [@BillLee](http://fanfou.com/BillLee) for the [deployment tutorial](http://www.billlee.win/archives/139).
 
 ## License
 
