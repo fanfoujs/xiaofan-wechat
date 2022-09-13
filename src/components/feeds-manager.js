@@ -398,7 +398,7 @@ function _postText(page, parameter, success) {
       if (direct) {
         wx.switchTab({
           url: '/pages/home/home',
-          success: () => {
+          success() {
             wx.showToast({title, image, duration: 900})
             _loadFeedThenAddToHome(result.id)
           },
@@ -442,7 +442,7 @@ function _postPhoto(page, parameter, photoPaths, success) {
       if (direct) {
         wx.switchTab({
           url: '/pages/home/home',
-          success: () => {
+          success() {
             wx.showToast({title, image, duration: 900})
             _loadFeedThenAddToHome(result.id)
           },
@@ -578,7 +578,7 @@ function loadFeed(page, id) {
           content: result.error,
           showCancel: false,
           confirmText: i18n.common.ok,
-          success: () => {
+          success() {
             wx.navigateBack()
           },
         })

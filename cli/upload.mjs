@@ -1,11 +1,16 @@
 #!/usr/bin/env node
-const path = require('path')
-const process = require('process')
-const ora = require('ora')
-const execa = require('execa')
-const chalk = require('chalk')
+import path from 'node:path'
+import fs from 'node:fs/promises'
+import process from 'node:process'
+import {fileURLToPath} from 'node:url'
+import ora from 'ora'
+import {execa} from 'execa'
+import chalk from 'chalk'
 
-const pkg = require('../package')
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const pkg = JSON.parse(
+  await fs.readFile(path.join(__dirname, '..', 'package.json')),
+)
 
 const macCLI =
   '/Applications/wechatwebdevtools.app/Contents/Resources/app.nw/bin/cli'
