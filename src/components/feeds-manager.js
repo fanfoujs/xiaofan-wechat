@@ -6,6 +6,7 @@ const audio = require('../utils/audio')
 const vibrate = require('../utils/vibrate')
 
 function loadMore(page, url, para) {
+  // eslint-disable-next-line unicorn/prefer-at
   const maxId = page.data.feeds_arr.slice(-1)[0].slice(-1)[0].id
   if (
     page.data.noMore ||
@@ -148,10 +149,13 @@ function isTimeline(url) {
     case '/users/friends':
     case '/users/followers':
     case '/direct_messages/conversation_list':
-    case '/direct_messages/conversation':
+    case '/direct_messages/conversation': {
       return true
-    default:
+    }
+
+    default: {
       return false
+    }
   }
 }
 
@@ -202,8 +206,9 @@ function blockFilter(url, result) {
       return result
     }
 
-    default:
+    default: {
       return result
+    }
   }
 }
 
@@ -380,13 +385,13 @@ function _postText(page, parameter, success) {
   const image = parameter.repost_status_id
     ? '/assets/toast_repost.png'
     : parameter.in_reply_to_status_id
-    ? '/assets/toast_reply.png'
-    : '/assets/toast_post.png'
+      ? '/assets/toast_reply.png'
+      : '/assets/toast_post.png'
   const title = parameter.repost_status_id
     ? i18n.feed.reposted
     : parameter.in_reply_to_status_id
-    ? i18n.feed.replied
-    : i18n.feed.published
+      ? i18n.feed.replied
+      : i18n.feed.published
   ff.postPromise('/statuses/update', parameter)
     .then((result) => {
       page.setData({posting: false})

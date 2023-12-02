@@ -9,23 +9,34 @@ const DEFAULT_LANG = enUS
 let lang = DEFAULT_LANG
 
 switch (langCode) {
-  case 'en':
+  case 'en': {
     lang = enUS
     break
-  case 'zh_CN':
+  }
+
+  case 'zh_CN': {
     lang = zhCN
     break
-  case 'zh_HK':
+  }
+
+  case 'zh_HK': {
     lang = zhHK
     break
-  case 'zh_TW':
+  }
+
+  case 'zh_TW': {
     lang = zhTW
     break
-  case 'es':
+  }
+
+  case 'es': {
     lang = esES
     break
-  default:
+  }
+
+  default: {
     break
+  }
 }
 
 module.exports = lang

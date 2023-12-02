@@ -1,5 +1,5 @@
 <import src="/components/templates.wxml" />
-<view style="padding-top: {{statusBarHeight}}px;">
+<view style="padding-top: {{statusBarHeight}}px;"/>
 <view class="section" style="padding: 18px;margin-top: 0;background: #fff;">
   <view>小饭是一款微信小程序饭否客户端。</view>
   <view style="margin-top: 18px;">

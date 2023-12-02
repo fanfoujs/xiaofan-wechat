@@ -12,29 +12,37 @@ const getShisTimeline = (page, user) => {
   let shisTimelineArray = null
   let shisTimeline = null
   switch (i18n.lang) {
-    case 'zhCN':
+    case 'zhCN': {
       shisTimelineArray = [she, he, she_he]
       break
-    default:
+    }
+
+    default: {
       shisTimelineArray = [her, his, her_his]
       break
+    }
   }
 
   let [h0, h1, h2] = shisTimelineArray
   switch (user.gender) {
-    case '女':
+    case '女': {
       shisTimeline = h0 + timeline
       break
-    case '男':
+    }
+
+    case '男': {
       shisTimeline = h1 + timeline
       break
-    default:
+    }
+
+    default: {
       if (h2 === 'TA') {
         h2 += ' '
       }
 
       shisTimeline = h2 + timeline
       break
+    }
   }
 
   page.setData({shisTimeline})

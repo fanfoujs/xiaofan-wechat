@@ -1,5 +1,4 @@
 const {CONSUMER_KEY, CONSUMER_SECRET} = require('../config/fanfou')
-
 const FanfouSDK = require('./fanfou-sdk-node/index')
 
 class Error {

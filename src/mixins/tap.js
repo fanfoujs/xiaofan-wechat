@@ -13,15 +13,20 @@ module.exports = {
 
     const txt = event.currentTarget.dataset.value
     switch (txt.type) {
-      case 'at':
+      case 'at': {
         fm.showUser(null, txt.id)
         break
-      case 'tag':
+      }
+
+      case 'tag': {
         fm.navigateTo(`../feeds/feeds?q=${txt.query}`)
         break
-      default:
+      }
+
+      default: {
         // Link
         this.handleLink(txt.link)
+      }
     }
   },
   tapID(event) {

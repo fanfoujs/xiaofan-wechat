@@ -1,5 +1,4 @@
 const ff = require('../utils/fanfou')
-
 const {CONSUMER_KEY} = require('../config/fanfou')
 
 function render() {

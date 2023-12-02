@@ -1,3 +1,4 @@
+/* eslint unicorn/prefer-string-replace-all: off */
 const he = require('../modules/he/he')
 const timeago = require('../../timeago')
 const dateFormat = require('../modules/date-format/index')

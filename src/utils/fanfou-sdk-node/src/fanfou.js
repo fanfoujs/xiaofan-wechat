@@ -1,5 +1,4 @@
 const {OAUTH_DOMAIN, API_DOMAIN} = require('../../../config/fanfou')
-
 const qs = require('../modules/querystring/index')
 const oauthSignature = require('../modules/oauth-signature/index')
 const OAuth = require('./oauth')
@@ -121,7 +120,7 @@ class Fanfou {
     }
     const signature = oauthSignature.generate(
       method,
-      url.replace(/https/, 'http').replace(/fanfou\.pro/, 'fanfou.com'),
+      url.replace('https', 'http'),
       parameters_,
       this.consumer_secret,
       tokens.oauth_token_secret,
@@ -136,8 +135,8 @@ class Fanfou {
       uri === '/photos/upload'
         ? 'photo'
         : uri === '/account/update_profile_image'
-        ? 'image'
-        : 'file'
+          ? 'image'
+          : 'file'
     wx.uploadFile({
       url,
       filePath: filePaths[0],
@@ -213,21 +212,30 @@ class Fanfou {
     for (const i in data) {
       if (data[i]) {
         switch (type) {
-          case 'timeline':
+          case 'timeline': {
             array.push(new Status(data[i]))
             break
-          case 'users':
+          }
+
+          case 'users': {
             array.push(new User(data[i]))
             break
-          case 'conversation':
+          }
+
+          case 'conversation': {
             array.push(new DirectMessage(data[i]))
             break
-          case 'conversation-list':
+          }
+
+          case 'conversation-list': {
             data[i].dm = new DirectMessage(data[i].dm)
             array.push(data[i])
             break
-          default:
+          }
+
+          default: {
             break
+          }
         }
       }
     }
@@ -240,16 +248,25 @@ class Fanfou {
       case 'timeline':
       case 'users':
       case 'conversation':
-      case 'conversation-list':
+      case 'conversation-list': {
         return Fanfou._parseList(data, type)
-      case 'status':
+      }
+
+      case 'status': {
         return new Status(data)
-      case 'user':
+      }
+
+      case 'user': {
         return new User(data)
-      case 'dm':
+      }
+
+      case 'dm': {
         return new DirectMessage(data)
-      default:
+      }
+
+      default: {
         return data
+      }
     }
   }
 }

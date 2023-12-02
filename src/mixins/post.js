@@ -106,8 +106,9 @@ module.exports = {
             break
           }
 
-          default:
+          default: {
             break
+          }
         }
       },
     })
