@@ -5,14 +5,13 @@ const animations = require('../../utils/animations')
 const post = require('../../mixins/post')
 const tap = require('../../mixins/tap')
 const i18n = require('../../i18n/index')
-const util = require('../../utils/util')
 const vibrate = require('../../utils/vibrate')
 
 Page(
   extend({}, tap, post, {
     data: {
       statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-      bottomHeight: util.isIpx() ? 64 : 0,
+      bottomHeight: wx.getSystemInfoSync().statusBarHeight,
       hide: false,
     },
     onLoad(event) {

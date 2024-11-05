@@ -41,14 +41,9 @@ function getBlockIds() {
   return blockIds
 }
 
-function isIpx() {
-  return Boolean(wx.getSystemInfoSync().model.match('iPhone X'))
-}
-
 module.exports = {
   formatTime,
   getSettings,
   getBlocks,
   getBlockIds,
-  isIpx,
 }

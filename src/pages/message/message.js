@@ -3,7 +3,6 @@ const extend = require('../../utils/extend')
 const animations = require('../../utils/animations')
 const post = require('../../mixins/post')
 const i18n = require('../../i18n/index')
-const util = require('../../utils/util')
 const vibrate = require('../../utils/vibrate')
 
 const url = '/direct_messages/conversation'
@@ -13,7 +12,7 @@ Page(
     id: null,
     data: {
       statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-      bottomHeight: util.isIpx() ? 64 : 0,
+      bottomHeight: wx.getSystemInfoSync().statusBarHeight,
     },
     onLoad(event) {
       this.setData({i18n})
