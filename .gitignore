@@ -1,5 +1,6 @@
-node_modules
-coverage
-yarn.lock
-yarn-error.log*
 .DS_Store
+coverage
+node_modules
+project.private.config.json
+yarn-error.log*
+yarn.lock

@@ -14,7 +14,7 @@
     "condition": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.10.4",
+  "libVersion": "3.6.4",
   "appid": "wx6158518b2441ab8d",
   "projectname": "%E5%B0%8F%E9%A5%ADPro",
   "miniprogramRoot": "src/",
