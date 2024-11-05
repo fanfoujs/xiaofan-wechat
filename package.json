@@ -4,8 +4,7 @@
   "description": "Fanfou WeApp",
   "private": true,
   "scripts": {
-    "test": "xo && c8 ava",
-    "upload": "cli/upload.mjs"
+    "test": "xo && c8 ava"
   },
   "repository": {
     "type": "git",
@@ -18,13 +17,10 @@
   },
   "homepage": "https://github.com/fanfoujs/xiaofan-wechat#readme",
   "devDependencies": {
-    "ava": "^4.3.3",
-    "c8": "^7.12.0",
-    "chalk": "^5.0.1",
+    "ava": "^6.2.0",
+    "c8": "^10.1.2",
     "deep-keys": "^0.5.0",
-    "execa": "^6.1.0",
-    "ora": "^6.1.2",
-    "xo": "^0.56.0"
+    "xo": "^0.59.3"
   },
   "xo": {
     "prettier": true,
@@ -41,9 +37,11 @@
     "rules": {
       "unicorn/prefer-module": 0,
       "unicorn/prefer-node-protocol": 0,
+      "unicorn/prevent-abbreviations": 0,
       "import/extensions": 0,
       "ava/no-ignored-test-files": 0,
       "camelcase": 0,
+      "logical-assignment-operators": 0,
       "import/no-unresolved": 0,
       "promise/prefer-await-to-then": 0,
       "max-params": [
