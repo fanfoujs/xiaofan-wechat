@@ -11,7 +11,6 @@ Page(
   extend({}, tap, post, {
     data: {
       statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-      bottomHeight: wx.getSystemInfoSync().statusBarHeight,
       hide: false,
     },
     onLoad(event) {

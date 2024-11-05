@@ -217,7 +217,7 @@
 
 <!--toobar-->
 <template name="toolbar">
-  <view class="toolbar" style="padding-bottom: {{bottomHeight}}rpx;">
+  <view class="toolbar" style="padding-bottom: env(safe-area-inset-bottom);">
     <view class="flex_item" catchtap="reply">
       <image src="/assets/reply.svg" class="size30" animation="{{replyPop}}" />
     </view>
@@ -235,7 +235,7 @@
 
 <!--toobar-->
 <template name="toolbar_msg">
-  <view class="toolbar" style="padding-bottom: {{bottomHeight}}rpx;">
+  <view class="toolbar" style="padding-bottom: env(safe-area-inset-bottom);">
     <view class="flex_item" catchtap="reply">
       <image src="/assets/reply.svg" class="size30" animation="{{replyPop}}" />
     </view>

@@ -12,7 +12,6 @@ Page(
     id: null,
     data: {
       statusBarHeight: wx.getSystemInfoSync().statusBarHeight,
-      bottomHeight: wx.getSystemInfoSync().statusBarHeight,
     },
     onLoad(event) {
       this.setData({i18n})

@@ -4,7 +4,7 @@
   <view class="aboveToolbar" style="padding-top: {{param ? 235: 0}}px;">
     <template is="feeds_context" data="{{feed, feeds_arr, imageFadeIn, userAvatarFadeIn, hide}}" />
   </view>
-  <template wx:if="{{!hide}}" is="toolbar" data="{{feed, replyPop, repostPop, starPop, deletePop, bottomHeight}}" />
+  <template wx:if="{{!hide}}" is="toolbar" data="{{feed, replyPop, repostPop, starPop, deletePop}}" />
 </block>
 <block wx:if="{{param}}">
   <view class="mask">
