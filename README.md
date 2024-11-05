@@ -18,7 +18,7 @@ WeApp for Fanfou
 - [fanfou-sdk-weapp](https://github.com/LitoMore/fanfou-sdk-weapp) - Fanfou SDK for WeApp
 - [fanfou-sdk-node](https://github.com/LitoMore/fanfou-sdk-node) - Fanfou SDK for Node.js
 
-## Team
+## Former
 
 - [@maundytime](https://fanfou.com/maundytime)
 - [@mogita](https://fanfou.com/mogita)
